@@ -33,6 +33,10 @@ export async function GET() {
         isStale,
       },
       recentRuns: runHistory,
+    }, {
+      headers: {
+        "Cache-Control": "no-store, no-cache, must-revalidate",
+      },
     });
   } catch (error) {
     return NextResponse.json(
