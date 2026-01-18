@@ -1,5 +1,5 @@
 // ABOUTME: Cron job to refresh stocks L-Z (~1,536 stocks).
-// ABOUTME: Part of the daily refresh cycle (runs at 00:15 UTC / 2:15 AM Israel).
+// ABOUTME: Part of the daily refresh cycle (runs at 21:25 UTC / 11:25 PM Israel).
 
 import { NextResponse } from "next/server";
 import { refreshStocksInRange } from "@/lib/cron/refresh-stocks";
