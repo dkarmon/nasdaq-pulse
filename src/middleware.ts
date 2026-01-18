@@ -20,5 +20,5 @@ export default withAuth({
 });
 
 export const config = {
-  matcher: ["/((en|he))/pulse/:path*", "/api/(stocks|news)(.*)"],
+  matcher: ["/en/pulse/:path*", "/he/pulse/:path*", "/api/stocks/:path*", "/api/news/:path*"],
 };
