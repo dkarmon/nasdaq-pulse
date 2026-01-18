@@ -1,6 +1,5 @@
-import { getServerSession } from "next-auth";
+import { auth } from "@/auth";
 import { Locale, defaultLocale, getDictionary, isRTL, locales } from "@/lib/i18n";
-import { authOptions } from "@/lib/auth/options";
 import { Brand } from "@/components/brand";
 import { LocaleSwitcher } from "@/components/locale-switcher";
 import { SignOutButton } from "@/components/sign-out";
@@ -21,7 +20,7 @@ export default async function PulsePage({ params }: PulsePageProps) {
   const locale = locales.includes(params.locale) ? params.locale : defaultLocale;
   const dict = getDictionary(locale);
   const rtl = isRTL(locale);
-  const session = await getServerSession(authOptions);
+  const session = await auth();
 
   return (
     <div className="page-shell" data-dir={rtl ? "rtl" : "ltr"}>

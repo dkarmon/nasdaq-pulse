@@ -1,4 +1,4 @@
-import type { NextAuthConfig } from "next-auth";
+import NextAuth, { type NextAuthConfig } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 
 const allowedEmails =
@@ -6,7 +6,7 @@ const allowedEmails =
     .map((email) => email.trim().toLowerCase())
     .filter(Boolean) ?? [];
 
-export const authOptions: NextAuthConfig = {
+export const authConfig: NextAuthConfig = {
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID ?? "",
@@ -36,7 +36,7 @@ export const authOptions: NextAuthConfig = {
       return session;
     },
   },
-  session: {
-    strategy: "jwt",
-  },
+  session: { strategy: "jwt" },
 };
+
+export const { handlers, auth, signIn, signOut } = NextAuth(authConfig);
