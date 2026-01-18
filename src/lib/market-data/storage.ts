@@ -14,6 +14,7 @@ const KEYS = {
   PROFILES: "profiles",
   HISTORY: "history",
   LAST_UPDATED: "last_updated",
+  RUN_STATUS: "run_status",
 };
 
 // Stock data (for screener)
@@ -86,4 +87,35 @@ export async function clearAll(): Promise<void> {
   await redis.del(KEYS.PROFILES);
   await redis.del(KEYS.HISTORY);
   await redis.del(KEYS.LAST_UPDATED);
+  await redis.del(KEYS.RUN_STATUS);
+}
+
+// Run status tracking
+export type RunStatus = {
+  range: string;
+  startedAt: string;
+  completedAt: string;
+  success: boolean;
+  processed: number;
+  failed: number;
+  totalSymbols: number;
+  duration: string;
+  errors: string[];
+};
+
+export async function saveRunStatus(status: RunStatus): Promise<void> {
+  const key = KEYS.RUN_STATUS;
+  await redis.lpush(key, JSON.stringify(status));
+  await redis.ltrim(key, 0, 9);
+}
+
+export async function getRunHistory(): Promise<RunStatus[]> {
+  const data = await redis.lrange<string>(KEYS.RUN_STATUS, 0, 9);
+  if (!data || data.length === 0) return [];
+  return data.map(item => typeof item === "string" ? JSON.parse(item) : item);
+}
+
+export async function getStockCount(): Promise<number> {
+  const stocks = await getStocks();
+  return stocks.length;
 }

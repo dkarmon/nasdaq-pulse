@@ -2,7 +2,7 @@
 // ABOUTME: Called by multiple cron jobs to process different letter ranges.
 
 import { getQuote, getCompanyProfile, getGrowthData, getNasdaqSymbols } from "@/lib/market-data/finnhub";
-import { saveStocks, getStocks, saveProfiles } from "@/lib/market-data/storage";
+import { saveStocks, getStocks, saveProfiles, saveRunStatus } from "@/lib/market-data/storage";
 import type { Stock, CompanyProfile } from "@/lib/market-data/types";
 
 export type RefreshResult = {
@@ -163,12 +163,39 @@ export async function refreshStocksInRange(
     result.success = true;
     result.duration = ((Date.now() - startTime) / 1000).toFixed(1) + "s";
 
+    // Save run status
+    await saveRunStatus({
+      range: result.range,
+      startedAt: new Date(startTime).toISOString(),
+      completedAt: new Date().toISOString(),
+      success: result.success,
+      processed: result.processed,
+      failed: result.failed,
+      totalSymbols: result.totalSymbols,
+      duration: result.duration,
+      errors: result.errors.slice(0, 20),
+    });
+
     console.log("Refresh complete for range " + range + " in " + result.duration);
 
     return result;
   } catch (error) {
     result.errors.push("Fatal: " + String(error));
     result.duration = ((Date.now() - startTime) / 1000).toFixed(1) + "s";
+
+    // Save run status even on failure
+    await saveRunStatus({
+      range: result.range,
+      startedAt: new Date(startTime).toISOString(),
+      completedAt: new Date().toISOString(),
+      success: false,
+      processed: result.processed,
+      failed: result.failed,
+      totalSymbols: result.totalSymbols,
+      duration: result.duration,
+      errors: result.errors.slice(0, 20),
+    });
+
     console.error("Refresh failed for range " + range + ":", error);
     return result;
   }
