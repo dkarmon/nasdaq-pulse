@@ -39,7 +39,7 @@ export function ScreenerClient({
   const [isLoading, setIsLoading] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
 
-  const fetchScreenerData = useCallback(async () => {
+  const fetchScreenerData = useCallback(async (search?: string) => {
     if (!isLoaded) return;
 
     setIsLoading(true);
@@ -51,6 +51,10 @@ export function ScreenerClient({
         min6m: String(preferences.filters.min6m),
         min12m: String(preferences.filters.min12m),
       });
+
+      if (search) {
+        params.set("search", search);
+      }
 
       const response = await fetch(`/api/screener?${params}`);
       const data: ScreenerResponse = await response.json();
@@ -65,14 +69,9 @@ export function ScreenerClient({
 
   useEffect(() => {
     if (isLoaded) {
-      fetchScreenerData();
+      fetchScreenerData(searchQuery || undefined);
     }
-  }, [isLoaded, fetchScreenerData]);
-
-  // Filter stocks by search query (matches symbol prefix)
-  const filteredStocks = searchQuery
-    ? stocks.filter(stock => stock.symbol.startsWith(searchQuery))
-    : stocks;
+  }, [isLoaded, fetchScreenerData, searchQuery]);
 
   const controlLabels = {
     sortBy: dict.screener.sortBy,
@@ -118,7 +117,7 @@ export function ScreenerClient({
 
       <div className={styles.stockList} data-loading={isLoading}>
         <StockTable
-          stocks={filteredStocks}
+          stocks={stocks}
           sortBy={preferences.sortBy}
           selectedSymbol={selectedSymbol}
           onSelectStock={onSelectStock}
@@ -126,7 +125,7 @@ export function ScreenerClient({
         />
 
         <StockCardList
-          stocks={filteredStocks}
+          stocks={stocks}
           sortBy={preferences.sortBy}
           selectedSymbol={selectedSymbol}
           onSelectStock={onSelectStock}

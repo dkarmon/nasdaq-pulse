@@ -1,7 +1,7 @@
 // ABOUTME: Shared logic for refreshing stock data from Yahoo Finance.
 // ABOUTME: Fetches NASDAQ symbols from Finnhub, caches in Redis, uses Yahoo for quotes.
 
-import { getQuoteAndGrowth } from "@/lib/market-data/yahoo";
+import { getQuoteAndGrowth, getMarketCap } from "@/lib/market-data/yahoo";
 import {
   saveStocks,
   getStocks,
@@ -141,7 +141,11 @@ export async function refreshStocksInRange(
 
       const batchPromises = batch.map(async (symbol) => {
         try {
-          const data = await getQuoteAndGrowth(symbol);
+          // Fetch quote+growth and market cap in parallel
+          const [data, marketCap] = await Promise.all([
+            getQuoteAndGrowth(symbol),
+            getMarketCap(symbol),
+          ]);
 
           if (!data) {
             result.failed++;
@@ -155,7 +159,7 @@ export async function refreshStocksInRange(
             symbol,
             name: data.quote.name,
             price: data.quote.price,
-            marketCap: 0,
+            marketCap: marketCap,
             growth1m: data.growth.growth1m,
             growth6m: data.growth.growth6m,
             growth12m: data.growth.growth12m,

@@ -73,13 +73,21 @@ function sortStocks(stocks: Stock[], sortBy: SortPeriod): Stock[] {
   return sorted;
 }
 
-async function fetchScreenerData(params: ScreenerParams): Promise<ScreenerResponse> {
+async function fetchScreenerData(params: ScreenerParams, search?: string): Promise<ScreenerResponse> {
   // Try to get data from Redis first
   const stocks = await getStocks();
   const lastUpdated = await getLastUpdated();
 
   if (stocks.length > 0) {
-    let filtered = applyFilters(stocks, params);
+    let filtered = stocks;
+
+    // Apply search filter first (matches symbol prefix)
+    if (search && search.length > 0) {
+      const searchUpper = search.toUpperCase();
+      filtered = filtered.filter(stock => stock.symbol.startsWith(searchUpper));
+    }
+
+    filtered = applyFilters(filtered, params);
     filtered = sortStocks(filtered, params.sortBy);
     filtered = filtered.slice(0, params.limit);
 
@@ -107,7 +115,8 @@ export async function GET(request: NextRequest) {
     },
   };
 
-  const data = await fetchScreenerData(params);
+  const search = searchParams.get("search") ?? undefined;
+  const data = await fetchScreenerData(params, search);
 
   return NextResponse.json(data);
 }
