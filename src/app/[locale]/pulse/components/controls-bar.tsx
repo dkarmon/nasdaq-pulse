@@ -11,10 +11,12 @@ type ControlsBarProps = {
   sortBy: SortPeriod;
   limit: number;
   filters: ScreenerFilters;
+  searchQuery: string;
   onSortChange: (sort: SortPeriod) => void;
   onLimitChange: (limit: number) => void;
   onFilterChange: (period: keyof ScreenerFilters, value: FilterValue) => void;
   onClearFilters: () => void;
+  onSearchChange: (query: string) => void;
   hasActiveFilters: boolean;
   labels: {
     sortBy: string;
@@ -23,6 +25,7 @@ type ControlsBarProps = {
     min: string;
     clearAll: string;
     any: string;
+    search: string;
   };
 };
 
@@ -34,10 +37,12 @@ export function ControlsBar({
   sortBy,
   limit,
   filters,
+  searchQuery,
   onSortChange,
   onLimitChange,
   onFilterChange,
   onClearFilters,
+  onSearchChange,
   hasActiveFilters,
   labels,
 }: ControlsBarProps) {
@@ -45,6 +50,17 @@ export function ControlsBar({
 
   return (
     <div className={styles.controls}>
+      <div className={styles.searchRow}>
+        <input
+          type="text"
+          className={styles.searchInput}
+          placeholder={labels.search}
+          value={searchQuery}
+          onChange={(e) => onSearchChange(e.target.value.toUpperCase())}
+          aria-label={labels.search}
+        />
+      </div>
+
       <div className={styles.mainRow}>
         <div className={styles.sortGroup}>
           <span className={styles.label}>{labels.sortBy}:</span>

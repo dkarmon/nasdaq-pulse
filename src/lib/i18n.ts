@@ -47,6 +47,7 @@ export type Dictionary = {
     min: string;
     clearAll: string;
     any: string;
+    search: string;
     stock: string;
     price: string;
     cap: string;
@@ -165,6 +166,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
       min: "Min",
       clearAll: "Clear all",
       any: "Any",
+      search: "Search by symbol...",
       stock: "Stock",
       price: "Price",
       cap: "Cap",
@@ -279,6 +281,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
       min: "מינ׳",
       clearAll: "נקה הכל",
       any: "הכל",
+      search: "...חיפוש לפי סמל",
       stock: "מניה",
       price: "מחיר",
       cap: "שווי",

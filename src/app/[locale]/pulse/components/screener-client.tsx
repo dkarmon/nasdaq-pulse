@@ -37,6 +37,7 @@ export function ScreenerClient({
 
   const [stocks, setStocks] = useState<Stock[]>(initialData.stocks);
   const [isLoading, setIsLoading] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
 
   const fetchScreenerData = useCallback(async () => {
     if (!isLoaded) return;
@@ -68,6 +69,11 @@ export function ScreenerClient({
     }
   }, [isLoaded, fetchScreenerData]);
 
+  // Filter stocks by search query (matches symbol prefix)
+  const filteredStocks = searchQuery
+    ? stocks.filter(stock => stock.symbol.startsWith(searchQuery))
+    : stocks;
+
   const controlLabels = {
     sortBy: dict.screener.sortBy,
     show: dict.screener.show,
@@ -75,6 +81,7 @@ export function ScreenerClient({
     min: dict.screener.min,
     clearAll: dict.screener.clearAll,
     any: dict.screener.any,
+    search: dict.screener.search,
   };
 
   const tableLabels = {
@@ -99,17 +106,19 @@ export function ScreenerClient({
         sortBy={preferences.sortBy}
         limit={preferences.limit}
         filters={preferences.filters}
+        searchQuery={searchQuery}
         onSortChange={setSortBy}
         onLimitChange={setLimit}
         onFilterChange={setFilter}
         onClearFilters={clearFilters}
+        onSearchChange={setSearchQuery}
         hasActiveFilters={hasActiveFilters}
         labels={controlLabels}
       />
 
       <div className={styles.stockList} data-loading={isLoading}>
         <StockTable
-          stocks={stocks}
+          stocks={filteredStocks}
           sortBy={preferences.sortBy}
           selectedSymbol={selectedSymbol}
           onSelectStock={onSelectStock}
@@ -117,7 +126,7 @@ export function ScreenerClient({
         />
 
         <StockCardList
-          stocks={stocks}
+          stocks={filteredStocks}
           sortBy={preferences.sortBy}
           selectedSymbol={selectedSymbol}
           onSelectStock={onSelectStock}
