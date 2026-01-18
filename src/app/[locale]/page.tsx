@@ -1,8 +1,10 @@
+// ABOUTME: Modern, clean landing page for Nasdaq Pulse.
+// ABOUTME: Marketing-focused with clear CTA and minimal visual noise.
+
 import Link from "next/link";
-import { TopNav } from "@/components/top-nav";
-import styles from "./landing.module.css";
 import { Locale, defaultLocale, getDictionary, isRTL, locales } from "@/lib/i18n";
-import { demoQuotes } from "@/lib/demo-data";
+import { LocaleSwitcher } from "@/components/locale-switcher";
+import styles from "./landing.module.css";
 
 type LandingProps = {
   params: Promise<{ locale: string }>;
@@ -21,136 +23,124 @@ export default async function Landing({ params }: LandingProps) {
   const rtl = isRTL(locale);
 
   return (
-    <div className="page-shell" data-dir={rtl ? "rtl" : "ltr"}>
-      <div className="container">
-        <TopNav locale={locale} dict={dict} />
+    <div className={styles.page} data-dir={rtl ? "rtl" : "ltr"}>
+      <nav className={styles.nav}>
+        <div className={styles.navInner}>
+          <div className={styles.logo}>
+            <span className={styles.logoIcon}>◈</span>
+            <span className={styles.logoText}>Nasdaq Pulse</span>
+          </div>
+          <div className={styles.navActions}>
+            <LocaleSwitcher locale={locale} />
+            <Link
+              href={`/${locale}/signin`}
+              className={styles.navLink}
+            >
+              {dict.nav.signIn}
+            </Link>
+          </div>
+        </div>
+      </nav>
 
+      <main className={styles.main}>
         <section className={styles.hero}>
           <div className={styles.heroContent}>
-            <div className="badge">{dict.nav.localeName}</div>
-            <h1 className={styles.heroTitle}>{dict.landing.title}</h1>
-            <p className={styles.heroSubtitle}>{dict.landing.subtitle}</p>
-            <div className={styles.ctaRow}>
+            <div className={styles.heroLabel}>
+              <span className={styles.dot} />
+              {dict.app.freshnessLive}
+            </div>
+            <h1 className={styles.heroTitle}>
+              Track NASDAQ&apos;s
+              <br />
+              <span className={styles.gradient}>top performers</span>
+            </h1>
+            <p className={styles.heroSubtitle}>
+              {dict.landing.subtitle}
+            </p>
+            <div className={styles.heroCta}>
               <Link
-                className="btn primary"
-                href={`/api/auth/signin?callbackUrl=/${locale}/pulse`}
+                href={`/${locale}/signin`}
+                className={styles.primaryButton}
               >
                 {dict.landing.heroCta}
+                <span className={styles.arrow}>→</span>
               </Link>
-              <a className="btn secondary" href="#demo">
-                {dict.landing.heroSecondary}
-              </a>
             </div>
-            <div className={styles.chipRow}>
-              {dict.landing.highlights.map((item) => (
-                <div key={item.title} className="pill" data-active={!!item.tag}>
-                  <div>
-                    <div className="numeric" style={{ fontWeight: 800 }}>
-                      {item.title}
-                    </div>
-                    <div className="muted" style={{ fontSize: "0.95rem" }}>
-                      {item.body}
-                    </div>
-                  </div>
+          </div>
+
+          <div className={styles.heroVisual}>
+            <div className={styles.mockCard}>
+              <div className={styles.mockHeader}>
+                <span className={styles.mockDot} />
+                <span className={styles.mockDot} />
+                <span className={styles.mockDot} />
+              </div>
+              <div className={styles.mockContent}>
+                <div className={styles.mockRow}>
+                  <span className={styles.mockSymbol}>NVDA</span>
+                  <span className={styles.mockGrowth}>+18.2%</span>
                 </div>
-              ))}
-            </div>
-          </div>
-
-          <div className={`${styles.heroCard} card`}>
-            <h3 className="numeric">Latency budget</h3>
-            <p className="muted" style={{ marginBottom: 10 }}>
-              Edge proxy with cache-first data delivery.
-            </p>
-            <div className={styles.demoList}>
-              <div className={styles.demoItem}>
-                <span className="badge positive">Quotes</span>
-                <span className="numeric">60–120s TTL</span>
-              </div>
-              <div className={styles.demoItem}>
-                <span className="badge">1M series</span>
-                <span className="numeric">6–12h TTL</span>
-              </div>
-              <div className={styles.demoItem}>
-                <span className="badge">6M / 1Y</span>
-                <span className="numeric">12–24h TTL</span>
+                <div className={styles.mockRow}>
+                  <span className={styles.mockSymbol}>SMCI</span>
+                  <span className={styles.mockGrowth}>+25.1%</span>
+                </div>
+                <div className={styles.mockRow}>
+                  <span className={styles.mockSymbol}>META</span>
+                  <span className={styles.mockGrowth}>+8.9%</span>
+                </div>
+                <div className={styles.mockRow}>
+                  <span className={styles.mockSymbol}>AAPL</span>
+                  <span className={styles.mockGrowth}>+6.4%</span>
+                </div>
               </div>
             </div>
           </div>
         </section>
 
-        <section className={styles.section}>
-          <div className={styles.sectionHeader}>
-            <h2>{dict.landing.featureTitle}</h2>
-            <p>{dict.landing.featureSubtitle}</p>
-          </div>
-          <div className={styles.grid3}>
-            {dict.landing.features.map((feature) => (
-              <div key={feature.title} className={`${styles.featureCard} card`}>
-                {feature.tag ? (
-                  <div className="badge featureTag">{feature.tag}</div>
-                ) : null}
-                <h3>{feature.title}</h3>
-                <p className="muted">{feature.body}</p>
-              </div>
-            ))}
+        <section className={styles.features}>
+          <div className={styles.featureGrid}>
+            <div className={styles.featureCard}>
+              <div className={styles.featureIcon}>📊</div>
+              <h3 className={styles.featureTitle}>Growth Metrics</h3>
+              <p className={styles.featureText}>
+                Sort and filter by 1-month, 6-month, or 12-month growth. Find the stocks that matter.
+              </p>
+            </div>
+            <div className={styles.featureCard}>
+              <div className={styles.featureIcon}>⚡</div>
+              <h3 className={styles.featureTitle}>Real-time Data</h3>
+              <p className={styles.featureText}>
+                Fresh quotes every 60 seconds. Historical data cached intelligently to respect rate limits.
+              </p>
+            </div>
+            <div className={styles.featureCard}>
+              <div className={styles.featureIcon}>🌐</div>
+              <h3 className={styles.featureTitle}>Bilingual</h3>
+              <p className={styles.featureText}>
+                Full English and Hebrew support with RTL layout. Built for global accessibility.
+              </p>
+            </div>
           </div>
         </section>
 
-        <section id="demo" className={styles.section}>
-          <div className={styles.sectionHeader}>
-            <h2>{dict.landing.demoTitle}</h2>
-            <p>{dict.landing.demoSubtitle}</p>
-          </div>
-          <div className="grid" style={{ gridTemplateColumns: "1.5fr 1fr", gap: "14px" }}>
-            <div className="card">
-              <div className="badge" style={{ marginBottom: 10 }}>
-                {dict.app.watchlist}
-              </div>
-              <div className={styles.demoList}>
-                {demoQuotes.map((quote) => (
-                  <div key={quote.symbol} className={styles.demoItem}>
-                    <div>
-                      <div className={`${styles.demoItemTitle} numeric`}>
-                        {quote.symbol} · {quote.changePct > 0 ? "▲" : "▼"}{" "}
-                        {quote.changePct.toFixed(2)}%
-                      </div>
-                      <div className={styles.demoItemBody}>
-                        {quote.status === "live" ? dict.app.freshnessLive : dict.app.freshnessStale} ·{" "}
-                        {quote.marketCap}
-                      </div>
-                    </div>
-                    <div
-                      className={`badge ${
-                        quote.changePct > 0 ? "positive" : quote.changePct < 0 ? "negative" : ""
-                      }`}
-                    >
-                      <span className="numeric">
-                        {quote.price.toFixed(2)} {quote.change > 0 ? "▲" : "▼"} {quote.change.toFixed(2)}
-                      </span>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-            <div className="card">
-              <div className="badge" style={{ marginBottom: 12 }}>
-                News + sentiment
-              </div>
-              <div className={styles.demoList}>
-                {dict.landing.demoList.map((item) => (
-                  <div key={item.title} className={styles.demoItem}>
-                    <div>
-                      <div className={`${styles.demoItemTitle} numeric`}>{item.title}</div>
-                      <div className={styles.demoItemBody}>{item.body}</div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
+        <section className={styles.cta}>
+          <h2 className={styles.ctaTitle}>Ready to get started?</h2>
+          <p className={styles.ctaSubtitle}>
+            Sign in with your Google account to access the full screener.
+          </p>
+          <Link
+            href={`/${locale}/signin`}
+            className={styles.primaryButton}
+          >
+            {dict.landing.heroCta}
+            <span className={styles.arrow}>→</span>
+          </Link>
         </section>
-      </div>
+      </main>
+
+      <footer className={styles.footer}>
+        <p>© 2026 Nasdaq Pulse</p>
+      </footer>
     </div>
   );
 }
