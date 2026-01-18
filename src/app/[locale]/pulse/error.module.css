@@ -1,0 +1,55 @@
+/* ABOUTME: Styles for the error boundary component. */
+/* ABOUTME: Centered error message with clear call-to-action. */
+
+.errorContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  text-align: center;
+  gap: 16px;
+  padding: 40px 20px;
+}
+
+.icon {
+  font-size: 4rem;
+  margin-bottom: 8px;
+}
+
+.title {
+  font-size: 1.75rem;
+  font-weight: 800;
+  margin: 0;
+}
+
+.message {
+  font-size: 1.1rem;
+  color: var(--muted);
+  max-width: 400px;
+  margin: 0;
+}
+
+.digest {
+  font-size: 0.85rem;
+  color: var(--muted);
+  font-family: monospace;
+  margin: 0;
+}
+
+.actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+@media (max-width: 480px) {
+  .actions {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .actions .btn {
+    width: 100%;
+  }
+}

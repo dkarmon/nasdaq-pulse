@@ -1,0 +1,260 @@
+// ABOUTME: Stock detail slide-in panel showing company info, metrics, chart, and news.
+// ABOUTME: Full-screen on mobile with back button, side panel on desktop.
+
+"use client";
+
+import { useEffect, useState } from "react";
+import { PriceChart } from "./price-chart";
+import type { StockDetailResponse, NewsResponse, NewsItem } from "@/lib/market-data/types";
+import styles from "./stock-detail.module.css";
+
+type StockDetailProps = {
+  symbol: string;
+  onClose: () => void;
+  labels: {
+    backToList: string;
+    price: string;
+    cap: string;
+    growth1m: string;
+    growth6m: string;
+    growth12m: string;
+    pe: string;
+    week52Range: string;
+    latestNews: string;
+    noNews: string;
+    viewAllNews: string;
+    live: string;
+    loading: string;
+    error: string;
+  };
+};
+
+function formatMarketCap(value: number): string {
+  if (value >= 1e12) {
+    return `$${(value / 1e12).toFixed(2)}T`;
+  }
+  if (value >= 1e9) {
+    return `$${(value / 1e9).toFixed(1)}B`;
+  }
+  if (value >= 1e6) {
+    return `$${(value / 1e6).toFixed(0)}M`;
+  }
+  return `$${value.toLocaleString()}`;
+}
+
+function formatPrice(value: number): string {
+  return `$${value.toLocaleString(undefined, {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  })}`;
+}
+
+function formatGrowth(value: number): string {
+  const sign = value >= 0 ? "+" : "";
+  return `${sign}${value.toFixed(1)}%`;
+}
+
+function formatTimeAgo(dateString: string): string {
+  const date = new Date(dateString);
+  const now = new Date();
+  const diffMs = now.getTime() - date.getTime();
+  const diffMins = Math.floor(diffMs / 60000);
+  const diffHours = Math.floor(diffMs / 3600000);
+  const diffDays = Math.floor(diffMs / 86400000);
+
+  if (diffMins < 60) {
+    return `${diffMins}m ago`;
+  }
+  if (diffHours < 24) {
+    return `${diffHours}h ago`;
+  }
+  return `${diffDays}d ago`;
+}
+
+function computeGrowthFromHistory(
+  history: { close: number }[],
+  days: number
+): number {
+  if (history.length < 2) return 0;
+  const current = history[0]?.close ?? 0;
+  const past = history[Math.min(days, history.length - 1)]?.close ?? current;
+  if (past === 0) return 0;
+  return ((current - past) / past) * 100;
+}
+
+export function StockDetail({ symbol, onClose, labels }: StockDetailProps) {
+  const [detail, setDetail] = useState<StockDetailResponse | null>(null);
+  const [news, setNews] = useState<NewsItem[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    async function fetchData() {
+      setIsLoading(true);
+      setError(null);
+
+      try {
+        const [detailRes, newsRes] = await Promise.all([
+          fetch(`/api/stock/${symbol}`),
+          fetch(`/api/news/${symbol}`),
+        ]);
+
+        if (!detailRes.ok) {
+          throw new Error("Failed to fetch stock details");
+        }
+
+        const detailData: StockDetailResponse = await detailRes.json();
+        setDetail(detailData);
+
+        if (newsRes.ok) {
+          const newsData: NewsResponse = await newsRes.json();
+          setNews(newsData.items);
+        }
+      } catch (err) {
+        setError(err instanceof Error ? err.message : "Unknown error");
+      } finally {
+        setIsLoading(false);
+      }
+    }
+
+    fetchData();
+  }, [symbol]);
+
+  if (isLoading) {
+    return (
+      <div className={styles.panel}>
+        <button className={styles.backButton} onClick={onClose}>
+          ← {labels.backToList}
+        </button>
+        <div className={styles.loading}>{labels.loading}...</div>
+      </div>
+    );
+  }
+
+  if (error || !detail) {
+    return (
+      <div className={styles.panel}>
+        <button className={styles.backButton} onClick={onClose}>
+          ← {labels.backToList}
+        </button>
+        <div className={styles.error}>{labels.error}: {error}</div>
+      </div>
+    );
+  }
+
+  const { profile, quote, history } = detail;
+  const growth1m = computeGrowthFromHistory(history, 30);
+  const growth6m = computeGrowthFromHistory(history, 180);
+  const growth12m = computeGrowthFromHistory(history, 365);
+
+  return (
+    <div className={styles.panel}>
+      <div className={styles.header}>
+        <button className={styles.backButton} onClick={onClose}>
+          ← {labels.backToList}
+        </button>
+        <button className={styles.closeButton} onClick={onClose} aria-label="Close">
+          ✕
+        </button>
+      </div>
+
+      <div className={styles.titleSection}>
+        <h2 className={styles.symbol}>{profile.symbol}</h2>
+        <p className={styles.companyName}>{profile.name}</p>
+        <span className="badge positive">{labels.live}</span>
+      </div>
+
+      <div className={styles.metricsGrid}>
+        <div className={styles.metricCard}>
+          <span className={styles.metricValue}>{formatPrice(quote.price)}</span>
+          <span className={styles.metricLabel}>{labels.price}</span>
+        </div>
+        <div className={styles.metricCard}>
+          <span
+            className={styles.metricValue}
+            data-positive={growth1m >= 0}
+            data-negative={growth1m < 0}
+          >
+            {formatGrowth(growth1m)}
+          </span>
+          <span className={styles.metricLabel}>{labels.growth1m}</span>
+        </div>
+        <div className={styles.metricCard}>
+          <span className={styles.metricValue}>
+            {formatMarketCap(profile.marketCap)}
+          </span>
+          <span className={styles.metricLabel}>{labels.cap}</span>
+        </div>
+        <div className={styles.metricCard}>
+          <span
+            className={styles.metricValue}
+            data-positive={growth6m >= 0}
+            data-negative={growth6m < 0}
+          >
+            {formatGrowth(growth6m)}
+          </span>
+          <span className={styles.metricLabel}>{labels.growth6m}</span>
+        </div>
+        <div className={styles.metricCard}>
+          <span
+            className={styles.metricValue}
+            data-positive={growth12m >= 0}
+            data-negative={growth12m < 0}
+          >
+            {formatGrowth(growth12m)}
+          </span>
+          <span className={styles.metricLabel}>{labels.growth12m}</span>
+        </div>
+        <div className={styles.metricCard}>
+          <span className={styles.metricValue}>
+            {profile.peRatio?.toFixed(1) ?? "N/A"}
+          </span>
+          <span className={styles.metricLabel}>{labels.pe}</span>
+        </div>
+      </div>
+
+      <div className={styles.chartSection}>
+        <PriceChart data={history} height={250} />
+      </div>
+
+      <div className={styles.newsSection}>
+        <h3 className={styles.newsTitle}>{labels.latestNews}</h3>
+        {news.length === 0 ? (
+          <p className={styles.noNews}>{labels.noNews}</p>
+        ) : (
+          <div className={styles.newsList}>
+            {news.slice(0, 3).map((item) => (
+              <a
+                key={item.id}
+                href={item.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.newsItem}
+              >
+                <div className={styles.newsHeader}>
+                  <span className={styles.newsHeadline}>{item.headline}</span>
+                  <span
+                    className={`badge ${
+                      item.sentiment === "positive"
+                        ? "positive"
+                        : item.sentiment === "negative"
+                        ? "negative"
+                        : ""
+                    }`}
+                  >
+                    {item.sentiment}
+                  </span>
+                </div>
+                <div className={styles.newsMeta}>
+                  <span>{item.source}</span>
+                  <span>•</span>
+                  <span>{formatTimeAgo(item.publishedAt)}</span>
+                </div>
+              </a>
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}

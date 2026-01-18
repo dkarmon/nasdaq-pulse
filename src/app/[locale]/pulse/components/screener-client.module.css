@@ -1,0 +1,20 @@
+/* ABOUTME: Styles for the main screener client component. */
+/* ABOUTME: Handles loading states and cached data notices. */
+
+.screener {
+  display: flex;
+  flex-direction: column;
+}
+
+.cachedNotice {
+  margin-bottom: 16px;
+}
+
+.stockList {
+  transition: opacity 200ms ease;
+}
+
+.stockList[data-loading="true"] {
+  opacity: 0.6;
+  pointer-events: none;
+}

@@ -1,0 +1,456 @@
+{
+  "updatedAt": "2026-01-18T00:00:00.000Z",
+  "source": "seed",
+  "stocks": [
+    {
+      "symbol": "NVDA",
+      "name": "NVIDIA Corporation",
+      "price": 142.50,
+      "marketCap": 3500000000000,
+      "growth1m": 18.2,
+      "growth6m": 45.3,
+      "growth12m": 180.5
+    },
+    {
+      "symbol": "SMCI",
+      "name": "Super Micro Computer",
+      "price": 890.00,
+      "marketCap": 52000000000,
+      "growth1m": 25.1,
+      "growth6m": 120.4,
+      "growth12m": 450.2
+    },
+    {
+      "symbol": "AAPL",
+      "name": "Apple Inc.",
+      "price": 192.68,
+      "marketCap": 2950000000000,
+      "growth1m": 6.4,
+      "growth6m": 12.8,
+      "growth12m": 28.3
+    },
+    {
+      "symbol": "MSFT",
+      "name": "Microsoft Corporation",
+      "price": 404.12,
+      "marketCap": 3090000000000,
+      "growth1m": 4.2,
+      "growth6m": 18.5,
+      "growth12m": 42.1
+    },
+    {
+      "symbol": "META",
+      "name": "Meta Platforms Inc.",
+      "price": 505.75,
+      "marketCap": 1280000000000,
+      "growth1m": 8.9,
+      "growth6m": 35.2,
+      "growth12m": 165.8
+    },
+    {
+      "symbol": "GOOGL",
+      "name": "Alphabet Inc.",
+      "price": 141.80,
+      "marketCap": 1750000000000,
+      "growth1m": 3.1,
+      "growth6m": 22.4,
+      "growth12m": 48.7
+    },
+    {
+      "symbol": "AMZN",
+      "name": "Amazon.com Inc.",
+      "price": 178.25,
+      "marketCap": 1850000000000,
+      "growth1m": 5.6,
+      "growth6m": 28.9,
+      "growth12m": 62.4
+    },
+    {
+      "symbol": "AVGO",
+      "name": "Broadcom Inc.",
+      "price": 1320.50,
+      "marketCap": 612000000000,
+      "growth1m": 12.3,
+      "growth6m": 52.1,
+      "growth12m": 115.6
+    },
+    {
+      "symbol": "TSLA",
+      "name": "Tesla Inc.",
+      "price": 248.50,
+      "marketCap": 790000000000,
+      "growth1m": -2.4,
+      "growth6m": 15.8,
+      "growth12m": -8.2
+    },
+    {
+      "symbol": "AMD",
+      "name": "Advanced Micro Devices",
+      "price": 156.80,
+      "marketCap": 253000000000,
+      "growth1m": 7.8,
+      "growth6m": 42.3,
+      "growth12m": 85.4
+    },
+    {
+      "symbol": "NFLX",
+      "name": "Netflix Inc.",
+      "price": 628.40,
+      "marketCap": 272000000000,
+      "growth1m": 9.2,
+      "growth6m": 38.6,
+      "growth12m": 78.9
+    },
+    {
+      "symbol": "COST",
+      "name": "Costco Wholesale",
+      "price": 745.20,
+      "marketCap": 330000000000,
+      "growth1m": 4.8,
+      "growth6m": 15.2,
+      "growth12m": 35.6
+    },
+    {
+      "symbol": "ADBE",
+      "name": "Adobe Inc.",
+      "price": 548.90,
+      "marketCap": 244000000000,
+      "growth1m": 2.1,
+      "growth6m": 8.4,
+      "growth12m": 18.2
+    },
+    {
+      "symbol": "PEP",
+      "name": "PepsiCo Inc.",
+      "price": 172.30,
+      "marketCap": 237000000000,
+      "growth1m": 1.2,
+      "growth6m": 5.8,
+      "growth12m": 12.4
+    },
+    {
+      "symbol": "INTC",
+      "name": "Intel Corporation",
+      "price": 42.80,
+      "marketCap": 181000000000,
+      "growth1m": -5.2,
+      "growth6m": -12.4,
+      "growth12m": -28.6
+    },
+    {
+      "symbol": "CSCO",
+      "name": "Cisco Systems",
+      "price": 52.40,
+      "marketCap": 212000000000,
+      "growth1m": 3.5,
+      "growth6m": 12.1,
+      "growth12m": 24.8
+    },
+    {
+      "symbol": "QCOM",
+      "name": "QUALCOMM Inc.",
+      "price": 168.90,
+      "marketCap": 188000000000,
+      "growth1m": 6.2,
+      "growth6m": 28.4,
+      "growth12m": 52.3
+    },
+    {
+      "symbol": "INTU",
+      "name": "Intuit Inc.",
+      "price": 625.80,
+      "marketCap": 175000000000,
+      "growth1m": 5.4,
+      "growth6m": 18.9,
+      "growth12m": 38.2
+    },
+    {
+      "symbol": "TXN",
+      "name": "Texas Instruments",
+      "price": 178.50,
+      "marketCap": 162000000000,
+      "growth1m": 4.1,
+      "growth6m": 14.8,
+      "growth12m": 22.6
+    },
+    {
+      "symbol": "ISRG",
+      "name": "Intuitive Surgical",
+      "price": 412.30,
+      "marketCap": 146000000000,
+      "growth1m": 7.2,
+      "growth6m": 25.6,
+      "growth12m": 48.9
+    },
+    {
+      "symbol": "AMAT",
+      "name": "Applied Materials",
+      "price": 198.40,
+      "marketCap": 164000000000,
+      "growth1m": 8.5,
+      "growth6m": 32.1,
+      "growth12m": 68.4
+    },
+    {
+      "symbol": "LRCX",
+      "name": "Lam Research",
+      "price": 892.50,
+      "marketCap": 117000000000,
+      "growth1m": 9.8,
+      "growth6m": 38.4,
+      "growth12m": 72.5
+    },
+    {
+      "symbol": "MU",
+      "name": "Micron Technology",
+      "price": 98.60,
+      "marketCap": 109000000000,
+      "growth1m": 11.2,
+      "growth6m": 48.9,
+      "growth12m": 92.3
+    },
+    {
+      "symbol": "KLAC",
+      "name": "KLA Corporation",
+      "price": 685.20,
+      "marketCap": 93000000000,
+      "growth1m": 7.6,
+      "growth6m": 28.5,
+      "growth12m": 58.4
+    },
+    {
+      "symbol": "MRVL",
+      "name": "Marvell Technology",
+      "price": 72.40,
+      "marketCap": 62000000000,
+      "growth1m": 14.5,
+      "growth6m": 58.2,
+      "growth12m": 95.6
+    },
+    {
+      "symbol": "ASML",
+      "name": "ASML Holding",
+      "price": 982.30,
+      "marketCap": 386000000000,
+      "growth1m": 6.8,
+      "growth6m": 24.5,
+      "growth12m": 45.2
+    },
+    {
+      "symbol": "PANW",
+      "name": "Palo Alto Networks",
+      "price": 312.80,
+      "marketCap": 102000000000,
+      "growth1m": 10.5,
+      "growth6m": 42.8,
+      "growth12m": 88.6
+    },
+    {
+      "symbol": "SNPS",
+      "name": "Synopsys Inc.",
+      "price": 542.60,
+      "marketCap": 83000000000,
+      "growth1m": 5.8,
+      "growth6m": 22.4,
+      "growth12m": 52.8
+    },
+    {
+      "symbol": "CDNS",
+      "name": "Cadence Design Systems",
+      "price": 298.40,
+      "marketCap": 81000000000,
+      "growth1m": 6.2,
+      "growth6m": 25.8,
+      "growth12m": 58.2
+    },
+    {
+      "symbol": "CRWD",
+      "name": "CrowdStrike Holdings",
+      "price": 285.60,
+      "marketCap": 69000000000,
+      "growth1m": 8.4,
+      "growth6m": 35.2,
+      "growth12m": 72.4
+    },
+    {
+      "symbol": "WDAY",
+      "name": "Workday Inc.",
+      "price": 268.90,
+      "marketCap": 71000000000,
+      "growth1m": 4.5,
+      "growth6m": 15.8,
+      "growth12m": 32.6
+    },
+    {
+      "symbol": "DXCM",
+      "name": "DexCom Inc.",
+      "price": 128.40,
+      "marketCap": 51000000000,
+      "growth1m": 3.2,
+      "growth6m": 8.5,
+      "growth12m": -12.4
+    },
+    {
+      "symbol": "TEAM",
+      "name": "Atlassian Corporation",
+      "price": 245.80,
+      "marketCap": 63000000000,
+      "growth1m": 7.8,
+      "growth6m": 28.4,
+      "growth12m": 45.6
+    },
+    {
+      "symbol": "FTNT",
+      "name": "Fortinet Inc.",
+      "price": 78.50,
+      "marketCap": 60000000000,
+      "growth1m": 5.2,
+      "growth6m": 18.6,
+      "growth12m": 35.8
+    },
+    {
+      "symbol": "ON",
+      "name": "ON Semiconductor",
+      "price": 82.40,
+      "marketCap": 35000000000,
+      "growth1m": 9.2,
+      "growth6m": 32.5,
+      "growth12m": 58.4
+    },
+    {
+      "symbol": "ARM",
+      "name": "Arm Holdings",
+      "price": 142.80,
+      "marketCap": 149000000000,
+      "growth1m": 15.8,
+      "growth6m": 85.2,
+      "growth12m": 168.4
+    },
+    {
+      "symbol": "COIN",
+      "name": "Coinbase Global",
+      "price": 178.60,
+      "marketCap": 45000000000,
+      "growth1m": 22.4,
+      "growth6m": 95.8,
+      "growth12m": 245.6
+    },
+    {
+      "symbol": "DASH",
+      "name": "DoorDash Inc.",
+      "price": 142.50,
+      "marketCap": 58000000000,
+      "growth1m": 8.6,
+      "growth6m": 42.5,
+      "growth12m": 85.2
+    },
+    {
+      "symbol": "DDOG",
+      "name": "Datadog Inc.",
+      "price": 132.40,
+      "marketCap": 44000000000,
+      "growth1m": 6.8,
+      "growth6m": 25.4,
+      "growth12m": 42.8
+    },
+    {
+      "symbol": "ZS",
+      "name": "Zscaler Inc.",
+      "price": 198.60,
+      "marketCap": 30000000000,
+      "growth1m": 7.5,
+      "growth6m": 28.6,
+      "growth12m": 52.4
+    },
+    {
+      "symbol": "SNOW",
+      "name": "Snowflake Inc.",
+      "price": 175.80,
+      "marketCap": 58000000000,
+      "growth1m": 5.2,
+      "growth6m": 18.4,
+      "growth12m": 28.6
+    },
+    {
+      "symbol": "NET",
+      "name": "Cloudflare Inc.",
+      "price": 98.40,
+      "marketCap": 33000000000,
+      "growth1m": 8.2,
+      "growth6m": 35.8,
+      "growth12m": 65.4
+    },
+    {
+      "symbol": "ABNB",
+      "name": "Airbnb Inc.",
+      "price": 152.80,
+      "marketCap": 97000000000,
+      "growth1m": 4.8,
+      "growth6m": 15.2,
+      "growth12m": 22.8
+    },
+    {
+      "symbol": "MELI",
+      "name": "MercadoLibre Inc.",
+      "price": 1685.40,
+      "marketCap": 85000000000,
+      "growth1m": 6.5,
+      "growth6m": 28.4,
+      "growth12m": 48.6
+    },
+    {
+      "symbol": "PLTR",
+      "name": "Palantir Technologies",
+      "price": 24.80,
+      "marketCap": 52000000000,
+      "growth1m": 18.5,
+      "growth6m": 125.4,
+      "growth12m": 285.6
+    },
+    {
+      "symbol": "ROKU",
+      "name": "Roku Inc.",
+      "price": 78.60,
+      "marketCap": 11000000000,
+      "growth1m": 12.4,
+      "growth6m": 45.8,
+      "growth12m": 28.4
+    },
+    {
+      "symbol": "TTD",
+      "name": "The Trade Desk",
+      "price": 92.40,
+      "marketCap": 45000000000,
+      "growth1m": 8.5,
+      "growth6m": 32.6,
+      "growth12m": 58.4
+    },
+    {
+      "symbol": "MNDY",
+      "name": "Monday.com Ltd.",
+      "price": 245.80,
+      "marketCap": 12000000000,
+      "growth1m": 9.8,
+      "growth6m": 42.5,
+      "growth12m": 78.6
+    },
+    {
+      "symbol": "MDB",
+      "name": "MongoDB Inc.",
+      "price": 285.60,
+      "marketCap": 21000000000,
+      "growth1m": 6.4,
+      "growth6m": 22.8,
+      "growth12m": 38.4
+    },
+    {
+      "symbol": "OKTA",
+      "name": "Okta Inc.",
+      "price": 98.40,
+      "marketCap": 16000000000,
+      "growth1m": 5.8,
+      "growth6m": 18.5,
+      "growth12m": -8.6
+    }
+  ]
+}

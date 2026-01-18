@@ -1,0 +1,139 @@
+/* ABOUTME: Styles for the desktop stock table component. */
+/* ABOUTME: Clean layout with accessible font sizes and clear visual hierarchy. */
+
+.tableWrapper {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 1rem;
+}
+
+.table th {
+  padding: 16px 12px;
+  text-align: left;
+  font-weight: 700;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--muted);
+  border-bottom: 1px solid var(--border);
+}
+
+.table td {
+  padding: 16px 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  vertical-align: middle;
+}
+
+.row {
+  transition: background 150ms ease;
+}
+
+.row:hover {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.row[data-selected="true"] {
+  background: linear-gradient(90deg, rgba(16, 185, 129, 0.12), transparent);
+  border-left: 3px solid var(--accent);
+}
+
+.stockCol {
+  min-width: 180px;
+}
+
+.priceCol,
+.capCol,
+.growthCol {
+  text-align: right;
+  white-space: nowrap;
+}
+
+.actionCol {
+  width: 100px;
+  text-align: center;
+}
+
+.stockCell {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.symbol {
+  font-family: var(--font-space-grotesk), var(--font-manrope), system-ui, sans-serif;
+  font-weight: 800;
+  font-size: 1.1rem;
+  letter-spacing: 0.02em;
+}
+
+.name {
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+.priceCell,
+.capCell {
+  font-family: var(--font-space-grotesk), var(--font-manrope), system-ui, sans-serif;
+  font-weight: 600;
+  text-align: right;
+}
+
+.growthCell {
+  font-family: var(--font-space-grotesk), var(--font-manrope), system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 1.05rem;
+  text-align: right;
+}
+
+.growthCell[data-positive="true"] {
+  color: #8df0c7;
+}
+
+.growthCell[data-negative="true"] {
+  color: #f8bac8;
+}
+
+.actionCell {
+  text-align: center;
+}
+
+.viewButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 80px;
+  min-height: 44px;
+  padding: 10px 16px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--text);
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: border 120ms ease, background 120ms ease, transform 120ms ease;
+}
+
+.viewButton:hover {
+  border-color: var(--accent);
+  background: rgba(16, 185, 129, 0.1);
+  transform: translateY(-1px);
+}
+
+.empty {
+  padding: 48px 24px;
+  text-align: center;
+  color: var(--muted);
+  font-size: 1.1rem;
+}
+
+@media (max-width: 768px) {
+  .tableWrapper {
+    display: none;
+  }
+}

@@ -40,6 +40,33 @@ export type Dictionary = {
     addTicker: string;
     fallbackData: string;
   };
+  screener: {
+    sortBy: string;
+    show: string;
+    filters: string;
+    min: string;
+    clearAll: string;
+    any: string;
+    stock: string;
+    price: string;
+    cap: string;
+    growth: string;
+    view: string;
+    noStocks: string;
+    backToList: string;
+    latestNews: string;
+    noNews: string;
+    viewAllNews: string;
+    usingCachedData: string;
+    growth1m: string;
+    growth6m: string;
+    growth12m: string;
+    pe: string;
+    week52Range: string;
+    live: string;
+    loading: string;
+    error: string;
+  };
   auth: {
     deniedTitle: string;
     deniedBody: string;
@@ -128,6 +155,33 @@ export const dictionaries: Record<Locale, Dictionary> = {
       addTicker: "Add ticker",
       fallbackData: "Showing cached demo data. Connect real APIs to go live.",
     },
+    screener: {
+      sortBy: "Sort by",
+      show: "Show",
+      filters: "Filters",
+      min: "Min",
+      clearAll: "Clear all",
+      any: "Any",
+      stock: "Stock",
+      price: "Price",
+      cap: "Cap",
+      growth: "Growth",
+      view: "View",
+      noStocks: "No stocks match your filters",
+      backToList: "Back to List",
+      latestNews: "Latest News",
+      noNews: "No recent news",
+      viewAllNews: "View all news",
+      usingCachedData: "Using cached data",
+      growth1m: "1M",
+      growth6m: "6M",
+      growth12m: "12M",
+      pe: "P/E",
+      week52Range: "52W Range",
+      live: "Live",
+      loading: "Loading",
+      error: "Error",
+    },
     auth: {
       deniedTitle: "Access not granted",
       deniedBody:
@@ -211,6 +265,33 @@ export const dictionaries: Record<Locale, Dictionary> = {
       comparison: "השוואה",
       addTicker: "הוסף סמל",
       fallbackData: "מציג נתוני דמו במטמון. חברו API כדי לעבור לנתונים חיים.",
+    },
+    screener: {
+      sortBy: "מיון לפי",
+      show: "הצג",
+      filters: "סינון",
+      min: "מינ׳",
+      clearAll: "נקה הכל",
+      any: "הכל",
+      stock: "מניה",
+      price: "מחיר",
+      cap: "שווי",
+      growth: "צמיחה",
+      view: "צפה",
+      noStocks: "אין מניות התואמות את הסינון",
+      backToList: "חזרה לרשימה",
+      latestNews: "חדשות אחרונות",
+      noNews: "אין חדשות אחרונות",
+      viewAllNews: "כל החדשות",
+      usingCachedData: "מציג נתונים מהמטמון",
+      growth1m: "1M",
+      growth6m: "6M",
+      growth12m: "12M",
+      pe: "P/E",
+      week52Range: "טווח 52 שבועות",
+      live: "חי",
+      loading: "טוען",
+      error: "שגיאה",
     },
     auth: {
       deniedTitle: "אין הרשאה",

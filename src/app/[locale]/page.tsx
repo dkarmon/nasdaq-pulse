@@ -5,15 +5,18 @@ import { Locale, defaultLocale, getDictionary, isRTL, locales } from "@/lib/i18n
 import { demoQuotes } from "@/lib/demo-data";
 
 type LandingProps = {
-  params: { locale: Locale };
+  params: Promise<{ locale: string }>;
 };
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
 }
 
-export default function Landing({ params }: LandingProps) {
-  const locale = locales.includes(params.locale) ? params.locale : defaultLocale;
+export default async function Landing({ params }: LandingProps) {
+  const { locale: rawLocale } = await params;
+  const locale = (locales as readonly string[]).includes(rawLocale)
+    ? (rawLocale as Locale)
+    : defaultLocale;
   const dict = getDictionary(locale);
   const rtl = isRTL(locale);
 

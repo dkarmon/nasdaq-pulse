@@ -1,0 +1,156 @@
+/* ABOUTME: Styles for the screener controls bar component. */
+/* ABOUTME: Large touch targets (48px+) and clear visual hierarchy for accessibility. */
+
+.controls {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.mainRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  align-items: center;
+}
+
+.sortGroup,
+.limitGroup {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.label {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.pillGroup {
+  display: flex;
+  gap: 8px;
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 56px;
+  min-height: 48px;
+  padding: 12px 16px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--text);
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: border 120ms ease, transform 120ms ease, background 120ms ease;
+}
+
+.pill:hover {
+  border-color: var(--accent);
+  transform: translateY(-1px);
+}
+
+.pill[data-active="true"] {
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.18), rgba(16, 185, 129, 0.08));
+  border-color: rgba(16, 185, 129, 0.6);
+  color: #befae3;
+}
+
+.filterToggle {
+  display: flex;
+}
+
+.filterButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 48px;
+  padding: 12px 20px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--text);
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: border 120ms ease, background 120ms ease;
+}
+
+.filterButton:hover {
+  border-color: var(--accent);
+}
+
+.filterDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.filterPanel {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.filterRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+}
+
+.filterLabel {
+  min-width: 80px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.clearButton {
+  align-self: flex-start;
+  min-height: 48px;
+  padding: 12px 20px;
+  border-radius: 10px;
+  border: 1px solid rgba(244, 67, 94, 0.4);
+  background: rgba(244, 67, 94, 0.1);
+  color: #ffd1d9;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: border 120ms ease, background 120ms ease;
+}
+
+.clearButton:hover {
+  border-color: rgba(244, 67, 94, 0.6);
+  background: rgba(244, 67, 94, 0.15);
+}
+
+@media (max-width: 768px) {
+  .mainRow {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .filterLabel {
+    min-width: 70px;
+    font-size: 0.95rem;
+  }
+
+  .pill {
+    min-width: 52px;
+    padding: 10px 14px;
+    font-size: 0.95rem;
+  }
+}
