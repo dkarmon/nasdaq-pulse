@@ -4,7 +4,7 @@
 "use client";
 
 import { useState, useCallback } from "react";
-import type { SortPeriod, FilterPreset, ScreenerFilters } from "@/lib/market-data/types";
+import type { SortPeriod, FilterValue, ScreenerFilters } from "@/lib/market-data/types";
 
 export type ScreenerPreferences = {
   sortBy: SortPeriod;
@@ -87,7 +87,7 @@ export function usePreferences() {
     updatePreferences({ limit });
   }, [updatePreferences]);
 
-  const setFilter = useCallback((period: keyof ScreenerFilters, value: FilterPreset) => {
+  const setFilter = useCallback((period: keyof ScreenerFilters, value: FilterValue) => {
     setPreferences((prev) => {
       const next = {
         ...prev,

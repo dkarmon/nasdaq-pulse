@@ -21,7 +21,14 @@
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01));
   border: 1px solid var(--border);
   border-radius: var(--radius);
+  cursor: pointer;
   transition: border 150ms ease, background 150ms ease;
+}
+
+.card:hover,
+.card:active {
+  border-color: var(--accent);
+  background: rgba(16, 185, 129, 0.05);
 }
 
 .card[data-selected="true"] {
@@ -80,34 +87,6 @@
   font-family: var(--font-space-grotesk), var(--font-manrope), system-ui, sans-serif;
   font-weight: 700;
   font-size: 1.15rem;
-}
-
-.cap {
-  font-size: 0.95rem;
-  color: var(--muted);
-}
-
-.viewButton {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  min-height: 52px;
-  padding: 14px 20px;
-  border-radius: 10px;
-  border: 1px solid var(--border);
-  background: rgba(255, 255, 255, 0.03);
-  color: var(--text);
-  font-weight: 600;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: border 120ms ease, background 120ms ease;
-}
-
-.viewButton:hover,
-.viewButton:active {
-  border-color: var(--accent);
-  background: rgba(16, 185, 129, 0.1);
 }
 
 .empty {

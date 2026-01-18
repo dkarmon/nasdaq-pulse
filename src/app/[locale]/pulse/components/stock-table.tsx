@@ -16,6 +16,9 @@ type StockTableProps = {
     price: string;
     cap: string;
     growth: string;
+    growth1m: string;
+    growth6m: string;
+    growth12m: string;
     view: string;
     noStocks: string;
   };
@@ -43,17 +46,6 @@ function formatPrice(value: number): string {
   return `$${value.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 }
 
-function getGrowthValue(stock: Stock, sortBy: SortPeriod): number {
-  switch (sortBy) {
-    case "1m":
-      return stock.growth1m;
-    case "6m":
-      return stock.growth6m;
-    case "12m":
-      return stock.growth12m;
-  }
-}
-
 export function StockTable({
   stocks,
   sortBy,
@@ -77,16 +69,13 @@ export function StockTable({
             <th className={styles.stockCol}>{labels.stock}</th>
             <th className={styles.priceCol}>{labels.price}</th>
             <th className={styles.capCol}>{labels.cap}</th>
-            <th className={styles.growthCol}>
-              {labels.growth} ({sortBy.toUpperCase()})
-            </th>
-            <th className={styles.actionCol}></th>
+            <th className={styles.growthCol} data-active={sortBy === "1m"}>{labels.growth1m}</th>
+            <th className={styles.growthCol} data-active={sortBy === "6m"}>{labels.growth6m}</th>
+            <th className={styles.growthCol} data-active={sortBy === "12m"}>{labels.growth12m}</th>
           </tr>
         </thead>
         <tbody>
           {stocks.map((stock) => {
-            const growth = getGrowthValue(stock, sortBy);
-            const isPositive = growth >= 0;
             const isSelected = selectedSymbol === stock.symbol;
 
             return (
@@ -94,10 +83,25 @@ export function StockTable({
                 key={stock.symbol}
                 data-selected={isSelected}
                 className={styles.row}
+                onClick={() => onSelectStock(stock.symbol)}
               >
                 <td className={styles.stockCell}>
-                  <span className={styles.symbol}>{stock.symbol}</span>
-                  <span className={styles.name}>{stock.name}</span>
+                  <div className={styles.stockInfo}>
+                    <div className={styles.symbolRow}>
+                      <span className={styles.symbol}>{stock.symbol}</span>
+                      <button
+                        className={styles.copyButton}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          navigator.clipboard.writeText(stock.symbol);
+                        }}
+                        title="Copy ticker"
+                      >
+                        ⧉
+                      </button>
+                    </div>
+                    <span className={styles.name}>{stock.name}</span>
+                  </div>
                 </td>
                 <td className={styles.priceCell}>
                   {formatPrice(stock.price)}
@@ -107,19 +111,27 @@ export function StockTable({
                 </td>
                 <td
                   className={styles.growthCell}
-                  data-positive={isPositive}
-                  data-negative={!isPositive}
+                  data-positive={stock.growth1m >= 0}
+                  data-negative={stock.growth1m < 0}
+                  data-active={sortBy === "1m"}
                 >
-                  {formatGrowth(growth)}
+                  {formatGrowth(stock.growth1m)}
                 </td>
-                <td className={styles.actionCell}>
-                  <button
-                    className={styles.viewButton}
-                    onClick={() => onSelectStock(stock.symbol)}
-                    aria-label={`${labels.view} ${stock.symbol}`}
-                  >
-                    {labels.view} &gt;
-                  </button>
+                <td
+                  className={styles.growthCell}
+                  data-positive={stock.growth6m >= 0}
+                  data-negative={stock.growth6m < 0}
+                  data-active={sortBy === "6m"}
+                >
+                  {formatGrowth(stock.growth6m)}
+                </td>
+                <td
+                  className={styles.growthCell}
+                  data-positive={stock.growth12m >= 0}
+                  data-negative={stock.growth12m < 0}
+                  data-active={sortBy === "12m"}
+                >
+                  {formatGrowth(stock.growth12m)}
                 </td>
               </tr>
             );

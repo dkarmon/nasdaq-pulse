@@ -11,10 +11,6 @@ type StockCardProps = {
   sortBy: SortPeriod;
   isSelected: boolean;
   onSelect: () => void;
-  labels: {
-    cap: string;
-    view: string;
-  };
 };
 
 function formatMarketCap(value: number): string {
@@ -55,13 +51,19 @@ export function StockCard({
   sortBy,
   isSelected,
   onSelect,
-  labels,
 }: StockCardProps) {
   const growth = getGrowthValue(stock, sortBy);
   const isPositive = growth >= 0;
 
   return (
-    <div className={styles.card} data-selected={isSelected}>
+    <div
+      className={styles.card}
+      data-selected={isSelected}
+      onClick={onSelect}
+      role="button"
+      tabIndex={0}
+      onKeyDown={(e) => e.key === "Enter" && onSelect()}
+    >
       <div className={styles.header}>
         <div className={styles.symbolGroup}>
           <span className={styles.symbol}>{stock.symbol}</span>
@@ -78,18 +80,7 @@ export function StockCard({
 
       <div className={styles.details}>
         <span className={styles.price}>{formatPrice(stock.price)}</span>
-        <span className={styles.cap}>
-          {labels.cap}: {formatMarketCap(stock.marketCap)}
-        </span>
       </div>
-
-      <button
-        className={styles.viewButton}
-        onClick={onSelect}
-        aria-label={`${labels.view} ${stock.symbol}`}
-      >
-        {labels.view} &gt;
-      </button>
     </div>
   );
 }
@@ -100,8 +91,6 @@ type StockCardListProps = {
   selectedSymbol: string | null;
   onSelectStock: (symbol: string) => void;
   labels: {
-    cap: string;
-    view: string;
     noStocks: string;
   };
 };
@@ -130,7 +119,6 @@ export function StockCardList({
           sortBy={sortBy}
           isSelected={selectedSymbol === stock.symbol}
           onSelect={() => onSelectStock(stock.symbol)}
-          labels={labels}
         />
       ))}
     </div>

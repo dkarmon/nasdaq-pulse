@@ -18,21 +18,28 @@
 .backButton {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  min-height: 48px;
-  padding: 12px 20px;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
   border-radius: 10px;
   border: 1px solid var(--border);
   background: rgba(255, 255, 255, 0.03);
   color: var(--text);
-  font-weight: 600;
-  font-size: 1rem;
   cursor: pointer;
   transition: border 120ms ease, background 120ms ease;
 }
 
 .backButton:hover {
   border-color: var(--accent);
+}
+
+.backIcon {
+  width: 20px;
+  height: 20px;
+}
+
+[dir="rtl"] .backIcon {
+  transform: scaleX(-1);
 }
 
 .closeButton {
@@ -60,6 +67,12 @@
   gap: 4px;
 }
 
+.symbolRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
 .symbol {
   font-family: var(--font-space-grotesk), var(--font-manrope), system-ui, sans-serif;
   font-size: 2rem;
@@ -68,19 +81,39 @@
   letter-spacing: 0.02em;
 }
 
+.copyButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--muted);
+  font-size: 1rem;
+  cursor: pointer;
+  transition: border 120ms ease, color 120ms ease;
+}
+
+.copyButton:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
 .companyName {
   font-size: 1rem;
   color: var(--muted);
   margin: 0 0 8px 0;
 }
 
-.metricsGrid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+.metricsRow {
+  display: flex;
   gap: 12px;
 }
 
 .metricCard {
+  flex: 1;
   display: flex;
   flex-direction: column;
   gap: 4px;
@@ -198,15 +231,15 @@
   .closeButton {
     display: flex;
   }
-
-  .metricsGrid {
-    grid-template-columns: repeat(2, 1fr);
-  }
 }
 
 @media (max-width: 480px) {
-  .metricsGrid {
-    grid-template-columns: 1fr 1fr;
+  .metricsRow {
+    flex-wrap: wrap;
+  }
+
+  .metricCard {
+    min-width: calc(50% - 6px);
   }
 
   .metricValue {

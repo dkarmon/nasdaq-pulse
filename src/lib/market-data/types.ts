@@ -79,10 +79,12 @@ export type NewsResponse = {
 
 export type FilterPreset = "any" | "5" | "10" | "25";
 
+export type FilterValue = FilterPreset | number;
+
 export type ScreenerFilters = {
-  min1m: FilterPreset;
-  min6m: FilterPreset;
-  min12m: FilterPreset;
+  min1m: FilterValue;
+  min6m: FilterValue;
+  min12m: FilterValue;
 };
 
 export type ScreenerParams = {

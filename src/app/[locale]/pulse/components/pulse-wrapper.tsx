@@ -13,10 +13,9 @@ import styles from "./pulse-wrapper.module.css";
 type PulseWrapperProps = {
   initialData: ScreenerResponse;
   dict: Dictionary;
-  userEmail: string | null;
 };
 
-export function PulseWrapper({ initialData, dict, userEmail }: PulseWrapperProps) {
+export function PulseWrapper({ initialData, dict }: PulseWrapperProps) {
   const [selectedSymbol, setSelectedSymbol] = useState<string | null>(null);
 
   const detailLabels = {
@@ -38,16 +37,6 @@ export function PulseWrapper({ initialData, dict, userEmail }: PulseWrapperProps
 
   return (
     <div className={styles.wrapper}>
-      <div className={styles.header}>
-        <div className={styles.headerText}>
-          <div className="badge positive">{dict.app.freshnessLive}</div>
-          <h1 className={styles.title}>{dict.app.welcome}</h1>
-        </div>
-        <div className={styles.headerActions}>
-          {userEmail && <span className="badge">{userEmail}</span>}
-        </div>
-      </div>
-
       <div className={styles.content}>
         <div className={styles.mainPanel}>
           <ScreenerClient

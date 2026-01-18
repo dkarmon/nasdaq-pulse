@@ -124,7 +124,7 @@ export function StockDetail({ symbol, onClose, labels }: StockDetailProps) {
     return (
       <div className={styles.panel}>
         <button className={styles.backButton} onClick={onClose}>
-          ← {labels.backToList}
+          <svg className={styles.backIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
         </button>
         <div className={styles.loading}>{labels.loading}...</div>
       </div>
@@ -135,7 +135,7 @@ export function StockDetail({ symbol, onClose, labels }: StockDetailProps) {
     return (
       <div className={styles.panel}>
         <button className={styles.backButton} onClick={onClose}>
-          ← {labels.backToList}
+          <svg className={styles.backIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
         </button>
         <div className={styles.error}>{labels.error}: {error}</div>
       </div>
@@ -151,7 +151,7 @@ export function StockDetail({ symbol, onClose, labels }: StockDetailProps) {
     <div className={styles.panel}>
       <div className={styles.header}>
         <button className={styles.backButton} onClick={onClose}>
-          ← {labels.backToList}
+          <svg className={styles.backIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
         </button>
         <button className={styles.closeButton} onClick={onClose} aria-label="Close">
           ✕
@@ -159,16 +159,33 @@ export function StockDetail({ symbol, onClose, labels }: StockDetailProps) {
       </div>
 
       <div className={styles.titleSection}>
-        <h2 className={styles.symbol}>{profile.symbol}</h2>
+        <div className={styles.symbolRow}>
+          <h2 className={styles.symbol}>{profile.symbol}</h2>
+          <button
+            className={styles.copyButton}
+            onClick={() => navigator.clipboard.writeText(profile.symbol)}
+            title="Copy ticker"
+          >
+            ⧉
+          </button>
+        </div>
         <p className={styles.companyName}>{profile.name}</p>
-        <span className="badge positive">{labels.live}</span>
       </div>
 
-      <div className={styles.metricsGrid}>
+      <div className={styles.metricsRow}>
         <div className={styles.metricCard}>
           <span className={styles.metricValue}>{formatPrice(quote.price)}</span>
           <span className={styles.metricLabel}>{labels.price}</span>
         </div>
+        <div className={styles.metricCard}>
+          <span className={styles.metricValue}>
+            {formatMarketCap(profile.marketCap)}
+          </span>
+          <span className={styles.metricLabel}>{labels.cap}</span>
+        </div>
+      </div>
+
+      <div className={styles.metricsRow}>
         <div className={styles.metricCard}>
           <span
             className={styles.metricValue}
@@ -178,12 +195,6 @@ export function StockDetail({ symbol, onClose, labels }: StockDetailProps) {
             {formatGrowth(growth1m)}
           </span>
           <span className={styles.metricLabel}>{labels.growth1m}</span>
-        </div>
-        <div className={styles.metricCard}>
-          <span className={styles.metricValue}>
-            {formatMarketCap(profile.marketCap)}
-          </span>
-          <span className={styles.metricLabel}>{labels.cap}</span>
         </div>
         <div className={styles.metricCard}>
           <span
@@ -204,12 +215,6 @@ export function StockDetail({ symbol, onClose, labels }: StockDetailProps) {
             {formatGrowth(growth12m)}
           </span>
           <span className={styles.metricLabel}>{labels.growth12m}</span>
-        </div>
-        <div className={styles.metricCard}>
-          <span className={styles.metricValue}>
-            {profile.peRatio?.toFixed(1) ?? "N/A"}
-          </span>
-          <span className={styles.metricLabel}>{labels.pe}</span>
         </div>
       </div>
 

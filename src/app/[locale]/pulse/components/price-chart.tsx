@@ -82,13 +82,10 @@ export function PriceChart({ data, height = 300 }: PriceChartProps) {
   useEffect(() => {
     if (!seriesRef.current || data.length === 0) return;
 
-    const chartData: LineData<Time>[] = data
-      .slice()
-      .reverse()
-      .map((point) => ({
-        time: point.date as Time,
-        value: point.close,
-      }));
+    const chartData: LineData<Time>[] = data.map((point) => ({
+      time: point.date as Time,
+      value: point.close,
+    }));
 
     seriesRef.current.setData(chartData);
     chartRef.current?.timeScale().fitContent();

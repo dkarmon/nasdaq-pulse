@@ -36,7 +36,6 @@ export function ScreenerClient({
   } = usePreferences();
 
   const [stocks, setStocks] = useState<Stock[]>(initialData.stocks);
-  const [source, setSource] = useState<string>(initialData.source);
   const [isLoading, setIsLoading] = useState(false);
 
   const fetchScreenerData = useCallback(async () => {
@@ -47,16 +46,15 @@ export function ScreenerClient({
       const params = new URLSearchParams({
         sortBy: preferences.sortBy,
         limit: preferences.limit.toString(),
-        min1m: preferences.filters.min1m,
-        min6m: preferences.filters.min6m,
-        min12m: preferences.filters.min12m,
+        min1m: String(preferences.filters.min1m),
+        min6m: String(preferences.filters.min6m),
+        min12m: String(preferences.filters.min12m),
       });
 
       const response = await fetch(`/api/screener?${params}`);
       const data: ScreenerResponse = await response.json();
 
       setStocks(data.stocks);
-      setSource(data.source);
     } catch (error) {
       console.error("Failed to fetch screener data:", error);
     } finally {
@@ -84,24 +82,19 @@ export function ScreenerClient({
     price: dict.screener.price,
     cap: dict.screener.cap,
     growth: dict.screener.growth,
+    growth1m: dict.screener.growth1m,
+    growth6m: dict.screener.growth6m,
+    growth12m: dict.screener.growth12m,
     view: dict.screener.view,
     noStocks: dict.screener.noStocks,
   };
 
   const cardLabels = {
-    cap: dict.screener.cap,
-    view: dict.screener.view,
     noStocks: dict.screener.noStocks,
   };
 
   return (
     <div className={styles.screener}>
-      {source === "cached" && (
-        <div className={styles.cachedNotice}>
-          <span className="badge">{dict.screener.usingCachedData}</span>
-        </div>
-      )}
-
       <ControlsBar
         sortBy={preferences.sortBy}
         limit={preferences.limit}

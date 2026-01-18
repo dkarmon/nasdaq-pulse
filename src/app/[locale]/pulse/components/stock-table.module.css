@@ -14,7 +14,7 @@
 
 .table th {
   padding: 16px 12px;
-  text-align: left;
+  text-align: start;
   font-weight: 700;
   font-size: 0.9rem;
   text-transform: uppercase;
@@ -27,9 +27,11 @@
   padding: 16px 12px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
   vertical-align: middle;
+  text-align: start;
 }
 
 .row {
+  cursor: pointer;
   transition: background 150ms ease;
 }
 
@@ -49,19 +51,49 @@
 .priceCol,
 .capCol,
 .growthCol {
-  text-align: right;
+  text-align: end;
   white-space: nowrap;
 }
 
-.actionCol {
-  width: 100px;
-  text-align: center;
+.stockCell {
+  vertical-align: middle;
 }
 
-.stockCell {
+.stockInfo {
   display: flex;
   flex-direction: column;
   gap: 4px;
+}
+
+.symbolRow {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.copyButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  background: transparent;
+  color: var(--muted);
+  font-size: 0.85rem;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 120ms ease, border 120ms ease, color 120ms ease;
+}
+
+.row:hover .copyButton {
+  opacity: 1;
+}
+
+.copyButton:hover {
+  border-color: var(--accent);
+  color: var(--accent);
 }
 
 .symbol {
@@ -80,14 +112,14 @@
 .capCell {
   font-family: var(--font-space-grotesk), var(--font-manrope), system-ui, sans-serif;
   font-weight: 600;
-  text-align: right;
+  text-align: end;
 }
 
 .growthCell {
   font-family: var(--font-space-grotesk), var(--font-manrope), system-ui, sans-serif;
   font-weight: 700;
   font-size: 1.05rem;
-  text-align: right;
+  text-align: end;
 }
 
 .growthCell[data-positive="true"] {
@@ -98,31 +130,9 @@
   color: #f8bac8;
 }
 
-.actionCell {
-  text-align: center;
-}
-
-.viewButton {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 80px;
-  min-height: 44px;
-  padding: 10px 16px;
-  border-radius: 8px;
-  border: 1px solid var(--border);
-  background: rgba(255, 255, 255, 0.03);
-  color: var(--text);
-  font-weight: 600;
-  font-size: 0.95rem;
-  cursor: pointer;
-  transition: border 120ms ease, background 120ms ease, transform 120ms ease;
-}
-
-.viewButton:hover {
-  border-color: var(--accent);
-  background: rgba(16, 185, 129, 0.1);
-  transform: translateY(-1px);
+.growthCol[data-active="true"],
+.growthCell[data-active="true"] {
+  background: rgba(16, 185, 129, 0.08);
 }
 
 .empty {

@@ -376,9 +376,10 @@ function generateHistoricalData(
 }
 
 function applyFilters(stocks: Stock[], params: ScreenerParams): Stock[] {
-  const filterValue = (preset: string): number => {
-    if (preset === "any") return -Infinity;
-    return parseFloat(preset);
+  const filterValue = (value: string | number): number => {
+    if (value === "any") return -Infinity;
+    if (typeof value === "number") return value;
+    return parseFloat(value);
   };
 
   return stocks.filter((stock) => {

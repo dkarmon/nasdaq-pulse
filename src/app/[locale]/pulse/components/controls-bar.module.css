@@ -117,6 +117,40 @@
   color: var(--muted);
 }
 
+.customInput {
+  width: 70px;
+  min-height: 48px;
+  padding: 12px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--text);
+  font-weight: 600;
+  font-size: 1rem;
+  text-align: center;
+  transition: border 120ms ease, background 120ms ease;
+}
+
+.customInput::placeholder {
+  color: var(--muted);
+}
+
+.customInput:focus {
+  outline: none;
+  border-color: var(--accent);
+  background: rgba(16, 185, 129, 0.08);
+}
+
+.customInput::-webkit-inner-spin-button,
+.customInput::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.customInput[type="number"] {
+  -moz-appearance: textfield;
+}
+
 .clearButton {
   align-self: flex-start;
   min-height: 48px;

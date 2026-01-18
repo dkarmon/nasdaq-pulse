@@ -43,25 +43,32 @@ export default async function PulsePage({ params }: PulsePageProps) {
   const initialData = await getInitialScreenerData();
 
   return (
-    <div className="page-shell" data-dir={rtl ? "rtl" : "ltr"}>
+    <div className="page-shell" dir={rtl ? "rtl" : "ltr"} data-dir={rtl ? "rtl" : "ltr"}>
       <div className="container">
         <nav
           style={{
             display: "flex",
-            justifyContent: "flex-end",
+            justifyContent: "space-between",
             alignItems: "center",
-            gap: "12px",
             marginBottom: "24px",
           }}
         >
-          <LocaleSwitcher locale={locale} />
-          <SignOutButton label={dict.app.logout} />
+          <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+            <span style={{ fontSize: "1.5rem", color: "var(--accent)" }}>◈</span>
+            <span style={{ fontSize: "1.25rem", fontWeight: 700, letterSpacing: "-0.02em" }}>Nasdaq Pulse</span>
+          </div>
+          <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+            <LocaleSwitcher locale={locale} />
+            {session?.user?.email && (
+              <span className="badge">{session.user.email}</span>
+            )}
+            <SignOutButton label={dict.app.logout} />
+          </div>
         </nav>
 
         <PulseWrapper
           initialData={initialData}
           dict={dict}
-          userEmail={session?.user?.email ?? null}
         />
       </div>
     </div>

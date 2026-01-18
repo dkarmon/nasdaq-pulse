@@ -4,7 +4,7 @@
 "use client";
 
 import { useState } from "react";
-import type { SortPeriod, FilterPreset, ScreenerFilters } from "@/lib/market-data/types";
+import type { SortPeriod, FilterPreset, FilterValue, ScreenerFilters } from "@/lib/market-data/types";
 import styles from "./controls-bar.module.css";
 
 type ControlsBarProps = {
@@ -13,7 +13,7 @@ type ControlsBarProps = {
   filters: ScreenerFilters;
   onSortChange: (sort: SortPeriod) => void;
   onLimitChange: (limit: number) => void;
-  onFilterChange: (period: keyof ScreenerFilters, value: FilterPreset) => void;
+  onFilterChange: (period: keyof ScreenerFilters, value: FilterValue) => void;
   onClearFilters: () => void;
   hasActiveFilters: boolean;
   labels: {
@@ -126,12 +126,14 @@ export function ControlsBar({
 
 type FilterRowProps = {
   label: string;
-  value: FilterPreset;
-  onChange: (value: FilterPreset) => void;
+  value: FilterValue;
+  onChange: (value: FilterValue) => void;
   anyLabel: string;
 };
 
 function FilterRow({ label, value, onChange, anyLabel }: FilterRowProps) {
+  const isCustom = typeof value === "number" && !FILTER_PRESETS.includes(value.toString() as FilterPreset);
+
   return (
     <div className={styles.filterRow}>
       <span className={styles.filterLabel}>{label}</span>
@@ -140,13 +142,30 @@ function FilterRow({ label, value, onChange, anyLabel }: FilterRowProps) {
           <button
             key={preset}
             className={styles.pill}
-            data-active={value === preset}
+            data-active={value === preset || (preset !== "any" && value === Number(preset))}
             onClick={() => onChange(preset)}
-            aria-pressed={value === preset}
+            aria-pressed={value === preset || (preset !== "any" && value === Number(preset))}
           >
             {preset === "any" ? anyLabel : `${preset}%+`}
           </button>
         ))}
+        <input
+          type="number"
+          className={styles.customInput}
+          placeholder="%"
+          value={isCustom ? value : ""}
+          onChange={(e) => {
+            const num = parseFloat(e.target.value);
+            if (!isNaN(num)) {
+              onChange(num);
+            } else if (e.target.value === "") {
+              onChange("any");
+            }
+          }}
+          min={0}
+          max={1000}
+          aria-label={`Custom minimum ${label}`}
+        />
       </div>
     </div>
   );
