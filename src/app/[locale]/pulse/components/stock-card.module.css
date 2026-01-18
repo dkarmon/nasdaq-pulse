@@ -56,6 +56,11 @@
   letter-spacing: 0.02em;
 }
 
+.splitWarning {
+  font-size: 0.9rem;
+  cursor: help;
+}
+
 .name {
   font-size: 0.95rem;
   color: var(--muted);

@@ -66,7 +66,12 @@ export function StockCard({
     >
       <div className={styles.header}>
         <div className={styles.symbolGroup}>
-          <span className={styles.symbol}>{stock.symbol}</span>
+          <span className={styles.symbol}>
+            {stock.symbol}
+            {stock.hasSplitWarning && (
+              <span className={styles.splitWarning} title="Recent stock split - growth data may be inaccurate"> ⚠️</span>
+            )}
+          </span>
           <span className={styles.name}>{stock.name}</span>
         </div>
         <span

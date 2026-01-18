@@ -89,6 +89,11 @@ export function StockTable({
                   <div className={styles.stockInfo}>
                     <div className={styles.symbolRow}>
                       <span className={styles.symbol}>{stock.symbol}</span>
+                      {stock.hasSplitWarning && (
+                        <span className={styles.splitWarning} title="Recent stock split - growth data may be inaccurate">
+                          ⚠️
+                        </span>
+                      )}
                       <button
                         className={styles.copyButton}
                         onClick={(e) => {

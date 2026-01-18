@@ -65,20 +65,37 @@ export async function getHistoricalData(
 export async function getStockDetail(
   symbol: string
 ): Promise<StockDetailResponse | null> {
-  const [quote, profile, history] = await Promise.all([
-    getQuote(symbol),
-    getCompanyProfile(symbol),
-    getHistoricalData(symbol),
-  ]);
+  // Use Yahoo's combined endpoint for consistent data
+  const yahooData = await yahoo.getQuoteAndGrowth(symbol);
 
-  if (!quote || !profile) {
+  if (!yahooData) {
+    return mock.getStockDetail(symbol);
+  }
+
+  const profile = await getCompanyProfile(symbol);
+
+  if (!profile) {
     return mock.getStockDetail(symbol);
   }
 
   return {
     profile,
-    quote,
-    history,
+    quote: {
+      symbol: yahooData.quote.symbol,
+      price: yahooData.quote.price,
+      change: yahooData.quote.price - yahooData.quote.previousClose,
+      changePct: ((yahooData.quote.price - yahooData.quote.previousClose) / yahooData.quote.previousClose) * 100,
+      open: yahooData.quote.price,
+      high: yahooData.quote.price,
+      low: yahooData.quote.price,
+      previousClose: yahooData.quote.previousClose,
+      volume: 0,
+      updatedAt: new Date().toISOString(),
+    },
+    history: yahooData.history,
+    growth1m: yahooData.growth.growth1m,
+    growth6m: yahooData.growth.growth6m,
+    growth12m: yahooData.growth.growth12m,
     updatedAt: new Date().toISOString(),
   };
 }

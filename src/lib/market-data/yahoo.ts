@@ -116,6 +116,22 @@ function calculateGrowthByCalendarMonths(
   return ((currentPrice - pastPrice) / pastPrice) * 100;
 }
 
+function detectLikelySplit(prices: number[], daysToCheck: number = 30): boolean {
+  // Check for single-day jumps > 200% in recent history (likely reverse split)
+  const startIdx = Math.max(0, prices.length - daysToCheck);
+  for (let i = startIdx + 1; i < prices.length; i++) {
+    const prev = prices[i - 1];
+    const curr = prices[i];
+    if (prev > 0) {
+      const change = Math.abs((curr - prev) / prev);
+      if (change > 2.0) { // > 200% change
+        return true;
+      }
+    }
+  }
+  return false;
+}
+
 export async function getGrowthData(symbol: string): Promise<YahooGrowth | null> {
   // Get 1 year of daily data
   const url = `${BASE_URL}/v8/finance/chart/${symbol}?interval=1d&range=1y`;
@@ -183,6 +199,7 @@ export async function getQuoteAndGrowth(symbol: string): Promise<{
   quote: YahooQuote;
   growth: YahooGrowth;
   history: HistoricalDataPoint[];
+  hasSplitWarning: boolean;
 } | null> {
   // Single API call gets quote and historical data
   const url = `${BASE_URL}/v8/finance/chart/${symbol}?interval=1d&range=1y`;
@@ -219,6 +236,9 @@ export async function getQuoteAndGrowth(symbol: string): Promise<{
     return null;
   }
 
+  // Detect likely stock split (>200% single-day change in last 30 days)
+  const hasSplitWarning = detectLikelySplit(closePrices, 30);
+
   return {
     quote: {
       symbol: result.meta.symbol,
@@ -235,6 +255,7 @@ export async function getQuoteAndGrowth(symbol: string): Promise<{
       growth12m: calculateGrowthByCalendarMonths(closePrices, validTimestamps, 12),
     },
     history,
+    hasSplitWarning,
   };
 }
 

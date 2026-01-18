@@ -164,6 +164,7 @@ export async function refreshStocksInRange(
             growth6m: data.growth.growth6m,
             growth12m: data.growth.growth12m,
             updatedAt: new Date().toISOString(),
+            hasSplitWarning: data.hasSplitWarning || undefined,
           };
 
           stocksMap.set(symbol, stock);

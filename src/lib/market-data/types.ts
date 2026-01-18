@@ -12,6 +12,7 @@ export type Stock = {
   growth6m: number;
   growth12m: number;
   updatedAt: string;
+  hasSplitWarning?: boolean;
 };
 
 export type Quote = {
@@ -69,6 +70,9 @@ export type StockDetailResponse = {
   profile: CompanyProfile;
   quote: Quote;
   history: HistoricalDataPoint[];
+  growth1m: number;
+  growth6m: number;
+  growth12m: number;
   updatedAt: string;
 };
 

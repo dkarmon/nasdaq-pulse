@@ -456,6 +456,9 @@ export function getStockDetail(symbol: string): StockDetailResponse | null {
     profile,
     quote,
     history: generateHistoricalData(symbol, 365),
+    growth1m: stock.growth1m,
+    growth6m: stock.growth6m,
+    growth12m: stock.growth12m,
     updatedAt: new Date().toISOString(),
   };
 }

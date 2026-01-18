@@ -71,37 +71,6 @@ function formatTimeAgo(dateString: string): string {
   return `${diffDays}d ago`;
 }
 
-function computeGrowthByCalendarMonths(
-  history: { date: string; close: number }[],
-  monthsAgo: number
-): number {
-  if (history.length < 2) return 0;
-
-  // History is chronological (oldest first, newest last)
-  const current = history[history.length - 1]?.close ?? 0;
-
-  // Calculate target date (calendar months ago)
-  const targetDate = new Date();
-  targetDate.setMonth(targetDate.getMonth() - monthsAgo);
-  const targetTime = targetDate.getTime();
-
-  // Find the price at the closest trading day to target date
-  let closestIdx = 0;
-  let closestDiff = Infinity;
-  for (let i = 0; i < history.length; i++) {
-    const entryTime = new Date(history[i].date).getTime();
-    const diff = Math.abs(entryTime - targetTime);
-    if (diff < closestDiff) {
-      closestDiff = diff;
-      closestIdx = i;
-    }
-  }
-
-  const past = history[closestIdx]?.close ?? current;
-  if (past === 0) return 0;
-  return ((current - past) / past) * 100;
-}
-
 export function StockDetail({ symbol, onClose, labels }: StockDetailProps) {
   const [detail, setDetail] = useState<StockDetailResponse | null>(null);
   const [news, setNews] = useState<NewsItem[]>([]);
@@ -162,10 +131,7 @@ export function StockDetail({ symbol, onClose, labels }: StockDetailProps) {
     );
   }
 
-  const { profile, quote, history } = detail;
-  const growth1m = computeGrowthByCalendarMonths(history, 1);
-  const growth6m = computeGrowthByCalendarMonths(history, 6);
-  const growth12m = computeGrowthByCalendarMonths(history, 12);
+  const { profile, quote, history, growth1m, growth6m, growth12m } = detail;
 
   return (
     <div className={styles.panel}>
