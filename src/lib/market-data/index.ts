@@ -2,7 +2,7 @@
 // ABOUTME: Returns mock data when live providers are unavailable or rate-limited.
 
 import * as finnhub from "./finnhub";
-import * as twelveData from "./twelve-data";
+import * as yahoo from "./yahoo";
 import * as newsApi from "./newsapi";
 import * as mock from "./mock";
 import type {
@@ -53,7 +53,7 @@ export async function getHistoricalData(
   symbol: string,
   days: number = 365
 ): Promise<HistoricalDataPoint[]> {
-  const liveHistory = await twelveData.getTimeSeries(symbol, days);
+  const liveHistory = await yahoo.getHistoricalData(symbol, days);
   if (liveHistory && liveHistory.length > 0) {
     return liveHistory;
   }
@@ -105,4 +105,4 @@ export async function getNews(symbol?: string): Promise<NewsResponse> {
   return mock.getNews(symbol);
 }
 
-export { finnhubLimiter, twelveDataLimiter, newsApiLimiter } from "./rate-limiter";
+export { finnhubLimiter, newsApiLimiter } from "./rate-limiter";
