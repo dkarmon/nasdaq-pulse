@@ -15,6 +15,8 @@ const KEYS = {
   HISTORY: "history",
   LAST_UPDATED: "last_updated",
   RUN_STATUS: "run_status",
+  SYMBOLS: "nasdaq_symbols",
+  SYMBOLS_UPDATED: "symbols_updated",
 };
 
 // Stock data (for screener)
@@ -118,4 +120,30 @@ export async function getRunHistory(): Promise<RunStatus[]> {
 export async function getStockCount(): Promise<number> {
   const stocks = await getStocks();
   return stocks.length;
+}
+
+// NASDAQ symbol list caching
+export async function saveSymbols(symbols: string[]): Promise<void> {
+  await redis.set(KEYS.SYMBOLS, JSON.stringify(symbols));
+  await redis.set(KEYS.SYMBOLS_UPDATED, new Date().toISOString());
+}
+
+export async function getSymbols(): Promise<string[]> {
+  const data = await redis.get<string>(KEYS.SYMBOLS);
+  if (!data) return [];
+  return typeof data === "string" ? JSON.parse(data) : data;
+}
+
+export async function getSymbolsLastUpdated(): Promise<string | null> {
+  return redis.get<string>(KEYS.SYMBOLS_UPDATED);
+}
+
+export async function areSymbolsFresh(maxAgeHours = 24): Promise<boolean> {
+  const lastUpdated = await getSymbolsLastUpdated();
+  if (!lastUpdated) return false;
+
+  const ageMs = Date.now() - new Date(lastUpdated).getTime();
+  const ageHours = ageMs / (1000 * 60 * 60);
+
+  return ageHours < maxAgeHours;
 }

@@ -1,4 +1,4 @@
-// ABOUTME: Cron job to refresh stocks A-M from Finnhub.
+// ABOUTME: Cron job to refresh stocks A-K (~1,579 stocks).
 // ABOUTME: Part of the daily refresh cycle (runs at 21:15 UTC / 11:15 PM Israel).
 
 import { NextResponse } from "next/server";
@@ -17,7 +17,7 @@ export async function GET(request: Request) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const result = await refreshStocksInRange("A", "M");
+  const result = await refreshStocksInRange("A", "K");
 
   return NextResponse.json(result, {
     status: result.success ? 200 : 500,
