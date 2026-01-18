@@ -1,9 +1,10 @@
-// ABOUTME: Shared logic for refreshing stock data from Finnhub.
-// ABOUTME: Called by multiple cron jobs to process different letter ranges.
+// ABOUTME: Shared logic for refreshing stock data from Yahoo Finance.
+// ABOUTME: Called by cron jobs to process different letter ranges of NASDAQ stocks.
 
-import { getQuote, getCompanyProfile, getGrowthData, getNasdaqSymbols } from "@/lib/market-data/finnhub";
-import { saveStocks, getStocks, saveProfiles, saveRunStatus } from "@/lib/market-data/storage";
-import type { Stock, CompanyProfile } from "@/lib/market-data/types";
+import { getQuoteAndGrowth } from "@/lib/market-data/yahoo";
+import { saveStocks, getStocks, saveRunStatus } from "@/lib/market-data/storage";
+import { NASDAQ_SYMBOLS } from "@/lib/market-data/symbols";
+import type { Stock } from "@/lib/market-data/types";
 
 export type RefreshResult = {
   success: boolean;
@@ -15,27 +16,7 @@ export type RefreshResult = {
   errors: string[];
 };
 
-// Cache symbols in memory to avoid fetching every time
-let cachedSymbols: string[] | null = null;
-let symbolsCacheTime = 0;
-const SYMBOLS_CACHE_TTL = 24 * 60 * 60 * 1000; // 24 hours
-
-async function getSymbols(): Promise<string[]> {
-  const now = Date.now();
-  if (cachedSymbols && (now - symbolsCacheTime) < SYMBOLS_CACHE_TTL) {
-    return cachedSymbols;
-  }
-
-  console.log("Fetching NASDAQ symbols from Finnhub...");
-  const symbols = await getNasdaqSymbols();
-  console.log("Found " + symbols.length + " symbols");
-
-  cachedSymbols = symbols;
-  symbolsCacheTime = now;
-  return symbols;
-}
-
-function filterByRange(symbols: string[], startLetter: string, endLetter: string): string[] {
+function filterByRange(symbols: readonly string[], startLetter: string, endLetter: string): string[] {
   const start = startLetter.toUpperCase();
   const end = endLetter.toUpperCase();
   return symbols.filter(s => {
@@ -62,9 +43,8 @@ export async function refreshStocksInRange(
   };
 
   try {
-    // Get all symbols and filter by range
-    const allSymbols = await getSymbols();
-    const symbols = filterByRange(allSymbols, startLetter, endLetter);
+    // Filter curated NASDAQ symbols by range
+    const symbols = filterByRange(NASDAQ_SYMBOLS, startLetter, endLetter);
     result.totalSymbols = symbols.length;
 
     console.log("Processing " + symbols.length + " symbols in range " + range);
@@ -74,12 +54,9 @@ export async function refreshStocksInRange(
     const stocksMap = new Map<string, Stock>();
     existingStocks.forEach(s => stocksMap.set(s.symbol, s));
 
-    const profiles = new Map<string, CompanyProfile>();
-
-    // Process in batches to respect rate limits (60/min)
-    // With 2 calls per stock (quote + candles), we can do ~30 stocks/min
-    const BATCH_SIZE = 15;
-    const DELAY_MS = 30000; // 30 seconds between batches
+    // Process in batches (Yahoo is generous but let's be respectful)
+    const BATCH_SIZE = 10;
+    const DELAY_MS = 2000; // 2 seconds between batches
 
     for (let idx = 0; idx < symbols.length; idx += BATCH_SIZE) {
       const batch = symbols.slice(idx, idx + BATCH_SIZE);
@@ -89,50 +66,27 @@ export async function refreshStocksInRange(
 
       const batchPromises = batch.map(async (symbol) => {
         try {
-          // Get quote and growth data (2 API calls)
-          const [quote, growth] = await Promise.all([
-            getQuote(symbol),
-            getGrowthData(symbol),
-          ]);
+          // Single API call gets quote + growth data
+          const data = await getQuoteAndGrowth(symbol);
 
-          if (!quote) {
+          if (!data) {
             result.failed++;
+            result.errors.push(symbol + ": No data returned");
             return;
-          }
-
-          // Get profile (only if we don't have it cached)
-          let profile = null;
-          if (!stocksMap.has(symbol)) {
-            profile = await getCompanyProfile(symbol);
           }
 
           const stock: Stock = {
             symbol,
-            name: profile?.name ?? stocksMap.get(symbol)?.name ?? symbol,
-            price: quote.price,
-            marketCap: profile?.marketCap ?? stocksMap.get(symbol)?.marketCap ?? 0,
-            growth1m: growth?.growth1m ?? 0,
-            growth6m: growth?.growth6m ?? 0,
-            growth12m: growth?.growth12m ?? 0,
+            name: data.quote.name,
+            price: data.quote.price,
+            marketCap: 0, // Yahoo chart endpoint doesn't include market cap
+            growth1m: data.growth.growth1m,
+            growth6m: data.growth.growth6m,
+            growth12m: data.growth.growth12m,
             updatedAt: new Date().toISOString(),
           };
 
           stocksMap.set(symbol, stock);
-
-          if (profile) {
-            profiles.set(symbol, {
-              symbol,
-              name: profile.name,
-              exchange: profile.exchange,
-              industry: profile.industry,
-              marketCap: profile.marketCap,
-              peRatio: profile.peRatio,
-              week52High: profile.week52High,
-              week52Low: profile.week52Low,
-              logo: profile.logo,
-            });
-          }
-
           result.processed++;
         } catch (error) {
           result.failed++;
@@ -144,7 +98,6 @@ export async function refreshStocksInRange(
 
       // Wait between batches
       if (idx + BATCH_SIZE < symbols.length) {
-        console.log("Waiting 30s for rate limits...");
         await new Promise(resolve => setTimeout(resolve, DELAY_MS));
       }
     }
@@ -155,10 +108,6 @@ export async function refreshStocksInRange(
 
     console.log("Saving " + allStocks.length + " total stocks to Redis...");
     await saveStocks(allStocks);
-
-    if (profiles.size > 0) {
-      await saveProfiles(profiles);
-    }
 
     result.success = true;
     result.duration = ((Date.now() - startTime) / 1000).toFixed(1) + "s";
