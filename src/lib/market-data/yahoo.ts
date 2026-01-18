@@ -85,18 +85,32 @@ export async function getQuote(symbol: string): Promise<YahooQuote | null> {
   };
 }
 
-function calculateGrowth(prices: number[], daysAgo: number): number {
-  if (prices.length < daysAgo + 1) {
-    // If not enough data, use what we have
-    const pastPrice = prices[0];
-    const currentPrice = prices[prices.length - 1];
-    if (!pastPrice || pastPrice === 0) return 0;
-    return ((currentPrice - pastPrice) / pastPrice) * 100;
-  }
+function calculateGrowthByCalendarMonths(
+  prices: number[],
+  timestamps: number[],
+  monthsAgo: number
+): number {
+  if (prices.length === 0) return 0;
 
   const currentPrice = prices[prices.length - 1];
-  const pastPrice = prices[prices.length - 1 - daysAgo];
 
+  // Calculate target date (calendar months ago)
+  const targetDate = new Date();
+  targetDate.setMonth(targetDate.getMonth() - monthsAgo);
+  const targetTime = targetDate.getTime();
+
+  // Find the price at the closest trading day to target date
+  let closestIdx = 0;
+  let closestDiff = Infinity;
+  for (let i = 0; i < timestamps.length; i++) {
+    const diff = Math.abs(timestamps[i] * 1000 - targetTime);
+    if (diff < closestDiff && prices[i] !== undefined) {
+      closestDiff = diff;
+      closestIdx = i;
+    }
+  }
+
+  const pastPrice = prices[closestIdx];
   if (!pastPrice || pastPrice === 0) return 0;
 
   return ((currentPrice - pastPrice) / pastPrice) * 100;
@@ -113,7 +127,16 @@ export async function getGrowthData(symbol: string): Promise<YahooGrowth | null>
 
   const result = data.chart.result[0];
   const quotes = result.indicators.quote[0];
-  const closePrices = quotes.close.filter((p): p is number => p !== null);
+
+  // Build aligned arrays of prices and timestamps (excluding null prices)
+  const closePrices: number[] = [];
+  const validTimestamps: number[] = [];
+  for (let i = 0; i < quotes.close.length; i++) {
+    if (quotes.close[i] !== null) {
+      closePrices.push(quotes.close[i]);
+      validTimestamps.push(result.timestamp[i]);
+    }
+  }
 
   if (closePrices.length === 0) {
     return null;
@@ -122,9 +145,9 @@ export async function getGrowthData(symbol: string): Promise<YahooGrowth | null>
   return {
     symbol: result.meta.symbol,
     currentPrice: result.meta.regularMarketPrice,
-    growth1m: calculateGrowth(closePrices, 22),   // ~22 trading days
-    growth6m: calculateGrowth(closePrices, 126),  // ~126 trading days
-    growth12m: calculateGrowth(closePrices, 252), // ~252 trading days
+    growth1m: calculateGrowthByCalendarMonths(closePrices, validTimestamps, 1),
+    growth6m: calculateGrowthByCalendarMonths(closePrices, validTimestamps, 6),
+    growth12m: calculateGrowthByCalendarMonths(closePrices, validTimestamps, 12),
   };
 }
 
@@ -171,16 +194,16 @@ export async function getQuoteAndGrowth(symbol: string): Promise<{
 
   const result = data.chart.result[0];
   const quotes = result.indicators.quote[0];
-  const closePrices = quotes.close.filter((p): p is number => p !== null);
 
-  if (closePrices.length === 0) {
-    return null;
-  }
-
-  // Build historical data points
+  // Build aligned arrays of prices and timestamps (excluding null prices)
+  const closePrices: number[] = [];
+  const validTimestamps: number[] = [];
   const history: HistoricalDataPoint[] = [];
+
   for (let i = 0; i < result.timestamp.length; i++) {
     if (quotes.close[i] !== null) {
+      closePrices.push(quotes.close[i]);
+      validTimestamps.push(result.timestamp[i]);
       history.push({
         date: new Date(result.timestamp[i] * 1000).toISOString().split("T")[0],
         open: quotes.open[i] ?? 0,
@@ -190,6 +213,10 @@ export async function getQuoteAndGrowth(symbol: string): Promise<{
         volume: quotes.volume[i] ?? 0,
       });
     }
+  }
+
+  if (closePrices.length === 0) {
+    return null;
   }
 
   return {
@@ -203,9 +230,9 @@ export async function getQuoteAndGrowth(symbol: string): Promise<{
     growth: {
       symbol: result.meta.symbol,
       currentPrice: result.meta.regularMarketPrice,
-      growth1m: calculateGrowth(closePrices, 22),
-      growth6m: calculateGrowth(closePrices, 126),
-      growth12m: calculateGrowth(closePrices, 252),
+      growth1m: calculateGrowthByCalendarMonths(closePrices, validTimestamps, 1),
+      growth6m: calculateGrowthByCalendarMonths(closePrices, validTimestamps, 6),
+      growth12m: calculateGrowthByCalendarMonths(closePrices, validTimestamps, 12),
     },
     history,
   };
