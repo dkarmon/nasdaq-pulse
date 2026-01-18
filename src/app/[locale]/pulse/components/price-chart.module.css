@@ -1,0 +1,14 @@
+/* ABOUTME: Styles for the price chart component. */
+/* ABOUTME: Minimal styling to let the chart visuals shine. */
+
+.chartContainer {
+  width: 100%;
+  border-radius: 8px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--border);
+}
+
+.chart {
+  width: 100%;
+}

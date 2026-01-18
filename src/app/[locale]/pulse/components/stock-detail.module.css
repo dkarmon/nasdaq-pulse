@@ -1,0 +1,248 @@
+/* ABOUTME: Styles for the stock detail panel component. */
+/* ABOUTME: Responsive design for slide-in panel (desktop) and full-screen (mobile). */
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  height: 100%;
+  overflow-y: auto;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.backButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--text);
+  cursor: pointer;
+  transition: border 120ms ease, background 120ms ease;
+}
+
+.backButton:hover {
+  border-color: var(--accent);
+}
+
+.backIcon {
+  width: 20px;
+  height: 20px;
+}
+
+[dir="rtl"] .backIcon {
+  transform: scaleX(-1);
+}
+
+.closeButton {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--text);
+  font-size: 1.25rem;
+  cursor: pointer;
+  transition: border 120ms ease, background 120ms ease;
+}
+
+.closeButton:hover {
+  border-color: var(--danger);
+}
+
+.titleSection {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.symbolRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.symbol {
+  font-family: var(--font-space-grotesk), var(--font-manrope), system-ui, sans-serif;
+  font-size: 2rem;
+  font-weight: 800;
+  margin: 0;
+  letter-spacing: 0.02em;
+}
+
+.copyButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--muted);
+  font-size: 1rem;
+  cursor: pointer;
+  transition: border 120ms ease, color 120ms ease;
+}
+
+.copyButton:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.companyName {
+  font-size: 1rem;
+  color: var(--muted);
+  margin: 0 0 8px 0;
+}
+
+.metricsRow {
+  display: flex;
+  gap: 12px;
+}
+
+.metricCard {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  text-align: center;
+}
+
+.metricValue {
+  font-family: var(--font-space-grotesk), var(--font-manrope), system-ui, sans-serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.metricValue[data-positive="true"] {
+  color: #8df0c7;
+}
+
+.metricValue[data-negative="true"] {
+  color: #f8bac8;
+}
+
+.metricLabel {
+  font-size: 0.85rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.chartSection {
+  margin: 8px 0;
+}
+
+.newsSection {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.newsTitle {
+  font-size: 1rem;
+  font-weight: 700;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--muted);
+}
+
+.newsList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.newsItem {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  text-decoration: none;
+  color: inherit;
+  transition: border 120ms ease, background 120ms ease;
+}
+
+.newsItem:hover {
+  border-color: var(--accent);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.newsHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.newsHeadline {
+  font-weight: 600;
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+.newsMeta {
+  display: flex;
+  gap: 8px;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.noNews {
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.loading,
+.error {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+  color: var(--muted);
+  font-size: 1rem;
+}
+
+.error {
+  color: var(--danger);
+}
+
+@media (max-width: 1024px) {
+  .closeButton {
+    display: flex;
+  }
+}
+
+@media (max-width: 480px) {
+  .metricsRow {
+    flex-wrap: wrap;
+  }
+
+  .metricCard {
+    min-width: calc(50% - 6px);
+  }
+
+  .metricValue {
+    font-size: 1.1rem;
+  }
+}

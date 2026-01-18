@@ -1,127 +1,411 @@
-.hero {
-  display: grid;
-  grid-template-columns: repeat(12, minmax(0, 1fr));
-  gap: 18px;
-  align-items: center;
-  margin-top: 18px;
+/* ABOUTME: Modern, clean landing page styles. */
+/* ABOUTME: Minimalist marketing aesthetic with generous whitespace. */
+
+.page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
-.heroContent {
-  grid-column: span 7;
-  display: grid;
+/* Navigation */
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(15, 23, 42, 0.8);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.navInner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 16px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logoIcon {
+  font-size: 1.5rem;
+  color: var(--accent);
+}
+
+.logoText {
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.navActions {
+  display: flex;
+  align-items: center;
   gap: 16px;
 }
 
+.navLink {
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 150ms ease;
+}
+
+.navLink:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Main content */
+.main {
+  flex: 1;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+  width: 100%;
+}
+
+/* Hero section */
+.hero {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: center;
+  padding: 80px 0 100px;
+}
+
+.heroContent {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.heroLabel {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
 .heroTitle {
-  font-size: clamp(1.8rem, 3vw, 2.6rem);
+  font-size: clamp(2.5rem, 5vw, 4rem);
   font-weight: 800;
-  letter-spacing: 0.02em;
-  line-height: 1.2;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  margin: 0;
+}
+
+.gradient {
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .heroSubtitle {
+  font-size: 1.25rem;
+  line-height: 1.6;
   color: var(--muted);
-  font-size: 1.05rem;
-  max-width: 620px;
-}
-
-.ctaRow {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 10px;
-}
-
-.chipRow {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-
-.heroCard {
-  grid-column: span 5;
-  background: linear-gradient(160deg, rgba(16, 185, 129, 0.15), rgba(16, 185, 129, 0.08));
-  border: 1px solid rgba(16, 185, 129, 0.4);
-}
-
-.heroCard h3 {
-  margin: 0 0 8px;
-  font-size: 1.05rem;
-}
-
-.section {
-  margin-top: 42px;
-}
-
-.sectionHeader {
-  margin-bottom: 18px;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.sectionHeader h2 {
+  max-width: 480px;
   margin: 0;
-  font-size: 1.4rem;
-  letter-spacing: 0.02em;
 }
 
-.sectionHeader p {
-  color: var(--muted);
-  max-width: 640px;
+.heroCta {
+  padding-top: 8px;
 }
 
-.grid3 {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 14px;
-}
-
-.featureCard {
-  padding: 16px;
-}
-
-.featureCard h3 {
-  margin: 0 0 6px;
-  font-size: 1.1rem;
-}
-
-.featureTag {
-  margin-bottom: 10px;
-}
-
-.demoList {
-  display: grid;
-  gap: 10px;
-}
-
-.demoItem {
-  display: flex;
+.primaryButton {
+  display: inline-flex;
   align-items: center;
-  justify-content: space-between;
   gap: 12px;
-  padding: 12px 14px;
+  padding: 16px 32px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #fff;
+  background: linear-gradient(135deg, var(--accent), #0ea371);
   border-radius: 12px;
-  border: 1px solid var(--border);
+  box-shadow: 0 8px 32px rgba(16, 185, 129, 0.3);
+  transition: all 200ms ease;
+}
+
+.primaryButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px rgba(16, 185, 129, 0.4);
+}
+
+.arrow {
+  transition: transform 200ms ease;
+}
+
+.primaryButton:hover .arrow {
+  transform: translateX(4px);
+}
+
+/* Hero visual */
+.heroVisual {
+  display: flex;
+  justify-content: center;
+}
+
+.mockCard {
+  width: 100%;
+  max-width: 400px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.3);
+}
+
+.mockHeader {
+  display: flex;
+  gap: 8px;
+  padding: 16px 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.mockDot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.mockDot:first-child {
+  background: #f87171;
+}
+
+.mockDot:nth-child(2) {
+  background: #fbbf24;
+}
+
+.mockDot:nth-child(3) {
+  background: #4ade80;
+}
+
+.mockContent {
+  padding: 8px;
+}
+
+.mockRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  border-radius: 10px;
+  transition: background 150ms ease;
+}
+
+.mockRow:hover {
   background: rgba(255, 255, 255, 0.03);
 }
 
-.demoItemTitle {
+.mockSymbol {
+  font-family: var(--font-space-grotesk), monospace;
   font-weight: 700;
+  font-size: 1.1rem;
+  letter-spacing: 0.02em;
 }
 
-.demoItemBody {
+.mockGrowth {
+  font-family: var(--font-space-grotesk), monospace;
+  font-weight: 700;
+  font-size: 1rem;
+  color: #4ade80;
+}
+
+/* Features section */
+.features {
+  padding: 80px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.featureGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+}
+
+.featureCard {
+  padding: 32px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 16px;
+  transition: all 200ms ease;
+}
+
+.featureCard:hover {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.1);
+  transform: translateY(-4px);
+}
+
+.featureIcon {
+  font-size: 2rem;
+  margin-bottom: 16px;
+}
+
+.featureTitle {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin: 0 0 12px;
+}
+
+.featureText {
+  font-size: 1rem;
+  line-height: 1.6;
   color: var(--muted);
-  font-size: 0.95rem;
+  margin: 0;
 }
 
+/* CTA section */
+.cta {
+  padding: 80px 0;
+  text-align: center;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.ctaTitle {
+  font-size: 2rem;
+  font-weight: 800;
+  margin: 0 0 16px;
+  letter-spacing: -0.02em;
+}
+
+.ctaSubtitle {
+  font-size: 1.1rem;
+  color: var(--muted);
+  margin: 0 0 32px;
+}
+
+/* Footer */
+.footer {
+  padding: 32px 24px;
+  text-align: center;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.footer p {
+  font-size: 0.9rem;
+  color: var(--muted);
+  margin: 0;
+}
+
+/* RTL support */
+[data-dir="rtl"] .heroContent {
+  text-align: right;
+}
+
+[data-dir="rtl"] .heroLabel {
+  flex-direction: row-reverse;
+}
+
+[data-dir="rtl"] .primaryButton {
+  flex-direction: row-reverse;
+}
+
+[data-dir="rtl"] .arrow {
+  transform: scaleX(-1);
+}
+
+[data-dir="rtl"] .primaryButton:hover .arrow {
+  transform: scaleX(-1) translateX(-4px);
+}
+
+/* Responsive */
 @media (max-width: 900px) {
   .hero {
     grid-template-columns: 1fr;
+    gap: 48px;
+    padding: 48px 0 64px;
   }
 
-  .heroContent,
-  .heroCard {
-    grid-column: span 1;
+  .heroContent {
+    text-align: center;
+    align-items: center;
+  }
+
+  .heroSubtitle {
+    max-width: 100%;
+  }
+
+  .heroVisual {
+    order: -1;
+  }
+
+  .mockCard {
+    max-width: 320px;
+  }
+
+  .featureGrid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .featureCard {
+    padding: 24px;
+  }
+
+  [data-dir="rtl"] .heroContent {
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .navInner {
+    padding: 12px 16px;
+  }
+
+  .logoText {
+    font-size: 1.1rem;
+  }
+
+  .main {
+    padding: 0 16px;
+  }
+
+  .heroTitle {
+    font-size: 2rem;
+  }
+
+  .heroSubtitle {
+    font-size: 1.1rem;
+  }
+
+  .primaryButton {
+    width: 100%;
+    justify-content: center;
+    padding: 14px 24px;
+    font-size: 1rem;
+  }
+
+  .ctaTitle {
+    font-size: 1.5rem;
   }
 }

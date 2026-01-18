@@ -1,0 +1,53 @@
+/* ABOUTME: Styles for the reusable error fallback component. */
+/* ABOUTME: Centered layout for inline error states. */
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 12px;
+  max-width: 320px;
+}
+
+.icon {
+  font-size: 2.5rem;
+}
+
+.title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.message {
+  font-size: 1rem;
+  color: var(--muted);
+  margin: 0;
+}
+
+.button {
+  min-height: 48px;
+  padding: 12px 24px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--text);
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: border 120ms ease, background 120ms ease;
+  margin-top: 8px;
+}
+
+.button:hover {
+  border-color: var(--accent);
+  background: rgba(16, 185, 129, 0.1);
+}

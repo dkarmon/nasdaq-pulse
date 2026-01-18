@@ -1,0 +1,12 @@
+{
+  "crons": [
+    {
+      "path": "/api/cron/refresh-stocks",
+      "schedule": "15 21 * * *"
+    },
+    {
+      "path": "/api/cron/refresh-stocks-nz",
+      "schedule": "15 0 * * *"
+    }
+  ]
+}
