@@ -1,0 +1,229 @@
+export const locales = ["en", "he"] as const;
+
+export type Locale = (typeof locales)[number];
+
+export type LandingFeature = {
+  title: string;
+  body: string;
+  tag?: string;
+};
+
+export type Dictionary = {
+  nav: {
+    signIn: string;
+    demo: string;
+    language: string;
+    localeName: string;
+  };
+  landing: {
+    title: string;
+    subtitle: string;
+    heroCta: string;
+    heroSecondary: string;
+    highlights: LandingFeature[];
+    featureTitle: string;
+    featureSubtitle: string;
+    features: LandingFeature[];
+    demoTitle: string;
+    demoSubtitle: string;
+    demoList: LandingFeature[];
+  };
+  app: {
+    welcome: string;
+    freshnessLive: string;
+    freshnessStale: string;
+    watchlist: string;
+    detail: string;
+    news: string;
+    logout: string;
+    comparison: string;
+    addTicker: string;
+    fallbackData: string;
+  };
+  auth: {
+    deniedTitle: string;
+    deniedBody: string;
+    back: string;
+  };
+};
+
+export const defaultLocale: Locale = "en";
+
+export const dictionaries: Record<Locale, Dictionary> = {
+  en: {
+    nav: {
+      signIn: "Enter app",
+      demo: "View limited demo",
+      language: "EN",
+      localeName: "English",
+    },
+    landing: {
+      title: "Nasdaq Pulse",
+      subtitle:
+        "Live watchlists, bilingual UI, and latency-conscious charts tuned for desktop and mobile.",
+      heroCta: "Sign in with Google",
+      heroSecondary: "Browse the demo",
+      highlights: [
+        {
+          title: "Bilingual & RTL ready",
+          body: "English + Hebrew with mirrored layout, right-aligned numerics, and locale-aware time.",
+        },
+        {
+          title: "Edge proxy with cache",
+          body: "Quotes refresh every ~60s; series cached hours to respect free tiers.",
+          tag: "Performance",
+        },
+        {
+          title: "Auth with allowlist",
+          body: "Google sign-in gated by approved emails; graceful denial state.",
+          tag: "Secure",
+        },
+      ],
+      featureTitle: "Designed for the pulse of the market",
+      featureSubtitle:
+        "Intentional layouts, fast interactions, and cues for freshness keep users oriented.",
+      features: [
+        {
+          title: "Adaptive surfaces",
+          body: "Two-panel desktop, tabbed mobile, sticky controls, and low-latency chart transitions.",
+          tag: "UX",
+        },
+        {
+          title: "Data clarity",
+          body: "Stale/live badges, percent deltas, and fundamentals grouped into glanceable cards.",
+          tag: "Data",
+        },
+        {
+          title: "News in context",
+          body: "Sentiment chips, source/time-ago labels, and quick links back to price action.",
+          tag: "Context",
+        },
+      ],
+      demoTitle: "Demo snapshot",
+      demoSubtitle: "Static sample data shown without an account.",
+      demoList: [
+        {
+          title: "AAPL · 0.82% ▲",
+          body: "Fresh within 45s · $2.95T market cap",
+        },
+        {
+          title: "MSFT · 0.44% ▲",
+          body: "Fresh within 50s · $3.09T market cap",
+        },
+        {
+          title: "NVDA · -1.12% ▼",
+          body: "Stale · refresh to retrieve",
+        },
+      ],
+    },
+    app: {
+      welcome: "Welcome back to Nasdaq Pulse",
+      freshnessLive: "Live",
+      freshnessStale: "Stale",
+      watchlist: "Watchlist",
+      detail: "Detail",
+      news: "News",
+      logout: "Sign out",
+      comparison: "Compare",
+      addTicker: "Add ticker",
+      fallbackData: "Showing cached demo data. Connect real APIs to go live.",
+    },
+    auth: {
+      deniedTitle: "Access not granted",
+      deniedBody:
+        "Your Google account is not on the approved list. Contact the admin or try a different email.",
+      back: "Back to landing",
+    },
+  },
+  he: {
+    nav: {
+      signIn: "כניסה לאפליקציה",
+      demo: "צפייה בדמו",
+      language: "HE",
+      localeName: "עברית",
+    },
+    landing: {
+      title: "Nasdaq Pulse",
+      subtitle: "ממשק דו-לשוני, מותאם RTL, עם נתונים חיים למובייל ולדסקטופ.",
+      heroCta: "התחברות עם Google",
+      heroSecondary: "צפייה בדמו",
+      highlights: [
+        {
+          title: "עברית ואנגלית",
+          body: "ממשק מלא בעברית ו-RTL עם יישור מספרים לימין ותאריכים לפי שפה.",
+        },
+        {
+          title: "פרוקסי וקאשינג חכם",
+          body: "ציטוטים מתעדכנים כל ~60 שניות; סדרות היסטוריות נשמרות שעות.",
+          tag: "ביצועים",
+        },
+        {
+          title: "גישה מאובטחת",
+          body: "התחברות בגוגל עם רשימת מיילים מורשית ומסך סירוב ברור.",
+          tag: "אבטחה",
+        },
+      ],
+      featureTitle: "מעוצב לדופק של השוק",
+      featureSubtitle:
+        "פריסות מכוונות, אינטראקציות מהירות, וסימני רעננות כדי לשמור על התמצאות.",
+      features: [
+        {
+          title: "פריסה מגיבה",
+          body: "שתי עמודות בדסקטופ, טאבים במובייל, כפתורים דביקים ומעברים זריזים.",
+          tag: "חוויית משתמש",
+        },
+        {
+          title: "בהירות נתונים",
+          body: "תגי חדש/מיושן, שינויי אחוזים וקריאות יסוד בכרטיסים תמציתיים.",
+          tag: "נתונים",
+        },
+        {
+          title: "חדשות בהקשר",
+          body: "תגי סנטימנט, מקור וזמן, וקישור מהיר חזרה לגרף המחיר.",
+          tag: "הקשר",
+        },
+      ],
+      demoTitle: "דמו לדוגמה",
+      demoSubtitle: "נתונים סטטיים זמינים גם ללא חשבון.",
+      demoList: [
+        {
+          title: "AAPL · ‎0.82% ▲",
+          body: "עדכני בתוך 45 שניות · שווי שוק ‎2.95T$",
+        },
+        {
+          title: "MSFT · ‎0.44% ▲",
+          body: "עדכני בתוך 50 שניות · שווי שוק ‎3.09T$",
+        },
+        {
+          title: "NVDA · ‎1.12-% ▼",
+          body: "מיושן · רענון ינסה למשוך חדש",
+        },
+      ],
+    },
+    app: {
+      welcome: "ברוכים הבאים ל-Nasdaq Pulse",
+      freshnessLive: "חי",
+      freshnessStale: "מיושן",
+      watchlist: "רשימת מעקב",
+      detail: "פרטים",
+      news: "חדשות",
+      logout: "התנתקות",
+      comparison: "השוואה",
+      addTicker: "הוסף סמל",
+      fallbackData: "מציג נתוני דמו במטמון. חברו API כדי לעבור לנתונים חיים.",
+    },
+    auth: {
+      deniedTitle: "אין הרשאה",
+      deniedBody: "החשבון אינו מורשה. פנו למנהל או התחברו עם מייל מאושר.",
+      back: "חזרה לעמוד הראשי",
+    },
+  },
+};
+
+export function getDictionary(locale: Locale): Dictionary {
+  return dictionaries[locale] ?? dictionaries.en;
+}
+
+export function isRTL(locale: Locale) {
+  return locale === "he";
+}
