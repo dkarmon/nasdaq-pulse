@@ -5,16 +5,8 @@
       "schedule": "15 21 * * *"
     },
     {
-      "path": "/api/cron/refresh-stocks-gm",
-      "schedule": "15 23 * * *"
-    },
-    {
-      "path": "/api/cron/refresh-stocks-ns",
-      "schedule": "15 1 * * *"
-    },
-    {
-      "path": "/api/cron/refresh-stocks-tz",
-      "schedule": "15 3 * * *"
+      "path": "/api/cron/refresh-stocks-nz",
+      "schedule": "15 0 * * *"
     }
   ]
 }
