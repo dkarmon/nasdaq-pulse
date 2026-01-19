@@ -36,7 +36,11 @@ function parseSortPeriod(value: string | null): SortPeriod {
 
 function parseLimit(value: string | null): number {
   const parsed = parseInt(value ?? "50", 10);
-  if (parsed === 25 || parsed === 50 || parsed === 100) {
+  if (isNaN(parsed) || parsed < 1) {
+    return 50;
+  }
+  // Allow standard presets or any value up to 10000 for recommended mode
+  if (parsed <= 10000) {
     return parsed;
   }
   return 50;

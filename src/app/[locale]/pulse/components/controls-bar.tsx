@@ -3,7 +3,7 @@
 
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import type { SortPeriod, FilterPreset, FilterValue, ScreenerFilters, Exchange } from "@/lib/market-data/types";
 import styles from "./controls-bar.module.css";
 
@@ -14,6 +14,7 @@ type ControlsBarProps = {
   filters: ScreenerFilters;
   searchQuery: string;
   showRecommendedOnly: boolean;
+  controlsDisabled?: boolean;
   onExchangeChange: (exchange: Exchange) => void;
   onSortChange: (sort: SortPeriod) => void;
   onLimitChange: (limit: number) => void;
@@ -49,6 +50,7 @@ export function ControlsBar({
   filters,
   searchQuery,
   showRecommendedOnly,
+  controlsDisabled = false,
   onExchangeChange,
   onSortChange,
   onLimitChange,
@@ -60,6 +62,12 @@ export function ControlsBar({
   labels,
 }: ControlsBarProps) {
   const [filtersExpanded, setFiltersExpanded] = useState(false);
+
+  useEffect(() => {
+    if (controlsDisabled) {
+      setFiltersExpanded(false);
+    }
+  }, [controlsDisabled]);
 
   const exchangeLabels: Record<Exchange, string> = {
     nasdaq: labels.nasdaq,
@@ -104,7 +112,7 @@ export function ControlsBar({
         </button>
       </div>
 
-      <div className={styles.mainRow}>
+      <div className={styles.mainRow} data-disabled={controlsDisabled}>
         <div className={styles.sortGroup}>
           <span className={styles.label}>{labels.sortBy}:</span>
           <div className={styles.pillGroup}>
@@ -113,6 +121,8 @@ export function ControlsBar({
                 key={option}
                 className={styles.pill}
                 data-active={sortBy === option}
+                data-disabled={controlsDisabled}
+                disabled={controlsDisabled}
                 onClick={() => onSortChange(option)}
                 aria-pressed={sortBy === option}
               >
@@ -130,6 +140,8 @@ export function ControlsBar({
                 key={option}
                 className={styles.pill}
                 data-active={limit === option}
+                data-disabled={controlsDisabled}
+                disabled={controlsDisabled}
                 onClick={() => onLimitChange(option)}
                 aria-pressed={limit === option}
               >
@@ -143,6 +155,8 @@ export function ControlsBar({
       <div className={styles.filterToggle}>
         <button
           className={styles.filterButton}
+          data-disabled={controlsDisabled}
+          disabled={controlsDisabled}
           onClick={() => setFiltersExpanded(!filtersExpanded)}
           aria-expanded={filtersExpanded}
         >
