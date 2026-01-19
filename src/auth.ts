@@ -31,12 +31,15 @@ export const authConfig: NextAuthConfig = {
     verifyRequest: "/verify-request",
   },
   callbacks: {
-    async signIn({ user, profile }) {
+    async signIn({ user, profile, account }) {
       // Get email from user (magic link) or profile (OAuth)
       const email = (user?.email ?? profile?.email ?? "").toLowerCase();
+      console.log("[auth] signIn attempt:", { email, provider: account?.provider, allowedEmails });
       if (!email) return false;
       if (allowedEmails.length === 0) return true;
-      return allowedEmails.includes(email);
+      const allowed = allowedEmails.includes(email);
+      console.log("[auth] signIn result:", { email, allowed });
+      return allowed;
     },
     async jwt({ token, user, profile }) {
       if (user?.email) {
