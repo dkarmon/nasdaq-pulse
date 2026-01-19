@@ -40,9 +40,12 @@ export async function getQuote(symbol: string): Promise<Quote | null> {
 export async function getCompanyProfile(
   symbol: string
 ): Promise<CompanyProfile | null> {
-  const liveProfile = await finnhub.getCompanyProfile(symbol);
-  if (liveProfile) {
-    return liveProfile;
+  // Skip Finnhub for TASE stocks (they return 403)
+  if (!symbol.endsWith(".TA")) {
+    const liveProfile = await finnhub.getCompanyProfile(symbol);
+    if (liveProfile) {
+      return liveProfile;
+    }
   }
 
   const mockDetail = mock.getStockDetail(symbol);
@@ -65,6 +68,7 @@ export async function getHistoricalData(
 export async function getStockDetail(
   symbol: string
 ): Promise<StockDetailResponse | null> {
+  // TLV stocks are stored with .TA suffix, so symbol is already in Yahoo format
   // Use Yahoo's combined endpoint for consistent data
   const yahooData = await yahoo.getQuoteAndGrowth(symbol);
 
@@ -72,10 +76,20 @@ export async function getStockDetail(
     return mock.getStockDetail(symbol);
   }
 
-  const profile = await getCompanyProfile(symbol);
+  // Try to get profile from Finnhub (skips TASE stocks)
+  let profile = await getCompanyProfile(symbol);
 
+  // Build minimal profile from Yahoo data if none available
   if (!profile) {
-    return mock.getStockDetail(symbol);
+    profile = {
+      symbol: yahooData.quote.symbol,
+      name: yahooData.quote.name,
+      exchange: yahooData.quote.exchange,
+      industry: "",
+      sector: "",
+      country: symbol.endsWith(".TA") ? "Israel" : "USA",
+      marketCap: 0,
+    };
   }
 
   return {
