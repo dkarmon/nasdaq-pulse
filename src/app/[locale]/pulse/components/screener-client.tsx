@@ -8,16 +8,10 @@ import { usePreferences } from "@/hooks/usePreferences";
 import { ControlsBar } from "./controls-bar";
 import { StockTable } from "./stock-table";
 import { StockCardList } from "./stock-card";
-import type { Stock, ScreenerResponse, Exchange } from "@/lib/market-data/types";
+import { filterAndSortByRecommendation } from "@/lib/market-data/recommendation";
+import type { Stock, ScreenerResponse } from "@/lib/market-data/types";
 import type { Dictionary } from "@/lib/i18n";
 import styles from "./screener-client.module.css";
-
-function isRecommended(stock: Stock): boolean {
-  if (stock.growth5d === undefined) return false;
-  return stock.growth5d < stock.growth1m &&
-         stock.growth1m < stock.growth6m &&
-         stock.growth6m < stock.growth12m;
-}
 
 type ScreenerClientProps = {
   initialData: ScreenerResponse;
@@ -55,9 +49,12 @@ export function ScreenerClient({
 
     setIsLoading(true);
     try {
+      // When in recommended mode, fetch all stocks and filter client-side
+      const limit = preferences.showRecommendedOnly ? 9999 : preferences.limit;
+
       const params = new URLSearchParams({
         sortBy: preferences.sortBy,
-        limit: preferences.limit.toString(),
+        limit: limit.toString(),
         max5d: String(preferences.filters.max5d),
         max1m: String(preferences.filters.max1m),
         max6m: String(preferences.filters.max6m),
@@ -125,7 +122,7 @@ export function ScreenerClient({
   );
 
   if (preferences.showRecommendedOnly) {
-    visibleStocks = visibleStocks.filter(isRecommended);
+    visibleStocks = filterAndSortByRecommendation(visibleStocks);
   }
 
   return (
@@ -137,6 +134,7 @@ export function ScreenerClient({
         filters={preferences.filters}
         searchQuery={searchQuery}
         showRecommendedOnly={preferences.showRecommendedOnly}
+        controlsDisabled={preferences.showRecommendedOnly}
         onExchangeChange={setExchange}
         onSortChange={setSortBy}
         onLimitChange={setLimit}

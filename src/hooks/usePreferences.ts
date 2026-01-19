@@ -8,6 +8,12 @@ import type { SortPeriod, FilterValue, ScreenerFilters, Exchange } from "@/lib/m
 
 export type HiddenSymbols = Record<Exchange, string[]>;
 
+export type PreRecommendedState = {
+  sortBy: SortPeriod;
+  limit: number;
+  filters: ScreenerFilters;
+};
+
 export type ScreenerPreferences = {
   sortBy: SortPeriod;
   limit: number;
@@ -15,6 +21,7 @@ export type ScreenerPreferences = {
   exchange: Exchange;
   hiddenSymbols: HiddenSymbols;
   showRecommendedOnly: boolean;
+  preRecommendedState: PreRecommendedState | null;
 };
 
 const STORAGE_KEY = "nasdaq-pulse-prefs";
@@ -34,6 +41,7 @@ const defaultPreferences: ScreenerPreferences = {
     tlv: [],
   },
   showRecommendedOnly: false,
+  preRecommendedState: null,
 };
 
 type LegacyPreferences = {
@@ -43,6 +51,7 @@ type LegacyPreferences = {
   hiddenSymbols?: string[] | HiddenSymbols;
   showRecommendedOnly?: boolean;
   exchange?: Exchange;
+  preRecommendedState?: PreRecommendedState | null;
 };
 
 function migrateHiddenSymbols(hiddenSymbols: string[] | HiddenSymbols | undefined): HiddenSymbols {
@@ -91,6 +100,7 @@ function loadPreferences(): ScreenerPreferences {
       exchange: parsed.exchange ?? defaultPreferences.exchange,
       hiddenSymbols: migrateHiddenSymbols(parsed.hiddenSymbols),
       showRecommendedOnly: parsed.showRecommendedOnly ?? defaultPreferences.showRecommendedOnly,
+      preRecommendedState: parsed.preRecommendedState ?? defaultPreferences.preRecommendedState,
     };
   } catch {
     return defaultPreferences;
@@ -191,7 +201,35 @@ export function usePreferences() {
 
   const setShowRecommendedOnly = useCallback((show: boolean) => {
     setPreferences((prev) => {
-      const next = { ...prev, showRecommendedOnly: show };
+      let next: ScreenerPreferences;
+
+      if (show) {
+        // Enabling: save current state and clear filters
+        next = {
+          ...prev,
+          showRecommendedOnly: true,
+          preRecommendedState: {
+            sortBy: prev.sortBy,
+            limit: prev.limit,
+            filters: { ...prev.filters },
+          },
+          filters: defaultPreferences.filters,
+        };
+      } else {
+        // Disabling: restore previous state if available
+        const restored = prev.preRecommendedState;
+        next = {
+          ...prev,
+          showRecommendedOnly: false,
+          preRecommendedState: null,
+          ...(restored && {
+            sortBy: restored.sortBy,
+            limit: restored.limit,
+            filters: { ...restored.filters },
+          }),
+        };
+      }
+
       savePreferences(next);
       return next;
     });

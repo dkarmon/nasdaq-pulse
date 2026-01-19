@@ -154,6 +154,12 @@
   color: #befae3;
 }
 
+.pill[data-disabled="true"] {
+  opacity: 0.4;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
 .filterToggle {
   display: flex;
 }
@@ -176,6 +182,12 @@
 
 .filterButton:hover {
   border-color: var(--accent);
+}
+
+.filterButton[data-disabled="true"] {
+  opacity: 0.4;
+  cursor: not-allowed;
+  pointer-events: none;
 }
 
 .filterDot {

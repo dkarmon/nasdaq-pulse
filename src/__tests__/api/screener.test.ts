@@ -4,9 +4,15 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { NextRequest } from "next/server";
 import { GET } from "@/app/api/screener/route";
+import { getAllMockStocks } from "@/lib/market-data/mock";
 
 vi.mock("next/cache", () => ({
   unstable_cache: <T,>(fn: () => T) => fn,
+}));
+
+vi.mock("@/lib/market-data/storage", () => ({
+  getStocks: vi.fn(() => Promise.resolve(getAllMockStocks())),
+  getLastUpdated: vi.fn(() => Promise.resolve(new Date().toISOString())),
 }));
 
 function createRequest(searchParams: Record<string, string> = {}): NextRequest {
@@ -66,8 +72,8 @@ describe("GET /api/screener", () => {
 
     expect(response.status).toBe(200);
     for (const stock of data.stocks) {
-      expect(stock.growth1m).toBeGreaterThanOrEqual(10);
-      expect(stock.growth6m).toBeGreaterThanOrEqual(25);
+      expect(stock.growth1m).toBeLessThanOrEqual(10);
+      expect(stock.growth6m).toBeLessThanOrEqual(25);
     }
   });
 
@@ -85,7 +91,7 @@ describe("GET /api/screener", () => {
   });
 
   it("defaults invalid limit to 50", async () => {
-    const request = createRequest({ limit: "999" });
+    const request = createRequest({ limit: "99999" });
     const response = await GET(request);
     const data = await response.json();
 
