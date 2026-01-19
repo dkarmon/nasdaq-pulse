@@ -86,9 +86,10 @@ export async function getStockDetail(
       name: yahooData.quote.name,
       exchange: yahooData.quote.exchange,
       industry: "",
-      sector: "",
-      country: symbol.endsWith(".TA") ? "Israel" : "USA",
       marketCap: 0,
+      peRatio: null,
+      week52High: 0,
+      week52Low: 0,
     };
   }
 
