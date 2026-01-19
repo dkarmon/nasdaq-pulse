@@ -21,6 +21,7 @@ export function PulseWrapper({ initialData, dict }: PulseWrapperProps) {
   const detailLabels = {
     backToList: dict.screener.backToList,
     price: dict.screener.price,
+    growth5d: dict.screener.growth5d,
     growth1m: dict.screener.growth1m,
     growth6m: dict.screener.growth6m,
     growth12m: dict.screener.growth12m,
@@ -32,6 +33,7 @@ export function PulseWrapper({ initialData, dict }: PulseWrapperProps) {
     live: dict.screener.live,
     loading: dict.screener.loading,
     error: dict.screener.error,
+    recommended: dict.screener.recommended,
   };
 
   return (

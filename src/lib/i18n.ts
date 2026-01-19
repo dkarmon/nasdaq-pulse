@@ -59,6 +59,7 @@ export type Dictionary = {
     noNews: string;
     viewAllNews: string;
     usingCachedData: string;
+    growth5d: string;
     growth1m: string;
     growth6m: string;
     growth12m: string;
@@ -68,6 +69,11 @@ export type Dictionary = {
     loading: string;
     error: string;
     hide: string;
+    recommended: string;
+    recommendedOnly: string;
+    exchange: string;
+    nasdaq: string;
+    tlv: string;
   };
   settings: {
     title: string;
@@ -190,6 +196,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
       noNews: "No recent news",
       viewAllNews: "View all news",
       usingCachedData: "Using cached data",
+      growth5d: "5D",
       growth1m: "1M",
       growth6m: "6M",
       growth12m: "12M",
@@ -199,6 +206,11 @@ export const dictionaries: Record<Locale, Dictionary> = {
       loading: "Loading",
       error: "Error",
       hide: "Hide",
+      recommended: "Recommended",
+      recommendedOnly: "Recommended only",
+      exchange: "Exchange",
+      nasdaq: "NASDAQ",
+      tlv: "Tel Aviv",
     },
     settings: {
       title: "Settings",
@@ -317,6 +329,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
       noNews: "אין חדשות אחרונות",
       viewAllNews: "כל החדשות",
       usingCachedData: "מציג נתונים מהמטמון",
+      growth5d: "5D",
       growth1m: "1M",
       growth6m: "6M",
       growth12m: "12M",
@@ -326,6 +339,11 @@ export const dictionaries: Record<Locale, Dictionary> = {
       loading: "טוען",
       error: "שגיאה",
       hide: "הסתר",
+      recommended: "מומלץ",
+      recommendedOnly: "מומלצים בלבד",
+      exchange: "בורסה",
+      nasdaq: "נאסד״ק",
+      tlv: "תל אביב",
     },
     settings: {
       title: "הגדרות",

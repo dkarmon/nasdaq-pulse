@@ -42,6 +42,7 @@ export type YahooQuote = {
 export type YahooGrowth = {
   symbol: string;
   currentPrice: number;
+  growth5d: number;
   growth1m: number;
   growth6m: number;
   growth12m: number;
@@ -118,6 +119,39 @@ function calculateGrowthByCalendarMonths(
   return ((currentPrice - pastPrice) / pastPrice) * 100;
 }
 
+function calculateGrowthByDays(
+  prices: number[],
+  timestamps: number[],
+  daysAgo: number
+): number {
+  if (prices.length === 0) return 0;
+
+  const currentPrice = prices[prices.length - 1];
+
+  // Calculate target date (days ago)
+  const targetDate = new Date();
+  targetDate.setDate(targetDate.getDate() - daysAgo);
+  const targetTime = targetDate.getTime();
+
+  // Find the price at the trading day on or after target date
+  let targetIdx = 0;
+  for (let i = 0; i < timestamps.length; i++) {
+    if (timestamps[i] * 1000 >= targetTime && prices[i] !== undefined) {
+      targetIdx = i;
+      break;
+    }
+    // Keep track of the last valid index in case target is before all data
+    if (prices[i] !== undefined) {
+      targetIdx = i;
+    }
+  }
+
+  const pastPrice = prices[targetIdx];
+  if (!pastPrice || pastPrice === 0) return 0;
+
+  return ((currentPrice - pastPrice) / pastPrice) * 100;
+}
+
 function detectLikelySplit(prices: number[], daysToCheck: number = 30): boolean {
   // Check for single-day jumps > 200% in recent history (likely reverse split)
   const startIdx = Math.max(0, prices.length - daysToCheck);
@@ -163,6 +197,7 @@ export async function getGrowthData(symbol: string): Promise<YahooGrowth | null>
   return {
     symbol: result.meta.symbol,
     currentPrice: result.meta.regularMarketPrice,
+    growth5d: calculateGrowthByDays(closePrices, validTimestamps, 5),
     growth1m: calculateGrowthByCalendarMonths(closePrices, validTimestamps, 1),
     growth6m: calculateGrowthByCalendarMonths(closePrices, validTimestamps, 6),
     growth12m: calculateGrowthByCalendarMonths(closePrices, validTimestamps, 12),
@@ -252,6 +287,7 @@ export async function getQuoteAndGrowth(symbol: string): Promise<{
     growth: {
       symbol: result.meta.symbol,
       currentPrice: result.meta.regularMarketPrice,
+      growth5d: calculateGrowthByDays(closePrices, validTimestamps, 5),
       growth1m: calculateGrowthByCalendarMonths(closePrices, validTimestamps, 1),
       growth6m: calculateGrowthByCalendarMonths(closePrices, validTimestamps, 6),
       growth12m: calculateGrowthByCalendarMonths(closePrices, validTimestamps, 12),

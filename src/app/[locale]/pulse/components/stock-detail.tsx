@@ -14,6 +14,7 @@ type StockDetailProps = {
   labels: {
     backToList: string;
     price: string;
+    growth5d: string;
     growth1m: string;
     growth6m: string;
     growth12m: string;
@@ -25,8 +26,16 @@ type StockDetailProps = {
     live: string;
     loading: string;
     error: string;
+    recommended: string;
   };
 };
+
+function isRecommendedStock(growth5d: number | undefined, growth1m: number, growth6m: number, growth12m: number): boolean {
+  if (growth5d === undefined) return false;
+  return growth5d < growth1m &&
+         growth1m < growth6m &&
+         growth6m < growth12m;
+}
 
 function formatPrice(value: number): string {
   return `$${value.toLocaleString(undefined, {
@@ -117,7 +126,7 @@ export function StockDetail({ symbol, onClose, labels }: StockDetailProps) {
     );
   }
 
-  const { profile, quote, history, growth1m, growth6m, growth12m } = detail;
+  const { profile, quote, history, growth5d, growth1m, growth6m, growth12m } = detail;
 
   return (
     <div className={styles.panel}>
@@ -132,6 +141,9 @@ export function StockDetail({ symbol, onClose, labels }: StockDetailProps) {
 
       <div className={styles.titleSection}>
         <div className={styles.symbolRow}>
+          {isRecommendedStock(growth5d, growth1m, growth6m, growth12m) && (
+            <span className={styles.starIcon} title={labels.recommended}>★</span>
+          )}
           <h2 className={styles.symbol}>{profile.symbol}</h2>
           <button
             className={styles.copyButton}
@@ -148,6 +160,16 @@ export function StockDetail({ symbol, onClose, labels }: StockDetailProps) {
         <div className={styles.metricCard}>
           <span className={styles.metricValue}>{formatPrice(quote.price)}</span>
           <span className={styles.metricLabel}>{labels.price}</span>
+        </div>
+        <div className={styles.metricCard}>
+          <span
+            className={styles.metricValue}
+            data-positive={(growth5d ?? 0) >= 0}
+            data-negative={(growth5d ?? 0) < 0}
+          >
+            {formatGrowth(growth5d ?? 0)}
+          </span>
+          <span className={styles.metricLabel}>{labels.growth5d}</span>
         </div>
         <div className={styles.metricCard}>
           <span

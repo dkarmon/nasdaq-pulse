@@ -73,6 +73,12 @@
   gap: 8px;
 }
 
+.starIcon {
+  color: #fbbf24;
+  font-size: 1.5rem;
+  cursor: help;
+}
+
 .symbol {
   font-family: var(--font-space-grotesk), var(--font-manrope), system-ui, sans-serif;
   font-size: 2rem;

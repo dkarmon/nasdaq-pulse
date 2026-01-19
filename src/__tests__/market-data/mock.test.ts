@@ -16,7 +16,8 @@ describe("Mock Market Data Provider", () => {
       const params: ScreenerParams = {
         sortBy: "1m",
         limit: 10,
-        filters: { max1m: "any", max6m: "any", max12m: "any" },
+        filters: { max5d: "any", max1m: "any", max6m: "any", max12m: "any" },
+        exchange: "nasdaq",
       };
 
       const result = getScreenerData(params);
@@ -36,7 +37,8 @@ describe("Mock Market Data Provider", () => {
       const params: ScreenerParams = {
         sortBy: "6m",
         limit: 10,
-        filters: { max1m: "any", max6m: "any", max12m: "any" },
+        filters: { max5d: "any", max1m: "any", max6m: "any", max12m: "any" },
+        exchange: "nasdaq",
       };
 
       const result = getScreenerData(params);
@@ -52,7 +54,8 @@ describe("Mock Market Data Provider", () => {
       const params: ScreenerParams = {
         sortBy: "12m",
         limit: 10,
-        filters: { max1m: "any", max6m: "any", max12m: "any" },
+        filters: { max5d: "any", max1m: "any", max6m: "any", max12m: "any" },
+        exchange: "nasdaq",
       };
 
       const result = getScreenerData(params);
@@ -68,7 +71,8 @@ describe("Mock Market Data Provider", () => {
       const params: ScreenerParams = {
         sortBy: "1m",
         limit: 5,
-        filters: { max1m: "any", max6m: "any", max12m: "any" },
+        filters: { max5d: "any", max1m: "any", max6m: "any", max12m: "any" },
+        exchange: "nasdaq",
       };
 
       const result = getScreenerData(params);
@@ -80,7 +84,8 @@ describe("Mock Market Data Provider", () => {
       const params: ScreenerParams = {
         sortBy: "1m",
         limit: 100,
-        filters: { max1m: "10", max6m: "any", max12m: "any" },
+        filters: { max5d: "any", max1m: "10", max6m: "any", max12m: "any" },
+        exchange: "nasdaq",
       };
 
       const result = getScreenerData(params);
@@ -94,7 +99,8 @@ describe("Mock Market Data Provider", () => {
       const params: ScreenerParams = {
         sortBy: "6m",
         limit: 100,
-        filters: { max1m: "any", max6m: "25", max12m: "any" },
+        filters: { max5d: "any", max1m: "any", max6m: "25", max12m: "any" },
+        exchange: "nasdaq",
       };
 
       const result = getScreenerData(params);
@@ -108,7 +114,8 @@ describe("Mock Market Data Provider", () => {
       const params: ScreenerParams = {
         sortBy: "12m",
         limit: 100,
-        filters: { max1m: "any", max6m: "any", max12m: 50 },
+        filters: { max5d: "any", max1m: "any", max6m: "any", max12m: 50 },
+        exchange: "nasdaq",
       };
 
       const result = getScreenerData(params);
@@ -122,7 +129,8 @@ describe("Mock Market Data Provider", () => {
       const params: ScreenerParams = {
         sortBy: "1m",
         limit: 100,
-        filters: { max1m: "5", max6m: "10", max12m: "25" },
+        filters: { max5d: "any", max1m: "5", max6m: "10", max12m: "25" },
+        exchange: "nasdaq",
       };
 
       const result = getScreenerData(params);

@@ -78,6 +78,12 @@
   letter-spacing: 0.02em;
 }
 
+.starIcon {
+  color: #fbbf24;
+  margin-right: 4px;
+  cursor: help;
+}
+
 .splitWarning {
   font-size: 0.9rem;
   cursor: help;

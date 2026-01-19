@@ -1,8 +1,7 @@
-// ABOUTME: API route returning screener data for NASDAQ stocks with growth metrics.
-// ABOUTME: Supports sorting by 1M/6M/12M growth and filtering by maximum growth thresholds.
+// ABOUTME: API route returning screener data with growth metrics.
+// ABOUTME: Supports NASDAQ and TLV exchanges, sorting, and filtering by maximum growth thresholds.
 
 import { NextRequest, NextResponse } from "next/server";
-import { unstable_cache } from "next/cache";
 import { getStocks, getLastUpdated } from "@/lib/market-data/storage";
 import { getScreenerData as getMockScreenerData } from "@/lib/market-data/mock";
 import type {
@@ -11,6 +10,7 @@ import type {
   SortPeriod,
   FilterValue,
   ScreenerResponse,
+  Exchange,
 } from "@/lib/market-data/types";
 
 function parseFilterValue(value: string | null): FilterValue {
@@ -28,7 +28,7 @@ function parseFilterValue(value: string | null): FilterValue {
 }
 
 function parseSortPeriod(value: string | null): SortPeriod {
-  if (value === "6m" || value === "12m") {
+  if (value === "5d" || value === "6m" || value === "12m") {
     return value;
   }
   return "1m";
@@ -42,6 +42,13 @@ function parseLimit(value: string | null): number {
   return 50;
 }
 
+function parseExchange(value: string | null): Exchange {
+  if (value === "tlv") {
+    return "tlv";
+  }
+  return "nasdaq";
+}
+
 function applyFilters(stocks: Stock[], params: ScreenerParams): Stock[] {
   const filterValue = (value: FilterValue): number => {
     if (value === "any") return Infinity;
@@ -49,11 +56,13 @@ function applyFilters(stocks: Stock[], params: ScreenerParams): Stock[] {
     return parseFloat(value);
   };
 
+  const max5d = filterValue(params.filters.max5d);
   const max1m = filterValue(params.filters.max1m);
   const max6m = filterValue(params.filters.max6m);
   const max12m = filterValue(params.filters.max12m);
 
   return stocks.filter((stock) =>
+    (stock.growth5d ?? 0) <= max5d &&
     stock.growth1m <= max1m &&
     stock.growth6m <= max6m &&
     stock.growth12m <= max12m
@@ -64,6 +73,7 @@ function sortStocks(stocks: Stock[], sortBy: SortPeriod): Stock[] {
   const sorted = [...stocks];
   sorted.sort((a, b) => {
     switch (sortBy) {
+      case "5d": return (b.growth5d ?? 0) - (a.growth5d ?? 0);
       case "1m": return b.growth1m - a.growth1m;
       case "6m": return b.growth6m - a.growth6m;
       case "12m": return b.growth12m - a.growth12m;
@@ -74,9 +84,11 @@ function sortStocks(stocks: Stock[], sortBy: SortPeriod): Stock[] {
 }
 
 async function fetchScreenerData(params: ScreenerParams, search?: string): Promise<ScreenerResponse> {
+  const exchange = params.exchange;
+
   // Try to get data from Redis first
-  const stocks = await getStocks();
-  const lastUpdated = await getLastUpdated();
+  const stocks = await getStocks(exchange);
+  const lastUpdated = await getLastUpdated(exchange);
 
   if (stocks.length > 0) {
     let filtered = stocks;
@@ -84,7 +96,11 @@ async function fetchScreenerData(params: ScreenerParams, search?: string): Promi
     // Apply search filter first (matches symbol prefix)
     if (search && search.length > 0) {
       const searchUpper = search.toUpperCase();
-      filtered = filtered.filter(stock => stock.symbol.startsWith(searchUpper));
+      // For TLV, symbols have .TA suffix, so match with or without it
+      filtered = filtered.filter(stock => {
+        const baseSymbol = stock.symbol.replace(/\.TA$/, "");
+        return stock.symbol.startsWith(searchUpper) || baseSymbol.startsWith(searchUpper);
+      });
     }
 
     filtered = applyFilters(filtered, params);
@@ -95,11 +111,22 @@ async function fetchScreenerData(params: ScreenerParams, search?: string): Promi
       stocks: filtered,
       updatedAt: lastUpdated ?? new Date().toISOString(),
       source: "live",
+      exchange,
     };
   }
 
-  // Fall back to mock data if Redis is empty
-  return getMockScreenerData(params);
+  // Fall back to mock data if Redis is empty (only for NASDAQ)
+  if (exchange === "nasdaq") {
+    return getMockScreenerData(params);
+  }
+
+  // Return empty for TLV if no data
+  return {
+    stocks: [],
+    updatedAt: new Date().toISOString(),
+    source: "cached",
+    exchange,
+  };
 }
 
 export async function GET(request: NextRequest) {
@@ -109,10 +136,12 @@ export async function GET(request: NextRequest) {
     sortBy: parseSortPeriod(searchParams.get("sortBy")),
     limit: parseLimit(searchParams.get("limit")),
     filters: {
+      max5d: parseFilterValue(searchParams.get("max5d")),
       max1m: parseFilterValue(searchParams.get("max1m")),
       max6m: parseFilterValue(searchParams.get("max6m")),
       max12m: parseFilterValue(searchParams.get("max12m")),
     },
+    exchange: parseExchange(searchParams.get("exchange")),
   };
 
   const search = searchParams.get("search") ?? undefined;

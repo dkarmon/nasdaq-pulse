@@ -1,5 +1,5 @@
 // ABOUTME: Client component orchestrating the screener UI state and data fetching.
-// ABOUTME: Manages preferences, filters, sorting, and selected stock state.
+// ABOUTME: Manages preferences, filters, sorting, exchange selection, and selected stock state.
 
 "use client";
 
@@ -8,9 +8,16 @@ import { usePreferences } from "@/hooks/usePreferences";
 import { ControlsBar } from "./controls-bar";
 import { StockTable } from "./stock-table";
 import { StockCardList } from "./stock-card";
-import type { Stock, ScreenerResponse } from "@/lib/market-data/types";
+import type { Stock, ScreenerResponse, Exchange } from "@/lib/market-data/types";
 import type { Dictionary } from "@/lib/i18n";
 import styles from "./screener-client.module.css";
+
+function isRecommended(stock: Stock): boolean {
+  if (stock.growth5d === undefined) return false;
+  return stock.growth5d < stock.growth1m &&
+         stock.growth1m < stock.growth6m &&
+         stock.growth6m < stock.growth12m;
+}
 
 type ScreenerClientProps = {
   initialData: ScreenerResponse;
@@ -33,7 +40,10 @@ export function ScreenerClient({
     setFilter,
     clearFilters,
     hasActiveFilters,
+    setExchange,
     hideStock,
+    setShowRecommendedOnly,
+    currentHiddenSymbols,
   } = usePreferences();
 
   const [stocks, setStocks] = useState<Stock[]>(initialData.stocks);
@@ -48,9 +58,11 @@ export function ScreenerClient({
       const params = new URLSearchParams({
         sortBy: preferences.sortBy,
         limit: preferences.limit.toString(),
+        max5d: String(preferences.filters.max5d),
         max1m: String(preferences.filters.max1m),
         max6m: String(preferences.filters.max6m),
         max12m: String(preferences.filters.max12m),
+        exchange: preferences.exchange,
       });
 
       if (search) {
@@ -82,41 +94,56 @@ export function ScreenerClient({
     clearAll: dict.screener.clearAll,
     any: dict.screener.any,
     search: dict.screener.search,
+    recommendedOnly: dict.screener.recommendedOnly,
+    exchange: dict.screener.exchange,
+    nasdaq: dict.screener.nasdaq,
+    tlv: dict.screener.tlv,
   };
 
   const tableLabels = {
     stock: dict.screener.stock,
     price: dict.screener.price,
     growth: dict.screener.growth,
+    growth5d: dict.screener.growth5d,
     growth1m: dict.screener.growth1m,
     growth6m: dict.screener.growth6m,
     growth12m: dict.screener.growth12m,
     view: dict.screener.view,
     noStocks: dict.screener.noStocks,
     hide: dict.screener.hide,
+    recommended: dict.screener.recommended,
   };
 
   const cardLabels = {
     noStocks: dict.screener.noStocks,
     hide: dict.screener.hide,
+    recommended: dict.screener.recommended,
   };
 
-  const visibleStocks = stocks.filter(
-    (stock) => !preferences.hiddenSymbols.includes(stock.symbol)
+  let visibleStocks = stocks.filter(
+    (stock) => !currentHiddenSymbols.includes(stock.symbol)
   );
+
+  if (preferences.showRecommendedOnly) {
+    visibleStocks = visibleStocks.filter(isRecommended);
+  }
 
   return (
     <div className={styles.screener}>
       <ControlsBar
+        exchange={preferences.exchange}
         sortBy={preferences.sortBy}
         limit={preferences.limit}
         filters={preferences.filters}
         searchQuery={searchQuery}
+        showRecommendedOnly={preferences.showRecommendedOnly}
+        onExchangeChange={setExchange}
         onSortChange={setSortBy}
         onLimitChange={setLimit}
         onFilterChange={setFilter}
         onClearFilters={clearFilters}
         onSearchChange={setSearchQuery}
+        onShowRecommendedOnlyChange={setShowRecommendedOnly}
         hasActiveFilters={hasActiveFilters}
         labels={controlLabels}
       />

@@ -1,0 +1,2457 @@
+[
+  {
+    "symbol": "ABOU",
+    "name": "Abou Family Residence Ltd",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "ABRA",
+    "name": "Abra Information Technologies Inc.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "ACCL",
+    "name": "Accel Solutions Group Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "ACKR",
+    "name": "Ackerstein Group Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "ACRO",
+    "name": "Kvutzat Acro Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "ADGR",
+    "name": "Adgar Investment & Development Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "AFHL",
+    "name": "Afcon Holdings Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "AFPR",
+    "name": "Afi Properties Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "AFRE",
+    "name": "Africa Israel Residences Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "AGRD",
+    "name": "Autonomous Guard Ltd",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "AILN",
+    "name": "Axilion Smart Mobility Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "ALAR",
+    "name": "Alarum Technologies Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "ALBA",
+    "name": "Albaad Massuot Yitzhak Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "ALHE",
+    "name": "Alony Hetz Properties & Investments Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "ALLT",
+    "name": "Allot Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "ALMA",
+    "name": "Almogim Holdings Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "ALMD",
+    "name": "Allmed Solutions Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "ALMY",
+    "name": "Alma Essentials Ltd",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "ALRPR",
+    "name": "Alrov Properties and Lodging Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "ALTF",
+    "name": "Altshuler Shaham Pinnacle Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "ALUMA",
+    "name": "Aluma Infrastructure Fund Inc.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "AMAL",
+    "name": "Amal Holdings A.D. Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "AMAN",
+    "name": "Amanet Management & Systems Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "AMD",
+    "name": "Amiad Water Systems Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "AMOT",
+    "name": "Amot Investments Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "AMPA",
+    "name": "Ampa Limited",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "AMRK",
+    "name": "Amir Marketing and Investments Ltd",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "AMRM",
+    "name": "Amram Avraham Construction Company",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "AMX",
+    "name": "Automax Motors Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "ANGL",
+    "name": "Salomon A. Angel Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "ANLT",
+    "name": "Analyst I.M.S. Inc.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "APLP",
+    "name": "Apollo Power Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "AQUA",
+    "name": "Aquarius Engines AM Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "ARAN",
+    "name": "Aran Research & Development Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "ARBE",
+    "name": "Arbe Robotics Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "ARD",
+    "name": "Arad Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "ARDM",
+    "name": "Aerodrome Group Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "ARF",
+    "name": "Ashdod Refinery Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "ARGO",
+    "name": "Argo Properties N.V.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "ARIN",
+    "name": "Ari Real Estate Arena Investments Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "ARPT",
+    "name": "Airport City Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "ARTS",
+    "name": "Airtouch Solar Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "ARYT",
+    "name": "Aryt Industries Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "ASGR",
+    "name": "Aspen Group Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "ASHG",
+    "name": "Ashtrom Group Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "ASHO",
+    "name": "Ashot Ashkelon Industries Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "ATRY",
+    "name": "Atreyu Capital Markets Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "AUDC",
+    "name": "Audiocodes Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "AUGN",
+    "name": "Augwind Energy Tech Storage Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "AUIS",
+    "name": "Es Australia Israel Holdings Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "AURA",
+    "name": "Aura Investments Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "AVER",
+    "name": "Averbuch Formica Center Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "AVGD",
+    "name": "Av-Gad Holdings Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "AVGL",
+    "name": "Avgol Industries 1953 Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "AVIA",
+    "name": "Aviation Links Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "AVIV",
+    "name": "Mordechai Aviv Taasiot Beniy Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "AVRT",
+    "name": "Avrot Industries Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "AXN",
+    "name": "Exxon Mobil Corporation",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "AYAL",
+    "name": "Ayalon Insurance Company Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "AZRG",
+    "name": "Azrieli Group Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "AZRM",
+    "name": "Azorim Investment Development Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "BARI",
+    "name": "Barak Beit Investments Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "BBLS",
+    "name": "Bubbles Intergroup Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "BCOM",
+    "name": "B Communications Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "BEZQ",
+    "name": "Bezeq The Israeli Telecom Company Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "BHNY",
+    "name": "Beeio Honey Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "BIG",
+    "name": "Big Shopping Centers Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "BIOV",
+    "name": "Bio View Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "BIRM",
+    "name": "Birman Wood and Hardware Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "BKFR",
+    "name": "Bait Bakfar Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "BKRY",
+    "name": "Bikurey Hasade Holdings Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "BLDI",
+    "name": "Baladi Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "BLEG",
+    "name": "Blackedge Ltd",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "BLGO",
+    "name": "Buligo Capital Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "BLND",
+    "name": "Blender Finance Technologies Inc.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "BLRN",
+    "name": "BladeRanger Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "BLRX",
+    "name": "BioLineRx Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "BLSR",
+    "name": "Blue Square Real Estate Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "BOLT",
+    "name": "Biolight Life Sciences Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "BONS",
+    "name": "Bonus BioGroup Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "BOTI",
+    "name": "Bonei Hatichon Civil Engineering Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "BRAM",
+    "name": "Bram Industries Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "BRAN",
+    "name": "Baran Group Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "BRIH",
+    "name": "Rav Bariach Industries Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "BRIL",
+    "name": "Brill Shoe Industries Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "BRKT",
+    "name": "Bareket Capital Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "BRMG",
+    "name": "Brimag Digital Age Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "BRND",
+    "name": "Brand Industries Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "BSEN",
+    "name": "Bet Shemesh Engines Holdings Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "BUFT",
+    "name": "Buff Technologies Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "BVC",
+    "name": "BATM Advanced Communications Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "BVGG",
+    "name": "Bait Ve Gag Real Estate Development Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "BWAY",
+    "name": "BrainsWay Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "BYON",
+    "name": "Byond3D Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "CAMT",
+    "name": "Camtek Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "CANF",
+    "name": "Can-Fite BioPharma Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "CAST",
+    "name": "Castro Model Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "CBI",
+    "name": "Clal Biotechnology Industries Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "CDEV",
+    "name": "Cohen Development Gas & Oil Inc.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "CEL",
+    "name": "Cellcom Israel Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "CGEN",
+    "name": "Compugen Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "CILO",
+    "name": "Cielo-Blu Group Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "CION",
+    "name": "Cion Investment Corporation",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "CISY",
+    "name": "Ci Systems (Israel) Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "CLAB",
+    "name": "C-Lab Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "CLIS",
+    "name": "Clal Insurance Enterprises Holdings Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "CMDR",
+    "name": "Computer Direct Group Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "CMER",
+    "name": "C. Mer Industries Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "CNGL",
+    "name": "Canada Global (Trading) Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "CNTC",
+    "name": "Cannabotech Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "CPIA",
+    "name": "Cipia Vision Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "CPPL",
+    "name": "City People of Rotshtein Group Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "CPTP",
+    "name": "Capital Point Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "CRML",
+    "name": "Carmel Corp Ltd",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "CRMT",
+    "name": "Carmit Candy Industries Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "CRSM",
+    "name": "Carasso Motors Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "CRSR",
+    "name": "Carasso Real Estate Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "DANE",
+    "name": "Danel (Adir Yeoshua) Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "DANH",
+    "name": "Dan Hotels Corp. Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "DELG",
+    "name": "Delta Galil Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "DIFI",
+    "name": "Direct Finance of Direct Group Inc.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "DIMRI",
+    "name": "YH Dimri Construction & Development Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "DIPL",
+    "name": "Diplomat Holdings Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "DISI",
+    "name": "Discount Investment Corporation Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "DLEA",
+    "name": "Delek Automotive Systems Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "DLEKG",
+    "name": "Delek Group Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "DLPR",
+    "name": "Delek Israel Properties (D.P.) Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "DLTI",
+    "name": "Delta Israel Brands Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "DNA",
+    "name": "DNA Group Trust Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "DNYA",
+    "name": "Danya Cebus Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "DORL",
+    "name": "Doral Group Renewable Energy Resources Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "DRAL",
+    "name": "Dor Alon Energy in Israel Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "DRSH",
+    "name": "Dorsel Holdings Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "DSCT",
+    "name": "Israel Discount Bank Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "DUNI",
+    "name": "Duniec Brothers Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "ECNR",
+    "name": "Econergy Renewable Energy Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "ECP",
+    "name": "Electra Consumer Products Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "EFCP",
+    "name": "Effi Capital Nadlan Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "ELAD",
+    "name": "Elad Software Systems Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "ELAL",
+    "name": "El Al Israel Airlines Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "ELCO",
+    "name": "Elco Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "ELCP",
+    "name": "Electra Power Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "ELCRE",
+    "name": "Electra Real Estate Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "ELDT",
+    "name": "Eldan Transportation Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "ELLO",
+    "name": "Ellomay Capital Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "ELMR",
+    "name": "Elmor Electrical Installation Inc.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "ELRN",
+    "name": "Elron Ventures Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "ELSPC",
+    "name": "Elspec Engineering Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "ELTR",
+    "name": "Electra Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "ELWS",
+    "name": "Electreon Wireless Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "EMCO",
+    "name": "E&M Computing Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "EMDV",
+    "name": "Emilia Development Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "EMITF",
+    "name": "Elbit Imaging Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "ENLT",
+    "name": "Enlight Renewable Energy Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "ENLV",
+    "name": "Enlivex Therapeutics Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "ENOG",
+    "name": "Energean Plc",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "ENRG",
+    "name": "Energix-Renewable Energies Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "EPIT",
+    "name": "Epitomee Medical Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "EQTL",
+    "name": "Equital Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "ERKA",
+    "name": "Erika Carmel-Tech Ltd",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "ESLT",
+    "name": "Elbit Systems Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "ETGA",
+    "name": "Etga Group Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "EVGN",
+    "name": "Evogene Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "EXPO",
+    "name": "Export Investment Co. Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "FBRT",
+    "name": "FMS Enterprises Migun Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "FGAS",
+    "name": "Fire & Gas Detection Technologies Inc.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "FIBI",
+    "name": "First International Bank of Israel Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "FIBIH",
+    "name": "Fibi Holdings Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "FLYS",
+    "name": "Flying Sparks Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "FORTY",
+    "name": "Formula Systems (1985) Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "FOX",
+    "name": "Fox-Wizel Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "FRDN",
+    "name": "Fridenson Logistic Services Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "FRSX",
+    "name": "Foresight Autonomous Holdings Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "FTAL",
+    "name": "Fattal Holdings 1998 Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "GAD",
+    "name": "Gad Dairies (Marketing 1992) Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "GAGR",
+    "name": "Gaon Group Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "GCT",
+    "name": "G City Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "GEFR",
+    "name": "Gefen Residential and Renewal Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "GIBUI",
+    "name": "Gibui Holdings Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "GILT",
+    "name": "Gilat Satellite Networks Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "GIX",
+    "name": "Gix Internet Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "GKL",
+    "name": "Global Knafaim Leasing Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "GLDE",
+    "name": "Golden Energy Power Ltd",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "GLRS",
+    "name": "Globrands Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "GLTL",
+    "name": "Gilat Telecom Global Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "GMLA",
+    "name": "Gamla - Harel Residential Real-Estate Ltd",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "GNCL",
+    "name": "Gencell Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "GNGR",
+    "name": "Ginegar Plastic Products Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "GNRS",
+    "name": "Generation Capital Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "GOHO",
+    "name": "Golden House Inc.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "GOLD",
+    "name": "Gold Bond Group Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "GOLF",
+    "name": "Golf & Co Group Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "GOSS",
+    "name": "G1 Secure Solutions Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "GOTO",
+    "name": "Goto Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "GRAC",
+    "name": "Grace Breeding Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "GRIN",
+    "name": "Golan Renewable Industries Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "GSFI",
+    "name": "Gan Shmuel Foods Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "GVYM",
+    "name": "Gav-Yam Lands Corp Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "HAMAT",
+    "name": "Hamat Group Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "HARL",
+    "name": "Harel Insurance Investments & Financial Services Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "HGG",
+    "name": "Hagag Group Real Estate Development Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "HGGE",
+    "name": "Hagag Europe Development Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "HIPR",
+    "name": "Hiper Global Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "HLAN",
+    "name": "Hilan Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "HLMS",
+    "name": "Holmes Place International Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "HMAM",
+    "name": "Hamama Meir Trading 1996 Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "HMGS",
+    "name": "HomeBiogas Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "HOD",
+    "name": "Hod Assaf Industries Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "HRON",
+    "name": "Hiron Trade Investment Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "IBI",
+    "name": "Ibi Investment House Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "IBIU",
+    "name": "IBI Managing & Underwriting Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "ICHO",
+    "name": "Israel Canada Hotels Ltd",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "ICL",
+    "name": "ICL Group Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "ICON",
+    "name": "Icon Group Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "IDIN",
+    "name": "Idi Insurance Co. Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "IDMO",
+    "name": "Idomoo Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "IDNT",
+    "name": "Identi Healthcare Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "IES",
+    "name": "IES Holdings, Inc.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "ILCO",
+    "name": "Israel Corporation Limited",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "ILDC",
+    "name": "Israel Land Development Company Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "ILDR",
+    "name": "Israel Land Development Company Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "ILX",
+    "name": "Ilex Medical Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "IMCO",
+    "name": "Imco Industries Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "INCR",
+    "name": "Intercure Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "ININ",
+    "name": "Inter Industries Plus Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "INRM",
+    "name": "Inrom Construction Industries Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "INTR",
+    "name": "Inter-Gama Investment Co.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "ISCD",
+    "name": "Isracard Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "ISCN",
+    "name": "Israel Canada T.R Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "ISHI",
+    "name": "Israel Shipyards Industries Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "ISHO",
+    "name": "Isras Holdings Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "ISI",
+    "name": "ImageSat International Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "ISRG",
+    "name": "Israir Group Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "ISRO",
+    "name": "Isrotel Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "ISRS",
+    "name": "Isras Investment Company Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "ISTA",
+    "name": "Issta Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "JBNK",
+    "name": "Bank of Jerusalem Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "JCFN",
+    "name": "Jacob Finance and Investment Inc.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "JEEN",
+    "name": "Jeen Technologies AI Ltd",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "JNGO",
+    "name": "Jungo Connectivity Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "KAFR",
+    "name": "Kafrit Industries (1993) Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "KARE",
+    "name": "Kardan Real Estate Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "KEN",
+    "name": "Kenon Holdings Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "KLIL",
+    "name": "Klil Industries Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "KMDA",
+    "name": "Kamada Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "KNFM",
+    "name": "Knafaim Holdings Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "KRDI",
+    "name": "Kardan Israel Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "KRUR",
+    "name": "Kerur Holdings Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "LAHAV",
+    "name": "Lahav L.R. Real Estate Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "LAPD",
+    "name": "Lapidoth Capital Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "LBRA",
+    "name": "Libra Insurance Company Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "LBTL",
+    "name": "A. Libental Holdings Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "LCTX",
+    "name": "Lineage Cell Therapeutics Inc.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "LEOF",
+    "name": "Levinski Ofer Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "LEVI",
+    "name": "Meshulam Levinstein Contracting & Engineering Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "LHIS",
+    "name": "Lachish Industries Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "LODZ",
+    "name": "Lodzia Real Estate Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "LPSN",
+    "name": "LivePerson, Inc.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "LSCO",
+    "name": "Lesico Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "LUDN",
+    "name": "Ludan Engineering Co. Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "LUDT",
+    "name": "Ludan-Tech Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "LUMI",
+    "name": "Bank Leumi Le-Israel B.M.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "LURO",
+    "name": "Luzon Ronson N.V.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "LUZN",
+    "name": "Luzon Group",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "MAXO",
+    "name": "Max Stock Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "MCLL",
+    "name": "Michlol Finance Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "MCMN",
+    "name": "Michman Maimon Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "MCPL",
+    "name": "Michpal Technologies Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "MDPR",
+    "name": "Medipower Overseas Public Co. Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "MDTR",
+    "name": "Mediterranean Towers Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "MEDN",
+    "name": "Mehadrin Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "MGDL",
+    "name": "Migdal Insurance and Financial Holdings Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "MGDO",
+    "name": "Megiddo Y.K. Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "MGIC",
+    "name": "Magic Software Enterprises Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "MGOR",
+    "name": "Mega Or Holdings Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "MIA",
+    "name": "Mia Dynamics Motors Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "MIFT",
+    "name": "Millennium Food-Tech Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "MISH",
+    "name": "Mivtach Shamir Holdings Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "MLD",
+    "name": "Mirland Development Corporation",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "MLRN",
+    "name": "Mlran Projects & Trading Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "MLSR",
+    "name": "Melisron Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "MLTH",
+    "name": "Malam-Team Holdings Ltd",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "MLTM",
+    "name": "Malam-Team Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "MMHD",
+    "name": "Menora Mivtachim Holdings Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "MNIF",
+    "name": "Menif Financial Services Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "MNIN",
+    "name": "Mendelson Infrastructures & Industries Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "MPP",
+    "name": "Menora Mivtachim Holdings Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "MPRS",
+    "name": "Medipress Health L.P.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "MRG",
+    "name": "Multi Retail Group Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "MRHL",
+    "name": "Merchavia Holdings and Investments Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "MRIN",
+    "name": "Y.D. More Investments Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "MSBI",
+    "name": "Hamashbir 365 Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "MSHR",
+    "name": "Mishorim Real Estate Investments Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "MSKE",
+    "name": "Meshek Energy Renewable Energies Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "MSLA",
+    "name": "Maslavi Construction Co. Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "MSVT",
+    "name": "Massivit 3D Printing Technologies Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "MTAV",
+    "name": "Meitav Investments House Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "MTLF",
+    "name": "Matricelf Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "MTRD",
+    "name": "Meitav Investments Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "MTRN",
+    "name": "Maytronics Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "MTRX",
+    "name": "Matrix IT Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "MVNE",
+    "name": "Mivne Real Estate K.D. Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "MYDS",
+    "name": "Mydas Real Estate Investment",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "MZTF",
+    "name": "Mizrahi Tefahot Bank Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "NAWI",
+    "name": "Nawi Group Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "NFTA",
+    "name": "Naphtha Israel Petroleum Corp.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "NICE",
+    "name": "Nice Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "NISA",
+    "name": "Nissan Medical Industries Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "NOFR",
+    "name": "Nofar Energy Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "NRGN",
+    "name": "Nrgene Technologies Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "NSTR",
+    "name": "Norstar Holdings Inc.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "NTGR",
+    "name": "Netanel Group Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "NTML",
+    "name": "Neto Malinda Trading Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "NTNB",
+    "name": "Netanel Menivim Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "NTO",
+    "name": "Neto Me Holdings Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "NURI",
+    "name": "Nur Ink Innovations Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "NVLG",
+    "name": "Novolog Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "NVMI",
+    "name": "Nova Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "NXGN",
+    "name": "NextGen Biomed Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "NXSN",
+    "name": "Next Vision Stabilized Systems Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "NXTG",
+    "name": "Nextage Therapeutics Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "NXTM",
+    "name": "Nextcom Ltd",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "NYAX",
+    "name": "Nayax Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "OMCN",
+    "name": "Omer Construction & Engineering (1986) Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "ONE",
+    "name": "One Software Technologies Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "OPAL",
+    "name": "Opal Balance Investments Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "OPCE",
+    "name": "Opc Energy Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "OPK",
+    "name": "Opko Health Inc.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "ORA",
+    "name": "Ormat Technologies Inc.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "ORAD",
+    "name": "Orad Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "ORBI",
+    "name": "Orbit Technologies Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "ORIN",
+    "name": "Orian Shm Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "ORL",
+    "name": "Oil Refineries Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "ORMP",
+    "name": "Oramed Pharmaceuticals Inc.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "ORNP",
+    "name": "Orion Retail Properties Ltd",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "ORON",
+    "name": "Oron Group Investments & Holdings Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "ORTC",
+    "name": "O.R.T Technologies Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "OVRS",
+    "name": "Overseas Commerce Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "PAYT",
+    "name": "Payton Industries Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "PAZ",
+    "name": "Paz Retail and Energy Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "PCBT",
+    "name": "P.C.B. Technologies Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "PEN",
+    "name": "Peninsula Group Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "PERI",
+    "name": "Perion Network Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "PFLT",
+    "name": "PennantPark Floating Rate Capital Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "PHOE",
+    "name": "Phoenix Financial Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "PHTM",
+    "name": "Photomyne Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "PIES",
+    "name": "Pies Siam Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "PLCR",
+    "name": "Plasto Cargal Group Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "PLNT",
+    "name": "PlantArc Bio Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "PLRM",
+    "name": "Palram Industries (1990) Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "PLSN",
+    "name": "Plasson Industries Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "PLUR",
+    "name": "Pluri Inc.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "PMNT",
+    "name": "Payment Financial Technologies Inc.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "PMVM",
+    "name": "Pomvom Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "PNRG",
+    "name": "Phinergy Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "POLI",
+    "name": "Bank Hapoalim B.M.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "POLP",
+    "name": "Polyram Plastic Industries Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "POLY",
+    "name": "Polygon Real Estate Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "PPBT",
+    "name": "Purple Biotech Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "PPIL",
+    "name": "Plastopil Hazorea Company Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "PRIM",
+    "name": "Prime Energy P.E. Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "PRKM",
+    "name": "Parkomat Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "PRMG",
+    "name": "Primotec Group Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "PRPD",
+    "name": "Propdo Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "PRSK",
+    "name": "Prashkovsky Investments & Co.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "PRTC",
+    "name": "Priortech Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "PSRX",
+    "name": "PsyRX CNS Bio-Tech Ltd",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "PTBL",
+    "name": "Property & Building Corp Ltd",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "PTCH",
+    "name": "Israel Petrochemical Enterprises Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "PTNR",
+    "name": "Partner Communications Co. Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "PULS",
+    "name": "Pulsenmore Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "QLTU",
+    "name": "QualiTau Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "QNCO",
+    "name": "Queenco Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "RANI",
+    "name": "Rani Zim Shopping Centers Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "RAVD",
+    "name": "Ravad Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "REKA",
+    "name": "Rekah Pharmaceutical Industry Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "RGAS",
+    "name": "R.G.A. Services & Cleaning (Israel) 1987 Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "RIMO",
+    "name": "Rimoni Industries Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "RLCO",
+    "name": "Ralco Agencies Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "RMLI",
+    "name": "Rami Levy Chain Stores Hashikma Marketing Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "RMN",
+    "name": "Ram-On Investments and Holdings Inc.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "RMON",
+    "name": "Og Rimon Consulting Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "ROBO",
+    "name": "Robogroup T.E.K Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "ROTS",
+    "name": "Rotshtein Real Estate Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "RPAC",
+    "name": "Rapac Communication & Infrastructure Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "RPOL",
+    "name": "RP Optical Lab Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "RSEL",
+    "name": "RSL Electronics Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "RTEN",
+    "name": "Rotem Energy Mineral Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "RTLS",
+    "name": "Retailors Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "RTSN",
+    "name": "Rotem Shani Entrepreneurship Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "RVL",
+    "name": "Raval ICS Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "RZR",
+    "name": "Razor Labs Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "SADE",
+    "name": "Sade Real Estate-Y.S. Ltd",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "SAE",
+    "name": "Shufersal Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "SARN",
+    "name": "Sarine Technologies Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "SBEN",
+    "name": "Shikun & Binui Soltec Renewable Energy Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "SCC",
+    "name": "Space Communication Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "SCDX",
+    "name": "Scodix Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "SCOP",
+    "name": "Scope Metals Group Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "SEMG",
+    "name": "Seach Medical Group Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "SFRN",
+    "name": "Sufrin Holdings Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "SHAN",
+    "name": "Shaniv Paper Industries Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "SHGR",
+    "name": "Shagrir Group Vehicle Services Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "SHMM",
+    "name": "Shamaym Improve Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "SHNP",
+    "name": "E. Schnapp Co. Works Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "SHOM",
+    "name": "E.N. Shoham Business Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "SHVA",
+    "name": "Automatic Bank Services Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "SHVL",
+    "name": "Shoval Engineering & Construction Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "SKBN",
+    "name": "Shikun & Binui Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "SKLN",
+    "name": "Skyline Investments Inc.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "SLCL",
+    "name": "Silver Castle Holdings Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "SLRM",
+    "name": "Solrom Holdings Ltd",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "SMNR",
+    "name": "Shemen Yielding Real Estate Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "SMT",
+    "name": "Summit Real Estate Holdings Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "SNCM",
+    "name": "Suny Cellular Communication Inc.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "SNEL",
+    "name": "Synel MLL Payway Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "SNFL",
+    "name": "Sunflower Sustainable Investments Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "SOFW",
+    "name": "SofWave Medical Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "SOLR",
+    "name": "Solaer Renewable Energies Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "SOLT",
+    "name": "Solterra Energy Ltd",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "SONO",
+    "name": "Sonovia Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "SONR",
+    "name": "Sonol Real Estate and Investments Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "SPDV",
+    "name": "SpeedValue Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "SPEN",
+    "name": "Shapir Engineering and Industry Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "SPGS",
+    "name": "Supergas Power (2019) Ltd",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "SPNTC",
+    "name": "Spuntech Industries Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "SPRG",
+    "name": "Spring Ventures Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "SRAC",
+    "name": "S.R Accord Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "SRFT",
+    "name": "Sarfati S.A.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "STG",
+    "name": "Stg International Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "STRG",
+    "name": "Storage Drop Storage Technology Inc.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "STRS",
+    "name": "Strauss Group Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "SUGT",
+    "name": "Sugat Group Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "SVRE",
+    "name": "SaverOne 2014 Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "TASE",
+    "name": "Tel Aviv Stock Exchange Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "TATT",
+    "name": "Tat Technologies Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "TAYA",
+    "name": "Taya Investment Co. Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "TDRN",
+    "name": "Tadiran Group Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "TECT",
+    "name": "Tectona Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "TEDE",
+    "name": "Tedea Tech Development & Automation",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "TEVA",
+    "name": "Teva Pharmaceutical Industries Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "TFRLF",
+    "name": "Tefron Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "TGI",
+    "name": "TGI Infrastructures Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "TGTR",
+    "name": "Together Pharma Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "THES",
+    "name": "Thirdeye Systems Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "TIGBUR",
+    "name": "Tigbur Temporary Professionals Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "TIGI",
+    "name": "Tigi Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "TKUN",
+    "name": "Tikun Olam - Cannabit Pharma Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "TLSY",
+    "name": "Telsys Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "TMIS",
+    "name": "Themis G.R.E.N. Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "TMRP",
+    "name": "Tamar Petroleum Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "TNDO",
+    "name": "Tondo Smart Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "TOEN",
+    "name": "Tomer Energy Royalties 2012 Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "TOPG",
+    "name": "Top Group Software Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "TPGM",
+    "name": "Top Gum Industries Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "TRA",
+    "name": "Tarya Israel Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "TRAN",
+    "name": "Trucknet Enterprise Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "TRLT",
+    "name": "Tera Light Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "TRPZ",
+    "name": "Turpaz Industries Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "TRX",
+    "name": "Terminal X Online Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "TSEM",
+    "name": "Tower Semiconductor Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "TSG",
+    "name": "TSG Advanced IT Systems Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "TTAM",
+    "name": "Tiv Taam Holdings 1 Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "TURB",
+    "name": "Turbogen Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "TUZA",
+    "name": "Teuza - A Fairchild Technology Venture Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "UNIT",
+    "name": "Unitronics Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "UNMI",
+    "name": "Universal Motors Israel Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "UPSL",
+    "name": "Upsellon Brands Holdings Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "URBC",
+    "name": "Urbanica Palo Retail Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "UTRN",
+    "name": "Utron Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "VCTR",
+    "name": "Victory Supermarket Chain Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "VILR",
+    "name": "Villar International Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "VISN",
+    "name": "Vision Sigma Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "VRDS",
+    "name": "Veridis Environment Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "VTNA",
+    "name": "Vitania Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "WATR",
+    "name": "Water.io Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "WESR",
+    "name": "Wesure Global Tech Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "WILC",
+    "name": "G. Willi-Food International Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "WILK",
+    "name": "Wilk Technologies Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "WLFD",
+    "name": "Willi-Food Investments Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "XTLB",
+    "name": "XTL Biopharmaceuticals Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "YAAZ",
+    "name": "Yez Construction LLC",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "YACO",
+    "name": "Yacobi Brothers Group (YSB) Ltd",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "YBOX",
+    "name": "Ybox Real Estate Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "YBRD",
+    "name": "Y.B Urban Renewal Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "YESD",
+    "name": "Yesodot Eitanom Construction Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "YHNF",
+    "name": "M Yochananof & Sons Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "ZNKL",
+    "name": "Zanlakol Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "ZOOZ",
+    "name": "Zooz Power Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "ZPRS",
+    "name": "Zephyrus Wing Energies Ltd.",
+    "currency": "ILA"
+  },
+  {
+    "symbol": "ZUR",
+    "name": "Zur Shamir Holdings Ltd.",
+    "currency": "ILA"
+  }
+]

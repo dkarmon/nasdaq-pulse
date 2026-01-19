@@ -1,22 +1,26 @@
-// ABOUTME: Control bar with sort toggle, count presets, and filter presets.
+// ABOUTME: Control bar with exchange switcher, sort toggle, count presets, and filter presets.
 // ABOUTME: Designed for elderly users with large touch targets and clear labels.
 
 "use client";
 
 import { useState } from "react";
-import type { SortPeriod, FilterPreset, FilterValue, ScreenerFilters } from "@/lib/market-data/types";
+import type { SortPeriod, FilterPreset, FilterValue, ScreenerFilters, Exchange } from "@/lib/market-data/types";
 import styles from "./controls-bar.module.css";
 
 type ControlsBarProps = {
+  exchange: Exchange;
   sortBy: SortPeriod;
   limit: number;
   filters: ScreenerFilters;
   searchQuery: string;
+  showRecommendedOnly: boolean;
+  onExchangeChange: (exchange: Exchange) => void;
   onSortChange: (sort: SortPeriod) => void;
   onLimitChange: (limit: number) => void;
   onFilterChange: (period: keyof ScreenerFilters, value: FilterValue) => void;
   onClearFilters: () => void;
   onSearchChange: (query: string) => void;
+  onShowRecommendedOnlyChange: (show: boolean) => void;
   hasActiveFilters: boolean;
   labels: {
     sortBy: string;
@@ -26,30 +30,60 @@ type ControlsBarProps = {
     clearAll: string;
     any: string;
     search: string;
+    recommendedOnly: string;
+    exchange: string;
+    nasdaq: string;
+    tlv: string;
   };
 };
 
-const SORT_OPTIONS: SortPeriod[] = ["1m", "6m", "12m"];
+const SORT_OPTIONS: SortPeriod[] = ["5d", "1m", "6m", "12m"];
 const LIMIT_OPTIONS = [25, 50, 100];
 const FILTER_PRESETS: FilterPreset[] = ["any", "5", "10", "25"];
+const EXCHANGE_OPTIONS: Exchange[] = ["nasdaq", "tlv"];
 
 export function ControlsBar({
+  exchange,
   sortBy,
   limit,
   filters,
   searchQuery,
+  showRecommendedOnly,
+  onExchangeChange,
   onSortChange,
   onLimitChange,
   onFilterChange,
   onClearFilters,
   onSearchChange,
+  onShowRecommendedOnlyChange,
   hasActiveFilters,
   labels,
 }: ControlsBarProps) {
   const [filtersExpanded, setFiltersExpanded] = useState(false);
 
+  const exchangeLabels: Record<Exchange, string> = {
+    nasdaq: labels.nasdaq,
+    tlv: labels.tlv,
+  };
+
   return (
     <div className={styles.controls}>
+      <div className={styles.exchangeRow}>
+        <div className={styles.pillGroup}>
+          {EXCHANGE_OPTIONS.map((option) => (
+            <button
+              key={option}
+              className={styles.exchangePill}
+              data-active={exchange === option}
+              onClick={() => onExchangeChange(option)}
+              aria-pressed={exchange === option}
+            >
+              {exchangeLabels[option]}
+            </button>
+          ))}
+        </div>
+      </div>
+
       <div className={styles.searchRow}>
         <input
           type="text"
@@ -59,6 +93,15 @@ export function ControlsBar({
           onChange={(e) => onSearchChange(e.target.value.toUpperCase())}
           aria-label={labels.search}
         />
+        <button
+          className={styles.recommendedToggle}
+          data-active={showRecommendedOnly}
+          onClick={() => onShowRecommendedOnlyChange(!showRecommendedOnly)}
+          aria-pressed={showRecommendedOnly}
+          title={labels.recommendedOnly}
+        >
+          ★ {labels.recommendedOnly}
+        </button>
       </div>
 
       <div className={styles.mainRow}>
@@ -110,6 +153,12 @@ export function ControlsBar({
 
       {filtersExpanded && (
         <div className={styles.filterPanel}>
+          <FilterRow
+            label={`${labels.max} 5D:`}
+            value={filters.max5d}
+            onChange={(v) => onFilterChange("max5d", v)}
+            anyLabel={labels.any}
+          />
           <FilterRow
             label={`${labels.max} 1M:`}
             value={filters.max1m}

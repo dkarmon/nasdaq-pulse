@@ -17,8 +17,11 @@ const mockStocks: Stock[] = [
   {
     symbol: "NVDA",
     name: "NVIDIA Corporation",
+    exchange: "nasdaq",
     price: 142.5,
+    currency: "USD",
     marketCap: 3500000000000,
+    growth5d: 4.2,
     growth1m: 18.2,
     growth6m: 45.3,
     growth12m: 180.5,
@@ -27,8 +30,11 @@ const mockStocks: Stock[] = [
   {
     symbol: "SMCI",
     name: "Super Micro Computer",
+    exchange: "nasdaq",
     price: 890.0,
+    currency: "USD",
     marketCap: 52000000000,
+    growth5d: 8.3,
     growth1m: 25.1,
     growth6m: 120.4,
     growth12m: 450.2,
@@ -37,8 +43,11 @@ const mockStocks: Stock[] = [
   {
     symbol: "AAPL",
     name: "Apple Inc.",
+    exchange: "nasdaq",
     price: 192.68,
+    currency: "USD",
     marketCap: 2950000000000,
+    growth5d: 1.8,
     growth1m: 6.4,
     growth6m: 12.8,
     growth12m: 28.3,
@@ -47,8 +56,11 @@ const mockStocks: Stock[] = [
   {
     symbol: "MSFT",
     name: "Microsoft Corporation",
+    exchange: "nasdaq",
     price: 404.12,
+    currency: "USD",
     marketCap: 3090000000000,
+    growth5d: 1.2,
     growth1m: 4.2,
     growth6m: 18.5,
     growth12m: 42.1,
@@ -57,8 +69,11 @@ const mockStocks: Stock[] = [
   {
     symbol: "META",
     name: "Meta Platforms Inc.",
+    exchange: "nasdaq",
     price: 505.75,
+    currency: "USD",
     marketCap: 1280000000000,
+    growth5d: 2.5,
     growth1m: 8.9,
     growth6m: 35.2,
     growth12m: 165.8,
@@ -67,8 +82,11 @@ const mockStocks: Stock[] = [
   {
     symbol: "GOOGL",
     name: "Alphabet Inc.",
+    exchange: "nasdaq",
     price: 141.8,
+    currency: "USD",
     marketCap: 1750000000000,
+    growth5d: 0.9,
     growth1m: 3.1,
     growth6m: 22.4,
     growth12m: 48.7,
@@ -77,8 +95,11 @@ const mockStocks: Stock[] = [
   {
     symbol: "AMZN",
     name: "Amazon.com Inc.",
+    exchange: "nasdaq",
     price: 178.25,
+    currency: "USD",
     marketCap: 1850000000000,
+    growth5d: 1.5,
     growth1m: 5.6,
     growth6m: 28.9,
     growth12m: 62.4,
@@ -87,8 +108,11 @@ const mockStocks: Stock[] = [
   {
     symbol: "AVGO",
     name: "Broadcom Inc.",
+    exchange: "nasdaq",
     price: 1320.5,
+    currency: "USD",
     marketCap: 612000000000,
+    growth5d: 3.1,
     growth1m: 12.3,
     growth6m: 52.1,
     growth12m: 115.6,
@@ -97,8 +121,11 @@ const mockStocks: Stock[] = [
   {
     symbol: "TSLA",
     name: "Tesla Inc.",
+    exchange: "nasdaq",
     price: 248.5,
+    currency: "USD",
     marketCap: 790000000000,
+    growth5d: -1.2,
     growth1m: -2.4,
     growth6m: 15.8,
     growth12m: -8.2,
@@ -107,8 +134,11 @@ const mockStocks: Stock[] = [
   {
     symbol: "AMD",
     name: "Advanced Micro Devices",
+    exchange: "nasdaq",
     price: 156.8,
+    currency: "USD",
     marketCap: 253000000000,
+    growth5d: 2.1,
     growth1m: 7.8,
     growth6m: 42.3,
     growth12m: 85.4,
@@ -117,8 +147,11 @@ const mockStocks: Stock[] = [
   {
     symbol: "NFLX",
     name: "Netflix Inc.",
+    exchange: "nasdaq",
     price: 628.4,
+    currency: "USD",
     marketCap: 272000000000,
+    growth5d: 2.8,
     growth1m: 9.2,
     growth6m: 38.6,
     growth12m: 78.9,
@@ -127,8 +160,11 @@ const mockStocks: Stock[] = [
   {
     symbol: "COST",
     name: "Costco Wholesale",
+    exchange: "nasdaq",
     price: 745.2,
+    currency: "USD",
     marketCap: 330000000000,
+    growth5d: 1.4,
     growth1m: 4.8,
     growth6m: 15.2,
     growth12m: 35.6,
@@ -137,8 +173,11 @@ const mockStocks: Stock[] = [
   {
     symbol: "ADBE",
     name: "Adobe Inc.",
+    exchange: "nasdaq",
     price: 548.9,
+    currency: "USD",
     marketCap: 244000000000,
+    growth5d: 0.6,
     growth1m: 2.1,
     growth6m: 8.4,
     growth12m: 18.2,
@@ -147,8 +186,11 @@ const mockStocks: Stock[] = [
   {
     symbol: "PEP",
     name: "PepsiCo Inc.",
+    exchange: "nasdaq",
     price: 172.3,
+    currency: "USD",
     marketCap: 237000000000,
+    growth5d: 0.3,
     growth1m: 1.2,
     growth6m: 5.8,
     growth12m: 12.4,
@@ -157,8 +199,11 @@ const mockStocks: Stock[] = [
   {
     symbol: "INTC",
     name: "Intel Corporation",
+    exchange: "nasdaq",
     price: 42.8,
+    currency: "USD",
     marketCap: 181000000000,
+    growth5d: -1.8,
     growth1m: -5.2,
     growth6m: -12.4,
     growth12m: -28.6,
@@ -167,8 +212,11 @@ const mockStocks: Stock[] = [
   {
     symbol: "CSCO",
     name: "Cisco Systems",
+    exchange: "nasdaq",
     price: 52.4,
+    currency: "USD",
     marketCap: 212000000000,
+    growth5d: 0.9,
     growth1m: 3.5,
     growth6m: 12.1,
     growth12m: 24.8,
@@ -177,8 +225,11 @@ const mockStocks: Stock[] = [
   {
     symbol: "QCOM",
     name: "QUALCOMM Inc.",
+    exchange: "nasdaq",
     price: 168.9,
+    currency: "USD",
     marketCap: 188000000000,
+    growth5d: 1.7,
     growth1m: 6.2,
     growth6m: 28.4,
     growth12m: 52.3,
@@ -187,8 +238,11 @@ const mockStocks: Stock[] = [
   {
     symbol: "INTU",
     name: "Intuit Inc.",
+    exchange: "nasdaq",
     price: 625.8,
+    currency: "USD",
     marketCap: 175000000000,
+    growth5d: 1.5,
     growth1m: 5.4,
     growth6m: 18.9,
     growth12m: 38.2,
@@ -197,8 +251,11 @@ const mockStocks: Stock[] = [
   {
     symbol: "TXN",
     name: "Texas Instruments",
+    exchange: "nasdaq",
     price: 178.5,
+    currency: "USD",
     marketCap: 162000000000,
+    growth5d: 1.1,
     growth1m: 4.1,
     growth6m: 14.8,
     growth12m: 22.6,
@@ -207,8 +264,11 @@ const mockStocks: Stock[] = [
   {
     symbol: "ISRG",
     name: "Intuitive Surgical",
+    exchange: "nasdaq",
     price: 412.3,
+    currency: "USD",
     marketCap: 146000000000,
+    growth5d: 2.0,
     growth1m: 7.2,
     growth6m: 25.6,
     growth12m: 48.9,
@@ -217,8 +277,11 @@ const mockStocks: Stock[] = [
   {
     symbol: "AMAT",
     name: "Applied Materials",
+    exchange: "nasdaq",
     price: 198.4,
+    currency: "USD",
     marketCap: 164000000000,
+    growth5d: 2.3,
     growth1m: 8.5,
     growth6m: 32.1,
     growth12m: 68.4,
@@ -227,8 +290,11 @@ const mockStocks: Stock[] = [
   {
     symbol: "LRCX",
     name: "Lam Research",
+    exchange: "nasdaq",
     price: 892.5,
+    currency: "USD",
     marketCap: 117000000000,
+    growth5d: 2.7,
     growth1m: 9.8,
     growth6m: 38.4,
     growth12m: 72.5,
@@ -237,8 +303,11 @@ const mockStocks: Stock[] = [
   {
     symbol: "MU",
     name: "Micron Technology",
+    exchange: "nasdaq",
     price: 98.6,
+    currency: "USD",
     marketCap: 109000000000,
+    growth5d: 3.2,
     growth1m: 11.2,
     growth6m: 48.9,
     growth12m: 92.3,
@@ -247,8 +316,11 @@ const mockStocks: Stock[] = [
   {
     symbol: "KLAC",
     name: "KLA Corporation",
+    exchange: "nasdaq",
     price: 685.2,
+    currency: "USD",
     marketCap: 93000000000,
+    growth5d: 2.1,
     growth1m: 7.6,
     growth6m: 28.5,
     growth12m: 58.4,
@@ -257,8 +329,11 @@ const mockStocks: Stock[] = [
   {
     symbol: "MRVL",
     name: "Marvell Technology",
+    exchange: "nasdaq",
     price: 72.4,
+    currency: "USD",
     marketCap: 62000000000,
+    growth5d: 4.0,
     growth1m: 14.5,
     growth6m: 58.2,
     growth12m: 95.6,
@@ -383,11 +458,13 @@ function applyFilters(stocks: Stock[], params: ScreenerParams): Stock[] {
   };
 
   return stocks.filter((stock) => {
+    const max5d = filterValue(params.filters.max5d);
     const max1m = filterValue(params.filters.max1m);
     const max6m = filterValue(params.filters.max6m);
     const max12m = filterValue(params.filters.max12m);
 
     return (
+      (stock.growth5d ?? 0) <= max5d &&
       stock.growth1m <= max1m &&
       stock.growth6m <= max6m &&
       stock.growth12m <= max12m
@@ -399,6 +476,8 @@ function sortStocks(stocks: Stock[], sortBy: string): Stock[] {
   const sorted = [...stocks];
   sorted.sort((a, b) => {
     switch (sortBy) {
+      case "5d":
+        return (b.growth5d ?? 0) - (a.growth5d ?? 0);
       case "1m":
         return b.growth1m - a.growth1m;
       case "6m":
@@ -421,6 +500,7 @@ export function getScreenerData(params: ScreenerParams): ScreenerResponse {
     stocks,
     updatedAt: new Date().toISOString(),
     source: "cached",
+    exchange: params.exchange ?? "nasdaq",
   };
 }
 
@@ -456,6 +536,7 @@ export function getStockDetail(symbol: string): StockDetailResponse | null {
     profile,
     quote,
     history: generateHistoricalData(symbol, 365),
+    growth5d: stock.growth5d,
     growth1m: stock.growth1m,
     growth6m: stock.growth6m,
     growth12m: stock.growth12m,

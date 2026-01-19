@@ -1,13 +1,19 @@
 // ABOUTME: Core TypeScript interfaces for market data throughout the application.
 // ABOUTME: Defines Stock, Quote, NewsItem, and provider response types.
 
-export type SortPeriod = "1m" | "6m" | "12m";
+export type Exchange = "nasdaq" | "tlv";
+
+export type SortPeriod = "5d" | "1m" | "6m" | "12m";
 
 export type Stock = {
   symbol: string;
   name: string;
+  nameHebrew?: string;
+  exchange: Exchange;
   price: number;
+  currency: string;
   marketCap: number;
+  growth5d?: number;
   growth1m: number;
   growth6m: number;
   growth12m: number;
@@ -64,12 +70,14 @@ export type ScreenerResponse = {
   stocks: Stock[];
   updatedAt: string;
   source: "live" | "cached" | "seed";
+  exchange: Exchange;
 };
 
 export type StockDetailResponse = {
   profile: CompanyProfile;
   quote: Quote;
   history: HistoricalDataPoint[];
+  growth5d?: number;
   growth1m: number;
   growth6m: number;
   growth12m: number;
@@ -86,6 +94,7 @@ export type FilterPreset = "any" | "5" | "10" | "25";
 export type FilterValue = FilterPreset | number;
 
 export type ScreenerFilters = {
+  max5d: FilterValue;
   max1m: FilterValue;
   max6m: FilterValue;
   max12m: FilterValue;
@@ -95,4 +104,5 @@ export type ScreenerParams = {
   sortBy: SortPeriod;
   limit: number;
   filters: ScreenerFilters;
+  exchange: Exchange;
 };

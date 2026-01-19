@@ -1,10 +1,17 @@
 // ABOUTME: Mobile card component for displaying stock information.
-// ABOUTME: Large touch targets and clear visual hierarchy for elderly users.
+// ABOUTME: Large touch targets and clear visual hierarchy with recommendation stars.
 
 "use client";
 
 import type { Stock, SortPeriod } from "@/lib/market-data/types";
 import styles from "./stock-card.module.css";
+
+function isRecommended(stock: Stock): boolean {
+  if (stock.growth5d === undefined) return false;
+  return stock.growth5d < stock.growth1m &&
+         stock.growth1m < stock.growth6m &&
+         stock.growth6m < stock.growth12m;
+}
 
 type StockCardProps = {
   stock: Stock;
@@ -13,6 +20,7 @@ type StockCardProps = {
   onSelect: () => void;
   onHide: () => void;
   hideLabel: string;
+  recommendedLabel: string;
 };
 
 function formatMarketCap(value: number): string {
@@ -44,6 +52,7 @@ export function StockCard({
   onSelect,
   onHide,
   hideLabel,
+  recommendedLabel,
 }: StockCardProps) {
 
   return (
@@ -57,6 +66,9 @@ export function StockCard({
     >
       <div className={styles.header}>
         <span className={styles.symbol}>
+          {isRecommended(stock) && (
+            <span className={styles.starIcon} title={recommendedLabel}>★</span>
+          )}
           {stock.symbol}
           {stock.hasSplitWarning && (
             <span className={styles.splitWarning} title="Recent stock split - growth data may be inaccurate"> ⚠️</span>
@@ -78,6 +90,16 @@ export function StockCard({
       </div>
 
       <div className={styles.growthRow}>
+        <div className={styles.growthItem} data-active={sortBy === "5d"}>
+          <span
+            className={styles.growthValue}
+            data-positive={(stock.growth5d ?? 0) >= 0}
+            data-negative={(stock.growth5d ?? 0) < 0}
+          >
+            {formatGrowth(stock.growth5d ?? 0)}
+          </span>
+          <span className={styles.growthLabel}>5D</span>
+        </div>
         <div className={styles.growthItem} data-active={sortBy === "1m"}>
           <span
             className={styles.growthValue}
@@ -122,6 +144,7 @@ type StockCardListProps = {
   labels: {
     noStocks: string;
     hide: string;
+    recommended: string;
   };
 };
 
@@ -152,6 +175,7 @@ export function StockCardList({
           onSelect={() => onSelectStock(stock.symbol)}
           onHide={() => onHideStock(stock.symbol)}
           hideLabel={labels.hide}
+          recommendedLabel={labels.recommended}
         />
       ))}
     </div>

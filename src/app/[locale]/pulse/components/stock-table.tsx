@@ -1,5 +1,5 @@
 // ABOUTME: Desktop stock table showing stocks with growth metrics.
-// ABOUTME: Displays symbol/name, price, and 1M/6M/12M growth percentages.
+// ABOUTME: Displays symbol/name, price, and 5D/1M/6M/12M growth percentages with recommendation stars.
 
 "use client";
 
@@ -16,12 +16,14 @@ type StockTableProps = {
     stock: string;
     price: string;
     growth: string;
+    growth5d: string;
     growth1m: string;
     growth6m: string;
     growth12m: string;
     view: string;
     noStocks: string;
     hide: string;
+    recommended: string;
   };
 };
 
@@ -32,6 +34,13 @@ function formatGrowth(value: number): string {
 
 function formatPrice(value: number): string {
   return `$${value.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+}
+
+function isRecommended(stock: Stock): boolean {
+  if (stock.growth5d === undefined) return false;
+  return stock.growth5d < stock.growth1m &&
+         stock.growth1m < stock.growth6m &&
+         stock.growth6m < stock.growth12m;
 }
 
 export function StockTable({
@@ -57,6 +66,7 @@ export function StockTable({
           <tr>
             <th className={styles.stockCol}>{labels.stock}</th>
             <th className={styles.priceCol}>{labels.price}</th>
+            <th className={styles.growthCol} data-active={sortBy === "5d"}>{labels.growth5d}</th>
             <th className={styles.growthCol} data-active={sortBy === "1m"}>{labels.growth1m}</th>
             <th className={styles.growthCol} data-active={sortBy === "6m"}>{labels.growth6m}</th>
             <th className={styles.growthCol} data-active={sortBy === "12m"}>{labels.growth12m}</th>
@@ -75,6 +85,11 @@ export function StockTable({
               >
                 <td className={styles.stockCell}>
                   <div className={styles.symbolRow}>
+                    {isRecommended(stock) && (
+                      <span className={styles.starIcon} title={labels.recommended}>
+                        ★
+                      </span>
+                    )}
                     <span className={styles.symbol}>{stock.symbol}</span>
                     {stock.hasSplitWarning && (
                       <span className={styles.splitWarning} title="Recent stock split - growth data may be inaccurate">
@@ -105,6 +120,14 @@ export function StockTable({
                 </td>
                 <td className={styles.priceCell}>
                   {formatPrice(stock.price)}
+                </td>
+                <td
+                  className={styles.growthCell}
+                  data-positive={(stock.growth5d ?? 0) >= 0}
+                  data-negative={(stock.growth5d ?? 0) < 0}
+                  data-active={sortBy === "5d"}
+                >
+                  {formatGrowth(stock.growth5d ?? 0)}
                 </td>
                 <td
                   className={styles.growthCell}

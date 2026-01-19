@@ -1,7 +1,7 @@
 // ABOUTME: Shared logic for refreshing stock data from Yahoo Finance.
-// ABOUTME: Fetches NASDAQ symbols from Finnhub, caches in Redis, uses Yahoo for quotes.
+// ABOUTME: Supports both NASDAQ and TLV exchanges with exchange-specific symbol sources.
 
-import { getQuoteAndGrowth, getMarketCap } from "@/lib/market-data/yahoo";
+import { getQuoteAndGrowth } from "@/lib/market-data/yahoo";
 import {
   saveStocks,
   getStocks,
@@ -10,10 +10,12 @@ import {
   getSymbols,
   areSymbolsFresh,
 } from "@/lib/market-data/storage";
-import type { Stock } from "@/lib/market-data/types";
+import type { Stock, Exchange } from "@/lib/market-data/types";
+import { getTaseSymbols, toYahooSymbol, getHebrewName, getEnglishName } from "@/lib/market-data/tase-symbols";
 
 export type RefreshResult = {
   success: boolean;
+  exchange: Exchange;
   range: string;
   processed: number;
   failed: number;
@@ -66,10 +68,10 @@ async function fetchNasdaqSymbolsFromFinnhub(): Promise<string[]> {
 
 async function getNasdaqSymbols(): Promise<string[]> {
   // Check if we have fresh symbols cached
-  const isFresh = await areSymbolsFresh(24);
+  const isFresh = await areSymbolsFresh("nasdaq", 24);
 
   if (isFresh) {
-    const cached = await getSymbols();
+    const cached = await getSymbols("nasdaq");
     if (cached.length > 0) {
       console.log(`Using ${cached.length} cached NASDAQ symbols`);
       return cached;
@@ -81,7 +83,7 @@ async function getNasdaqSymbols(): Promise<string[]> {
   const symbols = await fetchNasdaqSymbolsFromFinnhub();
 
   if (symbols.length > 0) {
-    await saveSymbols(symbols);
+    await saveSymbols(symbols, "nasdaq");
   }
 
   return symbols;
@@ -96,7 +98,28 @@ function filterByRange(symbols: string[], startLetter: string, endLetter: string
   });
 }
 
+/**
+ * Refresh NASDAQ stocks in a given alphabetical range.
+ */
 export async function refreshStocksInRange(
+  startLetter: string,
+  endLetter: string
+): Promise<RefreshResult> {
+  return refreshExchangeStocksInRange("nasdaq", startLetter, endLetter);
+}
+
+/**
+ * Refresh all TLV (TASE) stocks.
+ */
+export async function refreshTlvStocks(): Promise<RefreshResult> {
+  return refreshExchangeStocksInRange("tlv", "A", "Z");
+}
+
+/**
+ * Internal function to refresh stocks for any exchange.
+ */
+async function refreshExchangeStocksInRange(
+  exchange: Exchange,
   startLetter: string,
   endLetter: string
 ): Promise<RefreshResult> {
@@ -105,6 +128,7 @@ export async function refreshStocksInRange(
 
   const result: RefreshResult = {
     success: false,
+    exchange,
     range,
     processed: 0,
     failed: 0,
@@ -114,24 +138,32 @@ export async function refreshStocksInRange(
   };
 
   try {
-    // Get all NASDAQ symbols and filter by range
-    const allSymbols = await getNasdaqSymbols();
+    // Get symbols based on exchange
+    let allSymbols: string[];
+    if (exchange === "tlv") {
+      allSymbols = getTaseSymbols();
+      console.log(`Using ${allSymbols.length} TLV symbols from static list`);
+    } else {
+      allSymbols = await getNasdaqSymbols();
+    }
+
     const symbols = filterByRange(allSymbols, startLetter, endLetter);
     result.totalSymbols = symbols.length;
 
-    console.log(`Processing ${symbols.length} symbols in range ${range}`);
+    console.log(`Processing ${symbols.length} ${exchange.toUpperCase()} symbols in range ${range}`);
 
     // Get existing stocks to merge with
-    const existingStocks = await getStocks();
+    const existingStocks = await getStocks(exchange);
     const stocksMap = new Map<string, Stock>();
     existingStocks.forEach(s => stocksMap.set(s.symbol, s));
 
-    // Process sequentially with delays to avoid rate limiting
-    const DELAY_BETWEEN_REQUESTS_MS = 1500; // 1.5 seconds between each request
+    const DELAY_BETWEEN_REQUESTS_MS = 0;
     const failedSymbols: string[] = [];
 
     for (let idx = 0; idx < symbols.length; idx++) {
       const symbol = symbols[idx];
+      // For TLV, convert to Yahoo format (add .TA suffix)
+      const yahooSymbol = exchange === "tlv" ? toYahooSymbol(symbol) : symbol;
 
       // Progress logging every 50 symbols
       if (idx % 50 === 0 || idx === symbols.length - 1) {
@@ -139,8 +171,7 @@ export async function refreshStocksInRange(
       }
 
       try {
-        // Fetch quote+growth (skip market cap - it requires auth)
-        const data = await getQuoteAndGrowth(symbol);
+        const data = await getQuoteAndGrowth(yahooSymbol);
 
         if (!data) {
           result.failed++;
@@ -149,11 +180,28 @@ export async function refreshStocksInRange(
           continue;
         }
 
+        // Get name based on exchange
+        let name = data.quote.name;
+        let nameHebrew: string | undefined;
+
+        if (exchange === "tlv") {
+          // Use English name from our list if Yahoo's name is poor
+          const englishName = getEnglishName(symbol);
+          if (englishName) {
+            name = englishName;
+          }
+          nameHebrew = getHebrewName(symbol);
+        }
+
         const stock: Stock = {
-          symbol,
-          name: data.quote.name,
+          symbol: yahooSymbol,
+          name,
+          nameHebrew,
+          exchange,
           price: data.quote.price,
-          marketCap: 0, // Skip market cap - requires crumb auth
+          currency: exchange === "tlv" ? "ILS" : "USD",
+          marketCap: 0,
+          growth5d: data.growth.growth5d,
           growth1m: data.growth.growth1m,
           growth6m: data.growth.growth6m,
           growth12m: data.growth.growth12m,
@@ -161,7 +209,7 @@ export async function refreshStocksInRange(
           hasSplitWarning: data.hasSplitWarning || undefined,
         };
 
-        stocksMap.set(symbol, stock);
+        stocksMap.set(yahooSymbol, stock);
         result.processed++;
       } catch (error) {
         result.failed++;
@@ -169,13 +217,11 @@ export async function refreshStocksInRange(
         result.errors.push(`${symbol}: ${String(error)}`);
       }
 
-      // Wait between requests to avoid rate limiting
       if (idx < symbols.length - 1) {
         await new Promise(resolve => setTimeout(resolve, DELAY_BETWEEN_REQUESTS_MS));
       }
     }
 
-    // Log all failed symbols at the end
     if (failedSymbols.length > 0) {
       console.log(`\n=== FAILED SYMBOLS (${failedSymbols.length}) ===`);
       console.log(failedSymbols.join(', '));
@@ -186,13 +232,12 @@ export async function refreshStocksInRange(
     const allStocks = Array.from(stocksMap.values());
     allStocks.sort((a, b) => b.growth1m - a.growth1m);
 
-    console.log(`Saving ${allStocks.length} total stocks to Redis...`);
-    await saveStocks(allStocks);
+    console.log(`Saving ${allStocks.length} total ${exchange.toUpperCase()} stocks to Redis...`);
+    await saveStocks(allStocks, exchange);
 
     result.success = true;
     result.duration = ((Date.now() - startTime) / 1000).toFixed(1) + "s";
 
-    // Save run status
     await saveRunStatus({
       range: result.range,
       startedAt: new Date(startTime).toISOString(),
@@ -203,9 +248,9 @@ export async function refreshStocksInRange(
       totalSymbols: result.totalSymbols,
       duration: result.duration,
       errors: result.errors.slice(0, 20),
-    });
+    }, exchange);
 
-    console.log(`Refresh complete for range ${range} in ${result.duration}`);
+    console.log(`Refresh complete for ${exchange.toUpperCase()} range ${range} in ${result.duration}`);
 
     return result;
   } catch (error) {
@@ -222,9 +267,9 @@ export async function refreshStocksInRange(
       totalSymbols: result.totalSymbols,
       duration: result.duration,
       errors: result.errors.slice(0, 20),
-    });
+    }, exchange);
 
-    console.error(`Refresh failed for range ${range}:`, error);
+    console.error(`Refresh failed for ${exchange.toUpperCase()} range ${range}:`, error);
     return result;
   }
 }
