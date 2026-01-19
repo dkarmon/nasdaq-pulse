@@ -141,26 +141,27 @@ describe("isRecommended", () => {
 });
 
 describe("calculateRecommendationScore", () => {
-  // Formula: 2.5*(1M/5D) + 2*(6M/1M) + 1.5*(12M/6M)
+  // Formula: 2.5*(1M/5D)/25 + 2*(6M/1M)/150 + 1.5*(12M/6M)/185
+  // Each ratio normalized by day difference between periods
 
   it("calculates score correctly with simple values", () => {
     // 5D=10, 1M=20, 6M=40, 12M=60
-    // 2.5*(20/10) + 2*(40/20) + 1.5*(60/40)
-    // = 2.5*2 + 2*2 + 1.5*1.5
-    // = 5 + 4 + 2.25
-    // = 11.25
+    // 2.5*(20/10)/25 + 2*(40/20)/150 + 1.5*(60/40)/185
+    // = 2.5*2/25 + 2*2/150 + 1.5*1.5/185
+    // = 0.2 + 0.02667 + 0.01216
+    // ≈ 0.2388
     const stock = makeStock({ growth5d: 10, growth1m: 20, growth6m: 40, growth12m: 60 });
-    expect(calculateRecommendationScore(stock)).toBeCloseTo(11.25);
+    expect(calculateRecommendationScore(stock)).toBeCloseTo(0.2388, 3);
   });
 
   it("calculates score correctly with equal ratios", () => {
     // 5D=1, 1M=2, 6M=4, 12M=8 (each doubles)
-    // 2.5*(2/1) + 2*(4/2) + 1.5*(8/4)
-    // = 2.5*2 + 2*2 + 1.5*2
-    // = 5 + 4 + 3
-    // = 12
+    // 2.5*(2/1)/25 + 2*(4/2)/150 + 1.5*(8/4)/185
+    // = 2.5*2/25 + 2*2/150 + 1.5*2/185
+    // = 0.2 + 0.02667 + 0.01622
+    // ≈ 0.2429
     const stock = makeStock({ growth5d: 1, growth1m: 2, growth6m: 4, growth12m: 8 });
-    expect(calculateRecommendationScore(stock)).toBeCloseTo(12);
+    expect(calculateRecommendationScore(stock)).toBeCloseTo(0.2429, 3);
   });
 
   it("returns higher score for steeper early growth", () => {
@@ -173,12 +174,13 @@ describe("calculateRecommendationScore", () => {
   });
 
   it("handles decimal values correctly", () => {
+    // 5D=0.5, 1M=1.5, 6M=3, 12M=6
+    // 2.5*(1.5/0.5)/25 + 2*(3/1.5)/150 + 1.5*(6/3)/185
+    // = 2.5*3/25 + 2*2/150 + 1.5*2/185
+    // = 0.3 + 0.02667 + 0.01622
+    // ≈ 0.3429
     const stock = makeStock({ growth5d: 0.5, growth1m: 1.5, growth6m: 3, growth12m: 6 });
-    // 2.5*(1.5/0.5) + 2*(3/1.5) + 1.5*(6/3)
-    // = 2.5*3 + 2*2 + 1.5*2
-    // = 7.5 + 4 + 3
-    // = 14.5
-    expect(calculateRecommendationScore(stock)).toBeCloseTo(14.5);
+    expect(calculateRecommendationScore(stock)).toBeCloseTo(0.3429, 3);
   });
 });
 
