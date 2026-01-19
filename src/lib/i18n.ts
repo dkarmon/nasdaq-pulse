@@ -72,6 +72,11 @@ export type Dictionary = {
     signinTitle: string;
     signinSubtitle: string;
     googleButton: string;
+    or: string;
+    emailPlaceholder: string;
+    emailButton: string;
+    verifyTitle: string;
+    verifyBody: string;
     deniedTitle: string;
     deniedBody: string;
     back: string;
@@ -191,6 +196,11 @@ export const dictionaries: Record<Locale, Dictionary> = {
       signinTitle: "Welcome to Nasdaq Pulse",
       signinSubtitle: "Sign in to access the full stock screener with real-time data",
       googleButton: "Continue with Google",
+      or: "or",
+      emailPlaceholder: "Enter your email",
+      emailButton: "Continue with email",
+      verifyTitle: "Check your email",
+      verifyBody: "We sent a sign-in link to your email address. Click the link to continue.",
       deniedTitle: "Access not granted",
       deniedBody:
         "Your Google account is not on the approved list. Contact the admin or try a different email.",
@@ -306,6 +316,11 @@ export const dictionaries: Record<Locale, Dictionary> = {
       signinTitle: "ברוכים הבאים ל-Nasdaq Pulse",
       signinSubtitle: "התחברו כדי לגשת לסורק המניות עם נתונים בזמן אמת",
       googleButton: "המשך עם Google",
+      or: "או",
+      emailPlaceholder: "הזינו את כתובת המייל",
+      emailButton: "המשך עם מייל",
+      verifyTitle: "בדקו את המייל",
+      verifyBody: "שלחנו קישור התחברות לכתובת המייל שלכם. לחצו על הקישור כדי להמשיך.",
       deniedTitle: "אין הרשאה",
       deniedBody: "החשבון אינו מורשה. פנו למנהל או התחברו עם מייל מאושר.",
       back: "חזרה לעמוד הראשי",

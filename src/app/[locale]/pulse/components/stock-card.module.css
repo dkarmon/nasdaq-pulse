@@ -43,12 +43,6 @@
   gap: 12px;
 }
 
-.symbolGroup {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
 .symbol {
   font-family: var(--font-space-grotesk), var(--font-manrope), system-ui, sans-serif;
   font-weight: 800;
@@ -61,37 +55,51 @@
   cursor: help;
 }
 
-.name {
-  font-size: 0.95rem;
-  color: var(--muted);
-}
-
-.growth {
+.price {
   font-family: var(--font-space-grotesk), var(--font-manrope), system-ui, sans-serif;
   font-weight: 700;
   font-size: 1.1rem;
   white-space: nowrap;
 }
 
-.growth[data-positive="true"] {
+.growthRow {
+  display: flex;
+  gap: 8px;
+}
+
+.growthItem {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 8px 4px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.growthItem[data-active="true"] {
+  background: rgba(16, 185, 129, 0.12);
+}
+
+.growthValue {
+  font-family: var(--font-space-grotesk), var(--font-manrope), system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.growthValue[data-positive="true"] {
   color: #8df0c7;
 }
 
-.growth[data-negative="true"] {
+.growthValue[data-negative="true"] {
   color: #f8bac8;
 }
 
-.details {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 12px;
-}
-
-.price {
-  font-family: var(--font-space-grotesk), var(--font-manrope), system-ui, sans-serif;
-  font-weight: 700;
-  font-size: 1.15rem;
+.growthLabel {
+  font-size: 0.75rem;
+  color: var(--muted);
+  text-transform: uppercase;
 }
 
 .empty {

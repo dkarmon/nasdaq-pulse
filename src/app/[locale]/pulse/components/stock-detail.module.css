@@ -109,24 +109,25 @@
 
 .metricsRow {
   display: flex;
-  gap: 12px;
+  gap: 8px;
 }
 
 .metricCard {
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 4px;
-  padding: 16px;
+  gap: 2px;
+  padding: 10px 6px;
   background: rgba(255, 255, 255, 0.02);
   border: 1px solid var(--border);
-  border-radius: 12px;
+  border-radius: 10px;
   text-align: center;
+  min-width: 0;
 }
 
 .metricValue {
   font-family: var(--font-space-grotesk), var(--font-manrope), system-ui, sans-serif;
-  font-size: 1.25rem;
+  font-size: 1.1rem;
   font-weight: 700;
 }
 
@@ -139,10 +140,10 @@
 }
 
 .metricLabel {
-  font-size: 0.85rem;
+  font-size: 0.75rem;
   color: var(--muted);
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.03em;
 }
 
 .chartSection {
@@ -228,8 +229,12 @@
 }
 
 @media (max-width: 1024px) {
-  .closeButton {
+  .backButton {
     display: flex;
+  }
+
+  .closeButton {
+    display: none;
   }
 }
 
@@ -239,10 +244,15 @@
   }
 
   .metricCard {
-    min-width: calc(50% - 6px);
+    flex: 1 1 calc(50% - 4px);
+    min-width: calc(50% - 4px);
   }
 
   .metricValue {
-    font-size: 1.1rem;
+    font-size: 1rem;
+  }
+
+  .metricLabel {
+    font-size: 0.7rem;
   }
 }

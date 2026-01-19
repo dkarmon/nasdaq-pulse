@@ -35,25 +35,12 @@ function formatPrice(value: number): string {
   return `$${value.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 }
 
-function getGrowthValue(stock: Stock, sortBy: SortPeriod): number {
-  switch (sortBy) {
-    case "1m":
-      return stock.growth1m;
-    case "6m":
-      return stock.growth6m;
-    case "12m":
-      return stock.growth12m;
-  }
-}
-
 export function StockCard({
   stock,
   sortBy,
   isSelected,
   onSelect,
 }: StockCardProps) {
-  const growth = getGrowthValue(stock, sortBy);
-  const isPositive = growth >= 0;
 
   return (
     <div
@@ -65,26 +52,46 @@ export function StockCard({
       onKeyDown={(e) => e.key === "Enter" && onSelect()}
     >
       <div className={styles.header}>
-        <div className={styles.symbolGroup}>
-          <span className={styles.symbol}>
-            {stock.symbol}
-            {stock.hasSplitWarning && (
-              <span className={styles.splitWarning} title="Recent stock split - growth data may be inaccurate"> ⚠️</span>
-            )}
-          </span>
-          <span className={styles.name}>{stock.name}</span>
-        </div>
-        <span
-          className={styles.growth}
-          data-positive={isPositive}
-          data-negative={!isPositive}
-        >
-          {formatGrowth(growth)} ({sortBy.toUpperCase()})
+        <span className={styles.symbol}>
+          {stock.symbol}
+          {stock.hasSplitWarning && (
+            <span className={styles.splitWarning} title="Recent stock split - growth data may be inaccurate"> ⚠️</span>
+          )}
         </span>
+        <span className={styles.price}>{formatPrice(stock.price)}</span>
       </div>
 
-      <div className={styles.details}>
-        <span className={styles.price}>{formatPrice(stock.price)}</span>
+      <div className={styles.growthRow}>
+        <div className={styles.growthItem} data-active={sortBy === "1m"}>
+          <span
+            className={styles.growthValue}
+            data-positive={stock.growth1m >= 0}
+            data-negative={stock.growth1m < 0}
+          >
+            {formatGrowth(stock.growth1m)}
+          </span>
+          <span className={styles.growthLabel}>1M</span>
+        </div>
+        <div className={styles.growthItem} data-active={sortBy === "6m"}>
+          <span
+            className={styles.growthValue}
+            data-positive={stock.growth6m >= 0}
+            data-negative={stock.growth6m < 0}
+          >
+            {formatGrowth(stock.growth6m)}
+          </span>
+          <span className={styles.growthLabel}>6M</span>
+        </div>
+        <div className={styles.growthItem} data-active={sortBy === "12m"}>
+          <span
+            className={styles.growthValue}
+            data-positive={stock.growth12m >= 0}
+            data-negative={stock.growth12m < 0}
+          >
+            {formatGrowth(stock.growth12m)}
+          </span>
+          <span className={styles.growthLabel}>12M</span>
+        </div>
       </div>
     </div>
   );

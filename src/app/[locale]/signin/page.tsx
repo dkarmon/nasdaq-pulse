@@ -58,6 +58,30 @@ export default async function SignIn({ params }: SignInProps) {
             </button>
           </form>
 
+          <div className={styles.divider}>
+            <span>{dict.auth.or}</span>
+          </div>
+
+          <form
+            action={async (formData: FormData) => {
+              "use server";
+              const email = formData.get("email") as string;
+              await signIn("resend", { email, redirectTo: `/${locale}/pulse` });
+            }}
+            className={styles.emailForm}
+          >
+            <input
+              type="email"
+              name="email"
+              placeholder={dict.auth.emailPlaceholder}
+              required
+              className={styles.emailInput}
+            />
+            <button type="submit" className={styles.emailButton}>
+              {dict.auth.emailButton}
+            </button>
+          </form>
+
           <div className={styles.features}>
             <div className={styles.feature}>
               <span className={styles.featureIcon}>📊</span>

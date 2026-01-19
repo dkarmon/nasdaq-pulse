@@ -149,9 +149,6 @@ export function StockDetail({ symbol, onClose, labels }: StockDetailProps) {
           <span className={styles.metricValue}>{formatPrice(quote.price)}</span>
           <span className={styles.metricLabel}>{labels.price}</span>
         </div>
-      </div>
-
-      <div className={styles.metricsRow}>
         <div className={styles.metricCard}>
           <span
             className={styles.metricValue}

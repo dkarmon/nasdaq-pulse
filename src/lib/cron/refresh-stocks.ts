@@ -126,63 +126,60 @@ export async function refreshStocksInRange(
     const stocksMap = new Map<string, Stock>();
     existingStocks.forEach(s => stocksMap.set(s.symbol, s));
 
-    // Process in batches - Yahoo is generous, use larger batches
-    const BATCH_SIZE = 20;
-    const DELAY_MS = 1000; // 1 second between batches
+    // Process sequentially with delays to avoid rate limiting
+    const DELAY_BETWEEN_REQUESTS_MS = 1500; // 1.5 seconds between each request
+    const failedSymbols: string[] = [];
 
-    for (let idx = 0; idx < symbols.length; idx += BATCH_SIZE) {
-      const batch = symbols.slice(idx, idx + BATCH_SIZE);
-      const batchNum = Math.floor(idx / BATCH_SIZE) + 1;
-      const totalBatches = Math.ceil(symbols.length / BATCH_SIZE);
+    for (let idx = 0; idx < symbols.length; idx++) {
+      const symbol = symbols[idx];
 
-      if (batchNum % 10 === 1 || batchNum === totalBatches) {
-        console.log(`Batch ${batchNum}/${totalBatches} (${result.processed} processed, ${result.failed} failed)`);
+      // Progress logging every 50 symbols
+      if (idx % 50 === 0 || idx === symbols.length - 1) {
+        console.log(`Progress: ${idx + 1}/${symbols.length} (${result.processed} ok, ${result.failed} failed)`);
       }
 
-      const batchPromises = batch.map(async (symbol) => {
-        try {
-          // Fetch quote+growth and market cap in parallel
-          const [data, marketCap] = await Promise.all([
-            getQuoteAndGrowth(symbol),
-            getMarketCap(symbol),
-          ]);
+      try {
+        // Fetch quote+growth (skip market cap - it requires auth)
+        const data = await getQuoteAndGrowth(symbol);
 
-          if (!data) {
-            result.failed++;
-            if (result.errors.length < 50) {
-              result.errors.push(`${symbol}: No data`);
-            }
-            return;
-          }
-
-          const stock: Stock = {
-            symbol,
-            name: data.quote.name,
-            price: data.quote.price,
-            marketCap: marketCap,
-            growth1m: data.growth.growth1m,
-            growth6m: data.growth.growth6m,
-            growth12m: data.growth.growth12m,
-            updatedAt: new Date().toISOString(),
-            hasSplitWarning: data.hasSplitWarning || undefined,
-          };
-
-          stocksMap.set(symbol, stock);
-          result.processed++;
-        } catch (error) {
+        if (!data) {
           result.failed++;
-          if (result.errors.length < 50) {
-            result.errors.push(`${symbol}: ${String(error)}`);
-          }
+          failedSymbols.push(symbol);
+          result.errors.push(`${symbol}: No data returned`);
+          continue;
         }
-      });
 
-      await Promise.all(batchPromises);
+        const stock: Stock = {
+          symbol,
+          name: data.quote.name,
+          price: data.quote.price,
+          marketCap: 0, // Skip market cap - requires crumb auth
+          growth1m: data.growth.growth1m,
+          growth6m: data.growth.growth6m,
+          growth12m: data.growth.growth12m,
+          updatedAt: new Date().toISOString(),
+          hasSplitWarning: data.hasSplitWarning || undefined,
+        };
 
-      // Wait between batches
-      if (idx + BATCH_SIZE < symbols.length) {
-        await new Promise(resolve => setTimeout(resolve, DELAY_MS));
+        stocksMap.set(symbol, stock);
+        result.processed++;
+      } catch (error) {
+        result.failed++;
+        failedSymbols.push(symbol);
+        result.errors.push(`${symbol}: ${String(error)}`);
       }
+
+      // Wait between requests to avoid rate limiting
+      if (idx < symbols.length - 1) {
+        await new Promise(resolve => setTimeout(resolve, DELAY_BETWEEN_REQUESTS_MS));
+      }
+    }
+
+    // Log all failed symbols at the end
+    if (failedSymbols.length > 0) {
+      console.log(`\n=== FAILED SYMBOLS (${failedSymbols.length}) ===`);
+      console.log(failedSymbols.join(', '));
+      console.log('=== END FAILED SYMBOLS ===\n');
     }
 
     // Save all stocks (merged)

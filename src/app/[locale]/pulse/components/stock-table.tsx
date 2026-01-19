@@ -71,26 +71,23 @@ export function StockTable({
                 onClick={() => onSelectStock(stock.symbol)}
               >
                 <td className={styles.stockCell}>
-                  <div className={styles.stockInfo}>
-                    <div className={styles.symbolRow}>
-                      <span className={styles.symbol}>{stock.symbol}</span>
-                      {stock.hasSplitWarning && (
-                        <span className={styles.splitWarning} title="Recent stock split - growth data may be inaccurate">
-                          ⚠️
-                        </span>
-                      )}
-                      <button
-                        className={styles.copyButton}
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          navigator.clipboard.writeText(stock.symbol);
-                        }}
-                        title="Copy ticker"
-                      >
-                        ⧉
-                      </button>
-                    </div>
-                    <span className={styles.name}>{stock.name}</span>
+                  <div className={styles.symbolRow}>
+                    <span className={styles.symbol}>{stock.symbol}</span>
+                    {stock.hasSplitWarning && (
+                      <span className={styles.splitWarning} title="Recent stock split - growth data may be inaccurate">
+                        ⚠️
+                      </span>
+                    )}
+                    <button
+                      className={styles.copyButton}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        navigator.clipboard.writeText(stock.symbol);
+                      }}
+                      title="Copy ticker"
+                    >
+                      ⧉
+                    </button>
                   </div>
                 </td>
                 <td className={styles.priceCell}>
