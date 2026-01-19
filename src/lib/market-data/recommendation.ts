@@ -5,14 +5,14 @@ import type { Stock } from "./types";
 
 /**
  * Checks if a stock has valid data for recommendation scoring.
- * Requires growth5d to exist and all denominators (5D, 1M, 6M) to be positive
- * to avoid division by zero or invalid ratios.
+ * All growth values must be at least 1% to qualify.
  */
 export function hasValidRecommendationData(stock: Stock): boolean {
   if (stock.growth5d === undefined) return false;
-  if (stock.growth5d <= 0) return false;
-  if (stock.growth1m <= 0) return false;
-  if (stock.growth6m <= 0) return false;
+  if (stock.growth5d < 1) return false;
+  if (stock.growth1m < 1) return false;
+  if (stock.growth6m < 1) return false;
+  if (stock.growth12m < 1) return false;
   return true;
 }
 

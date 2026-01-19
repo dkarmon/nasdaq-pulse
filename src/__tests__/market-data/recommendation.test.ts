@@ -62,13 +62,28 @@ describe("hasValidRecommendationData", () => {
     expect(hasValidRecommendationData(stock)).toBe(false);
   });
 
-  it("returns true when all values are positive", () => {
-    const stock = makeStock({ growth5d: 5, growth1m: 10, growth6m: 20, growth12m: 30 });
+  it("returns false when growth12m is 0", () => {
+    const stock = makeStock({ growth5d: 5, growth1m: 10, growth6m: 20, growth12m: 0 });
+    expect(hasValidRecommendationData(stock)).toBe(false);
+  });
+
+  it("returns false when growth12m is negative", () => {
+    const stock = makeStock({ growth5d: 5, growth1m: 10, growth6m: 20, growth12m: -5 });
+    expect(hasValidRecommendationData(stock)).toBe(false);
+  });
+
+  it("returns false when values are below 1", () => {
+    const stock = makeStock({ growth5d: 0.5, growth1m: 0.8, growth6m: 0.9, growth12m: 0.95 });
+    expect(hasValidRecommendationData(stock)).toBe(false);
+  });
+
+  it("returns true when all values are at least 1", () => {
+    const stock = makeStock({ growth5d: 1, growth1m: 2, growth6m: 3, growth12m: 4 });
     expect(hasValidRecommendationData(stock)).toBe(true);
   });
 
-  it("returns true with very small positive values", () => {
-    const stock = makeStock({ growth5d: 0.1, growth1m: 0.2, growth6m: 0.3 });
+  it("returns true when all values are well above 1", () => {
+    const stock = makeStock({ growth5d: 5, growth1m: 10, growth6m: 20, growth12m: 30 });
     expect(hasValidRecommendationData(stock)).toBe(true);
   });
 });
