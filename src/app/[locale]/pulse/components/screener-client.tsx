@@ -33,6 +33,7 @@ export function ScreenerClient({
     setFilter,
     clearFilters,
     hasActiveFilters,
+    hideStock,
   } = usePreferences();
 
   const [stocks, setStocks] = useState<Stock[]>(initialData.stocks);
@@ -92,11 +93,17 @@ export function ScreenerClient({
     growth12m: dict.screener.growth12m,
     view: dict.screener.view,
     noStocks: dict.screener.noStocks,
+    hide: dict.screener.hide,
   };
 
   const cardLabels = {
     noStocks: dict.screener.noStocks,
+    hide: dict.screener.hide,
   };
+
+  const visibleStocks = stocks.filter(
+    (stock) => !preferences.hiddenSymbols.includes(stock.symbol)
+  );
 
   return (
     <div className={styles.screener}>
@@ -116,18 +123,20 @@ export function ScreenerClient({
 
       <div className={styles.stockList} data-loading={isLoading}>
         <StockTable
-          stocks={stocks}
+          stocks={visibleStocks}
           sortBy={preferences.sortBy}
           selectedSymbol={selectedSymbol}
           onSelectStock={onSelectStock}
+          onHideStock={hideStock}
           labels={tableLabels}
         />
 
         <StockCardList
-          stocks={stocks}
+          stocks={visibleStocks}
           sortBy={preferences.sortBy}
           selectedSymbol={selectedSymbol}
           onSelectStock={onSelectStock}
+          onHideStock={hideStock}
           labels={cardLabels}
         />
       </div>

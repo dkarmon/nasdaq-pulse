@@ -43,6 +43,34 @@
   gap: 12px;
 }
 
+.headerRight {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.hideButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--muted);
+  font-size: 1rem;
+  cursor: pointer;
+  transition: border 120ms ease, color 120ms ease, background 120ms ease;
+}
+
+.hideButton:hover,
+.hideButton:active {
+  border-color: #f8bac8;
+  color: #f8bac8;
+  background: rgba(248, 186, 200, 0.1);
+}
+
 .symbol {
   font-family: var(--font-space-grotesk), var(--font-manrope), system-ui, sans-serif;
   font-weight: 800;

@@ -67,6 +67,13 @@ export type Dictionary = {
     live: string;
     loading: string;
     error: string;
+    hide: string;
+  };
+  settings: {
+    title: string;
+    hiddenStocks: string;
+    unhide: string;
+    noHiddenStocks: string;
   };
   auth: {
     signinTitle: string;
@@ -191,6 +198,13 @@ export const dictionaries: Record<Locale, Dictionary> = {
       live: "Live",
       loading: "Loading",
       error: "Error",
+      hide: "Hide",
+    },
+    settings: {
+      title: "Settings",
+      hiddenStocks: "Hidden Stocks",
+      unhide: "Unhide",
+      noHiddenStocks: "No hidden stocks",
     },
     auth: {
       signinTitle: "Welcome to Nasdaq Pulse",
@@ -311,6 +325,13 @@ export const dictionaries: Record<Locale, Dictionary> = {
       live: "חי",
       loading: "טוען",
       error: "שגיאה",
+      hide: "הסתר",
+    },
+    settings: {
+      title: "הגדרות",
+      hiddenStocks: "מניות מוסתרות",
+      unhide: "בטל הסתרה",
+      noHiddenStocks: "אין מניות מוסתרות",
     },
     auth: {
       signinTitle: "ברוכים הבאים ל-Nasdaq Pulse",

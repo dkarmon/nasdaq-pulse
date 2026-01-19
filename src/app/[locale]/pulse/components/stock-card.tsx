@@ -11,6 +11,8 @@ type StockCardProps = {
   sortBy: SortPeriod;
   isSelected: boolean;
   onSelect: () => void;
+  onHide: () => void;
+  hideLabel: string;
 };
 
 function formatMarketCap(value: number): string {
@@ -40,6 +42,8 @@ export function StockCard({
   sortBy,
   isSelected,
   onSelect,
+  onHide,
+  hideLabel,
 }: StockCardProps) {
 
   return (
@@ -58,7 +62,19 @@ export function StockCard({
             <span className={styles.splitWarning} title="Recent stock split - growth data may be inaccurate"> ⚠️</span>
           )}
         </span>
-        <span className={styles.price}>{formatPrice(stock.price)}</span>
+        <div className={styles.headerRight}>
+          <span className={styles.price}>{formatPrice(stock.price)}</span>
+          <button
+            className={styles.hideButton}
+            onClick={(e) => {
+              e.stopPropagation();
+              onHide();
+            }}
+            title={hideLabel}
+          >
+            ✕
+          </button>
+        </div>
       </div>
 
       <div className={styles.growthRow}>
@@ -102,8 +118,10 @@ type StockCardListProps = {
   sortBy: SortPeriod;
   selectedSymbol: string | null;
   onSelectStock: (symbol: string) => void;
+  onHideStock: (symbol: string) => void;
   labels: {
     noStocks: string;
+    hide: string;
   };
 };
 
@@ -112,6 +130,7 @@ export function StockCardList({
   sortBy,
   selectedSymbol,
   onSelectStock,
+  onHideStock,
   labels,
 }: StockCardListProps) {
   if (stocks.length === 0) {
@@ -131,6 +150,8 @@ export function StockCardList({
           sortBy={sortBy}
           isSelected={selectedSymbol === stock.symbol}
           onSelect={() => onSelectStock(stock.symbol)}
+          onHide={() => onHideStock(stock.symbol)}
+          hideLabel={labels.hide}
         />
       ))}
     </div>

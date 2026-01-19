@@ -11,6 +11,7 @@ type StockTableProps = {
   sortBy: SortPeriod;
   selectedSymbol: string | null;
   onSelectStock: (symbol: string) => void;
+  onHideStock: (symbol: string) => void;
   labels: {
     stock: string;
     price: string;
@@ -20,6 +21,7 @@ type StockTableProps = {
     growth12m: string;
     view: string;
     noStocks: string;
+    hide: string;
   };
 };
 
@@ -37,6 +39,7 @@ export function StockTable({
   sortBy,
   selectedSymbol,
   onSelectStock,
+  onHideStock,
   labels,
 }: StockTableProps) {
   if (stocks.length === 0) {
@@ -87,6 +90,16 @@ export function StockTable({
                       title="Copy ticker"
                     >
                       ⧉
+                    </button>
+                    <button
+                      className={styles.hideButton}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        onHideStock(stock.symbol);
+                      }}
+                      title={labels.hide}
+                    >
+                      ✕
                     </button>
                   </div>
                 </td>

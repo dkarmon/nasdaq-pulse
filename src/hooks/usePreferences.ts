@@ -10,6 +10,7 @@ export type ScreenerPreferences = {
   sortBy: SortPeriod;
   limit: number;
   filters: ScreenerFilters;
+  hiddenSymbols: string[];
 };
 
 const STORAGE_KEY = "nasdaq-pulse-prefs";
@@ -22,6 +23,7 @@ const defaultPreferences: ScreenerPreferences = {
     max6m: "any",
     max12m: "any",
   },
+  hiddenSymbols: [],
 };
 
 function loadPreferences(): ScreenerPreferences {
@@ -44,6 +46,7 @@ function loadPreferences(): ScreenerPreferences {
         max6m: parsed.filters?.max6m ?? defaultPreferences.filters.max6m,
         max12m: parsed.filters?.max12m ?? defaultPreferences.filters.max12m,
       },
+      hiddenSymbols: Array.isArray(parsed.hiddenSymbols) ? parsed.hiddenSymbols : [],
     };
   } catch {
     return defaultPreferences;
@@ -102,6 +105,31 @@ export function usePreferences() {
     updatePreferences({ filters: defaultPreferences.filters });
   }, [updatePreferences]);
 
+  const hideStock = useCallback((symbol: string) => {
+    setPreferences((prev) => {
+      if (prev.hiddenSymbols.includes(symbol)) {
+        return prev;
+      }
+      const next = {
+        ...prev,
+        hiddenSymbols: [...prev.hiddenSymbols, symbol],
+      };
+      savePreferences(next);
+      return next;
+    });
+  }, []);
+
+  const unhideStock = useCallback((symbol: string) => {
+    setPreferences((prev) => {
+      const next = {
+        ...prev,
+        hiddenSymbols: prev.hiddenSymbols.filter((s) => s !== symbol),
+      };
+      savePreferences(next);
+      return next;
+    });
+  }, []);
+
   const hasActiveFilters =
     preferences.filters.max1m !== "any" ||
     preferences.filters.max6m !== "any" ||
@@ -115,5 +143,7 @@ export function usePreferences() {
     setFilter,
     clearFilters,
     hasActiveFilters,
+    hideStock,
+    unhideStock,
   };
 }
