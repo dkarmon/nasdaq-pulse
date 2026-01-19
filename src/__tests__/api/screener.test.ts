@@ -58,8 +58,8 @@ describe("GET /api/screener", () => {
 
   it("respects filter parameters", async () => {
     const request = createRequest({
-      min1m: "10",
-      min6m: "25",
+      max1m: "10",
+      max6m: "25",
     });
     const response = await GET(request);
     const data = await response.json();
@@ -94,7 +94,7 @@ describe("GET /api/screener", () => {
   });
 
   it("defaults invalid filter to any", async () => {
-    const request = createRequest({ min1m: "invalid" });
+    const request = createRequest({ max1m: "invalid" });
     const response = await GET(request);
     const data = await response.json();
 

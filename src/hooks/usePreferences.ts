@@ -18,9 +18,9 @@ const defaultPreferences: ScreenerPreferences = {
   sortBy: "1m",
   limit: 50,
   filters: {
-    min1m: "any",
-    min6m: "any",
-    min12m: "any",
+    max1m: "any",
+    max6m: "any",
+    max12m: "any",
   },
 };
 
@@ -40,9 +40,9 @@ function loadPreferences(): ScreenerPreferences {
       sortBy: parsed.sortBy ?? defaultPreferences.sortBy,
       limit: parsed.limit ?? defaultPreferences.limit,
       filters: {
-        min1m: parsed.filters?.min1m ?? defaultPreferences.filters.min1m,
-        min6m: parsed.filters?.min6m ?? defaultPreferences.filters.min6m,
-        min12m: parsed.filters?.min12m ?? defaultPreferences.filters.min12m,
+        max1m: parsed.filters?.max1m ?? defaultPreferences.filters.max1m,
+        max6m: parsed.filters?.max6m ?? defaultPreferences.filters.max6m,
+        max12m: parsed.filters?.max12m ?? defaultPreferences.filters.max12m,
       },
     };
   } catch {
@@ -103,9 +103,9 @@ export function usePreferences() {
   }, [updatePreferences]);
 
   const hasActiveFilters =
-    preferences.filters.min1m !== "any" ||
-    preferences.filters.min6m !== "any" ||
-    preferences.filters.min12m !== "any";
+    preferences.filters.max1m !== "any" ||
+    preferences.filters.max6m !== "any" ||
+    preferences.filters.max12m !== "any";
 
   return {
     preferences,

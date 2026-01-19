@@ -22,7 +22,7 @@ type ControlsBarProps = {
     sortBy: string;
     show: string;
     filters: string;
-    min: string;
+    max: string;
     clearAll: string;
     any: string;
     search: string;
@@ -111,21 +111,21 @@ export function ControlsBar({
       {filtersExpanded && (
         <div className={styles.filterPanel}>
           <FilterRow
-            label={`${labels.min} 1M:`}
-            value={filters.min1m}
-            onChange={(v) => onFilterChange("min1m", v)}
+            label={`${labels.max} 1M:`}
+            value={filters.max1m}
+            onChange={(v) => onFilterChange("max1m", v)}
             anyLabel={labels.any}
           />
           <FilterRow
-            label={`${labels.min} 6M:`}
-            value={filters.min6m}
-            onChange={(v) => onFilterChange("min6m", v)}
+            label={`${labels.max} 6M:`}
+            value={filters.max6m}
+            onChange={(v) => onFilterChange("max6m", v)}
             anyLabel={labels.any}
           />
           <FilterRow
-            label={`${labels.min} 12M:`}
-            value={filters.min12m}
-            onChange={(v) => onFilterChange("min12m", v)}
+            label={`${labels.max} 12M:`}
+            value={filters.max12m}
+            onChange={(v) => onFilterChange("max12m", v)}
             anyLabel={labels.any}
           />
 
@@ -162,7 +162,7 @@ function FilterRow({ label, value, onChange, anyLabel }: FilterRowProps) {
             onClick={() => onChange(preset)}
             aria-pressed={value === preset || (preset !== "any" && value === Number(preset))}
           >
-            {preset === "any" ? anyLabel : `${preset}%+`}
+            {preset === "any" ? anyLabel : `≤${preset}%`}
           </button>
         ))}
         <input
@@ -180,7 +180,7 @@ function FilterRow({ label, value, onChange, anyLabel }: FilterRowProps) {
           }}
           min={0}
           max={1000}
-          aria-label={`Custom minimum ${label}`}
+          aria-label={`Custom maximum ${label}`}
         />
       </div>
     </div>

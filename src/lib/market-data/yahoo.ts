@@ -99,18 +99,20 @@ function calculateGrowthByCalendarMonths(
   targetDate.setMonth(targetDate.getMonth() - monthsAgo);
   const targetTime = targetDate.getTime();
 
-  // Find the price at the closest trading day to target date
-  let closestIdx = 0;
-  let closestDiff = Infinity;
+  // Find the price at the trading day on or after target date (Google's method)
+  let targetIdx = 0;
   for (let i = 0; i < timestamps.length; i++) {
-    const diff = Math.abs(timestamps[i] * 1000 - targetTime);
-    if (diff < closestDiff && prices[i] !== undefined) {
-      closestDiff = diff;
-      closestIdx = i;
+    if (timestamps[i] * 1000 >= targetTime && prices[i] !== undefined) {
+      targetIdx = i;
+      break;
+    }
+    // Keep track of the last valid index in case target is before all data
+    if (prices[i] !== undefined) {
+      targetIdx = i;
     }
   }
 
-  const pastPrice = prices[closestIdx];
+  const pastPrice = prices[targetIdx];
   if (!pastPrice || pastPrice === 0) return 0;
 
   return ((currentPrice - pastPrice) / pastPrice) * 100;

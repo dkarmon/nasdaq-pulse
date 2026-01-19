@@ -21,7 +21,6 @@ export function PulseWrapper({ initialData, dict }: PulseWrapperProps) {
   const detailLabels = {
     backToList: dict.screener.backToList,
     price: dict.screener.price,
-    cap: dict.screener.cap,
     growth1m: dict.screener.growth1m,
     growth6m: dict.screener.growth6m,
     growth12m: dict.screener.growth12m,

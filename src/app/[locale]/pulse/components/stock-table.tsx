@@ -1,5 +1,5 @@
-// ABOUTME: Desktop stock table with 4 columns plus view button.
-// ABOUTME: Shows stock symbol/name, price, market cap, and active growth metric.
+// ABOUTME: Desktop stock table showing stocks with growth metrics.
+// ABOUTME: Displays symbol/name, price, and 1M/6M/12M growth percentages.
 
 "use client";
 
@@ -14,7 +14,6 @@ type StockTableProps = {
   labels: {
     stock: string;
     price: string;
-    cap: string;
     growth: string;
     growth1m: string;
     growth6m: string;
@@ -23,19 +22,6 @@ type StockTableProps = {
     noStocks: string;
   };
 };
-
-function formatMarketCap(value: number): string {
-  if (value >= 1e12) {
-    return `${(value / 1e12).toFixed(1)}T`;
-  }
-  if (value >= 1e9) {
-    return `${(value / 1e9).toFixed(0)}B`;
-  }
-  if (value >= 1e6) {
-    return `${(value / 1e6).toFixed(0)}M`;
-  }
-  return value.toLocaleString();
-}
 
 function formatGrowth(value: number): string {
   const sign = value >= 0 ? "+" : "";
@@ -68,7 +54,6 @@ export function StockTable({
           <tr>
             <th className={styles.stockCol}>{labels.stock}</th>
             <th className={styles.priceCol}>{labels.price}</th>
-            <th className={styles.capCol}>{labels.cap}</th>
             <th className={styles.growthCol} data-active={sortBy === "1m"}>{labels.growth1m}</th>
             <th className={styles.growthCol} data-active={sortBy === "6m"}>{labels.growth6m}</th>
             <th className={styles.growthCol} data-active={sortBy === "12m"}>{labels.growth12m}</th>
@@ -110,9 +95,6 @@ export function StockTable({
                 </td>
                 <td className={styles.priceCell}>
                   {formatPrice(stock.price)}
-                </td>
-                <td className={styles.capCell}>
-                  {formatMarketCap(stock.marketCap)}
                 </td>
                 <td
                   className={styles.growthCell}

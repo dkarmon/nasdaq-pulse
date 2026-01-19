@@ -86,9 +86,9 @@ export type FilterPreset = "any" | "5" | "10" | "25";
 export type FilterValue = FilterPreset | number;
 
 export type ScreenerFilters = {
-  min1m: FilterValue;
-  min6m: FilterValue;
-  min12m: FilterValue;
+  max1m: FilterValue;
+  max6m: FilterValue;
+  max12m: FilterValue;
 };
 
 export type ScreenerParams = {

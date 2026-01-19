@@ -1,5 +1,5 @@
 // ABOUTME: API route returning screener data for NASDAQ stocks with growth metrics.
-// ABOUTME: Supports sorting by 1M/6M/12M growth and filtering by minimum growth thresholds.
+// ABOUTME: Supports sorting by 1M/6M/12M growth and filtering by maximum growth thresholds.
 
 import { NextRequest, NextResponse } from "next/server";
 import { unstable_cache } from "next/cache";
@@ -44,19 +44,19 @@ function parseLimit(value: string | null): number {
 
 function applyFilters(stocks: Stock[], params: ScreenerParams): Stock[] {
   const filterValue = (value: FilterValue): number => {
-    if (value === "any") return -Infinity;
+    if (value === "any") return Infinity;
     if (typeof value === "number") return value;
     return parseFloat(value);
   };
 
-  const min1m = filterValue(params.filters.min1m);
-  const min6m = filterValue(params.filters.min6m);
-  const min12m = filterValue(params.filters.min12m);
+  const max1m = filterValue(params.filters.max1m);
+  const max6m = filterValue(params.filters.max6m);
+  const max12m = filterValue(params.filters.max12m);
 
   return stocks.filter((stock) =>
-    stock.growth1m >= min1m &&
-    stock.growth6m >= min6m &&
-    stock.growth12m >= min12m
+    stock.growth1m <= max1m &&
+    stock.growth6m <= max6m &&
+    stock.growth12m <= max12m
   );
 }
 
@@ -109,9 +109,9 @@ export async function GET(request: NextRequest) {
     sortBy: parseSortPeriod(searchParams.get("sortBy")),
     limit: parseLimit(searchParams.get("limit")),
     filters: {
-      min1m: parseFilterValue(searchParams.get("min1m")),
-      min6m: parseFilterValue(searchParams.get("min6m")),
-      min12m: parseFilterValue(searchParams.get("min12m")),
+      max1m: parseFilterValue(searchParams.get("max1m")),
+      max6m: parseFilterValue(searchParams.get("max6m")),
+      max12m: parseFilterValue(searchParams.get("max12m")),
     },
   };
 

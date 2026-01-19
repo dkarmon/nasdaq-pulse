@@ -377,20 +377,20 @@ function generateHistoricalData(
 
 function applyFilters(stocks: Stock[], params: ScreenerParams): Stock[] {
   const filterValue = (value: string | number): number => {
-    if (value === "any") return -Infinity;
+    if (value === "any") return Infinity;
     if (typeof value === "number") return value;
     return parseFloat(value);
   };
 
   return stocks.filter((stock) => {
-    const min1m = filterValue(params.filters.min1m);
-    const min6m = filterValue(params.filters.min6m);
-    const min12m = filterValue(params.filters.min12m);
+    const max1m = filterValue(params.filters.max1m);
+    const max6m = filterValue(params.filters.max6m);
+    const max12m = filterValue(params.filters.max12m);
 
     return (
-      stock.growth1m >= min1m &&
-      stock.growth6m >= min6m &&
-      stock.growth12m >= min12m
+      stock.growth1m <= max1m &&
+      stock.growth6m <= max6m &&
+      stock.growth12m <= max12m
     );
   });
 }

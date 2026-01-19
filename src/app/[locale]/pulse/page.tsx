@@ -22,9 +22,9 @@ async function getInitialScreenerData() {
     sortBy: "1m",
     limit: 50,
     filters: {
-      min1m: "any",
-      min6m: "any",
-      min12m: "any",
+      max1m: "any",
+      max6m: "any",
+      max12m: "any",
     },
   };
 

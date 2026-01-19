@@ -47,9 +47,9 @@ export function ScreenerClient({
       const params = new URLSearchParams({
         sortBy: preferences.sortBy,
         limit: preferences.limit.toString(),
-        min1m: String(preferences.filters.min1m),
-        min6m: String(preferences.filters.min6m),
-        min12m: String(preferences.filters.min12m),
+        max1m: String(preferences.filters.max1m),
+        max6m: String(preferences.filters.max6m),
+        max12m: String(preferences.filters.max12m),
       });
 
       if (search) {
@@ -77,7 +77,7 @@ export function ScreenerClient({
     sortBy: dict.screener.sortBy,
     show: dict.screener.show,
     filters: dict.screener.filters,
-    min: dict.screener.min,
+    max: dict.screener.max,
     clearAll: dict.screener.clearAll,
     any: dict.screener.any,
     search: dict.screener.search,
@@ -86,7 +86,6 @@ export function ScreenerClient({
   const tableLabels = {
     stock: dict.screener.stock,
     price: dict.screener.price,
-    cap: dict.screener.cap,
     growth: dict.screener.growth,
     growth1m: dict.screener.growth1m,
     growth6m: dict.screener.growth6m,

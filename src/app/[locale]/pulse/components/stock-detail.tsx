@@ -14,7 +14,6 @@ type StockDetailProps = {
   labels: {
     backToList: string;
     price: string;
-    cap: string;
     growth1m: string;
     growth6m: string;
     growth12m: string;
@@ -28,19 +27,6 @@ type StockDetailProps = {
     error: string;
   };
 };
-
-function formatMarketCap(value: number): string {
-  if (value >= 1e12) {
-    return `$${(value / 1e12).toFixed(2)}T`;
-  }
-  if (value >= 1e9) {
-    return `$${(value / 1e9).toFixed(1)}B`;
-  }
-  if (value >= 1e6) {
-    return `$${(value / 1e6).toFixed(0)}M`;
-  }
-  return `$${value.toLocaleString()}`;
-}
 
 function formatPrice(value: number): string {
   return `$${value.toLocaleString(undefined, {
@@ -162,12 +148,6 @@ export function StockDetail({ symbol, onClose, labels }: StockDetailProps) {
         <div className={styles.metricCard}>
           <span className={styles.metricValue}>{formatPrice(quote.price)}</span>
           <span className={styles.metricLabel}>{labels.price}</span>
-        </div>
-        <div className={styles.metricCard}>
-          <span className={styles.metricValue}>
-            {formatMarketCap(profile.marketCap)}
-          </span>
-          <span className={styles.metricLabel}>{labels.cap}</span>
         </div>
       </div>
 

@@ -44,7 +44,7 @@ export type Dictionary = {
     sortBy: string;
     show: string;
     filters: string;
-    min: string;
+    max: string;
     clearAll: string;
     any: string;
     search: string;
@@ -163,7 +163,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
       sortBy: "Sort by",
       show: "Show",
       filters: "Filters",
-      min: "Min",
+      max: "Max",
       clearAll: "Clear all",
       any: "Any",
       search: "Search by symbol...",
@@ -278,7 +278,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
       sortBy: "מיון לפי",
       show: "הצג",
       filters: "סינון",
-      min: "מינ׳",
+      max: "מקס׳",
       clearAll: "נקה הכל",
       any: "הכל",
       search: "...חיפוש לפי סמל",
