@@ -102,9 +102,11 @@ export async function getStockDetail(
 
   // Build minimal profile from Yahoo data if none available
   if (!profile) {
+    const hebrewName = getHebrewName(yahooData.quote.symbol);
     profile = {
       symbol: yahooData.quote.symbol,
       name: yahooData.quote.name,
+      nameHebrew: hebrewName,
       exchange: yahooData.quote.exchange,
       industry: "",
       marketCap: 0,

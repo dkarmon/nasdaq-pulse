@@ -37,6 +37,7 @@ export type Quote = {
 export type CompanyProfile = {
   symbol: string;
   name: string;
+  nameHebrew?: string;
   exchange: string;
   sector?: string;
   industry: string;
