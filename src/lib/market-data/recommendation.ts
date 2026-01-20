@@ -5,11 +5,10 @@ import type { Stock } from "./types";
 
 /**
  * Checks if a stock has valid data for recommendation scoring.
- * All growth values must be at least 1% to qualify.
+ * Growth values for 1M, 6M, and 12M must be at least 1% to qualify.
  */
 export function hasValidRecommendationData(stock: Stock): boolean {
   if (stock.growth5d === undefined) return false;
-  if (stock.growth5d < 1) return false;
   if (stock.growth1m < 1) return false;
   if (stock.growth6m < 1) return false;
   if (stock.growth12m < 1) return false;
@@ -27,6 +26,14 @@ export function isRecommended(stock: Stock): boolean {
     stock.growth1m < stock.growth6m &&
     stock.growth6m < stock.growth12m
   );
+}
+
+/**
+ * Checks if a stock should be shown as recommended (with star icon).
+ * Combines ascending growth pattern with minimum growth thresholds.
+ */
+export function isStockRecommended(stock: Stock): boolean {
+  return hasValidRecommendationData(stock) && isRecommended(stock);
 }
 
 /**

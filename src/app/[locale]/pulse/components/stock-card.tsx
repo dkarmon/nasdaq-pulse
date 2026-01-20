@@ -4,14 +4,8 @@
 "use client";
 
 import type { Stock, SortPeriod } from "@/lib/market-data/types";
+import { isStockRecommended } from "@/lib/market-data/recommendation";
 import styles from "./stock-card.module.css";
-
-function isRecommended(stock: Stock): boolean {
-  if (stock.growth5d === undefined) return false;
-  return stock.growth5d < stock.growth1m &&
-         stock.growth1m < stock.growth6m &&
-         stock.growth6m < stock.growth12m;
-}
 
 type StockCardProps = {
   stock: Stock;
@@ -74,7 +68,7 @@ export function StockCard({
             return (
               <>
                 <span className={styles.symbol}>
-                  {isRecommended(stock) && (
+                  {isStockRecommended(stock) && (
                     <span className={styles.starIcon} title={recommendedLabel}>★</span>
                   )}
                   {primaryText}
