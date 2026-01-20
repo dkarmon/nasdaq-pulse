@@ -65,15 +65,18 @@ export function StockCard({
       onKeyDown={(e) => e.key === "Enter" && onSelect()}
     >
       <div className={styles.header}>
-        <span className={styles.symbol}>
-          {isRecommended(stock) && (
-            <span className={styles.starIcon} title={recommendedLabel}>★</span>
-          )}
-          {stock.symbol}
-          {stock.hasSplitWarning && (
-            <span className={styles.splitWarning} title="Recent stock split - growth data may be inaccurate"> ⚠️</span>
-          )}
-        </span>
+        <div className={styles.symbolSection}>
+          <span className={styles.symbol}>
+            {isRecommended(stock) && (
+              <span className={styles.starIcon} title={recommendedLabel}>★</span>
+            )}
+            {stock.symbol}
+            {stock.hasSplitWarning && (
+              <span className={styles.splitWarning} title="Recent stock split - growth data may be inaccurate"> ⚠️</span>
+            )}
+          </span>
+          <span className={styles.companyName}>{stock.nameHebrew || stock.name}</span>
+        </div>
         <div className={styles.headerRight}>
           <span className={styles.price}>{formatPrice(stock.price)}</span>
           <button

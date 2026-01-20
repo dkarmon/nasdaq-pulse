@@ -82,6 +82,7 @@ export type StockDetailResponse = {
   growth6m: number;
   growth12m: number;
   updatedAt: string;
+  nameHebrew?: string;
 };
 
 export type NewsResponse = {

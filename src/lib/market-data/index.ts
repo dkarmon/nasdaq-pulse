@@ -5,6 +5,7 @@ import * as finnhub from "./finnhub";
 import * as yahoo from "./yahoo";
 import * as newsApi from "./newsapi";
 import * as mock from "./mock";
+import { getHebrewName } from "./tase-symbols";
 import type {
   Stock,
   Quote,
@@ -113,6 +114,7 @@ export async function getStockDetail(
     growth6m: yahooData.growth.growth6m,
     growth12m: yahooData.growth.growth12m,
     updatedAt: new Date().toISOString(),
+    nameHebrew: getHebrewName(symbol),
   };
 }
 

@@ -126,7 +126,7 @@ export function StockDetail({ symbol, onClose, labels }: StockDetailProps) {
     );
   }
 
-  const { profile, quote, history, growth5d, growth1m, growth6m, growth12m } = detail;
+  const { profile, quote, history, growth5d, growth1m, growth6m, growth12m, nameHebrew } = detail;
 
   return (
     <div className={styles.panel}>
@@ -153,7 +153,7 @@ export function StockDetail({ symbol, onClose, labels }: StockDetailProps) {
             ⧉
           </button>
         </div>
-        <p className={styles.companyName}>{profile.name}</p>
+        <p className={styles.companyName}>{nameHebrew || profile.name}</p>
       </div>
 
       <div className={styles.metricsRow}>

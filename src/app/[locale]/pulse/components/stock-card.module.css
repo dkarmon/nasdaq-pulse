@@ -71,11 +71,26 @@
   background: rgba(248, 186, 200, 0.1);
 }
 
+.symbolSection {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
 .symbol {
   font-family: var(--font-space-grotesk), var(--font-manrope), system-ui, sans-serif;
   font-weight: 800;
   font-size: 1.25rem;
   letter-spacing: 0.02em;
+}
+
+.companyName {
+  font-size: 0.85rem;
+  color: var(--muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 200px;
 }
 
 .starIcon {

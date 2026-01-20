@@ -117,6 +117,7 @@ export function StockTable({
                       ✕
                     </button>
                   </div>
+                  <div className={styles.companyName}>{stock.nameHebrew || stock.name}</div>
                 </td>
                 <td className={styles.priceCell}>
                   {formatPrice(stock.price)}
