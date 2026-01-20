@@ -32,8 +32,9 @@ function formatGrowth(value: number): string {
   return `${sign}${value.toFixed(1)}%`;
 }
 
-function formatPrice(value: number): string {
-  return `$${value.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+function formatPrice(value: number, currency: string = "USD"): string {
+  const symbol = currency === "ILS" ? "₪" : "$";
+  return `${symbol}${value.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 }
 
 function isRecommended(stock: Stock): boolean {
@@ -87,7 +88,7 @@ export function StockTable({
                   {(() => {
                     const isTLV = stock.symbol.endsWith(".TA");
                     const primaryText = isTLV && stock.nameHebrew ? stock.nameHebrew : stock.symbol;
-                    const secondaryText = isTLV ? stock.symbol : (stock.nameHebrew || stock.name);
+                    const secondaryText = isTLV ? null : (stock.nameHebrew || stock.name);
                     return (
                       <>
                         <div className={styles.symbolRow}>
@@ -123,13 +124,13 @@ export function StockTable({
                             ✕
                           </button>
                         </div>
-                        <div className={styles.companyName}>{secondaryText}</div>
+                        {secondaryText && <div className={styles.companyName}>{secondaryText}</div>}
                       </>
                     );
                   })()}
                 </td>
                 <td className={styles.priceCell}>
-                  {formatPrice(stock.price)}
+                  {formatPrice(stock.price, stock.currency)}
                 </td>
                 <td
                   className={styles.growthCell}

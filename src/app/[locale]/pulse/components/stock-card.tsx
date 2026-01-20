@@ -41,8 +41,9 @@ function formatGrowth(value: number): string {
   return `${sign}${value.toFixed(1)}%`;
 }
 
-function formatPrice(value: number): string {
-  return `$${value.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+function formatPrice(value: number, currency: string = "USD"): string {
+  const symbol = currency === "ILS" ? "₪" : "$";
+  return `${symbol}${value.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 }
 
 export function StockCard({
@@ -69,7 +70,7 @@ export function StockCard({
           {(() => {
             const isTLV = stock.symbol.endsWith(".TA");
             const primaryText = isTLV && stock.nameHebrew ? stock.nameHebrew : stock.symbol;
-            const secondaryText = isTLV ? stock.symbol : (stock.nameHebrew || stock.name);
+            const secondaryText = isTLV ? null : (stock.nameHebrew || stock.name);
             return (
               <>
                 <span className={styles.symbol}>
@@ -81,13 +82,13 @@ export function StockCard({
                     <span className={styles.splitWarning} title="Recent stock split - growth data may be inaccurate"> ⚠️</span>
                   )}
                 </span>
-                <span className={styles.companyName}>{secondaryText}</span>
+                {secondaryText && <span className={styles.companyName}>{secondaryText}</span>}
               </>
             );
           })()}
         </div>
         <div className={styles.headerRight}>
-          <span className={styles.price}>{formatPrice(stock.price)}</span>
+          <span className={styles.price}>{formatPrice(stock.price, stock.currency)}</span>
           <button
             className={styles.hideButton}
             onClick={(e) => {

@@ -87,6 +87,14 @@
   letter-spacing: 0.02em;
 }
 
+.priceInline {
+  font-family: var(--font-space-grotesk), var(--font-manrope), system-ui, sans-serif;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--muted);
+  margin-left: 4px;
+}
+
 .copyButton {
   display: flex;
   align-items: center;
