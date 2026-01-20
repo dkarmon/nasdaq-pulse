@@ -160,20 +160,29 @@ export function StockDetail({ symbol, onClose, locale = "en", labels }: StockDet
       </div>
 
       <div className={styles.titleSection}>
-        <div className={styles.symbolRow}>
-          {isRecommendedStock(growth5d, growth1m, growth6m, growth12m) && (
-            <span className={styles.starIcon} title={labels.recommended}>★</span>
-          )}
-          <h2 className={styles.symbol}>{profile.symbol}</h2>
-          <button
-            className={styles.copyButton}
-            onClick={() => navigator.clipboard.writeText(profile.symbol)}
-            title="Copy ticker"
-          >
-            ⧉
-          </button>
-        </div>
-        <p className={styles.companyName}>{nameHebrew || profile.name}</p>
+        {(() => {
+          const isTLV = symbol.endsWith(".TA");
+          const primaryText = isTLV && nameHebrew ? nameHebrew : profile.symbol;
+          const secondaryText = isTLV ? profile.symbol : (nameHebrew || profile.name);
+          return (
+            <>
+              <div className={styles.symbolRow}>
+                {isRecommendedStock(growth5d, growth1m, growth6m, growth12m) && (
+                  <span className={styles.starIcon} title={labels.recommended}>★</span>
+                )}
+                <h2 className={styles.symbol}>{primaryText}</h2>
+                <button
+                  className={styles.copyButton}
+                  onClick={() => navigator.clipboard.writeText(profile.symbol)}
+                  title="Copy ticker"
+                >
+                  ⧉
+                </button>
+              </div>
+              <p className={styles.companyName}>{secondaryText}</p>
+            </>
+          );
+        })()}
       </div>
 
       {(profile.sector || profile.industry || profile.marketCap || profile.website) && (

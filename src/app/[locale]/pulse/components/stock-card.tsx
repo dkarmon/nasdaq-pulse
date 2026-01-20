@@ -66,16 +66,25 @@ export function StockCard({
     >
       <div className={styles.header}>
         <div className={styles.symbolSection}>
-          <span className={styles.symbol}>
-            {isRecommended(stock) && (
-              <span className={styles.starIcon} title={recommendedLabel}>★</span>
-            )}
-            {stock.symbol}
-            {stock.hasSplitWarning && (
-              <span className={styles.splitWarning} title="Recent stock split - growth data may be inaccurate"> ⚠️</span>
-            )}
-          </span>
-          <span className={styles.companyName}>{stock.nameHebrew || stock.name}</span>
+          {(() => {
+            const isTLV = stock.symbol.endsWith(".TA");
+            const primaryText = isTLV && stock.nameHebrew ? stock.nameHebrew : stock.symbol;
+            const secondaryText = isTLV ? stock.symbol : (stock.nameHebrew || stock.name);
+            return (
+              <>
+                <span className={styles.symbol}>
+                  {isRecommended(stock) && (
+                    <span className={styles.starIcon} title={recommendedLabel}>★</span>
+                  )}
+                  {primaryText}
+                  {stock.hasSplitWarning && (
+                    <span className={styles.splitWarning} title="Recent stock split - growth data may be inaccurate"> ⚠️</span>
+                  )}
+                </span>
+                <span className={styles.companyName}>{secondaryText}</span>
+              </>
+            );
+          })()}
         </div>
         <div className={styles.headerRight}>
           <span className={styles.price}>{formatPrice(stock.price)}</span>

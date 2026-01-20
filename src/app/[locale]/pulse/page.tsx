@@ -54,9 +54,11 @@ export default async function PulsePage({ params }: PulsePageProps) {
             justifyContent: "space-between",
             alignItems: "center",
             marginBottom: "24px",
+            gap: "8px",
+            flexWrap: "wrap",
           }}
         >
-          <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "10px", flexShrink: 0, whiteSpace: "nowrap" }}>
             <span style={{ fontSize: "1.5rem", color: "var(--accent)" }}>◈</span>
             <span style={{ fontSize: "1.25rem", fontWeight: 700, letterSpacing: "-0.02em" }}>Nasdaq Pulse</span>
           </div>
@@ -66,7 +68,12 @@ export default async function PulsePage({ params }: PulsePageProps) {
               style={{
                 color: "var(--muted)",
                 textDecoration: "none",
-                fontSize: "0.9rem",
+                fontSize: "1.25rem",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                width: "32px",
+                height: "32px",
                 transition: "color 150ms ease",
               }}
               title={dict.settings.title}

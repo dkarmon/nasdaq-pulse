@@ -28,7 +28,7 @@ function parseFilterValue(value: string | null): FilterValue {
 }
 
 function parseSortPeriod(value: string | null): SortPeriod {
-  if (value === "5d" || value === "6m" || value === "12m") {
+  if (value === "5d" || value === "6m" || value === "12m" || value === "az") {
     return value;
   }
   return "1m";
@@ -81,6 +81,11 @@ function sortStocks(stocks: Stock[], sortBy: SortPeriod): Stock[] {
       case "1m": return b.growth1m - a.growth1m;
       case "6m": return b.growth6m - a.growth6m;
       case "12m": return b.growth12m - a.growth12m;
+      case "az": {
+        const aName = a.symbol.endsWith(".TA") ? (a.nameHebrew || a.name) : a.name;
+        const bName = b.symbol.endsWith(".TA") ? (b.nameHebrew || b.name) : b.name;
+        return (aName || a.symbol).localeCompare(bName || b.symbol, undefined, { sensitivity: "base" });
+      }
       default: return b.growth1m - a.growth1m;
     }
   });
@@ -97,13 +102,19 @@ async function fetchScreenerData(params: ScreenerParams, search?: string): Promi
   if (stocks.length > 0) {
     let filtered = stocks;
 
-    // Apply search filter first (matches symbol prefix)
+    // Apply search filter (matches symbol, name, or Hebrew name)
     if (search && search.length > 0) {
-      const searchUpper = search.toUpperCase();
-      // For TLV, symbols have .TA suffix, so match with or without it
+      const searchLower = search.toLowerCase();
       filtered = filtered.filter(stock => {
-        const baseSymbol = stock.symbol.replace(/\.TA$/, "");
-        return stock.symbol.startsWith(searchUpper) || baseSymbol.startsWith(searchUpper);
+        const baseSymbol = stock.symbol.replace(/\.TA$/, "").toLowerCase();
+        const symbolLower = stock.symbol.toLowerCase();
+        const nameLower = (stock.name || "").toLowerCase();
+        const nameHebrewLower = (stock.nameHebrew || "").toLowerCase();
+
+        return symbolLower.includes(searchLower) ||
+               baseSymbol.includes(searchLower) ||
+               nameLower.includes(searchLower) ||
+               nameHebrewLower.includes(searchLower);
       });
     }
 
