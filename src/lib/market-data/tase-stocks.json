@@ -2,87 +2,104 @@
   {
     "symbol": "ABOU",
     "name": "Abou Family Residence Ltd",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "אבו מגורים-ש"
   },
   {
     "symbol": "ABRA",
     "name": "Abra Information Technologies Inc.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "אברא"
   },
   {
     "symbol": "ACCL",
     "name": "Accel Solutions Group Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "אקסל"
   },
   {
     "symbol": "ACKR",
     "name": "Ackerstein Group Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "אקרשטיין קבוצה"
   },
   {
     "symbol": "ACRO",
     "name": "Kvutzat Acro Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "אקרו קבוצה"
   },
   {
     "symbol": "ADGR",
     "name": "Adgar Investment & Development Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "אדגר השקעות"
   },
   {
     "symbol": "AFHL",
     "name": "Afcon Holdings Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "אפקון החזקות"
   },
   {
     "symbol": "AFPR",
     "name": "Afi Properties Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "אפי נכסים"
   },
   {
     "symbol": "AFRE",
     "name": "Africa Israel Residences Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "אפריקה מגורים"
   },
   {
     "symbol": "AGRD",
     "name": "Autonomous Guard Ltd",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "אוטונומוס"
   },
   {
     "symbol": "AILN",
     "name": "Axilion Smart Mobility Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "אקסיליון"
   },
   {
     "symbol": "ALAR",
     "name": "Alarum Technologies Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "אלארום טכנ'"
   },
   {
     "symbol": "ALBA",
     "name": "Albaad Massuot Yitzhak Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "עלבד"
   },
   {
     "symbol": "ALHE",
     "name": "Alony Hetz Properties & Investments Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "אלוני חץ"
   },
   {
     "symbol": "ALLT",
     "name": "Allot Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "אלוט"
   },
   {
     "symbol": "ALMA",
     "name": "Almogim Holdings Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "אלמוגים החזקות"
   },
   {
     "symbol": "ALMD",
     "name": "Allmed Solutions Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "אולמד סולושנס"
   },
   {
     "symbol": "ALMY",
@@ -92,552 +109,662 @@
   {
     "symbol": "ALRPR",
     "name": "Alrov Properties and Lodging Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "אלרוב נדל\"ן"
   },
   {
     "symbol": "ALTF",
     "name": "Altshuler Shaham Pinnacle Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "אלטשולר שחם פנ"
   },
   {
     "symbol": "ALUMA",
     "name": "Aluma Infrastructure Fund Inc.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "אלומה"
   },
   {
     "symbol": "AMAL",
     "name": "Amal Holdings A.D. Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "עמל הולדינגס"
   },
   {
     "symbol": "AMAN",
     "name": "Amanet Management & Systems Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "אמנת"
   },
   {
     "symbol": "AMD",
     "name": "Amiad Water Systems Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "עמיעד"
   },
   {
     "symbol": "AMOT",
     "name": "Amot Investments Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "אמות"
   },
   {
     "symbol": "AMPA",
     "name": "Ampa Limited",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "אקסטל לימיטד"
   },
   {
     "symbol": "AMRK",
     "name": "Amir Marketing and Investments Ltd",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "בול מסחר-ש"
   },
   {
     "symbol": "AMRM",
     "name": "Amram Avraham Construction Company",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "עמרם"
   },
   {
     "symbol": "AMX",
     "name": "Automax Motors Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "אוטומקס מוטורס"
   },
   {
     "symbol": "ANGL",
     "name": "Salomon A. Angel Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "אנגל שלמה"
   },
   {
     "symbol": "ANLT",
     "name": "Analyst I.M.S. Inc.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "אנליסט"
   },
   {
     "symbol": "APLP",
     "name": "Apollo Power Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "אפולו פאוור"
   },
   {
     "symbol": "AQUA",
     "name": "Aquarius Engines AM Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "אקוואריוס"
   },
   {
     "symbol": "ARAN",
     "name": "Aran Research & Development Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "ארן מו\"פ"
   },
   {
     "symbol": "ARBE",
     "name": "Arbe Robotics Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "ארבה רובוטיקס"
   },
   {
     "symbol": "ARD",
     "name": "Arad Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "ארד"
   },
   {
     "symbol": "ARDM",
     "name": "Aerodrome Group Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "אירודרום קבוצה"
   },
   {
     "symbol": "ARF",
     "name": "Ashdod Refinery Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "בית זיקוק אשדוד"
   },
   {
     "symbol": "ARGO",
     "name": "Argo Properties N.V.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "ארגו פרופרטיז"
   },
   {
     "symbol": "ARIN",
     "name": "Ari Real Estate Arena Investments Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "ארי נדל\"ן"
   },
   {
     "symbol": "ARPT",
     "name": "Airport City Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "איירפורט סיטי"
   },
   {
     "symbol": "ARTS",
     "name": "Airtouch Solar Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "איירטאצ'"
   },
   {
     "symbol": "ARYT",
     "name": "Aryt Industries Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "ארית תעשיות"
   },
   {
     "symbol": "ASGR",
     "name": "Aspen Group Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "אספן גרופ"
   },
   {
     "symbol": "ASHG",
     "name": "Ashtrom Group Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "אשטרום קבוצה"
   },
   {
     "symbol": "ASHO",
     "name": "Ashot Ashkelon Industries Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "עשות"
   },
   {
     "symbol": "ATRY",
     "name": "Atreyu Capital Markets Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "אטראו שוקי הון"
   },
   {
     "symbol": "AUDC",
     "name": "Audiocodes Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "אודיוקודס"
   },
   {
     "symbol": "AUGN",
     "name": "Augwind Energy Tech Storage Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "אוגווינד"
   },
   {
     "symbol": "AUIS",
     "name": "Es Australia Israel Holdings Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "אוסטרליה ישראל"
   },
   {
     "symbol": "AURA",
     "name": "Aura Investments Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "אאורה"
   },
   {
     "symbol": "AVER",
     "name": "Averbuch Formica Center Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "אברבוך"
   },
   {
     "symbol": "AVGD",
     "name": "Av-Gad Holdings Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "אב-גד"
   },
   {
     "symbol": "AVGL",
     "name": "Avgol Industries 1953 Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "אבגול"
   },
   {
     "symbol": "AVIA",
     "name": "Aviation Links Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "קשרי תעופה"
   },
   {
     "symbol": "AVIV",
     "name": "Mordechai Aviv Taasiot Beniy Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "אביב בניה"
   },
   {
     "symbol": "AVRT",
     "name": "Avrot Industries Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "אברות"
   },
   {
     "symbol": "AXN",
     "name": "Exxon Mobil Corporation",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "חברה לישראל"
   },
   {
     "symbol": "AYAL",
     "name": "Ayalon Insurance Company Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "איילון"
   },
   {
     "symbol": "AZRG",
     "name": "Azrieli Group Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "עזריאלי קבוצה"
   },
   {
     "symbol": "AZRM",
     "name": "Azorim Investment Development Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "אדגר השקעות"
   },
   {
     "symbol": "BARI",
     "name": "Barak Beit Investments Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "ארזים"
   },
   {
     "symbol": "BBLS",
     "name": "Bubbles Intergroup Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "באבלס"
   },
   {
     "symbol": "BCOM",
     "name": "B Communications Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "חלל תקשורת"
   },
   {
     "symbol": "BEZQ",
     "name": "Bezeq The Israeli Telecom Company Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "בזק"
   },
   {
     "symbol": "BHNY",
     "name": "Beeio Honey Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "ביו דבש"
   },
   {
     "symbol": "BIG",
     "name": "Big Shopping Centers Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "ביג"
   },
   {
     "symbol": "BIOV",
     "name": "Bio View Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "ביו ויו"
   },
   {
     "symbol": "BIRM",
     "name": "Birman Wood and Hardware Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "בירמן"
   },
   {
     "symbol": "BKFR",
     "name": "Bait Bakfar Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "בית בכפר"
   },
   {
     "symbol": "BKRY",
     "name": "Bikurey Hasade Holdings Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "סילבר קסטל"
   },
   {
     "symbol": "BLDI",
     "name": "Baladi Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "בלדי"
   },
   {
     "symbol": "BLEG",
     "name": "Blackedge Ltd",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "בלאקאדג'"
   },
   {
     "symbol": "BLGO",
     "name": "Buligo Capital Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "בוליגו"
   },
   {
     "symbol": "BLND",
     "name": "Blender Finance Technologies Inc.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "בלנדר טכנו"
   },
   {
     "symbol": "BLRN",
     "name": "BladeRanger Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "בלייד ריינג'ר"
   },
   {
     "symbol": "BLRX",
     "name": "BioLineRx Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "ביוליין אר אקס"
   },
   {
     "symbol": "BLSR",
     "name": "Blue Square Real Estate Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "רבוע כחול נדל\"ן"
   },
   {
     "symbol": "BOLT",
     "name": "Biolight Life Sciences Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "ביולייט"
   },
   {
     "symbol": "BONS",
     "name": "Bonus BioGroup Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "בונוס ביוגרופ"
   },
   {
     "symbol": "BOTI",
     "name": "Bonei Hatichon Civil Engineering Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "בוני תיכון"
   },
   {
     "symbol": "BRAM",
     "name": "Bram Industries Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "ברם תעשיות"
   },
   {
     "symbol": "BRAN",
     "name": "Baran Group Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "ברן"
   },
   {
     "symbol": "BRIH",
     "name": "Rav Bariach Industries Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "רב-בריח(08)"
   },
   {
     "symbol": "BRIL",
     "name": "Brill Shoe Industries Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "בריל"
   },
   {
     "symbol": "BRKT",
     "name": "Bareket Capital Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "ברקת קפיטל"
   },
   {
     "symbol": "BRMG",
     "name": "Brimag Digital Age Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "ברימאג דיגיטל"
   },
   {
     "symbol": "BRND",
     "name": "Brand Industries Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "ברם תעשיות"
   },
   {
     "symbol": "BSEN",
     "name": "Bet Shemesh Engines Holdings Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "בית שמש"
   },
   {
     "symbol": "BUFT",
     "name": "Buff Technologies Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "באפ טכנולוגיות"
   },
   {
     "symbol": "BVC",
     "name": "BATM Advanced Communications Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "באטמ"
   },
   {
     "symbol": "BVGG",
     "name": "Bait Ve Gag Real Estate Development Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "בית וגג"
   },
   {
     "symbol": "BWAY",
     "name": "BrainsWay Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "בריינסוויי"
   },
   {
     "symbol": "BYON",
     "name": "Byond3D Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "ביונ תלת מימד"
   },
   {
     "symbol": "CAMT",
     "name": "Camtek Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "קמטק"
   },
   {
     "symbol": "CANF",
     "name": "Can-Fite BioPharma Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "כן פייט ביופרמה"
   },
   {
     "symbol": "CAST",
     "name": "Castro Model Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "קסטרו"
   },
   {
     "symbol": "CBI",
     "name": "Clal Biotechnology Industries Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "כלל ביוטכנו"
   },
   {
     "symbol": "CDEV",
     "name": "Cohen Development Gas & Oil Inc.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "כהן פיתוח"
   },
   {
     "symbol": "CEL",
     "name": "Cellcom Israel Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "סלקום"
   },
   {
     "symbol": "CGEN",
     "name": "Compugen Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "קומפיוגן"
   },
   {
     "symbol": "CILO",
     "name": "Cielo-Blu Group Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "צילו-בלו"
   },
   {
     "symbol": "CION",
     "name": "Cion Investment Corporation",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "סיאון"
   },
   {
     "symbol": "CISY",
     "name": "Ci Systems (Israel) Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "סיאי"
   },
   {
     "symbol": "CLAB",
     "name": "C-Lab Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "סי-לאב"
   },
   {
     "symbol": "CLIS",
     "name": "Clal Insurance Enterprises Holdings Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "כלל עסקי ביטוח"
   },
   {
     "symbol": "CMDR",
     "name": "Computer Direct Group Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "מיחשוב ישיר קב"
   },
   {
     "symbol": "CMER",
     "name": "C. Mer Industries Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "מר"
   },
   {
     "symbol": "CNGL",
     "name": "Canada Global (Trading) Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "קנדה גלובל"
   },
   {
     "symbol": "CNTC",
     "name": "Cannabotech Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "ג'ין טכנולוגיות"
   },
   {
     "symbol": "CPIA",
     "name": "Cipia Vision Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "סיפיה וויז'ן"
   },
   {
     "symbol": "CPPL",
     "name": "City People of Rotshtein Group Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "אנשי העיר"
   },
   {
     "symbol": "CPTP",
     "name": "Capital Point Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "קפיטל פוינט"
   },
   {
     "symbol": "CRML",
     "name": "Carmel Corp Ltd",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "כרמל קורפ"
   },
   {
     "symbol": "CRMT",
     "name": "Carmit Candy Industries Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "כרמית"
   },
   {
     "symbol": "CRSM",
     "name": "Carasso Motors Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "קרסו מוטורס"
   },
   {
     "symbol": "CRSR",
     "name": "Carasso Real Estate Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "קרסו נדל\"ן"
   },
   {
     "symbol": "DANE",
     "name": "Danel (Adir Yeoshua) Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "דנאל"
   },
   {
     "symbol": "DANH",
     "name": "Dan Hotels Corp. Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "דן מלונות"
   },
   {
     "symbol": "DELG",
     "name": "Delta Galil Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "דלתא גליל"
   },
   {
     "symbol": "DIFI",
     "name": "Direct Finance of Direct Group Inc.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "מימון ישיר קב"
   },
   {
     "symbol": "DIMRI",
     "name": "YH Dimri Construction & Development Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "דמרי"
   },
   {
     "symbol": "DIPL",
     "name": "Diplomat Holdings Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "דיפלומט"
   },
   {
     "symbol": "DISI",
     "name": "Discount Investment Corporation Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "סיאון"
   },
   {
     "symbol": "DLEA",
     "name": "Delek Automotive Systems Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "דלק רכב"
   },
   {
     "symbol": "DLEKG",
     "name": "Delek Group Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "דלק קבוצה"
   },
   {
     "symbol": "DLPR",
     "name": "Delek Israel Properties (D.P.) Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "דלק ישראל נכסים"
   },
   {
     "symbol": "DLTI",
     "name": "Delta Israel Brands Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "דלתא מותגים"
   },
   {
     "symbol": "DNA",
@@ -647,687 +774,824 @@
   {
     "symbol": "DNYA",
     "name": "Danya Cebus Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "דניה סיבוס"
   },
   {
     "symbol": "DORL",
     "name": "Doral Group Renewable Energy Resources Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "דוראל אנרגיה"
   },
   {
     "symbol": "DRAL",
     "name": "Dor Alon Energy in Israel Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "דור אלון"
   },
   {
     "symbol": "DRSH",
     "name": "Dorsel Holdings Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "דורסל החזקות"
   },
   {
     "symbol": "DSCT",
     "name": "Israel Discount Bank Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "דיסקונט"
   },
   {
     "symbol": "DUNI",
     "name": "Duniec Brothers Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "דוניץ"
   },
   {
     "symbol": "ECNR",
     "name": "Econergy Renewable Energy Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "אקונרג'י"
   },
   {
     "symbol": "ECP",
     "name": "Electra Consumer Products Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "אלקטרה צריכה"
   },
   {
     "symbol": "EFCP",
     "name": "Effi Capital Nadlan Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "אפי קפיטל נדל\"ן"
   },
   {
     "symbol": "ELAD",
     "name": "Elad Software Systems Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "אלעד"
   },
   {
     "symbol": "ELAL",
     "name": "El Al Israel Airlines Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "אל על"
   },
   {
     "symbol": "ELCO",
     "name": "Elco Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "אלקו"
   },
   {
     "symbol": "ELCP",
     "name": "Electra Power Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "אלקטרה צריכה"
   },
   {
     "symbol": "ELCRE",
     "name": "Electra Real Estate Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "אלקטרה נדל\"ן"
   },
   {
     "symbol": "ELDT",
     "name": "Eldan Transportation Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "אלדן תחבורה"
   },
   {
     "symbol": "ELLO",
     "name": "Ellomay Capital Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "אלומיי קפיטל"
   },
   {
     "symbol": "ELMR",
     "name": "Elmor Electrical Installation Inc.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "אלמור חשמל"
   },
   {
     "symbol": "ELRN",
     "name": "Elron Ventures Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "אלרון"
   },
   {
     "symbol": "ELSPC",
     "name": "Elspec Engineering Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "אלספק"
   },
   {
     "symbol": "ELTR",
     "name": "Electra Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "אלקטרה"
   },
   {
     "symbol": "ELWS",
     "name": "Electreon Wireless Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "אלקטריאון וירלס"
   },
   {
     "symbol": "EMCO",
     "name": "E&M Computing Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "אמת"
   },
   {
     "symbol": "EMDV",
     "name": "Emilia Development Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "אמיליה פיתוח"
   },
   {
     "symbol": "EMITF",
     "name": "Elbit Imaging Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "אלביט הדמיה"
   },
   {
     "symbol": "ENLT",
     "name": "Enlight Renewable Energy Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "אנלייט אנרגיה"
   },
   {
     "symbol": "ENLV",
     "name": "Enlivex Therapeutics Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "אנלייבקס"
   },
   {
     "symbol": "ENOG",
     "name": "Energean Plc",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "אנרג'יאן"
   },
   {
     "symbol": "ENRG",
     "name": "Energix-Renewable Energies Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "אנרג'יקס"
   },
   {
     "symbol": "EPIT",
     "name": "Epitomee Medical Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "אפיטומי"
   },
   {
     "symbol": "EQTL",
     "name": "Equital Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "אקויטל"
   },
   {
     "symbol": "ERKA",
     "name": "Erika Carmel-Tech Ltd",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "אריקה כרמל"
   },
   {
     "symbol": "ESLT",
     "name": "Elbit Systems Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "אלביט מערכות"
   },
   {
     "symbol": "ETGA",
     "name": "Etga Group Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "אי.טי.ג'י.איי"
   },
   {
     "symbol": "EVGN",
     "name": "Evogene Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "אבוג'ן"
   },
   {
     "symbol": "EXPO",
     "name": "Export Investment Co. Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "יצוא"
   },
   {
     "symbol": "FBRT",
     "name": "FMS Enterprises Migun Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "פמס"
   },
   {
     "symbol": "FGAS",
     "name": "Fire & Gas Detection Technologies Inc.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "טכנ גילוי אש גז"
   },
   {
     "symbol": "FIBI",
     "name": "First International Bank of Israel Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "בינלאומי"
   },
   {
     "symbol": "FIBIH",
     "name": "Fibi Holdings Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "פיבי"
   },
   {
     "symbol": "FLYS",
     "name": "Flying Sparks Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "פליינג ספארק"
   },
   {
     "symbol": "FORTY",
     "name": "Formula Systems (1985) Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "פורמולה מערכות"
   },
   {
     "symbol": "FOX",
     "name": "Fox-Wizel Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "פוקס"
   },
   {
     "symbol": "FRDN",
     "name": "Fridenson Logistic Services Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "פרידנזון"
   },
   {
     "symbol": "FRSX",
     "name": "Foresight Autonomous Holdings Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "פורסייט"
   },
   {
     "symbol": "FTAL",
     "name": "Fattal Holdings 1998 Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "פתאל החזקות"
   },
   {
     "symbol": "GAD",
     "name": "Gad Dairies (Marketing 1992) Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "מחלבות גד"
   },
   {
     "symbol": "GAGR",
     "name": "Gaon Group Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "גאון קבוצה"
   },
   {
     "symbol": "GCT",
     "name": "G City Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "ג'י סיטי"
   },
   {
     "symbol": "GEFR",
     "name": "Gefen Residential and Renewal Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "גפן מגורים"
   },
   {
     "symbol": "GIBUI",
     "name": "Gibui Holdings Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "גיבוי אחזקות"
   },
   {
     "symbol": "GILT",
     "name": "Gilat Satellite Networks Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "גילת"
   },
   {
     "symbol": "GIX",
     "name": "Gix Internet Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "גיקס אינטרנט"
   },
   {
     "symbol": "GKL",
     "name": "Global Knafaim Leasing Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "גלובל כנפיים"
   },
   {
     "symbol": "GLDE",
     "name": "Golden Energy Power Ltd",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "גולדן אנרג'י"
   },
   {
     "symbol": "GLRS",
     "name": "Globrands Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "גלוברנדס גרופ"
   },
   {
     "symbol": "GLTL",
     "name": "Gilat Telecom Global Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "גילת טלקום"
   },
   {
     "symbol": "GMLA",
     "name": "Gamla - Harel Residential Real-Estate Ltd",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "סלע קפיטל נדל\"ן"
   },
   {
     "symbol": "GNCL",
     "name": "Gencell Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "ג'נסל"
   },
   {
     "symbol": "GNGR",
     "name": "Ginegar Plastic Products Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "גניגר"
   },
   {
     "symbol": "GNRS",
     "name": "Generation Capital Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "ג'נריישן קפיטל"
   },
   {
     "symbol": "GOHO",
     "name": "Golden House Inc.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "בית הזהב"
   },
   {
     "symbol": "GOLD",
     "name": "Gold Bond Group Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "גולד"
   },
   {
     "symbol": "GOLF",
     "name": "Golf & Co Group Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "גולף"
   },
   {
     "symbol": "GOSS",
     "name": "G1 Secure Solutions Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "ג'י וואן"
   },
   {
     "symbol": "GOTO",
     "name": "Goto Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "גוטו"
   },
   {
     "symbol": "GRAC",
     "name": "Grace Breeding Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "גרייס ברידינג"
   },
   {
     "symbol": "GRIN",
     "name": "Golan Renewable Industries Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "גולן תעשיות"
   },
   {
     "symbol": "GSFI",
     "name": "Gan Shmuel Foods Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "גן שמואל"
   },
   {
     "symbol": "GVYM",
     "name": "Gav-Yam Lands Corp Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "גב ים"
   },
   {
     "symbol": "HAMAT",
     "name": "Hamat Group Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "חמת"
   },
   {
     "symbol": "HARL",
     "name": "Harel Insurance Investments & Financial Services Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "הראל השקעות"
   },
   {
     "symbol": "HGG",
     "name": "Hagag Group Real Estate Development Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "בית וגג"
   },
   {
     "symbol": "HGGE",
     "name": "Hagag Europe Development Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "חג'ג' אירופה"
   },
   {
     "symbol": "HIPR",
     "name": "Hiper Global Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "הייפר"
   },
   {
     "symbol": "HLAN",
     "name": "Hilan Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "חילן"
   },
   {
     "symbol": "HLMS",
     "name": "Holmes Place International Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "הולמס פלייס"
   },
   {
     "symbol": "HMAM",
     "name": "Hamama Meir Trading 1996 Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "חממה סחר"
   },
   {
     "symbol": "HMGS",
     "name": "HomeBiogas Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "הום ביוגז"
   },
   {
     "symbol": "HOD",
     "name": "Hod Assaf Industries Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "חד-אסף"
   },
   {
     "symbol": "HRON",
     "name": "Hiron Trade Investment Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "מיטב טרייד"
   },
   {
     "symbol": "IBI",
     "name": "Ibi Investment House Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "איביאי בית השק"
   },
   {
     "symbol": "IBIU",
     "name": "IBI Managing & Underwriting Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "איביאי חיתום"
   },
   {
     "symbol": "ICHO",
     "name": "Israel Canada Hotels Ltd",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "ישראל קנדה מלונ"
   },
   {
     "symbol": "ICL",
     "name": "ICL Group Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "איי.סי.אל"
   },
   {
     "symbol": "ICON",
     "name": "Icon Group Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "אייקון גרופ"
   },
   {
     "symbol": "IDIN",
     "name": "Idi Insurance Co. Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "איידיאיי ביטוח"
   },
   {
     "symbol": "IDMO",
     "name": "Idomoo Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "אידומו"
   },
   {
     "symbol": "IDNT",
     "name": "Identi Healthcare Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "איידנטי הלת'"
   },
   {
     "symbol": "IES",
     "name": "IES Holdings, Inc.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "אייאיאס"
   },
   {
     "symbol": "ILCO",
     "name": "Israel Corporation Limited",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "חברה לישראל"
   },
   {
     "symbol": "ILDC",
     "name": "Israel Land Development Company Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "הכשרה התחדשות"
   },
   {
     "symbol": "ILDR",
     "name": "Israel Land Development Company Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "הכשרה התחדשות"
   },
   {
     "symbol": "ILX",
     "name": "Ilex Medical Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "אילקס מדיקל"
   },
   {
     "symbol": "IMCO",
     "name": "Imco Industries Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "אימקו"
   },
   {
     "symbol": "INCR",
     "name": "Intercure Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "אינטרקיור"
   },
   {
     "symbol": "ININ",
     "name": "Inter Industries Plus Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "אינטר תעשיות"
   },
   {
     "symbol": "INRM",
     "name": "Inrom Construction Industries Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "אינרום בנייה"
   },
   {
     "symbol": "INTR",
     "name": "Inter-Gama Investment Co.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "אינטרגאמא"
   },
   {
     "symbol": "ISCD",
     "name": "Isracard Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "ישראכרט"
   },
   {
     "symbol": "ISCN",
     "name": "Israel Canada T.R Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "ישראל קנדה"
   },
   {
     "symbol": "ISHI",
     "name": "Israel Shipyards Industries Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "מספנות ישראל"
   },
   {
     "symbol": "ISHO",
     "name": "Isras Holdings Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "ישרס אחזקות"
   },
   {
     "symbol": "ISI",
     "name": "ImageSat International Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "אימאג'סט אינט'"
   },
   {
     "symbol": "ISRG",
     "name": "Israir Group Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "ישראייר גרופ"
   },
   {
     "symbol": "ISRO",
     "name": "Isrotel Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "ישרוטל"
   },
   {
     "symbol": "ISRS",
     "name": "Isras Investment Company Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "ישרס"
   },
   {
     "symbol": "ISTA",
     "name": "Issta Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "איסתא"
   },
   {
     "symbol": "JBNK",
     "name": "Bank of Jerusalem Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "ירושלים"
   },
   {
     "symbol": "JCFN",
     "name": "Jacob Finance and Investment Inc.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "יעקב פיננסים"
   },
   {
     "symbol": "JEEN",
     "name": "Jeen Technologies AI Ltd",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "ג'ין טכנולוגיות"
   },
   {
     "symbol": "JNGO",
     "name": "Jungo Connectivity Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "ג'נגו"
   },
   {
     "symbol": "KAFR",
     "name": "Kafrit Industries (1993) Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "כפרית"
   },
   {
     "symbol": "KARE",
     "name": "Kardan Real Estate Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "קרדן נדל\"ן"
   },
   {
     "symbol": "KEN",
     "name": "Kenon Holdings Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "קנון הולדינגס"
   },
   {
     "symbol": "KLIL",
     "name": "Klil Industries Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "קליל"
   },
   {
     "symbol": "KMDA",
     "name": "Kamada Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "קמהדע"
   },
   {
     "symbol": "KNFM",
     "name": "Knafaim Holdings Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "כנפיים"
   },
   {
     "symbol": "KRDI",
     "name": "Kardan Israel Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "קרדן ישראל"
   },
   {
     "symbol": "KRUR",
     "name": "Kerur Holdings Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "קרור"
   },
   {
     "symbol": "LAHAV",
     "name": "Lahav L.R. Real Estate Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "להב"
   },
   {
     "symbol": "LAPD",
     "name": "Lapidoth Capital Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "לפידות קפיטל"
   },
   {
     "symbol": "LBRA",
     "name": "Libra Insurance Company Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "ליברה"
   },
   {
     "symbol": "LBTL",
     "name": "A. Libental Holdings Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "ליבנטל"
   },
   {
     "symbol": "LCTX",
     "name": "Lineage Cell Therapeutics Inc.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "ליניאג תרפיוטיק"
   },
   {
     "symbol": "LEOF",
     "name": "Levinski Ofer Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "לוינסקי עופר"
   },
   {
     "symbol": "LEVI",
     "name": "Meshulam Levinstein Contracting & Engineering Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "לוינשטין הנדסה"
   },
   {
     "symbol": "LHIS",
     "name": "Lachish Industries Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "לכיש"
   },
   {
     "symbol": "LODZ",
     "name": "Lodzia Real Estate Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "לודזיה"
   },
   {
     "symbol": "LPSN",
     "name": "LivePerson, Inc.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "לייבפרסון"
   },
   {
     "symbol": "LSCO",
     "name": "Lesico Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "לסיכו"
   },
   {
     "symbol": "LUDN",
     "name": "Ludan Engineering Co. Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "לודן"
   },
   {
     "symbol": "LUDT",
     "name": "Ludan-Tech Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "לודן-טק"
   },
   {
     "symbol": "LUMI",
     "name": "Bank Leumi Le-Israel B.M.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "לאומי"
   },
   {
     "symbol": "LURO",
     "name": "Luzon Ronson N.V.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "לוזון רונסון"
   },
   {
     "symbol": "LUZN",
     "name": "Luzon Group",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "לוזון קבוצה"
   },
   {
     "symbol": "MAXO",
     "name": "Max Stock Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "מקס סטוק"
   },
   {
     "symbol": "MCLL",
     "name": "Michlol Finance Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "מכלול מימון"
   },
   {
     "symbol": "MCMN",
@@ -1337,382 +1601,458 @@
   {
     "symbol": "MCPL",
     "name": "Michpal Technologies Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "מיכפל"
   },
   {
     "symbol": "MDPR",
     "name": "Medipower Overseas Public Co. Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "מדיפאואר"
   },
   {
     "symbol": "MDTR",
     "name": "Mediterranean Towers Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "מגדלי ים תיכון"
   },
   {
     "symbol": "MEDN",
     "name": "Mehadrin Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "מהדרין"
   },
   {
     "symbol": "MGDL",
     "name": "Migdal Insurance and Financial Holdings Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "מגדל ביטוח"
   },
   {
     "symbol": "MGDO",
     "name": "Megiddo Y.K. Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "מגידו"
   },
   {
     "symbol": "MGIC",
     "name": "Magic Software Enterprises Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "מג'יק"
   },
   {
     "symbol": "MGOR",
     "name": "Mega Or Holdings Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "מגה אור"
   },
   {
     "symbol": "MIA",
     "name": "Mia Dynamics Motors Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "מיה דיינמיקס"
   },
   {
     "symbol": "MIFT",
     "name": "Millennium Food-Tech Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "מילניום פוד-טק"
   },
   {
     "symbol": "MISH",
     "name": "Mivtach Shamir Holdings Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "מבטח שמיר"
   },
   {
     "symbol": "MLD",
     "name": "Mirland Development Corporation",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "מירלנד-ש"
   },
   {
     "symbol": "MLRN",
     "name": "Mlran Projects & Trading Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "מלרן פרוייקטים"
   },
   {
     "symbol": "MLSR",
     "name": "Melisron Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "מליסרון"
   },
   {
     "symbol": "MLTH",
     "name": "Malam-Team Holdings Ltd",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "מלם-תים אחזקות"
   },
   {
     "symbol": "MLTM",
     "name": "Malam-Team Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "מלם תים"
   },
   {
     "symbol": "MMHD",
     "name": "Menora Mivtachim Holdings Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "מנורה מב החזקות"
   },
   {
     "symbol": "MNIF",
     "name": "Menif Financial Services Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "מניף-פיננסים"
   },
   {
     "symbol": "MNIN",
     "name": "Mendelson Infrastructures & Industries Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "מנדלסון תשתיות"
   },
   {
     "symbol": "MPP",
     "name": "Menora Mivtachim Holdings Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "מנורה מב החזקות"
   },
   {
     "symbol": "MPRS",
     "name": "Medipress Health L.P.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "מדיפרס בריאות"
   },
   {
     "symbol": "MRG",
     "name": "Multi Retail Group Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "מולטי ריטייל"
   },
   {
     "symbol": "MRHL",
     "name": "Merchavia Holdings and Investments Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "מרחביה אחזקות"
   },
   {
     "symbol": "MRIN",
     "name": "Y.D. More Investments Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "מור השקעות"
   },
   {
     "symbol": "MSBI",
     "name": "Hamashbir 365 Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "המשביר 365"
   },
   {
     "symbol": "MSHR",
     "name": "Mishorim Real Estate Investments Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "מישורים"
   },
   {
     "symbol": "MSKE",
     "name": "Meshek Energy Renewable Energies Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "משק אנרגיה"
   },
   {
     "symbol": "MSLA",
     "name": "Maslavi Construction Co. Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "מצלאוי"
   },
   {
     "symbol": "MSVT",
     "name": "Massivit 3D Printing Technologies Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "מאסיבית"
   },
   {
     "symbol": "MTAV",
     "name": "Meitav Investments House Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "מיטב בית השקעות"
   },
   {
     "symbol": "MTLF",
     "name": "Matricelf Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "מטריסלף"
   },
   {
     "symbol": "MTRD",
     "name": "Meitav Investments Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "מיטב בית השקעות"
   },
   {
     "symbol": "MTRN",
     "name": "Maytronics Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "מיטרוניקס"
   },
   {
     "symbol": "MTRX",
     "name": "Matrix IT Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "מטריקס"
   },
   {
     "symbol": "MVNE",
     "name": "Mivne Real Estate K.D. Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "מבנה"
   },
   {
     "symbol": "MYDS",
     "name": "Mydas Real Estate Investment",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "מידאס השקעות"
   },
   {
     "symbol": "MZTF",
     "name": "Mizrahi Tefahot Bank Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "מזרחי טפחות"
   },
   {
     "symbol": "NAWI",
     "name": "Nawi Group Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "נאוי"
   },
   {
     "symbol": "NFTA",
     "name": "Naphtha Israel Petroleum Corp.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "נפטא"
   },
   {
     "symbol": "NICE",
     "name": "Nice Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "נייס"
   },
   {
     "symbol": "NISA",
     "name": "Nissan Medical Industries Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "ניסן"
   },
   {
     "symbol": "NOFR",
     "name": "Nofar Energy Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "נופר אנרג'י"
   },
   {
     "symbol": "NRGN",
     "name": "Nrgene Technologies Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "אנרג'ין טכנו"
   },
   {
     "symbol": "NSTR",
     "name": "Norstar Holdings Inc.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "נורסטאר החזקות"
   },
   {
     "symbol": "NTGR",
     "name": "Netanel Group Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "נתנאל גרופ"
   },
   {
     "symbol": "NTML",
     "name": "Neto Malinda Trading Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "נטו מלינדה"
   },
   {
     "symbol": "NTNB",
     "name": "Netanel Menivim Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "נתנאל מניבים"
   },
   {
     "symbol": "NTO",
     "name": "Neto Me Holdings Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "נטו אחזקות"
   },
   {
     "symbol": "NURI",
     "name": "Nur Ink Innovations Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "נור אינק"
   },
   {
     "symbol": "NVLG",
     "name": "Novolog Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "נובולוג"
   },
   {
     "symbol": "NVMI",
     "name": "Nova Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "נובה"
   },
   {
     "symbol": "NXGN",
     "name": "NextGen Biomed Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "נקסט ג'ן-ש"
   },
   {
     "symbol": "NXSN",
     "name": "Next Vision Stabilized Systems Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "נקסט ויז'ן"
   },
   {
     "symbol": "NXTG",
     "name": "Nextage Therapeutics Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "נקסטייג'"
   },
   {
     "symbol": "NXTM",
     "name": "Nextcom Ltd",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "נקסטקום"
   },
   {
     "symbol": "NYAX",
     "name": "Nayax Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "נאייקס"
   },
   {
     "symbol": "OMCN",
     "name": "Omer Construction & Engineering (1986) Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "עומר הנדסה"
   },
   {
     "symbol": "ONE",
     "name": "One Software Technologies Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "וואן טכנולוגיות"
   },
   {
     "symbol": "OPAL",
     "name": "Opal Balance Investments Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "אופל בלאנס"
   },
   {
     "symbol": "OPCE",
     "name": "Opc Energy Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "או.פי.סי אנרגיה"
   },
   {
     "symbol": "OPK",
     "name": "Opko Health Inc.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "אופקו"
   },
   {
     "symbol": "ORA",
     "name": "Ormat Technologies Inc.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "אורביט"
   },
   {
     "symbol": "ORAD",
     "name": "Orad Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "אורד"
   },
   {
     "symbol": "ORBI",
     "name": "Orbit Technologies Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "אורביט"
   },
   {
     "symbol": "ORIN",
     "name": "Orian Shm Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "אוריין"
   },
   {
     "symbol": "ORL",
     "name": "Oil Refineries Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "בתי זיקוק"
   },
   {
     "symbol": "ORMP",
     "name": "Oramed Pharmaceuticals Inc.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "אורמד"
   },
   {
     "symbol": "ORNP",
     "name": "Orion Retail Properties Ltd",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "אוריון"
   },
   {
     "symbol": "ORON",
     "name": "Oron Group Investments & Holdings Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "אורון קבוצה"
   },
   {
     "symbol": "ORTC",
     "name": "O.R.T Technologies Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "או.אר.טי."
   },
   {
     "symbol": "OVRS",
     "name": "Overseas Commerce Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "אוברסיז"
   },
   {
     "symbol": "PAYT",
     "name": "Payton Industries Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "פייטון"
   },
   {
     "symbol": "PAZ",
     "name": "Paz Retail and Energy Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "פז אנרגיה"
   },
   {
     "symbol": "PCBT",
     "name": "P.C.B. Technologies Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "פיסיבי טכנ"
   },
   {
     "symbol": "PEN",
     "name": "Peninsula Group Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "פנינסולה"
   },
   {
     "symbol": "PERI",
     "name": "Perion Network Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "פריון נטוורק"
   },
   {
     "symbol": "PFLT",
@@ -1722,22 +2062,26 @@
   {
     "symbol": "PHOE",
     "name": "Phoenix Financial Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "הפניקס"
   },
   {
     "symbol": "PHTM",
     "name": "Photomyne Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "פוטומיין"
   },
   {
     "symbol": "PIES",
     "name": "Pies Siam Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "פאי סיאם"
   },
   {
     "symbol": "PLCR",
     "name": "Plasto Cargal Group Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "פלסטו קרגל"
   },
   {
     "symbol": "PLNT",
@@ -1747,711 +2091,853 @@
   {
     "symbol": "PLRM",
     "name": "Palram Industries (1990) Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "פלרם"
   },
   {
     "symbol": "PLSN",
     "name": "Plasson Industries Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "פלסאון תעשיות"
   },
   {
     "symbol": "PLUR",
     "name": "Pluri Inc.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "פלורי"
   },
   {
     "symbol": "PMNT",
     "name": "Payment Financial Technologies Inc.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "פיימנט"
   },
   {
     "symbol": "PMVM",
     "name": "Pomvom Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "פוםוום"
   },
   {
     "symbol": "PNRG",
     "name": "Phinergy Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "פינרג'י"
   },
   {
     "symbol": "POLI",
     "name": "Bank Hapoalim B.M.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "פועלים"
   },
   {
     "symbol": "POLP",
     "name": "Polyram Plastic Industries Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "פולירם"
   },
   {
     "symbol": "POLY",
     "name": "Polygon Real Estate Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "פוליגון"
   },
   {
     "symbol": "PPBT",
     "name": "Purple Biotech Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "פרפל ביוטק"
   },
   {
     "symbol": "PPIL",
     "name": "Plastopil Hazorea Company Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "פלסטופיל"
   },
   {
     "symbol": "PRIM",
     "name": "Prime Energy P.E. Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "פריים אנרג'י"
   },
   {
     "symbol": "PRKM",
     "name": "Parkomat Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "פרקומט"
   },
   {
     "symbol": "PRMG",
     "name": "Primotec Group Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "פרימוטק"
   },
   {
     "symbol": "PRPD",
     "name": "Propdo Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "פרופדו"
   },
   {
     "symbol": "PRSK",
     "name": "Prashkovsky Investments & Co.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "פרשקובסקי"
   },
   {
     "symbol": "PRTC",
     "name": "Priortech Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "פריורטק"
   },
   {
     "symbol": "PSRX",
     "name": "PsyRX CNS Bio-Tech Ltd",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "פסיירקס ביו-טק"
   },
   {
     "symbol": "PTBL",
     "name": "Property & Building Corp Ltd",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "נכסים ובנין"
   },
   {
     "symbol": "PTCH",
     "name": "Israel Petrochemical Enterprises Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "פטרוכימיים"
   },
   {
     "symbol": "PTNR",
     "name": "Partner Communications Co. Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "פרטנר"
   },
   {
     "symbol": "PULS",
     "name": "Pulsenmore Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "פלסאנמור"
   },
   {
     "symbol": "QLTU",
     "name": "QualiTau Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "קווליטאו"
   },
   {
     "symbol": "QNCO",
     "name": "Queenco Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "קווינקו"
   },
   {
     "symbol": "RANI",
     "name": "Rani Zim Shopping Centers Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "רני צים"
   },
   {
     "symbol": "RAVD",
     "name": "Ravad Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "רבד"
   },
   {
     "symbol": "REKA",
     "name": "Rekah Pharmaceutical Industry Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "רקח"
   },
   {
     "symbol": "RGAS",
     "name": "R.G.A. Services & Cleaning (Israel) 1987 Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "ר.ג.א."
   },
   {
     "symbol": "RIMO",
     "name": "Rimoni Industries Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "רימוני"
   },
   {
     "symbol": "RLCO",
     "name": "Ralco Agencies Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "ראלקו"
   },
   {
     "symbol": "RMLI",
     "name": "Rami Levy Chain Stores Hashikma Marketing Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "רמי לוי"
   },
   {
     "symbol": "RMN",
     "name": "Ram-On Investments and Holdings Inc.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "רם און"
   },
   {
     "symbol": "RMON",
     "name": "Og Rimon Consulting Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "רימון"
   },
   {
     "symbol": "ROBO",
     "name": "Robogroup T.E.K Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "רובוגרופ"
   },
   {
     "symbol": "ROTS",
     "name": "Rotshtein Real Estate Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "רוטשטיין"
   },
   {
     "symbol": "RPAC",
     "name": "Rapac Communication & Infrastructure Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "רפק"
   },
   {
     "symbol": "RPOL",
     "name": "RP Optical Lab Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "אר פי אופטיקל"
   },
   {
     "symbol": "RSEL",
     "name": "RSL Electronics Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "אראסאל"
   },
   {
     "symbol": "RTEN",
     "name": "Rotem Energy Mineral Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "גולדן אנרג'י"
   },
   {
     "symbol": "RTLS",
     "name": "Retailors Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "ריטיילורס"
   },
   {
     "symbol": "RTSN",
     "name": "Rotem Shani Entrepreneurship Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "רותם שני"
   },
   {
     "symbol": "RVL",
     "name": "Raval ICS Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "רבל"
   },
   {
     "symbol": "RZR",
     "name": "Razor Labs Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "רייזור"
   },
   {
     "symbol": "SADE",
     "name": "Sade Real Estate-Y.S. Ltd",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "שדה נדל\"ן"
   },
   {
     "symbol": "SAE",
     "name": "Shufersal Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "שופרסל"
   },
   {
     "symbol": "SARN",
     "name": "Sarine Technologies Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "שרין טכנו'"
   },
   {
     "symbol": "SBEN",
     "name": "Shikun & Binui Soltec Renewable Energy Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "שוב אנרגיה"
   },
   {
     "symbol": "SCC",
     "name": "Space Communication Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "חלל תקשורת"
   },
   {
     "symbol": "SCDX",
     "name": "Scodix Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "סקודיקס"
   },
   {
     "symbol": "SCOP",
     "name": "Scope Metals Group Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "סקופ"
   },
   {
     "symbol": "SEMG",
     "name": "Seach Medical Group Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "שיח מדיקל"
   },
   {
     "symbol": "SFRN",
     "name": "Sufrin Holdings Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "סופרין"
   },
   {
     "symbol": "SHAN",
     "name": "Shaniv Paper Industries Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "שניב"
   },
   {
     "symbol": "SHGR",
     "name": "Shagrir Group Vehicle Services Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "שגריר רכב"
   },
   {
     "symbol": "SHMM",
     "name": "Shamaym Improve Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "שמיים אימפרוב"
   },
   {
     "symbol": "SHNP",
     "name": "E. Schnapp Co. Works Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "שנפ"
   },
   {
     "symbol": "SHOM",
     "name": "E.N. Shoham Business Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "שוהם ביזנס"
   },
   {
     "symbol": "SHVA",
     "name": "Automatic Bank Services Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "שירותי בנק אוטו"
   },
   {
     "symbol": "SHVL",
     "name": "Shoval Engineering & Construction Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "שובל הנדסה"
   },
   {
     "symbol": "SKBN",
     "name": "Shikun & Binui Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "שיכון ובינוי"
   },
   {
     "symbol": "SKLN",
     "name": "Skyline Investments Inc.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "סקייליין"
   },
   {
     "symbol": "SLCL",
     "name": "Silver Castle Holdings Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "סילבר קסטל"
   },
   {
     "symbol": "SLRM",
     "name": "Solrom Holdings Ltd",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "סולרום החזקות"
   },
   {
     "symbol": "SMNR",
     "name": "Shemen Yielding Real Estate Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "שמן נדלן"
   },
   {
     "symbol": "SMT",
     "name": "Summit Real Estate Holdings Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "סאמיט"
   },
   {
     "symbol": "SNCM",
     "name": "Suny Cellular Communication Inc.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "סאני תקשורת"
   },
   {
     "symbol": "SNEL",
     "name": "Synel MLL Payway Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "סינאל מלל"
   },
   {
     "symbol": "SNFL",
     "name": "Sunflower Sustainable Investments Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "סאנפלאואר"
   },
   {
     "symbol": "SOFW",
     "name": "SofWave Medical Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "סופוויב מדיקל"
   },
   {
     "symbol": "SOLR",
     "name": "Solaer Renewable Energies Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "סולאיר"
   },
   {
     "symbol": "SOLT",
     "name": "Solterra Energy Ltd",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "סולטרה אנרגיה"
   },
   {
     "symbol": "SONO",
     "name": "Sonovia Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "סונוביה"
   },
   {
     "symbol": "SONR",
     "name": "Sonol Real Estate and Investments Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "סונול נדל\"ן"
   },
   {
     "symbol": "SPDV",
     "name": "SpeedValue Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "ספידווליו"
   },
   {
     "symbol": "SPEN",
     "name": "Shapir Engineering and Industry Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "שפיר הנדסה"
   },
   {
     "symbol": "SPGS",
     "name": "Supergas Power (2019) Ltd",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "סופרגז פאוור"
   },
   {
     "symbol": "SPNTC",
     "name": "Spuntech Industries Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "ספאנטק"
   },
   {
     "symbol": "SPRG",
     "name": "Spring Ventures Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "ספרינג"
   },
   {
     "symbol": "SRAC",
     "name": "S.R Accord Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "אס.אר אקורד"
   },
   {
     "symbol": "SRFT",
     "name": "Sarfati S.A.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "צרפתי"
   },
   {
     "symbol": "STG",
     "name": "Stg International Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "אסטיגי"
   },
   {
     "symbol": "STRG",
     "name": "Storage Drop Storage Technology Inc.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "סטורג' דרופ"
   },
   {
     "symbol": "STRS",
     "name": "Strauss Group Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "שטראוס גרופ"
   },
   {
     "symbol": "SUGT",
     "name": "Sugat Group Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "סוגת"
   },
   {
     "symbol": "SVRE",
     "name": "SaverOne 2014 Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "סייברוואן"
   },
   {
     "symbol": "TASE",
     "name": "Tel Aviv Stock Exchange Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "הבורסה לניע בתא"
   },
   {
     "symbol": "TATT",
     "name": "Tat Technologies Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "תאת טכנולוגיות"
   },
   {
     "symbol": "TAYA",
     "name": "Taya Investment Co. Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "תיא השקעות"
   },
   {
     "symbol": "TDRN",
     "name": "Tadiran Group Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "תדיראן גרופ"
   },
   {
     "symbol": "TECT",
     "name": "Tectona Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "טקטונה"
   },
   {
     "symbol": "TEDE",
     "name": "Tedea Tech Development & Automation",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "תדאה"
   },
   {
     "symbol": "TEVA",
     "name": "Teva Pharmaceutical Industries Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "טבע"
   },
   {
     "symbol": "TFRLF",
     "name": "Tefron Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "תפרון"
   },
   {
     "symbol": "TGI",
     "name": "TGI Infrastructures Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "טי.ג'י.איי"
   },
   {
     "symbol": "TGTR",
     "name": "Together Pharma Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "טוגדר"
   },
   {
     "symbol": "THES",
     "name": "Thirdeye Systems Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "עין שלישית"
   },
   {
     "symbol": "TIGBUR",
     "name": "Tigbur Temporary Professionals Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "תיגבור-מאגר כא"
   },
   {
     "symbol": "TIGI",
     "name": "Tigi Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "תיגי"
   },
   {
     "symbol": "TKUN",
     "name": "Tikun Olam - Cannabit Pharma Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "תיקון עולם קנבט"
   },
   {
     "symbol": "TLSY",
     "name": "Telsys Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "טלסיס"
   },
   {
     "symbol": "TMIS",
     "name": "Themis G.R.E.N. Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "תמיס"
   },
   {
     "symbol": "TMRP",
     "name": "Tamar Petroleum Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "תמר פטרוליום"
   },
   {
     "symbol": "TNDO",
     "name": "Tondo Smart Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "טונדו סמארט"
   },
   {
     "symbol": "TOEN",
     "name": "Tomer Energy Royalties 2012 Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "תומר אנרגיה"
   },
   {
     "symbol": "TOPG",
     "name": "Top Group Software Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "טופ גרופ"
   },
   {
     "symbol": "TPGM",
     "name": "Top Gum Industries Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "טופ גאם"
   },
   {
     "symbol": "TRA",
     "name": "Tarya Israel Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "טריא ישראל"
   },
   {
     "symbol": "TRAN",
     "name": "Trucknet Enterprise Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "טראקנט"
   },
   {
     "symbol": "TRLT",
     "name": "Tera Light Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "טראלייט"
   },
   {
     "symbol": "TRPZ",
     "name": "Turpaz Industries Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "תורפז"
   },
   {
     "symbol": "TRX",
     "name": "Terminal X Online Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "טרמינל איקס"
   },
   {
     "symbol": "TSEM",
     "name": "Tower Semiconductor Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "טאואר"
   },
   {
     "symbol": "TSG",
     "name": "TSG Advanced IT Systems Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "טיאסג'י"
   },
   {
     "symbol": "TTAM",
     "name": "Tiv Taam Holdings 1 Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "טיב טעם"
   },
   {
     "symbol": "TURB",
     "name": "Turbogen Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "טורבוג'ן"
   },
   {
     "symbol": "TUZA",
     "name": "Teuza - A Fairchild Technology Venture Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "תעוזה"
   },
   {
     "symbol": "UNIT",
     "name": "Unitronics Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "יוניטרוניקס"
   },
   {
     "symbol": "UNMI",
     "name": "Universal Motors Israel Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "יוניברסל מוטורס"
   },
   {
     "symbol": "UPSL",
     "name": "Upsellon Brands Holdings Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "אפסלון ברנדס"
   },
   {
     "symbol": "URBC",
     "name": "Urbanica Palo Retail Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "אורבניקה (פאלו)"
   },
   {
     "symbol": "UTRN",
     "name": "Utron Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "יוטרון"
   },
   {
     "symbol": "VCTR",
     "name": "Victory Supermarket Chain Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "ויקטורי"
   },
   {
     "symbol": "VILR",
     "name": "Villar International Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "וילאר"
   },
   {
     "symbol": "VISN",
     "name": "Vision Sigma Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "ויז'ן סיגמא"
   },
   {
     "symbol": "VRDS",
     "name": "Veridis Environment Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "ורידיס"
   },
   {
     "symbol": "VTNA",
     "name": "Vitania Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "ויתניה"
   },
   {
     "symbol": "WATR",
     "name": "Water.io Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "ווטר אי או"
   },
   {
     "symbol": "WESR",
     "name": "Wesure Global Tech Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "ווישור גלובלטק"
   },
   {
     "symbol": "WILC",
     "name": "G. Willi-Food International Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "ויליפוד אינטרנש"
   },
   {
     "symbol": "WILK",
     "name": "Wilk Technologies Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "וילק"
   },
   {
     "symbol": "WLFD",
     "name": "Willi-Food Investments Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "וילי פוד"
   },
   {
     "symbol": "XTLB",
     "name": "XTL Biopharmaceuticals Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "אקס טי אל"
   },
   {
     "symbol": "YAAZ",
     "name": "Yez Construction LLC",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "מצלאוי"
   },
   {
     "symbol": "YACO",
     "name": "Yacobi Brothers Group (YSB) Ltd",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "יעקובי קבוצה"
   },
   {
     "symbol": "YBOX",
     "name": "Ybox Real Estate Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "וויי-בוקס"
   },
   {
     "symbol": "YBRD",
     "name": "Y.B Urban Renewal Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "י.ב התחדשות"
   },
   {
     "symbol": "YESD",
     "name": "Yesodot Eitanom Construction Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "יסודות איתנים"
   },
   {
     "symbol": "YHNF",
     "name": "M Yochananof & Sons Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "יוחננוף"
   },
   {
     "symbol": "ZNKL",
     "name": "Zanlakol Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "זנלכל"
   },
   {
     "symbol": "ZOOZ",
     "name": "Zooz Power Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "אפולו פאוור"
   },
   {
     "symbol": "ZPRS",
     "name": "Zephyrus Wing Energies Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "זפירוס"
   },
   {
     "symbol": "ZUR",
     "name": "Zur Shamir Holdings Ltd.",
-    "currency": "ILA"
+    "currency": "ILA",
+    "nameHebrew": "צור"
   }
 ]
