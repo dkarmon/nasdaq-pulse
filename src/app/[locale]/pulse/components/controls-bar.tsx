@@ -38,8 +38,8 @@ type ControlsBarProps = {
   };
 };
 
-const SORT_OPTIONS: SortPeriod[] = ["5d", "1m", "6m", "12m"];
-const LIMIT_OPTIONS = [25, 50, 100];
+const SORT_OPTIONS: SortPeriod[] = ["5d", "1m", "6m", "12m", "az"];
+const LIMIT_OPTIONS = [25, 50];
 const FILTER_PRESETS: FilterPreset[] = ["any", "5", "10", "25"];
 const EXCHANGE_OPTIONS: Exchange[] = ["nasdaq", "tlv"];
 
@@ -98,7 +98,7 @@ export function ControlsBar({
           className={styles.searchInput}
           placeholder={labels.search}
           value={searchQuery}
-          onChange={(e) => onSearchChange(e.target.value.toUpperCase())}
+          onChange={(e) => onSearchChange(e.target.value)}
           aria-label={labels.search}
         />
         <button
@@ -126,7 +126,7 @@ export function ControlsBar({
                 onClick={() => onSortChange(option)}
                 aria-pressed={sortBy === option}
               >
-                {option.toUpperCase()}
+                {option === "az" ? "A-Z" : option.toUpperCase()}
               </button>
             ))}
           </div>

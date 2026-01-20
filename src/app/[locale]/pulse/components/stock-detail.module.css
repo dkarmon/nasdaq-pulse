@@ -196,12 +196,17 @@
   border-radius: 10px;
   text-align: center;
   min-width: 0;
+  overflow: hidden;
 }
 
 .metricValue {
   font-family: var(--font-space-grotesk), var(--font-manrope), system-ui, sans-serif;
   font-size: 1.1rem;
   font-weight: 700;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 100%;
 }
 
 .metricValue[data-positive="true"] {
@@ -327,5 +332,15 @@
 
   .metricLabel {
     font-size: 0.7rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .metricValue {
+    font-size: 0.9rem;
+  }
+
+  .symbol {
+    font-size: 1.5rem;
   }
 }

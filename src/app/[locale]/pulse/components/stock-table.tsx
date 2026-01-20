@@ -84,40 +84,49 @@ export function StockTable({
                 onClick={() => onSelectStock(stock.symbol)}
               >
                 <td className={styles.stockCell}>
-                  <div className={styles.symbolRow}>
-                    {isRecommended(stock) && (
-                      <span className={styles.starIcon} title={labels.recommended}>
-                        ★
-                      </span>
-                    )}
-                    <span className={styles.symbol}>{stock.symbol}</span>
-                    {stock.hasSplitWarning && (
-                      <span className={styles.splitWarning} title="Recent stock split - growth data may be inaccurate">
-                        ⚠️
-                      </span>
-                    )}
-                    <button
-                      className={styles.copyButton}
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        navigator.clipboard.writeText(stock.symbol);
-                      }}
-                      title="Copy ticker"
-                    >
-                      ⧉
-                    </button>
-                    <button
-                      className={styles.hideButton}
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        onHideStock(stock.symbol);
-                      }}
-                      title={labels.hide}
-                    >
-                      ✕
-                    </button>
-                  </div>
-                  <div className={styles.companyName}>{stock.nameHebrew || stock.name}</div>
+                  {(() => {
+                    const isTLV = stock.symbol.endsWith(".TA");
+                    const primaryText = isTLV && stock.nameHebrew ? stock.nameHebrew : stock.symbol;
+                    const secondaryText = isTLV ? stock.symbol : (stock.nameHebrew || stock.name);
+                    return (
+                      <>
+                        <div className={styles.symbolRow}>
+                          {isRecommended(stock) && (
+                            <span className={styles.starIcon} title={labels.recommended}>
+                              ★
+                            </span>
+                          )}
+                          <span className={styles.symbol}>{primaryText}</span>
+                          {stock.hasSplitWarning && (
+                            <span className={styles.splitWarning} title="Recent stock split - growth data may be inaccurate">
+                              ⚠️
+                            </span>
+                          )}
+                          <button
+                            className={styles.copyButton}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              navigator.clipboard.writeText(stock.symbol);
+                            }}
+                            title="Copy ticker"
+                          >
+                            ⧉
+                          </button>
+                          <button
+                            className={styles.hideButton}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              onHideStock(stock.symbol);
+                            }}
+                            title={labels.hide}
+                          >
+                            ✕
+                          </button>
+                        </div>
+                        <div className={styles.companyName}>{secondaryText}</div>
+                      </>
+                    );
+                  })()}
                 </td>
                 <td className={styles.priceCell}>
                   {formatPrice(stock.price)}
