@@ -6,6 +6,7 @@ import taseStocksJson from "./tase-stocks.json";
 export type TaseStock = {
   symbol: string;
   name: string;
+  nameHebrew?: string;
   currency: string;
 };
 
@@ -15,62 +16,6 @@ export type TaseStock = {
  * Filtered to common stocks with letter symbols only.
  */
 export const TASE_STOCKS: TaseStock[] = taseStocksJson;
-
-/**
- * Hebrew name overrides for major TASE stocks.
- * Add entries here for stocks that need Hebrew display names.
- */
-const HEBREW_NAMES: Record<string, string> = {
-  LUMI: "בנק לאומי",
-  TEVA: "טבע",
-  ESLT: "אלביט מערכות",
-  POLI: "בנק הפועלים",
-  MZTF: "בנק מזרחי טפחות",
-  AZRG: "קבוצת עזריאלי",
-  TSEM: "טאואר סמיקונדקטור",
-  DSCT: "בנק דיסקונט",
-  NVMI: "נובה",
-  PHOE: "הפניקס",
-  HARL: "הראל ביטוח",
-  FIBI: "הבנק הבינלאומי",
-  MMHD: "מנורה מבטחים",
-  OPCE: "או.פי.סי אנרגיה",
-  NWMD: "ניומד אנרג'י",
-  ORA: "אורמת",
-  NICE: "נייס",
-  ICL: "כיל",
-  ENLT: "אנלייט",
-  MLSR: "מליסרון",
-  CAMT: "קמטק",
-  BEZQ: "בזק",
-  BIG: "ביג",
-  MGDL: "מגדל ביטוח",
-  CLIS: "כלל ביטוח",
-  DLEKG: "קבוצת דלק",
-  STRS: "שטראוס",
-  AMOT: "עמות",
-  SKBN: "שיכון ובינוי",
-  MVNE: "מבנה נדל\"ן",
-  SPEN: "שפיר הנדסה",
-  FTAL: "פתאל",
-  SAE: "שופרסל",
-  TASE: "הבורסה",
-  AFPR: "אפי נכסים",
-  ISRO: "ישרוטל",
-  MTAV: "מיטב",
-  ENRG: "אנרג'יקס",
-  ELAL: "אל על",
-  ALHE: "אלוני חץ",
-  MTRX: "מטריקס",
-  ELTR: "אלקטרה",
-  ASHG: "אשטרום",
-  OSEM: "אוסם",
-  GZIT: "גזית גלוב",
-  ITRN: "איתוראן",
-  KMDA: "קמהדע",
-  UNIT: "יוניטרוניקס",
-  SANO: "סנו",
-};
 
 /**
  * Converts a TASE symbol to Yahoo Finance format by appending .TA suffix.
@@ -98,7 +43,7 @@ export function getTaseSymbols(): string[] {
  */
 export function getHebrewName(symbol: string): string | undefined {
   const plainSymbol = fromYahooSymbol(symbol);
-  return HEBREW_NAMES[plainSymbol];
+  return TASE_STOCKS.find((s) => s.symbol === plainSymbol)?.nameHebrew;
 }
 
 /**
