@@ -4,6 +4,7 @@
 "use client";
 
 import type { Stock, SortPeriod } from "@/lib/market-data/types";
+import { isStockRecommended } from "@/lib/market-data/recommendation";
 import styles from "./stock-table.module.css";
 
 type StockTableProps = {
@@ -35,13 +36,6 @@ function formatGrowth(value: number): string {
 function formatPrice(value: number, currency: string = "USD"): string {
   const symbol = currency === "ILS" ? "₪" : "$";
   return `${symbol}${value.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
-}
-
-function isRecommended(stock: Stock): boolean {
-  if (stock.growth5d === undefined) return false;
-  return stock.growth5d < stock.growth1m &&
-         stock.growth1m < stock.growth6m &&
-         stock.growth6m < stock.growth12m;
 }
 
 export function StockTable({
@@ -92,7 +86,7 @@ export function StockTable({
                     return (
                       <>
                         <div className={styles.symbolRow}>
-                          {isRecommended(stock) && (
+                          {isStockRecommended(stock) && (
                             <span className={styles.starIcon} title={labels.recommended}>
                               ★
                             </span>
