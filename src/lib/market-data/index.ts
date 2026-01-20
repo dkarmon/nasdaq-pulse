@@ -5,6 +5,7 @@ import * as finnhub from "./finnhub";
 import * as yahoo from "./yahoo";
 import * as newsApi from "./newsapi";
 import * as mock from "./mock";
+import { getCompanyInfo } from "./company-info";
 import type {
   Stock,
   Quote,
@@ -41,15 +42,34 @@ export async function getCompanyProfile(
   symbol: string
 ): Promise<CompanyProfile | null> {
   // Skip Finnhub for TASE stocks (they return 403)
+  let profile: CompanyProfile | null = null;
+
   if (!symbol.endsWith(".TA")) {
     const liveProfile = await finnhub.getCompanyProfile(symbol);
     if (liveProfile) {
-      return liveProfile;
+      profile = liveProfile;
     }
   }
 
-  const mockDetail = mock.getStockDetail(symbol);
-  return mockDetail?.profile ?? null;
+  if (!profile) {
+    const mockDetail = mock.getStockDetail(symbol);
+    profile = mockDetail?.profile ?? null;
+  }
+
+  // Merge with static company info (sector, descriptions)
+  if (profile) {
+    const companyInfo = getCompanyInfo(symbol);
+    if (companyInfo) {
+      profile = {
+        ...profile,
+        sector: companyInfo.sector,
+        description: companyInfo.description,
+        descriptionHebrew: companyInfo.descriptionHebrew,
+      };
+    }
+  }
+
+  return profile;
 }
 
 export async function getHistoricalData(

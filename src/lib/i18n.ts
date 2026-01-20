@@ -74,6 +74,11 @@ export type Dictionary = {
     exchange: string;
     nasdaq: string;
     tlv: string;
+    sector: string;
+    industry: string;
+    marketCap: string;
+    companyOverview: string;
+    website: string;
   };
   settings: {
     title: string;
@@ -211,6 +216,11 @@ export const dictionaries: Record<Locale, Dictionary> = {
       exchange: "Exchange",
       nasdaq: "NASDAQ",
       tlv: "Tel Aviv",
+      sector: "Sector",
+      industry: "Industry",
+      marketCap: "Market Cap",
+      companyOverview: "Company Overview",
+      website: "Website",
     },
     settings: {
       title: "Settings",
@@ -344,6 +354,11 @@ export const dictionaries: Record<Locale, Dictionary> = {
       exchange: "בורסה",
       nasdaq: "נאסד״ק",
       tlv: "תל אביב",
+      sector: "סקטור",
+      industry: "תעשייה",
+      marketCap: "שווי שוק",
+      companyOverview: "אודות החברה",
+      website: "אתר אינטרנט",
     },
     settings: {
       title: "הגדרות",

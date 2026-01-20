@@ -1,0 +1,52 @@
+{
+  "AAPL": {
+    "sector": "Technology",
+    "description": "Apple Inc. designs, manufactures, and markets smartphones, personal computers, tablets, wearables, and accessories worldwide. The company is known for its innovative products including the iPhone, iPad, Mac, Apple Watch, and AirPods. Apple also offers various services such as Apple Music, Apple TV+, iCloud, and the App Store.",
+    "descriptionHebrew": "אפל בע\"מ מעצבת, מייצרת ומשווקת סמארטפונים, מחשבים אישיים, טאבלטים, מכשירים לבישים ואביזרים ברחבי העולם. החברה ידועה במוצרים החדשניים שלה כולל iPhone, iPad, Mac, Apple Watch ו-AirPods. אפל מציעה גם שירותים שונים כמו Apple Music, Apple TV+, iCloud וה-App Store."
+  },
+  "MSFT": {
+    "sector": "Technology",
+    "description": "Microsoft Corporation develops, licenses, and supports software, services, devices, and solutions worldwide. The company's offerings include Windows operating systems, Microsoft 365 productivity suite, Azure cloud platform, LinkedIn professional network, and gaming products through Xbox. Microsoft is a leader in cloud computing, artificial intelligence, and enterprise software.",
+    "descriptionHebrew": "מיקרוסופט בע\"מ מפתחת, נותנת רישיונות ותומכת בתוכנה, שירותים, מכשירים ופתרונות ברחבי העולם. ההצעות של החברה כוללות מערכות הפעלה Windows, חבילת הפרודוקטיביות Microsoft 365, פלטפורמת הענן Azure, הרשת המקצועית LinkedIn ומוצרי גיימינג דרך Xbox. מיקרוסופט מובילה בתחום מחשוב הענן, בינה מלאכותית ותוכנות ארגוניות."
+  },
+  "NVDA": {
+    "sector": "Technology",
+    "description": "NVIDIA Corporation designs and manufactures graphics processing units (GPUs) and system-on-chip units (SOCs) for gaming, professional visualization, data centers, and automotive markets. The company is a pioneer in artificial intelligence computing and accelerated computing. NVIDIA's GPUs power AI applications, deep learning, and high-performance computing worldwide.",
+    "descriptionHebrew": "NVIDIA בע\"מ מעצבת ומייצרת יחידות עיבוד גרפי (GPUs) ויחידות מערכת-על-שבב (SOCs) עבור שווקי משחקים, הדמיה מקצועית, מרכזי נתונים ורכב. החברה היא חלוצה במחשוב בינה מלאכותית ומחשוב מואץ. מעבדי GPU של NVIDIA מפעילים יישומי AI, למידה עמוקה ומחשוב בעל ביצועים גבוהים ברחבי העולם."
+  },
+  "GOOGL": {
+    "sector": "Technology",
+    "description": "Alphabet Inc. operates as a technology company offering various products and services including Google Search, Android, Chrome, Google Cloud, YouTube, and hardware products. The company generates revenue primarily through advertising on its search engine and video platform. Alphabet also invests in emerging technologies including artificial intelligence, autonomous vehicles through Waymo, and life sciences through Verily.",
+    "descriptionHebrew": "Alphabet בע\"מ פועלת כחברת טכנולוגיה המציעה מוצרים ושירותים שונים כולל Google Search, Android, Chrome, Google Cloud, YouTube ומוצרי חומרה. החברה מייצרת הכנסות בעיקר באמצעות פרסום במנוע החיפוש ובפלטפורמת הווידאו שלה. Alphabet גם משקיעה בטכנולוגיות מתפתחות כולל בינה מלאכותית, רכבים אוטונומיים דרך Waymo ומדעי החיים דרך Verily."
+  },
+  "AMZN": {
+    "sector": "Consumer Cyclical",
+    "description": "Amazon.com, Inc. operates as a multinational technology company focusing on e-commerce, cloud computing, online advertising, digital streaming, and artificial intelligence. Amazon operates the world's largest online marketplace and cloud computing platform (AWS). The company also produces consumer electronics including Kindle, Fire tablets, Echo, and Ring devices.",
+    "descriptionHebrew": "Amazon.com בע\"מ פועלת כחברת טכנולוגיה רב-לאומית המתמקדת במסחר אלקטרוני, מחשוב ענן, פרסום מverkוון, סטרימינג דיגיטלי ובינה מלאכותית. אמזון מפעילה את השוק המקוון הגדול בעולם ואת פלטפורמת מחשוב הענן (AWS). החברה גם מייצרת אלקטרוניקה צרכנית כולל Kindle, טאבלטים Fire, Echo ומכשירי Ring."
+  },
+  "TSLA": {
+    "sector": "Automotive",
+    "description": "Tesla, Inc. designs, develops, manufactures, and sells electric vehicles, energy generation and storage systems worldwide. The company produces electric cars including Model S, Model 3, Model X, Model Y, and Cybertruck. Tesla also offers solar panels, solar roof tiles, and energy storage products through Powerwall and Powerpack. The company is pioneering autonomous driving technology through its Full Self-Driving (FSD) software.",
+    "descriptionHebrew": "טסלה בע\"מ מעצבת, מפתחת, מייצרת ומוכרת רכבים חשמליים, מערכות ייצור ואחסון אנרגיה ברחבי העולם. החברה מייצרת מכוניות חשמליות כולל Model S, Model 3, Model X, Model Y ו-Cybertruck. טסלה מציעה גם פאנלים סולאריים, רעפי גג סולאריים ומוצרי אחסון אנרגיה דרך Powerwall ו-Powerpack. החברה חלוצה בטכנולוגיית נהיגה אוטונומית דרך תוכנת ה-Full Self-Driving (FSD)."
+  },
+  "META": {
+    "sector": "Technology",
+    "description": "Meta Platforms, Inc. develops products that enable people to connect and share through mobile devices, personal computers, and virtual reality headsets worldwide. The company operates social media platforms including Facebook, Instagram, WhatsApp, and Threads. Meta is also investing heavily in the metaverse through its Reality Labs division, developing virtual and augmented reality technologies.",
+    "descriptionHebrew": "Meta Platforms בע\"מ מפתחת מוצרים המאפשרים לאנשים להתחבר ולשתף באמצעות מכשירים ניידים, מחשבים אישיים וקסדות מציאות מדומה ברחבי העולם. החברה מפעילה פלטפורמות מדיה חברתית כולל Facebook, Instagram, WhatsApp ו-Threads. Meta משקיעה גם רבות במטאוורס דרך חטיבת Reality Labs, ומפתחת טכנולוגיות מציאות מדומה ומציאות רבודה."
+  },
+  "NFLX": {
+    "sector": "Communication Services",
+    "description": "Netflix, Inc. provides entertainment services worldwide. The company offers streaming subscription service featuring TV series, documentaries, feature films, and original programming across various genres and languages. Netflix produces and acquires content including award-winning original series and films. The service is available in over 190 countries.",
+    "descriptionHebrew": "Netflix בע\"מ מספקת שירותי בידור ברחבי העולם. החברה מציעה שירות מנוי לסטרימינג הכולל סדרות טלוויזיה, סרטי תיעוד, סרטים ותכניות מקוריות בז'אנרים ושפות שונות. Netflix מייצרת ורוכשת תוכן כולל סדרות וסרטים מקוריים עטורי פרסים. השירות זמין ביותר מ-190 מדינות."
+  },
+  "DIS": {
+    "sector": "Communication Services",
+    "description": "The Walt Disney Company operates as an entertainment company worldwide. The company operates through Media Networks, Parks, Experiences and Products, Studio Entertainment, and Direct-to-Consumer & International segments. Disney owns and operates theme parks, resorts, cruise lines, and the Disney+ streaming service. The company produces content through Walt Disney Pictures, Marvel Studios, Lucasfilm, and Pixar.",
+    "descriptionHebrew": "חברת וולט דיסני פועלת כחברת בידור ברחבי העולם. החברה פועלת דרך רשתות מדיה, פארקים, חוויות ומוצרים, בידור באולפנים וסגמנטים ישירים לצרכן ובינלאומיים. דיסני מחזיקה ומפעילה פארקי שעשועים, אתרי נופש, קווי שייט ושירות הסטרימינג Disney+. החברה מייצרת תוכן דרך Walt Disney Pictures, Marvel Studios, Lucasfilm ו-Pixar."
+  },
+  "INTC": {
+    "sector": "Technology",
+    "description": "Intel Corporation designs, manufactures, and sells computer components and related products worldwide. The company is a leading manufacturer of microprocessors for personal computers and data centers. Intel's products include processors, chipsets, motherboards, and memory solutions. The company is investing in emerging technologies including artificial intelligence, autonomous vehicles, and 5G network infrastructure.",
+    "descriptionHebrew": "אינטל בע\"מ מעצבת, מייצרת ומוכרת רכיבי מחשב ומוצרים קשורים ברחבי העולם. החברה היא יצרן מוביל של מיקרו-מעבדים למחשבים אישיים ומרכזי נתונים. מוצרי אינטל כוללים מעבדים, ערכות שבבים, לוחות אם ופתרונות זיכרון. החברה משקיעה בטכנולוגיות מתפתחות כולל בינה מלאכותית, רכבים אוטונומיים ותשתית רשת 5G."
+  }
+}

@@ -38,12 +38,16 @@ export type CompanyProfile = {
   symbol: string;
   name: string;
   exchange: string;
+  sector?: string;
   industry: string;
   marketCap: number;
   peRatio: number | null;
   week52High: number;
   week52Low: number;
   logo?: string;
+  website?: string;
+  description?: string;
+  descriptionHebrew?: string;
 };
 
 export type HistoricalDataPoint = {
