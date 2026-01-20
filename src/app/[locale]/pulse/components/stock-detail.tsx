@@ -11,6 +11,7 @@ import styles from "./stock-detail.module.css";
 type StockDetailProps = {
   symbol: string;
   onClose: () => void;
+  locale?: string;
   labels: {
     backToList: string;
     price: string;
@@ -27,6 +28,11 @@ type StockDetailProps = {
     loading: string;
     error: string;
     recommended: string;
+    sector: string;
+    industry: string;
+    marketCap: string;
+    companyOverview: string;
+    website: string;
   };
 };
 
@@ -66,7 +72,21 @@ function formatTimeAgo(dateString: string): string {
   return `${diffDays}d ago`;
 }
 
-export function StockDetail({ symbol, onClose, labels }: StockDetailProps) {
+function formatMarketCap(value: number): string {
+  if (value === 0) return "N/A";
+  if (value >= 1_000_000_000_000) {
+    return `$${(value / 1_000_000_000_000).toFixed(2)}T`;
+  }
+  if (value >= 1_000_000_000) {
+    return `$${(value / 1_000_000_000).toFixed(2)}B`;
+  }
+  if (value >= 1_000_000) {
+    return `$${(value / 1_000_000).toFixed(2)}M`;
+  }
+  return `$${value.toLocaleString()}`;
+}
+
+export function StockDetail({ symbol, onClose, locale = "en", labels }: StockDetailProps) {
   const [detail, setDetail] = useState<StockDetailResponse | null>(null);
   const [news, setNews] = useState<NewsItem[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -155,6 +175,53 @@ export function StockDetail({ symbol, onClose, labels }: StockDetailProps) {
         </div>
         <p className={styles.companyName}>{nameHebrew || profile.name}</p>
       </div>
+
+      {(profile.sector || profile.industry || profile.marketCap || profile.website) && (
+        <div className={styles.companyInfo}>
+          {profile.sector && (
+            <div className={styles.infoRow}>
+              <span className={styles.infoLabel}>{labels.sector}:</span>
+              <span className={styles.infoValue}>{profile.sector}</span>
+            </div>
+          )}
+          {profile.industry && (
+            <div className={styles.infoRow}>
+              <span className={styles.infoLabel}>{labels.industry}:</span>
+              <span className={styles.infoValue}>{profile.industry}</span>
+            </div>
+          )}
+          {profile.marketCap > 0 && (
+            <div className={styles.infoRow}>
+              <span className={styles.infoLabel}>{labels.marketCap}:</span>
+              <span className={styles.infoValue}>{formatMarketCap(profile.marketCap)}</span>
+            </div>
+          )}
+          {profile.website && (
+            <div className={styles.infoRow}>
+              <span className={styles.infoLabel}>{labels.website}:</span>
+              <a
+                href={profile.website}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.infoLink}
+              >
+                {profile.website.replace(/^https?:\/\//, '').replace(/\/$/, '')}
+              </a>
+            </div>
+          )}
+        </div>
+      )}
+
+      {(profile.description || profile.descriptionHebrew) && (
+        <div className={styles.companyOverview}>
+          <h3 className={styles.overviewTitle}>{labels.companyOverview}</h3>
+          <p className={styles.overviewText}>
+            {locale === "he" && profile.descriptionHebrew
+              ? profile.descriptionHebrew
+              : profile.description}
+          </p>
+        </div>
+      )}
 
       <div className={styles.metricsRow}>
         <div className={styles.metricCard}>

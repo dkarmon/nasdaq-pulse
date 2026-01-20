@@ -84,6 +84,7 @@ export default async function PulsePage({ params }: PulsePageProps) {
         <PulseWrapper
           initialData={initialData}
           dict={dict}
+          locale={locale}
         />
       </div>
     </div>

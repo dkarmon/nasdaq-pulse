@@ -52,6 +52,7 @@ export type ProfileResult = {
   week52High: number;
   week52Low: number;
   logo?: string;
+  website?: string;
 };
 
 function getApiKey(): string {
@@ -125,6 +126,7 @@ export async function getCompanyProfile(symbol: string): Promise<ProfileResult |
     week52High: 0, // Would need separate API call for this
     week52Low: 0,  // Would need separate API call for this
     logo: data.logo,
+    website: data.weburl,
   };
 }
 

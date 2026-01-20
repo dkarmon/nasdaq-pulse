@@ -13,9 +13,10 @@ import styles from "./pulse-wrapper.module.css";
 type PulseWrapperProps = {
   initialData: ScreenerResponse;
   dict: Dictionary;
+  locale: string;
 };
 
-export function PulseWrapper({ initialData, dict }: PulseWrapperProps) {
+export function PulseWrapper({ initialData, dict, locale }: PulseWrapperProps) {
   const [selectedSymbol, setSelectedSymbol] = useState<string | null>(null);
 
   const detailLabels = {
@@ -34,6 +35,11 @@ export function PulseWrapper({ initialData, dict }: PulseWrapperProps) {
     loading: dict.screener.loading,
     error: dict.screener.error,
     recommended: dict.screener.recommended,
+    sector: dict.screener.sector,
+    industry: dict.screener.industry,
+    marketCap: dict.screener.marketCap,
+    companyOverview: dict.screener.companyOverview,
+    website: dict.screener.website,
   };
 
   return (
@@ -53,6 +59,7 @@ export function PulseWrapper({ initialData, dict }: PulseWrapperProps) {
             <StockDetail
               symbol={selectedSymbol}
               onClose={() => setSelectedSymbol(null)}
+              locale={locale}
               labels={detailLabels}
             />
           </div>
