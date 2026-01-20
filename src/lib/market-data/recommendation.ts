@@ -31,16 +31,17 @@ export function isRecommended(stock: Stock): boolean {
 
 /**
  * Calculates a recommendation score based on growth acceleration.
- * Formula: 3.5*(1M-5D)/25 + 2.5*(6M-1M)/150 + 1.5*(12M-6M)/182
- * Uses differences between periods to measure absolute growth.
- * Higher weights for shorter-term differences emphasize recent momentum.
+ * Formula: (3*(1M-5D)/25 + 2*(6M-1M)/150 + (12M-6M)/182) * avgGrowth
+ * where avgGrowth = (5D + 1M + 6M + 12M) / 4
  */
 export function calculateRecommendationScore(stock: Stock): number {
   const growth5d = stock.growth5d!;
-  const diff1 = (stock.growth1m - growth5d) / 25;
-  const diff2 = (stock.growth6m - stock.growth1m) / 150;
+  const diff1 = (3 * (stock.growth1m - growth5d)) / 25;
+  const diff2 = (2 * (stock.growth6m - stock.growth1m)) / 150;
   const diff3 = (stock.growth12m - stock.growth6m) / 182;
-  return 3.5 * diff1 + 2.5 * diff2 + 1.5 * diff3;
+  const baseScore = diff1 + diff2 + diff3;
+  const avgGrowth = (growth5d + stock.growth1m + stock.growth6m + stock.growth12m) / 4;
+  return baseScore * avgGrowth;
 }
 
 /**

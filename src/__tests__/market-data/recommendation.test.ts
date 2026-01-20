@@ -141,27 +141,27 @@ describe("isRecommended", () => {
 });
 
 describe("calculateRecommendationScore", () => {
-  // Formula: 3.5*(1M-5D)/25 + 2.5*(6M-1M)/150 + 1.5*(12M-6M)/182
-  // Uses differences between periods, not ratios
+  // Formula: (3*(1M-5D)/25 + 2*(6M-1M)/150 + (12M-6M)/182) * avgGrowth
+  // where avgGrowth = (5D + 1M + 6M + 12M) / 4
 
   it("calculates score correctly with simple values", () => {
     // 5D=10, 1M=20, 6M=40, 12M=60
-    // 3.5*(20-10)/25 + 2.5*(40-20)/150 + 1.5*(60-40)/182
-    // = 3.5*10/25 + 2.5*20/150 + 1.5*20/182
-    // = 1.4 + 0.333 + 0.165
-    // ≈ 1.898
+    // baseScore = 3*(20-10)/25 + 2*(40-20)/150 + (60-40)/182
+    //           = 1.2 + 0.2667 + 0.1099 = 1.5766
+    // avgGrowth = (10+20+40+60)/4 = 32.5
+    // score = 1.5766 * 32.5 ≈ 51.24
     const stock = makeStock({ growth5d: 10, growth1m: 20, growth6m: 40, growth12m: 60 });
-    expect(calculateRecommendationScore(stock)).toBeCloseTo(1.898, 2);
+    expect(calculateRecommendationScore(stock)).toBeCloseTo(51.24, 1);
   });
 
   it("calculates score correctly with equal ratios", () => {
     // 5D=1, 1M=2, 6M=4, 12M=8 (each doubles)
-    // 3.5*(2-1)/25 + 2.5*(4-2)/150 + 1.5*(8-4)/182
-    // = 3.5*1/25 + 2.5*2/150 + 1.5*4/182
-    // = 0.14 + 0.033 + 0.033
-    // ≈ 0.206
+    // baseScore = 3*(2-1)/25 + 2*(4-2)/150 + (8-4)/182
+    //           = 0.12 + 0.0267 + 0.022 = 0.1687
+    // avgGrowth = (1+2+4+8)/4 = 3.75
+    // score = 0.1687 * 3.75 ≈ 0.63
     const stock = makeStock({ growth5d: 1, growth1m: 2, growth6m: 4, growth12m: 8 });
-    expect(calculateRecommendationScore(stock)).toBeCloseTo(0.206, 2);
+    expect(calculateRecommendationScore(stock)).toBeCloseTo(0.63, 1);
   });
 
   it("returns higher score for steeper early growth", () => {
@@ -175,12 +175,12 @@ describe("calculateRecommendationScore", () => {
 
   it("handles decimal values correctly", () => {
     // 5D=0.5, 1M=1.5, 6M=3, 12M=6
-    // 3.5*(1.5-0.5)/25 + 2.5*(3-1.5)/150 + 1.5*(6-3)/182
-    // = 3.5*1/25 + 2.5*1.5/150 + 1.5*3/182
-    // = 0.14 + 0.025 + 0.0247
-    // ≈ 0.190
+    // baseScore = 3*(1.5-0.5)/25 + 2*(3-1.5)/150 + (6-3)/182
+    //           = 0.12 + 0.02 + 0.0165 = 0.1565
+    // avgGrowth = (0.5+1.5+3+6)/4 = 2.75
+    // score = 0.1565 * 2.75 ≈ 0.43
     const stock = makeStock({ growth5d: 0.5, growth1m: 1.5, growth6m: 3, growth12m: 6 });
-    expect(calculateRecommendationScore(stock)).toBeCloseTo(0.190, 2);
+    expect(calculateRecommendationScore(stock)).toBeCloseTo(0.43, 1);
   });
 });
 
