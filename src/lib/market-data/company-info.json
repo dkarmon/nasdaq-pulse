@@ -6,47 +6,662 @@
   },
   "MSFT": {
     "sector": "Technology",
-    "description": "Microsoft Corporation develops, licenses, and supports software, services, devices, and solutions worldwide. The company's offerings include Windows operating systems, Microsoft 365 productivity suite, Azure cloud platform, LinkedIn professional network, and gaming products through Xbox. Microsoft is a leader in cloud computing, artificial intelligence, and enterprise software.",
-    "descriptionHebrew": "מיקרוסופט בע\"מ מפתחת, נותנת רישיונות ותומכת בתוכנה, שירותים, מכשירים ופתרונות ברחבי העולם. ההצעות של החברה כוללות מערכות הפעלה Windows, חבילת הפרודוקטיביות Microsoft 365, פלטפורמת הענן Azure, הרשת המקצועית LinkedIn ומוצרי גיימינג דרך Xbox. מיקרוסופט מובילה בתחום מחשוב הענן, בינה מלאכותית ותוכנות ארגוניות."
+    "description": "Microsoft Corporation develops, licenses, and supports software, services, devices, and solutions worldwide. The company's offerings include Windows operating systems, Microsoft 365 productivity suite, Azure cloud platform, LinkedIn professional network, and gaming products through Xbox.",
+    "descriptionHebrew": "מיקרוסופט בע\"מ מפתחת, נותנת רישיונות ותומכת בתוכנה, שירותים, מכשירים ופתרונות ברחבי העולם. ההצעות של החברה כוללות מערכות הפעלה Windows, חבילת הפרודוקטיביות Microsoft 365, פלטפורמת הענן Azure, הרשת המקצועית LinkedIn ומוצרי גיימינג דרך Xbox."
   },
   "NVDA": {
     "sector": "Technology",
-    "description": "NVIDIA Corporation designs and manufactures graphics processing units (GPUs) and system-on-chip units (SOCs) for gaming, professional visualization, data centers, and automotive markets. The company is a pioneer in artificial intelligence computing and accelerated computing. NVIDIA's GPUs power AI applications, deep learning, and high-performance computing worldwide.",
-    "descriptionHebrew": "NVIDIA בע\"מ מעצבת ומייצרת יחידות עיבוד גרפי (GPUs) ויחידות מערכת-על-שבב (SOCs) עבור שווקי משחקים, הדמיה מקצועית, מרכזי נתונים ורכב. החברה היא חלוצה במחשוב בינה מלאכותית ומחשוב מואץ. מעבדי GPU של NVIDIA מפעילים יישומי AI, למידה עמוקה ומחשוב בעל ביצועים גבוהים ברחבי העולם."
+    "description": "NVIDIA Corporation designs and manufactures graphics processing units (GPUs) and system-on-chip units for gaming, professional visualization, data centers, and automotive markets. The company is a pioneer in artificial intelligence computing and accelerated computing.",
+    "descriptionHebrew": "NVIDIA בע\"מ מעצבת ומייצרת יחידות עיבוד גרפי (GPUs) ויחידות מערכת-על-שבב עבור שווקי משחקים, הדמיה מקצועית, מרכזי נתונים ורכב. החברה היא חלוצה במחשוב בינה מלאכותית ומחשוב מואץ."
   },
   "GOOGL": {
     "sector": "Technology",
-    "description": "Alphabet Inc. operates as a technology company offering various products and services including Google Search, Android, Chrome, Google Cloud, YouTube, and hardware products. The company generates revenue primarily through advertising on its search engine and video platform. Alphabet also invests in emerging technologies including artificial intelligence, autonomous vehicles through Waymo, and life sciences through Verily.",
-    "descriptionHebrew": "Alphabet בע\"מ פועלת כחברת טכנולוגיה המציעה מוצרים ושירותים שונים כולל Google Search, Android, Chrome, Google Cloud, YouTube ומוצרי חומרה. החברה מייצרת הכנסות בעיקר באמצעות פרסום במנוע החיפוש ובפלטפורמת הווידאו שלה. Alphabet גם משקיעה בטכנולוגיות מתפתחות כולל בינה מלאכותית, רכבים אוטונומיים דרך Waymo ומדעי החיים דרך Verily."
+    "description": "Alphabet Inc. operates as a technology company offering various products and services including Google Search, Android, Chrome, Google Cloud, YouTube, and hardware products. The company generates revenue primarily through advertising on its search engine and video platform.",
+    "descriptionHebrew": "Alphabet בע\"מ פועלת כחברת טכנולוגיה המציעה מוצרים ושירותים שונים כולל Google Search, Android, Chrome, Google Cloud, YouTube ומוצרי חומרה. החברה מייצרת הכנסות בעיקר באמצעות פרסום במנוע החיפוש ובפלטפורמת הווידאו שלה."
   },
   "AMZN": {
     "sector": "Consumer Cyclical",
-    "description": "Amazon.com, Inc. operates as a multinational technology company focusing on e-commerce, cloud computing, online advertising, digital streaming, and artificial intelligence. Amazon operates the world's largest online marketplace and cloud computing platform (AWS). The company also produces consumer electronics including Kindle, Fire tablets, Echo, and Ring devices.",
-    "descriptionHebrew": "Amazon.com בע\"מ פועלת כחברת טכנולוגיה רב-לאומית המתמקדת במסחר אלקטרוני, מחשוב ענן, פרסום מverkוון, סטרימינג דיגיטלי ובינה מלאכותית. אמזון מפעילה את השוק המקוון הגדול בעולם ואת פלטפורמת מחשוב הענן (AWS). החברה גם מייצרת אלקטרוניקה צרכנית כולל Kindle, טאבלטים Fire, Echo ומכשירי Ring."
+    "description": "Amazon.com, Inc. operates as a multinational technology company focusing on e-commerce, cloud computing, online advertising, digital streaming, and artificial intelligence. Amazon operates the world's largest online marketplace and cloud computing platform (AWS).",
+    "descriptionHebrew": "Amazon.com בע\"מ פועלת כחברת טכנולוגיה רב-לאומית המתמקדת במסחר אלקטרוני, מחשוב ענן, פרסום מקוון, סטרימינג דיגיטלי ובינה מלאכותית. אמזון מפעילה את השוק המקוון הגדול בעולם ואת פלטפורמת מחשוב הענן (AWS)."
   },
   "TSLA": {
     "sector": "Automotive",
-    "description": "Tesla, Inc. designs, develops, manufactures, and sells electric vehicles, energy generation and storage systems worldwide. The company produces electric cars including Model S, Model 3, Model X, Model Y, and Cybertruck. Tesla also offers solar panels, solar roof tiles, and energy storage products through Powerwall and Powerpack. The company is pioneering autonomous driving technology through its Full Self-Driving (FSD) software.",
-    "descriptionHebrew": "טסלה בע\"מ מעצבת, מפתחת, מייצרת ומוכרת רכבים חשמליים, מערכות ייצור ואחסון אנרגיה ברחבי העולם. החברה מייצרת מכוניות חשמליות כולל Model S, Model 3, Model X, Model Y ו-Cybertruck. טסלה מציעה גם פאנלים סולאריים, רעפי גג סולאריים ומוצרי אחסון אנרגיה דרך Powerwall ו-Powerpack. החברה חלוצה בטכנולוגיית נהיגה אוטונומית דרך תוכנת ה-Full Self-Driving (FSD)."
+    "description": "Tesla, Inc. designs, develops, manufactures, and sells electric vehicles, energy generation and storage systems worldwide. The company produces electric cars including Model S, Model 3, Model X, Model Y, and Cybertruck.",
+    "descriptionHebrew": "טסלה בע\"מ מעצבת, מפתחת, מייצרת ומוכרת רכבים חשמליים, מערכות ייצור ואחסון אנרגיה ברחבי העולם. החברה מייצרת מכוניות חשמליות כולל Model S, Model 3, Model X, Model Y ו-Cybertruck."
   },
   "META": {
     "sector": "Technology",
-    "description": "Meta Platforms, Inc. develops products that enable people to connect and share through mobile devices, personal computers, and virtual reality headsets worldwide. The company operates social media platforms including Facebook, Instagram, WhatsApp, and Threads. Meta is also investing heavily in the metaverse through its Reality Labs division, developing virtual and augmented reality technologies.",
-    "descriptionHebrew": "Meta Platforms בע\"מ מפתחת מוצרים המאפשרים לאנשים להתחבר ולשתף באמצעות מכשירים ניידים, מחשבים אישיים וקסדות מציאות מדומה ברחבי העולם. החברה מפעילה פלטפורמות מדיה חברתית כולל Facebook, Instagram, WhatsApp ו-Threads. Meta משקיעה גם רבות במטאוורס דרך חטיבת Reality Labs, ומפתחת טכנולוגיות מציאות מדומה ומציאות רבודה."
+    "description": "Meta Platforms, Inc. develops products that enable people to connect and share through mobile devices, personal computers, and virtual reality headsets worldwide. The company operates social media platforms including Facebook, Instagram, WhatsApp, and Threads.",
+    "descriptionHebrew": "Meta Platforms בע\"מ מפתחת מוצרים המאפשרים לאנשים להתחבר ולשתף באמצעות מכשירים ניידים, מחשבים אישיים וקסדות מציאות מדומה ברחבי העולם. החברה מפעילה פלטפורמות מדיה חברתית כולל Facebook, Instagram, WhatsApp ו-Threads."
   },
   "NFLX": {
     "sector": "Communication Services",
-    "description": "Netflix, Inc. provides entertainment services worldwide. The company offers streaming subscription service featuring TV series, documentaries, feature films, and original programming across various genres and languages. Netflix produces and acquires content including award-winning original series and films. The service is available in over 190 countries.",
-    "descriptionHebrew": "Netflix בע\"מ מספקת שירותי בידור ברחבי העולם. החברה מציעה שירות מנוי לסטרימינג הכולל סדרות טלוויזיה, סרטי תיעוד, סרטים ותכניות מקוריות בז'אנרים ושפות שונות. Netflix מייצרת ורוכשת תוכן כולל סדרות וסרטים מקוריים עטורי פרסים. השירות זמין ביותר מ-190 מדינות."
+    "description": "Netflix, Inc. provides entertainment services worldwide. The company offers streaming subscription service featuring TV series, documentaries, feature films, and original programming across various genres and languages.",
+    "descriptionHebrew": "Netflix בע\"מ מספקת שירותי בידור ברחבי העולם. החברה מציעה שירות מנוי לסטרימינג הכולל סדרות טלוויזיה, סרטי תיעוד, סרטים ותכניות מקוריות בז'אנרים ושפות שונות."
   },
   "DIS": {
     "sector": "Communication Services",
-    "description": "The Walt Disney Company operates as an entertainment company worldwide. The company operates through Media Networks, Parks, Experiences and Products, Studio Entertainment, and Direct-to-Consumer & International segments. Disney owns and operates theme parks, resorts, cruise lines, and the Disney+ streaming service. The company produces content through Walt Disney Pictures, Marvel Studios, Lucasfilm, and Pixar.",
-    "descriptionHebrew": "חברת וולט דיסני פועלת כחברת בידור ברחבי העולם. החברה פועלת דרך רשתות מדיה, פארקים, חוויות ומוצרים, בידור באולפנים וסגמנטים ישירים לצרכן ובינלאומיים. דיסני מחזיקה ומפעילה פארקי שעשועים, אתרי נופש, קווי שייט ושירות הסטרימינג Disney+. החברה מייצרת תוכן דרך Walt Disney Pictures, Marvel Studios, Lucasfilm ו-Pixar."
+    "description": "The Walt Disney Company operates as an entertainment company worldwide. Disney owns theme parks, resorts, cruise lines, and the Disney+ streaming service, producing content through Walt Disney Pictures, Marvel Studios, Lucasfilm, and Pixar.",
+    "descriptionHebrew": "חברת וולט דיסני פועלת כחברת בידור ברחבי העולם. דיסני מחזיקה פארקי שעשועים, אתרי נופש, קווי שייט ושירות הסטרימינג Disney+, ומייצרת תוכן דרך Walt Disney Pictures, Marvel Studios, Lucasfilm ו-Pixar."
   },
   "INTC": {
     "sector": "Technology",
-    "description": "Intel Corporation designs, manufactures, and sells computer components and related products worldwide. The company is a leading manufacturer of microprocessors for personal computers and data centers. Intel's products include processors, chipsets, motherboards, and memory solutions. The company is investing in emerging technologies including artificial intelligence, autonomous vehicles, and 5G network infrastructure.",
-    "descriptionHebrew": "אינטל בע\"מ מעצבת, מייצרת ומוכרת רכיבי מחשב ומוצרים קשורים ברחבי העולם. החברה היא יצרן מוביל של מיקרו-מעבדים למחשבים אישיים ומרכזי נתונים. מוצרי אינטל כוללים מעבדים, ערכות שבבים, לוחות אם ופתרונות זיכרון. החברה משקיעה בטכנולוגיות מתפתחות כולל בינה מלאכותית, רכבים אוטונומיים ותשתית רשת 5G."
+    "description": "Intel Corporation designs, manufactures, and sells computer components and related products worldwide. The company is a leading manufacturer of microprocessors for personal computers and data centers.",
+    "descriptionHebrew": "אינטל בע\"מ מעצבת, מייצרת ומוכרת רכיבי מחשב ומוצרים קשורים ברחבי העולם. החברה היא יצרן מוביל של מיקרו-מעבדים למחשבים אישיים ומרכזי נתונים."
+  },
+  "SMCI": {
+    "sector": "Technology",
+    "description": "Super Micro Computer, Inc. develops and manufactures high-performance server and storage solutions based on modular and open architecture. Supermicro is a key supplier of AI infrastructure and data center solutions.",
+    "descriptionHebrew": "Super Micro Computer בע\"מ מפתחת ומייצרת פתרונות שרתים ואחסון בעלי ביצועים גבוהים המבוססים על ארכיטקטורה מודולרית ופתוחה. Supermicro היא ספקית מפתח של תשתית AI ופתרונות מרכזי נתונים."
+  },
+  "AVGO": {
+    "sector": "Technology",
+    "description": "Broadcom Inc. designs, develops, and supplies semiconductor and infrastructure software solutions. Broadcom's products serve data center, networking, software, broadband, and wireless communications markets.",
+    "descriptionHebrew": "Broadcom בע\"מ מעצבת, מפתחת ומספקת פתרונות מוליכים למחצה ותוכנות תשתית. מוצרי Broadcom משרתים שווקים של מרכזי נתונים, רשתות, תוכנה, פס רחב ותקשורת אלחוטית."
+  },
+  "AMD": {
+    "sector": "Technology",
+    "description": "Advanced Micro Devices, Inc. operates as a semiconductor company worldwide. The company offers microprocessors, graphics processors, and related technologies for data centers, gaming, PCs, and embedded systems.",
+    "descriptionHebrew": "Advanced Micro Devices בע\"מ פועלת כחברת מוליכים למחצה ברחבי העולם. החברה מציעה מיקרו-מעבדים, מעבדים גרפיים וטכנולוגיות קשורות למרכזי נתונים, משחקים, מחשבים אישיים ומערכות משובצות."
+  },
+  "COST": {
+    "sector": "Consumer Defensive",
+    "description": "Costco Wholesale Corporation operates membership warehouses offering a wide selection of merchandise at low prices. Costco operates warehouses in the United States, Canada, Mexico, United Kingdom, Japan, Korea, Australia, and other countries.",
+    "descriptionHebrew": "Costco Wholesale בע\"מ מפעילה מחסני חברות המציעים מבחר רחב של סחורות במחירים נמוכים. קוסטקו מפעילה מחסנים בארצות הברית, קנדה, מקסיקו, בריטניה, יפן, קוריאה, אוסטרליה ומדינות נוספות."
+  },
+  "ADBE": {
+    "sector": "Technology",
+    "description": "Adobe Inc. operates as a diversified software company worldwide. Adobe's products include Creative Cloud (Photoshop, Illustrator, Premiere Pro), Document Cloud (Acrobat, Sign), and Experience Cloud for digital marketing.",
+    "descriptionHebrew": "Adobe בע\"מ פועלת כחברת תוכנה מגוונת ברחבי העולם. מוצרי Adobe כוללים Creative Cloud (Photoshop, Illustrator, Premiere Pro), Document Cloud (Acrobat, Sign) ו-Experience Cloud לשיווק דיגיטלי."
+  },
+  "PEP": {
+    "sector": "Consumer Defensive",
+    "description": "PepsiCo, Inc. manufactures, markets, distributes, and sells beverages and convenient foods worldwide. The company's products include Pepsi, Mountain Dew, Gatorade, Lay's, Doritos, Cheetos, Quaker Oats, and Tropicana.",
+    "descriptionHebrew": "PepsiCo בע\"מ מייצרת, משווקת, מפיצה ומוכרת משקאות ומזון נוח ברחבי העולם. מוצרי החברה כוללים Pepsi, Mountain Dew, Gatorade, Lay's, Doritos, Cheetos, Quaker Oats ו-Tropicana."
+  },
+  "CSCO": {
+    "sector": "Technology",
+    "description": "Cisco Systems, Inc. designs, manufactures, and sells Internet Protocol based networking and other products related to the communications and information technology industry worldwide.",
+    "descriptionHebrew": "Cisco Systems בע\"מ מעצבת, מייצרת ומוכרת מוצרי רשת מבוססי פרוטוקול אינטרנט ומוצרים אחרים הקשורים לתעשיית התקשורת וטכנולוגיית המידע ברחבי העולם."
+  },
+  "QCOM": {
+    "sector": "Technology",
+    "description": "QUALCOMM Incorporated engages in the development and commercialization of foundational technologies for the wireless industry worldwide. The company designs semiconductor products including mobile processors and modems.",
+    "descriptionHebrew": "QUALCOMM בע\"מ עוסקת בפיתוח ומסחור טכנולוגיות יסוד לתעשיית האלחוט ברחבי העולם. החברה מעצבת מוצרי מוליכים למחצה כולל מעבדים ניידים ומודמים."
+  },
+  "INTU": {
+    "sector": "Technology",
+    "description": "Intuit Inc. provides financial management and compliance products and services. The company's products include TurboTax for tax preparation, QuickBooks for small business accounting, Credit Karma, and Mailchimp.",
+    "descriptionHebrew": "Intuit בע\"מ מספקת מוצרים ושירותי ניהול פיננסי ותאימות. מוצרי החברה כוללים TurboTax להכנת מס, QuickBooks להנהלת חשבונות לעסקים קטנים, Credit Karma ו-Mailchimp."
+  },
+  "TXN": {
+    "sector": "Technology",
+    "description": "Texas Instruments Incorporated designs, manufactures, and sells semiconductors to electronics designers and manufacturers worldwide. TI's products include analog chips, embedded processors, and DLP products.",
+    "descriptionHebrew": "Texas Instruments בע\"מ מעצבת, מייצרת ומוכרת מוליכים למחצה למעצבי ויצרני אלקטרוניקה ברחבי העולם. מוצרי TI כוללים שבבים אנלוגיים, מעבדים משובצים ומוצרי DLP."
+  },
+  "ISRG": {
+    "sector": "Healthcare",
+    "description": "Intuitive Surgical, Inc. develops, manufactures, and markets robotic products designed to improve clinical outcomes through minimally invasive surgery. The company's da Vinci surgical system enables complex procedures with enhanced precision.",
+    "descriptionHebrew": "Intuitive Surgical בע\"מ מפתחת, מייצרת ומשווקת מוצרים רובוטיים המתוכננים לשפר תוצאות קליניות באמצעות ניתוחים זעיר פולשניים. מערכת הניתוח da Vinci מאפשרת פרוצדורות מורכבות עם דיוק משופר."
+  },
+  "AMAT": {
+    "sector": "Technology",
+    "description": "Applied Materials, Inc. provides equipment, services, and software for the semiconductor, display, and related industries. Applied Materials serves semiconductor and display manufacturers with solutions for chip fabrication.",
+    "descriptionHebrew": "Applied Materials בע\"מ מספקת ציוד, שירותים ותוכנה לתעשיות המוליכים למחצה, התצוגה והתעשיות הקשורות. Applied Materials משרתת יצרני מוליכי חצי ותצוגות עם פתרונות לייצור שבבים."
+  },
+  "LRCX": {
+    "sector": "Technology",
+    "description": "Lam Research Corporation designs, manufactures, markets, and services semiconductor processing equipment used in the fabrication of integrated circuits.",
+    "descriptionHebrew": "Lam Research בע\"מ מעצבת, מייצרת, משווקת ומתחזקת ציוד עיבוד מוליכי חצי המשמש בייצור מעגלים משולבים."
+  },
+  "MU": {
+    "sector": "Technology",
+    "description": "Micron Technology, Inc. designs, develops, manufactures, and sells memory and storage products worldwide. Micron's products include DRAM, NAND flash memory, and storage solutions.",
+    "descriptionHebrew": "Micron Technology בע\"מ מעצבת, מפתחת, מייצרת ומוכרת מוצרי זיכרון ואחסון ברחבי העולם. מוצרי Micron כוללים DRAM, זיכרון פלאש NAND ופתרונות אחסון."
+  },
+  "KLAC": {
+    "sector": "Technology",
+    "description": "KLA Corporation designs, manufactures, and markets process control and yield management solutions for the semiconductor and related industries.",
+    "descriptionHebrew": "KLA בע\"מ מעצבת, מייצרת ומשווקת פתרונות בקרת תהליכים וניהול תפוקה לתעשיות המוליכים למחצה והקשורות."
+  },
+  "MRVL": {
+    "sector": "Technology",
+    "description": "Marvell Technology, Inc. designs, develops, and sells integrated circuits and related technology for data infrastructure. Marvell provides semiconductor solutions for cloud computing, 5G, automotive, and enterprise storage.",
+    "descriptionHebrew": "Marvell Technology בע\"מ מעצבת, מפתחת ומוכרת מעגלים משולבים וטכנולוגיה קשורה לתשתית נתונים. Marvell מספקת פתרונות מוליכי חצי למחשוב ענן, 5G, רכב ואחסון ארגוני."
+  },
+  "ABOU.TA": {
+    "sector": "Real Estate",
+    "description": "Abou Family Residence Ltd. is an Israeli real estate company engaged in residential property development and management.",
+    "descriptionHebrew": "אבו משפחות מגורים בע\"מ היא חברת נדל\"ן ישראלית העוסקת בפיתוח וניהול נכסי מגורים."
+  },
+  "ABRA.TA": {
+    "sector": "Technology",
+    "description": "Abra Information Technologies Inc. is an Israeli technology company providing information technology solutions and services.",
+    "descriptionHebrew": "אברא טכנולוגיות מידע בע\"מ היא חברת טכנולוגיה ישראלית המספקת פתרונות ושירותי טכנולוגיית מידע."
+  },
+  "ACCL.TA": {
+    "sector": "Technology",
+    "description": "Accel Solutions Group Ltd. is an Israeli company providing technology solutions and business services.",
+    "descriptionHebrew": "אקסל סולושנס גרופ בע\"מ היא חברה ישראלית המספקת פתרונות טכנולוגיים ושירותים עסקיים."
+  },
+  "ACKR.TA": {
+    "sector": "Industrials",
+    "description": "Ackerstein Group Ltd. is an Israeli industrial company manufacturing building materials and infrastructure products.",
+    "descriptionHebrew": "קבוצת אקרשטיין בע\"מ היא חברה תעשייתית ישראלית המייצרת חומרי בנייה ומוצרי תשתית."
+  },
+  "ACRO.TA": {
+    "sector": "Consumer Cyclical",
+    "description": "Kvutzat Acro Ltd. is an Israeli retail and holdings company operating in various consumer sectors.",
+    "descriptionHebrew": "קבוצת אקרו בע\"מ היא חברת קמעונאות ואחזקות ישראלית הפועלת במגזרי צריכה שונים."
+  },
+  "ADGR.TA": {
+    "sector": "Real Estate",
+    "description": "Adgar Investment & Development Ltd. is an Israeli real estate company specializing in commercial and office property development and management.",
+    "descriptionHebrew": "אדגר השקעות ופיתוח בע\"מ היא חברת נדל\"ן ישראלית המתמחה בפיתוח וניהול נכסי מסחר ומשרדים."
+  },
+  "AFHL.TA": {
+    "sector": "Industrials",
+    "description": "Afcon Holdings Ltd. is an Israeli infrastructure and industrial holdings company operating in construction and engineering sectors.",
+    "descriptionHebrew": "אפקון אחזקות בע\"מ היא חברת אחזקות תשתיות ותעשייה ישראלית הפועלת במגזרי הבנייה וההנדסה."
+  },
+  "AFPR.TA": {
+    "sector": "Real Estate",
+    "description": "Afi Properties Ltd. is an Israeli real estate company engaged in property development, investment, and management.",
+    "descriptionHebrew": "אפי נכסים בע\"מ היא חברת נדל\"ן ישראלית העוסקת בפיתוח, השקעה וניהול נכסים."
+  },
+  "AFRE.TA": {
+    "sector": "Real Estate",
+    "description": "Africa Israel Residences Ltd. is an Israeli residential real estate company developing and selling residential properties.",
+    "descriptionHebrew": "אפריקה ישראל מגורים בע\"מ היא חברת נדל\"ן למגורים ישראלית המפתחת ומוכרת נכסי מגורים."
+  },
+  "AGRD.TA": {
+    "sector": "Technology",
+    "description": "Autonomous Guard Ltd. is an Israeli security technology company developing autonomous security and surveillance solutions.",
+    "descriptionHebrew": "אוטונומוס גארד בע\"מ היא חברת טכנולוגיית אבטחה ישראלית המפתחת פתרונות אבטחה ומעקב אוטונומיים."
+  },
+  "AILN.TA": {
+    "sector": "Technology",
+    "description": "Axilion Smart Mobility Ltd. is an Israeli technology company developing smart mobility and traffic management solutions using AI.",
+    "descriptionHebrew": "אקסיליון ניידות חכמה בע\"מ היא חברת טכנולוגיה ישראלית המפתחת פתרונות ניידות חכמה וניהול תנועה באמצעות AI."
+  },
+  "ALAR.TA": {
+    "sector": "Technology",
+    "description": "Alarum Technologies Ltd. is an Israeli cybersecurity company providing network security and privacy solutions.",
+    "descriptionHebrew": "אלארום טכנולוגיות בע\"מ היא חברת סייבר ישראלית המספקת פתרונות אבטחת רשת ופרטיות."
+  },
+  "ALBA.TA": {
+    "sector": "Consumer Defensive",
+    "description": "Albaad Massuot Yitzhak Ltd. is an Israeli manufacturer of disposable hygiene products including wipes and nonwoven materials.",
+    "descriptionHebrew": "אלבד משואות יצחק בע\"מ היא יצרנית ישראלית של מוצרי היגיינה חד-פעמיים כולל מגבונים וחומרים לא ארוגים."
+  },
+  "ALHE.TA": {
+    "sector": "Real Estate",
+    "description": "Alony Hetz Properties & Investments Ltd. is an Israeli real estate investment company with a diverse portfolio of commercial and office properties.",
+    "descriptionHebrew": "אלוני חץ נכסים והשקעות בע\"מ היא חברת השקעות נדל\"ן ישראלית עם תיק מגוון של נכסי מסחר ומשרדים."
+  },
+  "ALLT.TA": {
+    "sector": "Technology",
+    "description": "Allot Ltd. is an Israeli network intelligence and security company providing visibility, optimization, and security solutions for communications service providers.",
+    "descriptionHebrew": "אלוט בע\"מ היא חברת אינטליגנציה ואבטחת רשת ישראלית המספקת פתרונות נראות, אופטימיזציה ואבטחה לספקי שירותי תקשורת."
+  },
+  "ALMA.TA": {
+    "sector": "Real Estate",
+    "description": "Almogim Holdings Ltd. is an Israeli real estate and holdings company engaged in property development and investment.",
+    "descriptionHebrew": "אלמוגים אחזקות בע\"מ היא חברת נדל\"ן ואחזקות ישראלית העוסקת בפיתוח והשקעות בנכסים."
+  },
+  "ALMD.TA": {
+    "sector": "Healthcare",
+    "description": "Allmed Solutions Ltd. is an Israeli healthcare company providing medical solutions and healthcare services.",
+    "descriptionHebrew": "אולמד סולושנס בע\"מ היא חברת בריאות ישראלית המספקת פתרונות רפואיים ושירותי בריאות."
+  },
+  "ALMY.TA": {
+    "sector": "Consumer Defensive",
+    "description": "Alma Essentials Ltd. is an Israeli company producing essential consumer products and personal care items.",
+    "descriptionHebrew": "אלמה אסנשיאלס בע\"מ היא חברה ישראלית המייצרת מוצרי צריכה חיוניים ופריטי טיפוח אישי."
+  },
+  "ALRPR.TA": {
+    "sector": "Real Estate",
+    "description": "Alrov Properties and Lodging Ltd. is an Israeli real estate company specializing in luxury hotels and commercial properties in Israel and Europe.",
+    "descriptionHebrew": "אלרוב נכסים ומלונאות בע\"מ היא חברת נדל\"ן ישראלית המתמחה במלונות יוקרה ונכסים מסחריים בישראל ובאירופה."
+  },
+  "ALTF.TA": {
+    "sector": "Financial Services",
+    "description": "Altshuler Shaham Pinnacle Ltd. is an Israeli financial services company providing investment management and financial advisory services.",
+    "descriptionHebrew": "אלטשולר שחם פינקל בע\"מ היא חברת שירותים פיננסיים ישראלית המספקת ניהול השקעות ושירותי ייעוץ פיננסי."
+  },
+  "ALUMA.TA": {
+    "sector": "Financial Services",
+    "description": "Aluma Infrastructure Fund Inc. is an Israeli infrastructure investment fund focused on infrastructure projects and assets.",
+    "descriptionHebrew": "קרן תשתיות אלומה בע\"מ היא קרן השקעות תשתיות ישראלית המתמקדת בפרויקטים ונכסי תשתית."
+  },
+  "AMAL.TA": {
+    "sector": "Real Estate",
+    "description": "Amal Holdings A.D. Ltd. is an Israeli holdings company with interests in real estate and various business sectors.",
+    "descriptionHebrew": "עמל אחזקות א.ד. בע\"מ היא חברת אחזקות ישראלית עם אינטרסים בנדל\"ן ומגזרים עסקיים שונים."
+  },
+  "AMAN.TA": {
+    "sector": "Technology",
+    "description": "Amanet Management & Systems Ltd. is an Israeli technology company providing management systems and IT solutions.",
+    "descriptionHebrew": "אמנת ניהול ומערכות בע\"מ היא חברת טכנולוגיה ישראלית המספקת מערכות ניהול ופתרונות IT."
+  },
+  "AMIAD.TA": {
+    "sector": "Industrials",
+    "description": "Amiad Water Systems Ltd. is an Israeli company developing and manufacturing water filtration and treatment solutions for agricultural, industrial, and municipal applications.",
+    "descriptionHebrew": "עמיעד מערכות מים בע\"מ היא חברה ישראלית המפתחת ומייצרת פתרונות סינון וטיפול במים ליישומים חקלאיים, תעשייתיים ועירוניים."
+  },
+  "AMOT.TA": {
+    "sector": "Real Estate",
+    "description": "Amot Investments Ltd. is an Israeli real estate company engaged in the development, construction, and management of commercial and industrial properties.",
+    "descriptionHebrew": "עמות השקעות בע\"מ היא חברת נדל\"ן ישראלית העוסקת בפיתוח, בנייה וניהול של נכסים מסחריים ותעשייתיים."
+  },
+  "AMPA.TA": {
+    "sector": "Industrials",
+    "description": "Ampa Limited is an Israeli industrial company engaged in manufacturing and distribution of industrial products.",
+    "descriptionHebrew": "אמפא בע\"מ היא חברה תעשייתית ישראלית העוסקת בייצור והפצה של מוצרים תעשייתיים."
+  },
+  "AMRK.TA": {
+    "sector": "Consumer Cyclical",
+    "description": "Amir Marketing and Investments Ltd. is an Israeli company engaged in marketing, retail, and investment activities.",
+    "descriptionHebrew": "אמיר שיווק והשקעות בע\"מ היא חברה ישראלית העוסקת בשיווק, קמעונאות ופעילויות השקעה."
+  },
+  "AMRM.TA": {
+    "sector": "Real Estate",
+    "description": "Amram Avraham Construction Company is an Israeli construction and real estate development company.",
+    "descriptionHebrew": "חברת עמרם אברהם בנייה היא חברת בנייה ופיתוח נדל\"ן ישראלית."
+  },
+  "AMX.TA": {
+    "sector": "Consumer Cyclical",
+    "description": "Automax Motors Ltd. is an Israeli automotive company engaged in vehicle sales, leasing, and related services.",
+    "descriptionHebrew": "אוטומקס מוטורס בע\"מ היא חברת רכב ישראלית העוסקת במכירת רכבים, ליסינג ושירותים נלווים."
+  },
+  "ANGL.TA": {
+    "sector": "Industrials",
+    "description": "Salomon A. Angel Ltd. is an Israeli company engaged in industrial manufacturing and trade.",
+    "descriptionHebrew": "שלמה א. אנג'ל בע\"מ היא חברה ישראלית העוסקת בייצור תעשייתי ומסחר."
+  },
+  "ANLT.TA": {
+    "sector": "Technology",
+    "description": "Analyst I.M.S. Inc. is an Israeli technology company providing information management systems and analytics solutions.",
+    "descriptionHebrew": "אנליסט מערכות מידע בע\"מ היא חברת טכנולוגיה ישראלית המספקת מערכות ניהול מידע ופתרונות אנליטיקה."
+  },
+  "APLP.TA": {
+    "sector": "Energy",
+    "description": "Apollo Power Ltd. is an Israeli renewable energy company focused on solar power generation and clean energy solutions.",
+    "descriptionHebrew": "אפולו פאוור בע\"מ היא חברת אנרגיה מתחדשת ישראלית המתמקדת בייצור חשמל סולארי ופתרונות אנרגיה נקייה."
+  },
+  "AQUA.TA": {
+    "sector": "Industrials",
+    "description": "Aquarius Engines AM Ltd. is an Israeli company developing innovative internal combustion engines with reduced weight and improved efficiency.",
+    "descriptionHebrew": "אקווריוס אנג'ינס בע\"מ היא חברה ישראלית המפתחת מנועי בעירה פנימית חדשניים עם משקל מופחת ויעילות משופרת."
+  },
+  "ARAN.TA": {
+    "sector": "Technology",
+    "description": "Aran Research & Development Ltd. is an Israeli company engaged in research and development of technology solutions.",
+    "descriptionHebrew": "ארן מחקר ופיתוח בע\"מ היא חברה ישראלית העוסקת במחקר ופיתוח של פתרונות טכנולוגיים."
+  },
+  "ARBE.TA": {
+    "sector": "Technology",
+    "description": "Arbe Robotics Ltd. is an Israeli company developing next-generation radar technology for autonomous vehicles and ADAS applications.",
+    "descriptionHebrew": "ארבי רובוטיקס בע\"מ היא חברה ישראלית המפתחת טכנולוגיית רדאר מהדור הבא לרכבים אוטונומיים ויישומי ADAS."
+  },
+  "ARD.TA": {
+    "sector": "Industrials",
+    "description": "Arad Ltd. is an Israeli company specializing in water metering and management solutions for utilities worldwide.",
+    "descriptionHebrew": "ארד בע\"מ היא חברה ישראלית המתמחה בפתרונות מדידה וניהול מים לחברות שירות ברחבי העולם."
+  },
+  "ARDM.TA": {
+    "sector": "Industrials",
+    "description": "Aerodrome Group Ltd. is an Israeli company engaged in aviation services and airport infrastructure.",
+    "descriptionHebrew": "אירודרום גרופ בע\"מ היא חברה ישראלית העוסקת בשירותי תעופה ותשתיות נמלי תעופה."
+  },
+  "ARF.TA": {
+    "sector": "Energy",
+    "description": "Ashdod Refinery Ltd. is an Israeli oil refinery company engaged in petroleum refining and petrochemical production.",
+    "descriptionHebrew": "בתי הזיקוק אשדוד בע\"מ היא חברת בתי זיקוק לנפט ישראלית העוסקת בזיקוק נפט וייצור פטרוכימיה."
+  },
+  "ARGO.TA": {
+    "sector": "Real Estate",
+    "description": "Argo Properties N.V. is an Israeli real estate investment company with properties primarily in the Netherlands and Germany.",
+    "descriptionHebrew": "ארגו פרופרטיז נ.ו. היא חברת השקעות נדל\"ן ישראלית עם נכסים בעיקר בהולנד ובגרמניה."
+  },
+  "ARIN.TA": {
+    "sector": "Real Estate",
+    "description": "Ari Real Estate Arena Investments Ltd. is an Israeli real estate investment company focused on commercial and residential properties.",
+    "descriptionHebrew": "ארי ארנה השקעות נדל\"ן בע\"מ היא חברת השקעות נדל\"ן ישראלית המתמקדת בנכסים מסחריים ולמגורים."
+  },
+  "ARPT.TA": {
+    "sector": "Real Estate",
+    "description": "Airport City Ltd. is an Israeli real estate company developing and managing business parks and commercial properties near Ben Gurion Airport.",
+    "descriptionHebrew": "אירפורט סיטי בע\"מ היא חברת נדל\"ן ישראלית המפתחת ומנהלת פארקי עסקים ונכסים מסחריים ליד נמל התעופה בן גוריון."
+  },
+  "ARTS.TA": {
+    "sector": "Energy",
+    "description": "Airtouch Solar Ltd. is an Israeli clean technology company developing robotic cleaning solutions for solar panels.",
+    "descriptionHebrew": "אירטאץ' סולאר בע\"מ היא חברת טכנולוגיה נקייה ישראלית המפתחת פתרונות ניקוי רובוטיים לפאנלים סולאריים."
+  },
+  "ARYT.TA": {
+    "sector": "Industrials",
+    "description": "Aryt Industries Ltd. is an Israeli industrial company engaged in defense and industrial manufacturing.",
+    "descriptionHebrew": "אריט תעשיות בע\"מ היא חברה תעשייתית ישראלית העוסקת בייצור ביטחוני ותעשייתי."
+  },
+  "ASGR.TA": {
+    "sector": "Real Estate",
+    "description": "Aspen Group Ltd. is an Israeli real estate company engaged in property development and investment.",
+    "descriptionHebrew": "אספן גרופ בע\"מ היא חברת נדל\"ן ישראלית העוסקת בפיתוח והשקעות בנכסים."
+  },
+  "ASHG.TA": {
+    "sector": "Industrials",
+    "description": "Ashtrom Group Ltd. is one of Israel's largest construction and infrastructure companies, engaged in building, civil engineering, and real estate development.",
+    "descriptionHebrew": "קבוצת אשטרום בע\"מ היא אחת מחברות הבנייה והתשתיות הגדולות בישראל, העוסקת בבנייה, הנדסה אזרחית ופיתוח נדל\"ן."
+  },
+  "ASHO.TA": {
+    "sector": "Industrials",
+    "description": "Ashot Ashkelon Industries Ltd. is an Israeli defense and industrial company manufacturing aerospace components and defense systems.",
+    "descriptionHebrew": "תעשיות אשוט אשקלון בע\"מ היא חברת ביטחון ותעשייה ישראלית המייצרת רכיבי תעופה וחלל ומערכות ביטחוניות."
+  },
+  "ATRY.TA": {
+    "sector": "Financial Services",
+    "description": "Atreyu Capital Markets Ltd. is an Israeli financial services company engaged in capital markets and investment services.",
+    "descriptionHebrew": "אטריו שוקי הון בע\"מ היא חברת שירותים פיננסיים ישראלית העוסקת בשוקי הון ושירותי השקעות."
+  },
+  "AUDC.TA": {
+    "sector": "Technology",
+    "description": "AudioCodes Ltd. is an Israeli technology company providing advanced communications software, products, and productivity solutions for the digital workplace.",
+    "descriptionHebrew": "אודיו קודס בע\"מ היא חברת טכנולוגיה ישראלית המספקת תוכנות תקשורת מתקדמות, מוצרים ופתרונות פרודוקטיביות למקום העבודה הדיגיטלי."
+  },
+  "AUGN.TA": {
+    "sector": "Energy",
+    "description": "Augwind Energy Tech Storage Ltd. is an Israeli clean energy company developing compressed air energy storage solutions.",
+    "descriptionHebrew": "אוגווינד אנרגיה ואחסון בע\"מ היא חברת אנרגיה נקייה ישראלית המפתחת פתרונות אחסון אנרגיה באוויר דחוס."
+  },
+  "AUIS.TA": {
+    "sector": "Real Estate",
+    "description": "ES Australia Israel Holdings Ltd. is an Israeli-Australian real estate investment company with properties in both countries.",
+    "descriptionHebrew": "א.ס אוסטרליה ישראל אחזקות בע\"מ היא חברת השקעות נדל\"ן ישראלית-אוסטרלית עם נכסים בשתי המדינות."
+  },
+  "AURA.TA": {
+    "sector": "Financial Services",
+    "description": "Aura Investments Ltd. is an Israeli investment and holdings company with diverse business interests.",
+    "descriptionHebrew": "אאורה השקעות בע\"מ היא חברת השקעות ואחזקות ישראלית עם אינטרסים עסקיים מגוונים."
+  },
+  "AVER.TA": {
+    "sector": "Consumer Cyclical",
+    "description": "Averbuch Formica Center Ltd. is an Israeli company specializing in building materials and interior design products.",
+    "descriptionHebrew": "אורבוך פורמייקה סנטר בע\"מ היא חברה ישראלית המתמחה בחומרי בנייה ומוצרי עיצוב פנים."
+  },
+  "AVGD.TA": {
+    "sector": "Financial Services",
+    "description": "Av-Gad Holdings Ltd. is an Israeli holdings company with investments in various sectors including real estate and finance.",
+    "descriptionHebrew": "אב-גד אחזקות בע\"מ היא חברת אחזקות ישראלית עם השקעות במגזרים שונים כולל נדל\"ן ופיננסים."
+  },
+  "AVGL.TA": {
+    "sector": "Industrials",
+    "description": "Avgol Industries 1953 Ltd. is an Israeli company manufacturing nonwoven fabrics for hygiene and industrial applications.",
+    "descriptionHebrew": "תעשיות אבגול 1953 בע\"מ היא חברה ישראלית המייצרת בדים לא ארוגים ליישומי היגיינה ותעשייה."
+  },
+  "AVIA.TA": {
+    "sector": "Industrials",
+    "description": "Aviation Links Ltd. is an Israeli aviation services company providing maintenance and support services.",
+    "descriptionHebrew": "אוויאיישן לינקס בע\"מ היא חברת שירותי תעופה ישראלית המספקת שירותי תחזוקה ותמיכה."
+  },
+  "AVIV.TA": {
+    "sector": "Real Estate",
+    "description": "Mordechai Aviv Taasiot Beniy Ltd. is an Israeli construction and real estate development company.",
+    "descriptionHebrew": "מרדכי אביב תעשיות בניה בע\"מ היא חברת בנייה ופיתוח נדל\"ן ישראלית."
+  },
+  "AVRT.TA": {
+    "sector": "Industrials",
+    "description": "Avrot Industries Ltd. is an Israeli industrial company engaged in manufacturing and production.",
+    "descriptionHebrew": "תעשיות אברות בע\"מ היא חברה תעשייתית ישראלית העוסקת בייצור והפקה."
+  },
+  "AYAL.TA": {
+    "sector": "Financial Services",
+    "description": "Ayalon Insurance Company Ltd. is an Israeli insurance company providing life, health, general, and pension insurance services.",
+    "descriptionHebrew": "חברת הביטוח איילון בע\"מ היא חברת ביטוח ישראלית המספקת שירותי ביטוח חיים, בריאות, כללי ופנסיה."
+  },
+  "AZRG.TA": {
+    "sector": "Real Estate",
+    "description": "Azrieli Group Ltd. is one of Israel's largest real estate companies, developing and managing shopping centers, office buildings, and residential properties.",
+    "descriptionHebrew": "קבוצת עזריאלי בע\"מ היא אחת מחברות הנדל\"ן הגדולות בישראל, המפתחת ומנהלת מרכזי קניות, בנייני משרדים ונכסי מגורים."
+  },
+  "AZRM.TA": {
+    "sector": "Real Estate",
+    "description": "Azorim Investment Development Ltd. is an Israeli real estate company engaged in residential and commercial property development.",
+    "descriptionHebrew": "אזורים השקעות ופיתוח בע\"מ היא חברת נדל\"ן ישראלית העוסקת בפיתוח נכסי מגורים ומסחר."
+  },
+  "BARI.TA": {
+    "sector": "Real Estate",
+    "description": "Barak Beit Investments Ltd. is an Israeli real estate investment company focused on residential properties.",
+    "descriptionHebrew": "ברק בית השקעות בע\"מ היא חברת השקעות נדל\"ן ישראלית המתמקדת בנכסי מגורים."
+  },
+  "BBLS.TA": {
+    "sector": "Consumer Cyclical",
+    "description": "Bubbles Intergroup Ltd. is an Israeli retail company operating in the consumer products sector.",
+    "descriptionHebrew": "באבלס אינטרגרופ בע\"מ היא חברת קמעונאות ישראלית הפועלת במגזר מוצרי הצריכה."
+  },
+  "BCOM.TA": {
+    "sector": "Communication Services",
+    "description": "B Communications Ltd. is an Israeli telecommunications holding company with investments in the Israeli telecom sector.",
+    "descriptionHebrew": "בי קומיוניקיישנס בע\"מ היא חברת אחזקות טלקום ישראלית עם השקעות במגזר הטלקום הישראלי."
+  },
+  "BEZQ.TA": {
+    "sector": "Communication Services",
+    "description": "Bezeq The Israeli Telecom Company Ltd. is Israel's largest telecommunications provider, offering landline, mobile, internet, and digital services.",
+    "descriptionHebrew": "בזק החברה הישראלית לתקשורת בע\"מ היא ספקית התקשורת הגדולה בישראל, המציעה שירותי קווי, סלולר, אינטרנט ושירותים דיגיטליים."
+  },
+  "BHNY.TA": {
+    "sector": "Consumer Defensive",
+    "description": "Beeio Honey Ltd. is an Israeli company engaged in honey production and bee-related products.",
+    "descriptionHebrew": "ביאיו דבש בע\"מ היא חברה ישראלית העוסקת בייצור דבש ומוצרים הקשורים לדבורים."
+  },
+  "BIG.TA": {
+    "sector": "Real Estate",
+    "description": "Big Shopping Centers Ltd. is an Israeli real estate company developing and managing shopping centers and retail properties across Israel.",
+    "descriptionHebrew": "ביג מרכזי קניות בע\"מ היא חברת נדל\"ן ישראלית המפתחת ומנהלת מרכזי קניות ונכסי קמעונאות ברחבי ישראל."
+  },
+  "BIOV.TA": {
+    "sector": "Healthcare",
+    "description": "Bio View Ltd. is an Israeli medical device company developing automated diagnostic systems for pathology laboratories.",
+    "descriptionHebrew": "ביו וויו בע\"מ היא חברת מכשור רפואי ישראלית המפתחת מערכות אבחון אוטומטיות למעבדות פתולוגיה."
+  },
+  "BIRM.TA": {
+    "sector": "Consumer Cyclical",
+    "description": "Birman Wood and Hardware Ltd. is an Israeli company engaged in the import and distribution of wood and hardware products.",
+    "descriptionHebrew": "בירמן עץ וחומרי בניין בע\"מ היא חברה ישראלית העוסקת בייבוא והפצת מוצרי עץ וחומרי בניין."
+  },
+  "BKFR.TA": {
+    "sector": "Real Estate",
+    "description": "Bait Bakfar Ltd. is an Israeli real estate company specializing in rural and suburban residential development.",
+    "descriptionHebrew": "בית בכפר בע\"מ היא חברת נדל\"ן ישראלית המתמחה בפיתוח מגורים כפריים ופרבריים."
+  },
+  "BKRY.TA": {
+    "sector": "Consumer Defensive",
+    "description": "Bikurey Hasade Holdings Ltd. is an Israeli agricultural company engaged in fresh produce farming and distribution.",
+    "descriptionHebrew": "ביכורי השדה אחזקות בע\"מ היא חברה חקלאית ישראלית העוסקת בחקלאות והפצת תוצרת טרייה."
+  },
+  "BLDI.TA": {
+    "sector": "Consumer Defensive",
+    "description": "Baladi Ltd. is an Israeli food company producing traditional Middle Eastern food products.",
+    "descriptionHebrew": "בלאדי בע\"מ היא חברת מזון ישראלית המייצרת מוצרי מזון מזרח תיכוניים מסורתיים."
+  },
+  "BLEG.TA": {
+    "sector": "Technology",
+    "description": "Blackedge Ltd. is an Israeli technology company operating in the digital services sector.",
+    "descriptionHebrew": "בלקאדג' בע\"מ היא חברת טכנולוגיה ישראלית הפועלת במגזר השירותים הדיגיטליים."
+  },
+  "BLGO.TA": {
+    "sector": "Financial Services",
+    "description": "Buligo Capital Ltd. is an Israeli investment and financial services company.",
+    "descriptionHebrew": "בוליגו קפיטל בע\"מ היא חברת השקעות ושירותים פיננסיים ישראלית."
+  },
+  "BLND.TA": {
+    "sector": "Financial Services",
+    "description": "Blender Finance Technologies Inc. is an Israeli fintech company providing digital financial services and payment solutions.",
+    "descriptionHebrew": "בלנדר טכנולוגיות פיננסיות בע\"מ היא חברת פינטק ישראלית המספקת שירותים פיננסיים דיגיטליים ופתרונות תשלום."
+  },
+  "BLRN.TA": {
+    "sector": "Technology",
+    "description": "BladeRanger Ltd. is an Israeli technology company developing robotic solutions for solar panel maintenance.",
+    "descriptionHebrew": "בלייד ריינג'ר בע\"מ היא חברת טכנולוגיה ישראלית המפתחת פתרונות רובוטיים לתחזוקת פאנלים סולאריים."
+  },
+  "BLRX.TA": {
+    "sector": "Healthcare",
+    "description": "BioLineRx Ltd. is an Israeli clinical-stage biopharmaceutical company developing innovative therapies for oncology and immunology.",
+    "descriptionHebrew": "ביוליין Rx בע\"מ היא חברה ביופרמצבטית ישראלית בשלב קליני המפתחת טיפולים חדשניים לאונקולוגיה ואימונולוגיה."
+  },
+  "BLSR.TA": {
+    "sector": "Real Estate",
+    "description": "Blue Square Real Estate Ltd. is an Israeli real estate company focused on commercial and retail properties.",
+    "descriptionHebrew": "בלו סקוור נדל\"ן בע\"מ היא חברת נדל\"ן ישראלית המתמקדת בנכסי מסחר וקמעונאות."
+  },
+  "BOLT.TA": {
+    "sector": "Healthcare",
+    "description": "Biolight Life Sciences Ltd. is an Israeli life sciences holding company with investments in medical device and biotech companies.",
+    "descriptionHebrew": "ביולייט מדעי החיים בע\"מ היא חברת אחזקות מדעי החיים ישראלית עם השקעות בחברות מכשור רפואי וביוטק."
+  },
+  "BONS.TA": {
+    "sector": "Healthcare",
+    "description": "Bonus BioGroup Ltd. is an Israeli biotechnology company developing regenerative medicine and tissue engineering solutions.",
+    "descriptionHebrew": "בונוס ביוגרופ בע\"מ היא חברת ביוטכנולוגיה ישראלית המפתחת פתרונות רפואה רגנרטיבית והנדסת רקמות."
+  },
+  "BOTI.TA": {
+    "sector": "Industrials",
+    "description": "Bonei Hatichon Civil Engineering Ltd. is an Israeli civil engineering and construction company.",
+    "descriptionHebrew": "בוני התיכון הנדסה אזרחית בע\"מ היא חברת הנדסה אזרחית ובנייה ישראלית."
+  },
+  "BRAM.TA": {
+    "sector": "Industrials",
+    "description": "Bram Industries Ltd. is an Israeli industrial company engaged in manufacturing and production activities.",
+    "descriptionHebrew": "תעשיות ברם בע\"מ היא חברה תעשייתית ישראלית העוסקת בפעילויות ייצור והפקה."
+  },
+  "BRAN.TA": {
+    "sector": "Industrials",
+    "description": "Baran Group Ltd. is an Israeli engineering and construction company providing infrastructure and building services.",
+    "descriptionHebrew": "קבוצת ברן בע\"מ היא חברת הנדסה ובנייה ישראלית המספקת שירותי תשתית ובנייה."
+  },
+  "BRIH.TA": {
+    "sector": "Industrials",
+    "description": "Rav Bariach Industries Ltd. is an Israeli company manufacturing security doors, locks, and related products.",
+    "descriptionHebrew": "תעשיות רב בריח בע\"מ היא חברה ישראלית המייצרת דלתות אבטחה, מנעולים ומוצרים קשורים."
+  },
+  "BRIL.TA": {
+    "sector": "Consumer Cyclical",
+    "description": "Brill Shoe Industries Ltd. is an Israeli footwear company engaged in the design and manufacture of shoes.",
+    "descriptionHebrew": "תעשיות נעליים בריל בע\"מ היא חברת הנעלה ישראלית העוסקת בעיצוב וייצור נעליים."
+  },
+  "BRKT.TA": {
+    "sector": "Financial Services",
+    "description": "Bareket Capital Ltd. is an Israeli investment and capital management company.",
+    "descriptionHebrew": "ברקת קפיטל בע\"מ היא חברת השקעות וניהול הון ישראלית."
+  },
+  "BRMG.TA": {
+    "sector": "Technology",
+    "description": "Brimag Digital Age Ltd. is an Israeli technology company providing digital transformation and IT solutions.",
+    "descriptionHebrew": "ברימאג העידן הדיגיטלי בע\"מ היא חברת טכנולוגיה ישראלית המספקת פתרונות טרנספורמציה דיגיטלית ו-IT."
+  },
+  "BRND.TA": {
+    "sector": "Industrials",
+    "description": "Brand Industries Ltd. is an Israeli industrial company engaged in manufacturing activities.",
+    "descriptionHebrew": "תעשיות ברנד בע\"מ היא חברה תעשייתית ישראלית העוסקת בפעילויות ייצור."
+  },
+  "BSEN.TA": {
+    "sector": "Industrials",
+    "description": "Bet Shemesh Engines Holdings Ltd. is an Israeli aerospace company manufacturing aircraft engines and components.",
+    "descriptionHebrew": "בית שמש מנועים אחזקות בע\"מ היא חברת תעופה וחלל ישראלית המייצרת מנועי מטוסים ורכיבים."
+  },
+  "BUFT.TA": {
+    "sector": "Technology",
+    "description": "Buff Technologies Ltd. is an Israeli technology company providing loyalty and engagement platforms for gamers.",
+    "descriptionHebrew": "באף טכנולוגיות בע\"מ היא חברת טכנולוגיה ישראלית המספקת פלטפורמות נאמנות ומעורבות לגיימרים."
+  },
+  "BVC.TA": {
+    "sector": "Technology",
+    "description": "BATM Advanced Communications Ltd. is an Israeli technology company providing networking, cyber security, and bio-medical solutions.",
+    "descriptionHebrew": "BATM תקשורת מתקדמת בע\"מ היא חברת טכנולוגיה ישראלית המספקת פתרונות רשת, אבטחת סייבר וביו-רפואיים."
+  },
+  "BVGG.TA": {
+    "sector": "Real Estate",
+    "description": "Bait Ve Gag Real Estate Development Ltd. is an Israeli real estate development company.",
+    "descriptionHebrew": "בית וגג פיתוח נדל\"ן בע\"מ היא חברת פיתוח נדל\"ן ישראלית."
+  },
+  "BWAY.TA": {
+    "sector": "Healthcare",
+    "description": "BrainsWay Ltd. is an Israeli medical device company developing non-invasive brain stimulation treatment for mental health disorders.",
+    "descriptionHebrew": "בריינסוויי בע\"מ היא חברת מכשור רפואי ישראלית המפתחת טיפול גירוי מוחי לא פולשני להפרעות בריאות הנפש."
+  },
+  "BYON.TA": {
+    "sector": "Technology",
+    "description": "Byond3D Ltd. is an Israeli technology company specializing in 3D printing and additive manufacturing solutions.",
+    "descriptionHebrew": "ביונד 3D בע\"מ היא חברת טכנולוגיה ישראלית המתמחה בהדפסת תלת-ממד ופתרונות ייצור תוספתי."
+  },
+  "CAMT.TA": {
+    "sector": "Technology",
+    "description": "Camtek Ltd. is an Israeli company developing and manufacturing metrology and inspection equipment for the semiconductor and PCB industries.",
+    "descriptionHebrew": "קמטק בע\"מ היא חברה ישראלית המפתחת ומייצרת ציוד מדידה ובדיקה לתעשיות המוליכים למחצה ו-PCB."
+  },
+  "CANF.TA": {
+    "sector": "Healthcare",
+    "description": "Can-Fite BioPharma Ltd. is an Israeli biopharmaceutical company developing drugs for inflammatory, cancer, and liver diseases.",
+    "descriptionHebrew": "קאן-פייט ביופרמה בע\"מ היא חברה ביופרמצבטית ישראלית המפתחת תרופות למחלות דלקתיות, סרטן וכבד."
+  },
+  "CAST.TA": {
+    "sector": "Consumer Cyclical",
+    "description": "Castro Model Ltd. is an Israeli fashion retail company operating clothing stores and brands.",
+    "descriptionHebrew": "קסטרו מודל בע\"מ היא חברת קמעונאות אופנה ישראלית המפעילה חנויות ביגוד ומותגים."
+  },
+  "CBI.TA": {
+    "sector": "Healthcare",
+    "description": "Clal Biotechnology Industries Ltd. is an Israeli biotechnology holding company with investments in life sciences ventures.",
+    "descriptionHebrew": "כלל תעשיות ביוטכנולוגיה בע\"מ היא חברת אחזקות ביוטכנולוגיה ישראלית עם השקעות במיזמי מדעי החיים."
+  },
+  "CDEV.TA": {
+    "sector": "Energy",
+    "description": "Cohen Development Gas & Oil Inc. is an Israeli energy company engaged in oil and gas exploration and development.",
+    "descriptionHebrew": "כהן פיתוח גז ונפט בע\"מ היא חברת אנרגיה ישראלית העוסקת בחיפוש ופיתוח נפט וגז."
+  },
+  "CEL.TA": {
+    "sector": "Communication Services",
+    "description": "Cellcom Israel Ltd. is an Israeli telecommunications company providing cellular, fixed-line, and internet services.",
+    "descriptionHebrew": "סלקום ישראל בע\"מ היא חברת תקשורת ישראלית המספקת שירותי סלולר, קווי ואינטרנט."
+  },
+  "CGEN.TA": {
+    "sector": "Healthcare",
+    "description": "Compugen Ltd. is an Israeli biotechnology company focused on computational discovery of novel therapeutic and diagnostic biomarkers.",
+    "descriptionHebrew": "קומפיוג'ן בע\"מ היא חברת ביוטכנולוגיה ישראלית המתמקדת בגילוי חישובי של סמנים ביולוגיים טיפוליים ואבחוניים חדשים."
+  },
+  "CILO.TA": {
+    "sector": "Consumer Cyclical",
+    "description": "Cielo-Blu Group Ltd. is an Israeli fashion and retail holding company.",
+    "descriptionHebrew": "קבוצת צ'יאלו-בלו בע\"מ היא חברת אחזקות אופנה וקמעונאות ישראלית."
+  },
+  "CION.TA": {
+    "sector": "Financial Services",
+    "description": "Cion Investment Corporation is an investment company with holdings in various sectors.",
+    "descriptionHebrew": "חברת השקעות סיאון היא חברת השקעות עם אחזקות במגזרים שונים."
+  },
+  "CISY.TA": {
+    "sector": "Technology",
+    "description": "CI Systems (Israel) Ltd. is an Israeli company developing electro-optical test and measurement systems for defense and aerospace applications.",
+    "descriptionHebrew": "סי.אי סיסטמס (ישראל) בע\"מ היא חברה ישראלית המפתחת מערכות בדיקה ומדידה אלקטרו-אופטיות ליישומי ביטחון ותעופה וחלל."
+  },
+  "CLAB.TA": {
+    "sector": "Healthcare",
+    "description": "C-Lab Ltd. is an Israeli healthcare company operating clinical laboratories and diagnostic services.",
+    "descriptionHebrew": "סי-לאב בע\"מ היא חברת בריאות ישראלית המפעילה מעבדות קליניות ושירותי אבחון."
+  },
+  "CLIS.TA": {
+    "sector": "Financial Services",
+    "description": "Clal Insurance Enterprises Holdings Ltd. is one of Israel's largest insurance groups, offering life, health, pension, and general insurance services.",
+    "descriptionHebrew": "כלל ביטוח אחזקות בע\"מ היא אחת מקבוצות הביטוח הגדולות בישראל, המציעה שירותי ביטוח חיים, בריאות, פנסיה וביטוח כללי."
+  },
+  "CMDR.TA": {
+    "sector": "Technology",
+    "description": "Computer Direct Group Ltd. is an Israeli technology company distributing computer hardware and software products.",
+    "descriptionHebrew": "קבוצת קומפיוטר דיירקט בע\"מ היא חברת טכנולוגיה ישראלית המפיצה מוצרי חומרה ותוכנה למחשבים."
+  },
+  "CMER.TA": {
+    "sector": "Technology",
+    "description": "C. Mer Industries Ltd. is an Israeli technology company engaged in IT solutions and system integration.",
+    "descriptionHebrew": "תעשיות ס.מר בע\"מ היא חברת טכנולוגיה ישראלית העוסקת בפתרונות IT ואינטגרציית מערכות."
   }
 }
