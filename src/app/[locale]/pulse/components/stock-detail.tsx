@@ -43,8 +43,9 @@ function isRecommendedStock(growth5d: number | undefined, growth1m: number, grow
          growth6m < growth12m;
 }
 
-function formatPrice(value: number): string {
-  return `$${value.toLocaleString(undefined, {
+function formatPrice(value: number, currency: string = "USD"): string {
+  const symbol = currency === "ILS" ? "₪" : "$";
+  return `${symbol}${value.toLocaleString(undefined, {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2,
   })}`;
@@ -162,8 +163,9 @@ export function StockDetail({ symbol, onClose, locale = "en", labels }: StockDet
       <div className={styles.titleSection}>
         {(() => {
           const isTLV = symbol.endsWith(".TA");
+          const currency = isTLV ? "ILS" : "USD";
           const primaryText = isTLV && nameHebrew ? nameHebrew : profile.symbol;
-          const secondaryText = isTLV ? profile.symbol : (nameHebrew || profile.name);
+          const secondaryText = isTLV ? null : (nameHebrew || profile.name);
           return (
             <>
               <div className={styles.symbolRow}>
@@ -171,6 +173,7 @@ export function StockDetail({ symbol, onClose, locale = "en", labels }: StockDet
                   <span className={styles.starIcon} title={labels.recommended}>★</span>
                 )}
                 <h2 className={styles.symbol}>{primaryText}</h2>
+                <span className={styles.priceInline}>({formatPrice(quote.price, currency)})</span>
                 <button
                   className={styles.copyButton}
                   onClick={() => navigator.clipboard.writeText(profile.symbol)}
@@ -179,7 +182,7 @@ export function StockDetail({ symbol, onClose, locale = "en", labels }: StockDet
                   ⧉
                 </button>
               </div>
-              <p className={styles.companyName}>{secondaryText}</p>
+              {secondaryText && <p className={styles.companyName}>{secondaryText}</p>}
             </>
           );
         })()}
@@ -233,10 +236,6 @@ export function StockDetail({ symbol, onClose, locale = "en", labels }: StockDet
       )}
 
       <div className={styles.metricsRow}>
-        <div className={styles.metricCard}>
-          <span className={styles.metricValue}>{formatPrice(quote.price)}</span>
-          <span className={styles.metricLabel}>{labels.price}</span>
-        </div>
         <div className={styles.metricCard}>
           <span
             className={styles.metricValue}
