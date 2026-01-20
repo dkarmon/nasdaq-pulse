@@ -29,32 +29,18 @@ export function isRecommended(stock: Stock): boolean {
   );
 }
 
-// Day counts for each period
-const DAYS_5D = 5;
-const DAYS_1M = 30;
-const DAYS_6M = 180;
-const DAYS_12M = 365;
-
 /**
  * Calculates a recommendation score based on growth acceleration.
- * Formula: [2.5*(1M/5D)/25 + 2*(6M/1M)/150 + 1.5*(12M/6M)/185] * (avg_growth/100)
- * Each ratio is normalized by the day difference between periods.
- * Higher weights for shorter-term acceleration emphasize recent momentum.
- * The result is multiplied by the average growth factor (as decimal).
+ * Formula: 3.5*(1M-5D)/25 + 2.5*(6M-1M)/150 + 1.5*(12M-6M)/182
+ * Uses differences between periods to measure absolute growth.
+ * Higher weights for shorter-term differences emphasize recent momentum.
  */
 export function calculateRecommendationScore(stock: Stock): number {
   const growth5d = stock.growth5d!;
-  const ratio1 = stock.growth1m / growth5d / (DAYS_1M - DAYS_5D);
-  const ratio2 = stock.growth6m / stock.growth1m / (DAYS_6M - DAYS_1M);
-  const ratio3 = stock.growth12m / stock.growth6m / (DAYS_12M - DAYS_6M);
-
-  const baseScore = 2.5 * ratio1 + 2 * ratio2 + 1.5 * ratio3;
-
-  // Calculate average growth and convert percentage to decimal (10% -> 0.1)
-  const avgGrowth = (growth5d + stock.growth1m + stock.growth6m + stock.growth12m) / 4;
-  const growthFactor = avgGrowth / 100;
-
-  return baseScore * growthFactor;
+  const diff1 = (stock.growth1m - growth5d) / 25;
+  const diff2 = (stock.growth6m - stock.growth1m) / 150;
+  const diff3 = (stock.growth12m - stock.growth6m) / 182;
+  return 3.5 * diff1 + 2.5 * diff2 + 1.5 * diff3;
 }
 
 /**

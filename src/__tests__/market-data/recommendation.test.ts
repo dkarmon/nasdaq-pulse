@@ -141,32 +141,27 @@ describe("isRecommended", () => {
 });
 
 describe("calculateRecommendationScore", () => {
-  // Formula: [2.5*(1M/5D)/25 + 2*(6M/1M)/150 + 1.5*(12M/6M)/185] * (avg_growth/100)
-  // Each ratio normalized by day difference between periods
-  // Multiplied by average growth factor as decimal
+  // Formula: 3.5*(1M-5D)/25 + 2.5*(6M-1M)/150 + 1.5*(12M-6M)/182
+  // Uses differences between periods, not ratios
 
   it("calculates score correctly with simple values", () => {
     // 5D=10, 1M=20, 6M=40, 12M=60
-    // Base: 2.5*(20/10)/25 + 2*(40/20)/150 + 1.5*(60/40)/185
-    // = 2.5*2/25 + 2*2/150 + 1.5*1.5/185
-    // = 0.2 + 0.02667 + 0.01216 = 0.2388
-    // Avg growth: (10+20+40+60)/4 = 32.5
-    // Growth factor: 32.5/100 = 0.325
-    // Final: 0.2388 * 0.325 ≈ 0.0776
+    // 3.5*(20-10)/25 + 2.5*(40-20)/150 + 1.5*(60-40)/182
+    // = 3.5*10/25 + 2.5*20/150 + 1.5*20/182
+    // = 1.4 + 0.333 + 0.165
+    // ≈ 1.898
     const stock = makeStock({ growth5d: 10, growth1m: 20, growth6m: 40, growth12m: 60 });
-    expect(calculateRecommendationScore(stock)).toBeCloseTo(0.0776, 3);
+    expect(calculateRecommendationScore(stock)).toBeCloseTo(1.898, 2);
   });
 
   it("calculates score correctly with equal ratios", () => {
     // 5D=1, 1M=2, 6M=4, 12M=8 (each doubles)
-    // Base: 2.5*(2/1)/25 + 2*(4/2)/150 + 1.5*(8/4)/185
-    // = 2.5*2/25 + 2*2/150 + 1.5*2/185
-    // = 0.2 + 0.02667 + 0.01622 = 0.2429
-    // Avg growth: (1+2+4+8)/4 = 3.75
-    // Growth factor: 3.75/100 = 0.0375
-    // Final: 0.2429 * 0.0375 ≈ 0.0091
+    // 3.5*(2-1)/25 + 2.5*(4-2)/150 + 1.5*(8-4)/182
+    // = 3.5*1/25 + 2.5*2/150 + 1.5*4/182
+    // = 0.14 + 0.033 + 0.033
+    // ≈ 0.206
     const stock = makeStock({ growth5d: 1, growth1m: 2, growth6m: 4, growth12m: 8 });
-    expect(calculateRecommendationScore(stock)).toBeCloseTo(0.0091, 3);
+    expect(calculateRecommendationScore(stock)).toBeCloseTo(0.206, 2);
   });
 
   it("returns higher score for steeper early growth", () => {
@@ -180,14 +175,12 @@ describe("calculateRecommendationScore", () => {
 
   it("handles decimal values correctly", () => {
     // 5D=0.5, 1M=1.5, 6M=3, 12M=6
-    // Base: 2.5*(1.5/0.5)/25 + 2*(3/1.5)/150 + 1.5*(6/3)/185
-    // = 2.5*3/25 + 2*2/150 + 1.5*2/185
-    // = 0.3 + 0.02667 + 0.01622 = 0.3429
-    // Avg growth: (0.5+1.5+3+6)/4 = 2.75
-    // Growth factor: 2.75/100 = 0.0275
-    // Final: 0.3429 * 0.0275 ≈ 0.0094
+    // 3.5*(1.5-0.5)/25 + 2.5*(3-1.5)/150 + 1.5*(6-3)/182
+    // = 3.5*1/25 + 2.5*1.5/150 + 1.5*3/182
+    // = 0.14 + 0.025 + 0.0247
+    // ≈ 0.190
     const stock = makeStock({ growth5d: 0.5, growth1m: 1.5, growth6m: 3, growth12m: 6 });
-    expect(calculateRecommendationScore(stock)).toBeCloseTo(0.0094, 3);
+    expect(calculateRecommendationScore(stock)).toBeCloseTo(0.190, 2);
   });
 });
 
