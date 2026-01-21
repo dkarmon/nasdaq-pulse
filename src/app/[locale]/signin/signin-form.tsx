@@ -22,12 +22,17 @@ export function SignInForm({ locale, dict }: SignInFormProps) {
 
   const handleGoogleSignIn = async () => {
     setLoading(true);
+    setMessage("");
+
+    const redirectTo = `${window.location.origin}/${locale}/auth/callback?next=/${locale}/pulse`;
+
     const { error } = await supabase.auth.signInWithOAuth({
       provider: "google",
       options: {
-        redirectTo: `${window.location.origin}/${locale}/auth/callback?next=/${locale}/pulse`,
+        redirectTo,
       },
     });
+
     if (error) {
       setMessage(error.message);
       setLoading(false);
