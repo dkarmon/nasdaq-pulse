@@ -2,7 +2,7 @@
 // ABOUTME: Returns current price, previous close, and change percentage for each symbol.
 
 import { NextRequest, NextResponse } from "next/server";
-import { getQuote } from "@/lib/market-data/yahoo";
+import { getBatchQuotes } from "@/lib/market-data/yahoo";
 
 export type LiveQuote = {
   symbol: string;
@@ -42,23 +42,21 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
     );
   }
 
+  // Fetch quotes in batches of 20 (vs individual requests)
+  const quotesMap = await getBatchQuotes(symbols);
+
   const quotes: LiveQuote[] = [];
-
-  // Fetch quotes in parallel
-  const results = await Promise.all(symbols.map((symbol) => getQuote(symbol)));
-
-  for (const result of results) {
-    if (result) {
-      const change = result.price - result.previousClose;
+  for (const symbol of symbols) {
+    const quote = quotesMap.get(symbol);
+    if (quote) {
+      const change = quote.price - quote.previousClose;
       const changePercent =
-        result.previousClose > 0
-          ? (change / result.previousClose) * 100
-          : 0;
+        quote.previousClose > 0 ? (change / quote.previousClose) * 100 : 0;
 
       quotes.push({
-        symbol: result.symbol,
-        price: result.price,
-        previousClose: result.previousClose,
+        symbol: quote.symbol,
+        price: quote.price,
+        previousClose: quote.previousClose,
         change,
         changePercent,
       });

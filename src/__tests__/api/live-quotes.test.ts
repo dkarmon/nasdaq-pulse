@@ -3,16 +3,25 @@
 
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { NextRequest } from "next/server";
+import type { BatchQuote } from "@/lib/market-data/yahoo";
 
 // Mock Yahoo Finance module before importing the route
 vi.mock("@/lib/market-data/yahoo", () => ({
-  getQuote: vi.fn(),
+  getBatchQuotes: vi.fn(),
 }));
 
 import { GET } from "@/app/api/live-quotes/route";
-import { getQuote } from "@/lib/market-data/yahoo";
+import { getBatchQuotes } from "@/lib/market-data/yahoo";
 
-const mockGetQuote = vi.mocked(getQuote);
+const mockGetBatchQuotes = vi.mocked(getBatchQuotes);
+
+function createQuotesMap(quotes: BatchQuote[]): Map<string, BatchQuote> {
+  const map = new Map<string, BatchQuote>();
+  for (const quote of quotes) {
+    map.set(quote.symbol, quote);
+  }
+  return map;
+}
 
 function createRequest(searchParams: Record<string, string> = {}): NextRequest {
   const url = new URL("http://localhost:3000/api/live-quotes");
@@ -37,20 +46,12 @@ describe("GET /api/live-quotes", () => {
   });
 
   it("returns quotes for valid symbols", async () => {
-    mockGetQuote.mockResolvedValueOnce({
-      symbol: "AAPL",
-      price: 150.0,
-      previousClose: 145.0,
-      name: "Apple Inc.",
-      exchange: "NASDAQ",
-    });
-    mockGetQuote.mockResolvedValueOnce({
-      symbol: "MSFT",
-      price: 300.0,
-      previousClose: 295.0,
-      name: "Microsoft Corp",
-      exchange: "NASDAQ",
-    });
+    mockGetBatchQuotes.mockResolvedValueOnce(
+      createQuotesMap([
+        { symbol: "AAPL", price: 150.0, previousClose: 145.0 },
+        { symbol: "MSFT", price: 300.0, previousClose: 295.0 },
+      ])
+    );
 
     const request = createRequest({ symbols: "AAPL,MSFT" });
     const response = await GET(request);
@@ -75,13 +76,9 @@ describe("GET /api/live-quotes", () => {
   });
 
   it("handles TLV symbols with .TA suffix", async () => {
-    mockGetQuote.mockResolvedValueOnce({
-      symbol: "AZRG.TA",
-      price: 100.0,
-      previousClose: 98.0,
-      name: "Azrieli Group",
-      exchange: "TLV",
-    });
+    mockGetBatchQuotes.mockResolvedValueOnce(
+      createQuotesMap([{ symbol: "AZRG.TA", price: 100.0, previousClose: 98.0 }])
+    );
 
     const request = createRequest({ symbols: "AZRG.TA" });
     const response = await GET(request);
@@ -94,14 +91,10 @@ describe("GET /api/live-quotes", () => {
   });
 
   it("excludes symbols that fail to fetch", async () => {
-    mockGetQuote.mockResolvedValueOnce({
-      symbol: "AAPL",
-      price: 150.0,
-      previousClose: 145.0,
-      name: "Apple Inc.",
-      exchange: "NASDAQ",
-    });
-    mockGetQuote.mockResolvedValueOnce(null); // INVALID fails
+    // Only AAPL is in the map, INVALID is not
+    mockGetBatchQuotes.mockResolvedValueOnce(
+      createQuotesMap([{ symbol: "AAPL", price: 150.0, previousClose: 145.0 }])
+    );
 
     const request = createRequest({ symbols: "AAPL,INVALID" });
     const response = await GET(request);
@@ -113,7 +106,7 @@ describe("GET /api/live-quotes", () => {
   });
 
   it("returns empty quotes array if all symbols fail", async () => {
-    mockGetQuote.mockResolvedValue(null);
+    mockGetBatchQuotes.mockResolvedValue(new Map());
 
     const request = createRequest({ symbols: "INVALID1,INVALID2" });
     const response = await GET(request);
@@ -124,38 +117,33 @@ describe("GET /api/live-quotes", () => {
   });
 
   it("trims and uppercases symbols", async () => {
-    mockGetQuote.mockResolvedValueOnce({
-      symbol: "AAPL",
-      price: 150.0,
-      previousClose: 145.0,
-      name: "Apple Inc.",
-      exchange: "NASDAQ",
-    });
+    mockGetBatchQuotes.mockResolvedValueOnce(
+      createQuotesMap([{ symbol: "AAPL", price: 150.0, previousClose: 145.0 }])
+    );
 
     const request = createRequest({ symbols: " aapl " });
-    const response = await GET(request);
+    await GET(request);
 
-    expect(mockGetQuote).toHaveBeenCalledWith("AAPL");
+    expect(mockGetBatchQuotes).toHaveBeenCalledWith(["AAPL"]);
   });
 
   it("limits to 500 symbols max", async () => {
     const symbols = Array.from({ length: 600 }, (_, i) => `SYM${i}`).join(",");
-    mockGetQuote.mockResolvedValue(null);
+    mockGetBatchQuotes.mockResolvedValue(new Map());
 
     const request = createRequest({ symbols });
     await GET(request);
 
-    expect(mockGetQuote).toHaveBeenCalledTimes(500);
+    // Should be called once with at most 500 symbols
+    expect(mockGetBatchQuotes).toHaveBeenCalledTimes(1);
+    const calledSymbols = mockGetBatchQuotes.mock.calls[0][0];
+    expect(calledSymbols).toHaveLength(500);
   });
 
   it("includes fetchedAt timestamp", async () => {
-    mockGetQuote.mockResolvedValueOnce({
-      symbol: "AAPL",
-      price: 150.0,
-      previousClose: 145.0,
-      name: "Apple Inc.",
-      exchange: "NASDAQ",
-    });
+    mockGetBatchQuotes.mockResolvedValueOnce(
+      createQuotesMap([{ symbol: "AAPL", price: 150.0, previousClose: 145.0 }])
+    );
 
     const request = createRequest({ symbols: "AAPL" });
     const response = await GET(request);
