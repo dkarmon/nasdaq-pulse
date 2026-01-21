@@ -1,7 +1,7 @@
 // ABOUTME: Main pulse page server component for the stock screener.
 // ABOUTME: Fetches initial data and renders the screener UI with locale support.
 
-import { auth } from "@/auth";
+import { createClient } from "@/lib/supabase/server";
 import { Locale, defaultLocale, getDictionary, isRTL, locales } from "@/lib/i18n";
 import { LocaleSwitcher } from "@/components/locale-switcher";
 import { SignOutButton } from "@/components/sign-out";
@@ -41,7 +41,9 @@ export default async function PulsePage({ params }: PulsePageProps) {
     : defaultLocale;
   const dict = getDictionary(locale);
   const rtl = isRTL(locale);
-  const session = await auth();
+
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
 
   const initialData = await getInitialScreenerData();
 
@@ -81,8 +83,8 @@ export default async function PulsePage({ params }: PulsePageProps) {
               ⚙
             </Link>
             <LocaleSwitcher locale={locale} />
-            {session?.user?.email && (
-              <span className="badge">{session.user.email}</span>
+            {user?.email && (
+              <span className="badge">{user.email}</span>
             )}
             <SignOutButton label={dict.app.logout} />
           </div>

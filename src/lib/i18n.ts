@@ -85,6 +85,21 @@ export type Dictionary = {
     hiddenStocks: string;
     unhide: string;
     noHiddenStocks: string;
+    admin: string;
+    invitations: string;
+    inviteEmail: string;
+    invite: string;
+    noInvitations: string;
+    pending: string;
+    used: string;
+    expired: string;
+    delete: string;
+    inviteSent: string;
+    users: string;
+    noUsers: string;
+    role: string;
+    user: string;
+    adminRole: string;
   };
   auth: {
     signinTitle: string;
@@ -98,6 +113,7 @@ export type Dictionary = {
     deniedTitle: string;
     deniedBody: string;
     back: string;
+    checkEmail: string;
   };
 };
 
@@ -227,6 +243,21 @@ export const dictionaries: Record<Locale, Dictionary> = {
       hiddenStocks: "Hidden Stocks",
       unhide: "Unhide",
       noHiddenStocks: "No hidden stocks",
+      admin: "Admin",
+      invitations: "Invitations",
+      inviteEmail: "Email to invite",
+      invite: "Invite",
+      noInvitations: "No pending invitations",
+      pending: "Pending",
+      used: "Used",
+      expired: "Expired",
+      delete: "Delete",
+      inviteSent: "Invitation sent!",
+      users: "Users",
+      noUsers: "No users yet",
+      role: "Role",
+      user: "User",
+      adminRole: "Admin",
     },
     auth: {
       signinTitle: "Welcome to Nasdaq Pulse",
@@ -241,6 +272,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
       deniedBody:
         "Your Google account is not on the approved list. Contact the admin or try a different email.",
       back: "Back to landing",
+      checkEmail: "Check your email for the login link!",
     },
   },
   he: {
@@ -365,6 +397,21 @@ export const dictionaries: Record<Locale, Dictionary> = {
       hiddenStocks: "מניות מוסתרות",
       unhide: "בטל הסתרה",
       noHiddenStocks: "אין מניות מוסתרות",
+      admin: "ניהול",
+      invitations: "הזמנות",
+      inviteEmail: "מייל להזמנה",
+      invite: "הזמן",
+      noInvitations: "אין הזמנות ממתינות",
+      pending: "ממתין",
+      used: "נוצל",
+      expired: "פג תוקף",
+      delete: "מחק",
+      inviteSent: "ההזמנה נשלחה!",
+      users: "משתמשים",
+      noUsers: "אין משתמשים עדיין",
+      role: "תפקיד",
+      user: "משתמש",
+      adminRole: "מנהל",
     },
     auth: {
       signinTitle: "ברוכים הבאים ל-Nasdaq Pulse",
@@ -378,6 +425,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
       deniedTitle: "אין הרשאה",
       deniedBody: "החשבון אינו מורשה. פנו למנהל או התחברו עם מייל מאושר.",
       back: "חזרה לעמוד הראשי",
+      checkEmail: "בדקו את המייל - שלחנו לכם קישור להתחברות!",
     },
   },
 };

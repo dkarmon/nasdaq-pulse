@@ -1,16 +1,29 @@
+// ABOUTME: Sign out button component for authenticated users.
+// ABOUTME: Uses Supabase Auth for sign out functionality.
+
 "use client";
 
-import { signOut } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import { createClient } from "@/lib/supabase/client";
 
 type Props = {
   label: string;
 };
 
 export function SignOutButton({ label }: Props) {
+  const router = useRouter();
+  const supabase = createClient();
+
+  const handleSignOut = async () => {
+    await supabase.auth.signOut();
+    router.push("/");
+    router.refresh();
+  };
+
   return (
     <button
       className="btn ghost"
-      onClick={() => signOut({ callbackUrl: "/" })}
+      onClick={handleSignOut}
       title={label}
       aria-label={label}
     >
