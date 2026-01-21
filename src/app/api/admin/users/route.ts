@@ -95,6 +95,9 @@ export async function DELETE(request: Request) {
     if (profileError.message === "Cannot delete yourself") {
       return NextResponse.json({ error: "Cannot delete yourself" }, { status: 400 });
     }
+    if (profileError.message === "Cannot delete admin users") {
+      return NextResponse.json({ error: "Cannot delete admin users" }, { status: 400 });
+    }
     return NextResponse.json({ error: profileError.message }, { status: 500 });
   }
 
