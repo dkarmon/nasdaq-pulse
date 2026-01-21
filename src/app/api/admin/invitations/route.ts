@@ -67,6 +67,10 @@ export async function POST(request: Request) {
     email.toLowerCase().trim(),
     {
       redirectTo: `${origin}/en/auth/callback?next=/en/pulse`,
+      data: {
+        invited_role: role,
+        invited_at: new Date().toISOString(),
+      },
     }
   );
 

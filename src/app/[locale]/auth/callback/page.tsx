@@ -62,28 +62,55 @@ function AuthCallbackContent() {
     ) => {
       setStatus("Verifying access...");
 
+      // Check if user already has a profile
+      const { data: profile } = await supabase
+        .from("profiles")
+        .select("id")
+        .eq("id", user.id)
+        .single();
+
+      if (profile) {
+        // Existing user - let them in
+        setStatus("Redirecting...");
+        router.push(next);
+        return;
+      }
+
+      // No profile - check if they were invited
+      const invitedRole = user.user_metadata?.invited_role as string | undefined;
+      const wasInvited = invitedRole || user.user_metadata?.invited_at;
+
+      if (!wasInvited) {
+        // Not invited - check if first user (becomes admin)
+        const { count } = await supabase
+          .from("profiles")
+          .select("*", { count: "exact", head: true });
+
+        if (count && count > 0) {
+          // Other users exist, this person isn't invited
+          console.log("Auth callback - Access denied: not invited and not first user");
+          await supabase.auth.signOut();
+          router.push("/denied");
+          return;
+        }
+      }
+
+      // Create profile via RPC
       const userEmail = user.email?.toLowerCase();
       const userName = (user.user_metadata?.full_name || user.user_metadata?.name || null) as string | null;
 
-      // Call RPC to check invitation and create profile
       const { data: result, error: rpcError } = await supabase
         .rpc("check_and_use_invitation", {
           user_email: userEmail,
           user_id: user.id,
           user_name: userName,
+          invited_role: invitedRole || "user",
         });
 
       console.log("Auth callback - RPC result:", { result, rpcError: rpcError?.message });
 
       if (rpcError) {
         console.error("RPC error:", rpcError.message);
-        await supabase.auth.signOut();
-        router.push("/denied");
-        return;
-      }
-
-      if (result?.status === "denied") {
-        console.log("Auth callback - Access denied by RPC");
         await supabase.auth.signOut();
         router.push("/denied");
         return;
