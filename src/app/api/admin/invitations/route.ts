@@ -1,7 +1,7 @@
 // ABOUTME: Admin API for managing user invitations.
 // ABOUTME: Supports GET (list), POST (create), and DELETE (remove) operations.
 
-import { createClient } from "@/lib/supabase/server";
+import { createClient, createAdminClient } from "@/lib/supabase/server";
 import { NextResponse } from "next/server";
 
 export async function GET() {
@@ -57,6 +57,22 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 403 });
     }
     return NextResponse.json({ error: error.message }, { status: 500 });
+  }
+
+  // Send invitation email using Supabase Auth
+  const adminClient = createAdminClient();
+  const origin = request.headers.get("origin") || "https://nasdaq-pulse.vercel.app";
+
+  const { error: inviteError } = await adminClient.auth.admin.inviteUserByEmail(
+    email.toLowerCase().trim(),
+    {
+      redirectTo: `${origin}/en/auth/callback?next=/en/pulse`,
+    }
+  );
+
+  if (inviteError) {
+    // Log but don't fail - the invitation record is created, email just didn't send
+    console.error("Failed to send invitation email:", inviteError.message);
   }
 
   return NextResponse.json({ invitation });
