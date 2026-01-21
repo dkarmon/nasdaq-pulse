@@ -9,6 +9,10 @@ export async function GET(request: Request) {
   const code = searchParams.get("code");
   const next = searchParams.get("next") ?? "/en/pulse";
 
+  console.log("Auth callback - request URL:", request.url);
+  console.log("Auth callback - code present:", !!code);
+  console.log("Auth callback - all params:", Object.fromEntries(searchParams.entries()));
+
   if (code) {
     // Collect cookies to set on the response
     const cookiesToSet: { name: string; value: string; options: CookieOptions }[] = [];
@@ -105,5 +109,6 @@ export async function GET(request: Request) {
   }
 
   // Return the user to an error page with instructions
+  console.log("Auth callback - redirecting to denied (no code or exchange failed)");
   return NextResponse.redirect(`${origin}/denied`);
 }
