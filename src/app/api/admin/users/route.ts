@@ -1,7 +1,7 @@
 // ABOUTME: Admin API for managing user profiles.
-// ABOUTME: Supports GET (list users) and PATCH (update user role) operations.
+// ABOUTME: Supports GET (list), PATCH (update role), and DELETE (remove) operations.
 
-import { createClient } from "@/lib/supabase/server";
+import { createClient, createAdminClient } from "@/lib/supabase/server";
 import { NextResponse } from "next/server";
 
 export async function GET() {
@@ -61,6 +61,50 @@ export async function PATCH(request: Request) {
 
   if (!success) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 403 });
+  }
+
+  return NextResponse.json({ success: true });
+}
+
+export async function DELETE(request: Request) {
+  const supabase = await createClient();
+
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 403 });
+  }
+
+  const { searchParams } = new URL(request.url);
+  const userId = searchParams.get("id");
+
+  if (!userId) {
+    return NextResponse.json({ error: "User ID required" }, { status: 400 });
+  }
+
+  // Delete from profiles via RPC
+  const { error: profileError } = await supabase
+    .rpc("delete_user_for_admin", {
+      admin_user_id: user.id,
+      target_user_id: userId,
+    });
+
+  if (profileError) {
+    if (profileError.message === "Unauthorized") {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 403 });
+    }
+    if (profileError.message === "Cannot delete yourself") {
+      return NextResponse.json({ error: "Cannot delete yourself" }, { status: 400 });
+    }
+    return NextResponse.json({ error: profileError.message }, { status: 500 });
+  }
+
+  // Also delete from Supabase Auth
+  const adminClient = createAdminClient();
+  const { error: authError } = await adminClient.auth.admin.deleteUser(userId);
+
+  if (authError) {
+    console.error("Failed to delete user from auth:", authError.message);
+    // Don't fail - profile is already deleted
   }
 
   return NextResponse.json({ success: true });

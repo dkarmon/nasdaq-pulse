@@ -79,6 +79,17 @@ export function SettingsClient({ dict, locale, isAdmin }: SettingsClientProps) {
     setUpdatingUserId(null);
   };
 
+  const handleDeleteUser = async (userId: string) => {
+    if (!confirm("Are you sure you want to delete this user?")) return;
+
+    const res = await fetch(`/api/admin/users?id=${userId}`, {
+      method: "DELETE",
+    });
+    if (res.ok) {
+      fetchUsers();
+    }
+  };
+
   const handleInvite = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!newEmail.trim()) return;
@@ -272,6 +283,12 @@ export function SettingsClient({ dict, locale, isAdmin }: SettingsClientProps) {
                         {dict.settings.adminRole}
                       </button>
                     </div>
+                    <button
+                      className={styles.unhideButton}
+                      onClick={() => handleDeleteUser(user.id)}
+                    >
+                      {dict.settings.delete}
+                    </button>
                   </li>
                 ))}
               </ul>
