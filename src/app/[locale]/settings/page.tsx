@@ -27,6 +27,17 @@ export default async function SettingsPage({ params }: SettingsPageProps) {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
 
+  // Get user's role
+  let isAdmin = false;
+  if (user) {
+    const { data: profile } = await supabase
+      .from("profiles")
+      .select("role")
+      .eq("id", user.id)
+      .single();
+    isAdmin = profile?.role === "admin";
+  }
+
   return (
     <div className="page-shell" dir={rtl ? "rtl" : "ltr"} data-dir={rtl ? "rtl" : "ltr"}>
       <div className="container">
@@ -53,7 +64,7 @@ export default async function SettingsPage({ params }: SettingsPageProps) {
           </div>
         </nav>
 
-        <SettingsClient dict={dict} locale={locale} />
+        <SettingsClient dict={dict} locale={locale} isAdmin={isAdmin} />
       </div>
     </div>
   );

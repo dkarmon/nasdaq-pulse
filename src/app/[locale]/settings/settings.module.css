@@ -95,3 +95,84 @@
   background: var(--accent);
   color: var(--background);
 }
+
+.section + .section {
+  margin-top: 24px;
+}
+
+.adminSubsection {
+  margin-bottom: 24px;
+}
+
+.adminSubsection:last-child {
+  margin-bottom: 0;
+}
+
+.inviteForm {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.inviteInput {
+  flex: 1;
+  padding: 10px 14px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--foreground);
+  font-size: 1rem;
+}
+
+.inviteInput::placeholder {
+  color: var(--muted);
+}
+
+.inviteInput:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.inviteButton {
+  padding: 10px 20px;
+  background: var(--accent);
+  border: none;
+  border-radius: 6px;
+  color: var(--background);
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 150ms ease;
+}
+
+.inviteButton:hover {
+  opacity: 0.9;
+}
+
+.inviteButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.message {
+  color: var(--accent);
+  font-size: 0.95rem;
+  margin: 0 0 16px 0;
+}
+
+.status {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.exchangeSection + .adminSubsection,
+.section + .section {
+  margin-top: 24px;
+}
+
+.exchangeLabel {
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin: 0 0 12px 0;
+  color: var(--foreground);
+}

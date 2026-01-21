@@ -39,7 +39,7 @@ export async function GET(request: Request) {
       }
     );
 
-    const { error } = await supabase.auth.exchangeCodeForSession(code);
+    const { data, error } = await supabase.auth.exchangeCodeForSession(code);
 
     // Wait for cookies to be set (Supabase calls setAll asynchronously)
     await Promise.race([
@@ -47,7 +47,60 @@ export async function GET(request: Request) {
       new Promise((resolve) => setTimeout(resolve, 1000)),
     ]);
 
-    if (!error && cookiesToSet.length > 0) {
+    if (!error && cookiesToSet.length > 0 && data.user) {
+      const user = data.user;
+      const userEmail = user.email?.toLowerCase();
+
+      // Check if user already has a profile
+      const { data: existingProfile } = await supabase
+        .from("profiles")
+        .select("id")
+        .eq("id", user.id)
+        .single();
+
+      if (!existingProfile) {
+        // New user - check if they're allowed
+        // 1. Check if they have an invitation
+        const { data: invitation } = await supabase
+          .from("invitations")
+          .select("id")
+          .eq("email", userEmail)
+          .is("used_at", null)
+          .gt("expires_at", new Date().toISOString())
+          .single();
+
+        // 2. Check if any admin exists (first user becomes admin)
+        const { data: adminExists } = await supabase
+          .from("profiles")
+          .select("id")
+          .eq("role", "admin")
+          .limit(1)
+          .single();
+
+        if (!invitation && adminExists) {
+          // No invitation and admin exists - deny access
+          await supabase.auth.signOut();
+          return NextResponse.redirect(`${origin}/denied`);
+        }
+
+        // Create profile for new user
+        const role = !adminExists ? "admin" : "user";
+        await supabase.from("profiles").insert({
+          id: user.id,
+          email: userEmail,
+          name: user.user_metadata?.full_name || user.user_metadata?.name || null,
+          role,
+        });
+
+        // Mark invitation as used if exists
+        if (invitation) {
+          await supabase
+            .from("invitations")
+            .update({ used_at: new Date().toISOString() })
+            .eq("id", invitation.id);
+        }
+      }
+
       const forwardedHost = request.headers.get("x-forwarded-host");
       const isLocalEnv = process.env.NODE_ENV === "development";
 
