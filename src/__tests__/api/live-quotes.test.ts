@@ -138,14 +138,14 @@ describe("GET /api/live-quotes", () => {
     expect(mockGetQuote).toHaveBeenCalledWith("AAPL");
   });
 
-  it("limits to 50 symbols max", async () => {
-    const symbols = Array.from({ length: 60 }, (_, i) => `SYM${i}`).join(",");
+  it("limits to 500 symbols max", async () => {
+    const symbols = Array.from({ length: 600 }, (_, i) => `SYM${i}`).join(",");
     mockGetQuote.mockResolvedValue(null);
 
     const request = createRequest({ symbols });
     await GET(request);
 
-    expect(mockGetQuote).toHaveBeenCalledTimes(50);
+    expect(mockGetQuote).toHaveBeenCalledTimes(500);
   });
 
   it("includes fetchedAt timestamp", async () => {

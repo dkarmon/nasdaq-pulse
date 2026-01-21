@@ -17,7 +17,7 @@ export type LiveQuotesResponse = {
   fetchedAt: string;
 };
 
-const MAX_SYMBOLS = 50;
+const MAX_SYMBOLS = 500;
 
 export async function GET(request: NextRequest): Promise<NextResponse> {
   const symbolsParam = request.nextUrl.searchParams.get("symbols");
