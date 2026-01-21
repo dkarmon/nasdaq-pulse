@@ -335,3 +335,109 @@ export async function getHistoricalData(symbol: string, days: number = 365): Pro
 
   return history;
 }
+
+// Batch quote types and constants
+const SPARK_BATCH_SIZE = 20;
+
+type SparkResponse = Record<
+  string,
+  {
+    symbol: string;
+    chartPreviousClose: number;
+    close: number[];
+    timestamp: number[];
+  }
+>;
+
+export type BatchQuote = {
+  symbol: string;
+  price: number;
+  previousClose: number;
+};
+
+function sleep(ms: number): Promise<void> {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+function parseSparkResponse(data: SparkResponse): Map<string, BatchQuote> {
+  const results = new Map<string, BatchQuote>();
+
+  for (const [symbol, sparkData] of Object.entries(data)) {
+    if (sparkData && sparkData.close && sparkData.close.length > 0) {
+      results.set(symbol, {
+        symbol: sparkData.symbol,
+        price: sparkData.close[sparkData.close.length - 1],
+        previousClose: sparkData.chartPreviousClose,
+      });
+    }
+  }
+
+  return results;
+}
+
+async function fetchSparkBatchWithRetry(
+  symbols: string[],
+  maxRetries = 3
+): Promise<Map<string, BatchQuote>> {
+  for (let attempt = 1; attempt <= maxRetries; attempt++) {
+    try {
+      const url = `${BASE_URL}/v8/finance/spark?symbols=${symbols.join(",")}&interval=1d&range=1d`;
+      const response = await fetch(url, {
+        headers: {
+          "User-Agent":
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}`);
+      }
+
+      const data: SparkResponse = await response.json();
+      return parseSparkResponse(data);
+    } catch (error) {
+      if (attempt === maxRetries) {
+        console.error(
+          `Batch failed after ${maxRetries} retries:`,
+          symbols.slice(0, 3).join(","),
+          "...",
+          error
+        );
+        return new Map();
+      }
+      // Exponential backoff: 100ms, 200ms, 400ms
+      await sleep(100 * Math.pow(2, attempt - 1));
+    }
+  }
+  return new Map();
+}
+
+export async function getBatchQuotes(
+  symbols: string[]
+): Promise<Map<string, BatchQuote>> {
+  if (symbols.length === 0) {
+    return new Map();
+  }
+
+  const results = new Map<string, BatchQuote>();
+
+  // Split into batches of 20
+  const batches: string[][] = [];
+  for (let i = 0; i < symbols.length; i += SPARK_BATCH_SIZE) {
+    batches.push(symbols.slice(i, i + SPARK_BATCH_SIZE));
+  }
+
+  // Fetch all batches in parallel with retry
+  const batchResults = await Promise.all(
+    batches.map((batch) => fetchSparkBatchWithRetry(batch))
+  );
+
+  // Merge results
+  for (const batchResult of batchResults) {
+    for (const [symbol, quote] of batchResult) {
+      results.set(symbol, quote);
+    }
+  }
+
+  return results;
+}
