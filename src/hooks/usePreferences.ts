@@ -1,9 +1,9 @@
-// ABOUTME: Custom hook for persisting user preferences in localStorage.
+// ABOUTME: Custom hook for persisting user preferences in localStorage and Supabase.
 // ABOUTME: Stores screener sort, limit, filter, exchange, and hidden stocks settings.
 
 "use client";
 
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect, useRef } from "react";
 import type { SortPeriod, FilterValue, ScreenerFilters, Exchange } from "@/lib/market-data/types";
 
 export type HiddenSymbols = Record<Exchange, string[]>;
@@ -119,19 +119,102 @@ function savePreferences(prefs: ScreenerPreferences): void {
   }
 }
 
+// Convert local preferences to Supabase format
+function toSupabaseFormat(prefs: ScreenerPreferences) {
+  return {
+    sort_by: prefs.sortBy,
+    display_limit: prefs.limit,
+    filters: prefs.filters,
+    exchange: prefs.exchange,
+    hidden_symbols: prefs.hiddenSymbols,
+    show_recommended_only: prefs.showRecommendedOnly,
+  };
+}
+
+// Convert Supabase format to local preferences
+function fromSupabaseFormat(data: {
+  sort_by?: string;
+  display_limit?: number;
+  filters?: ScreenerFilters;
+  exchange?: string;
+  hidden_symbols?: HiddenSymbols;
+  show_recommended_only?: boolean;
+}): Partial<ScreenerPreferences> {
+  return {
+    sortBy: (data.sort_by as SortPeriod) || defaultPreferences.sortBy,
+    limit: data.display_limit || defaultPreferences.limit,
+    filters: data.filters || defaultPreferences.filters,
+    exchange: (data.exchange as Exchange) || defaultPreferences.exchange,
+    hiddenSymbols: data.hidden_symbols || defaultPreferences.hiddenSymbols,
+    showRecommendedOnly: data.show_recommended_only ?? defaultPreferences.showRecommendedOnly,
+  };
+}
+
+async function syncToSupabase(prefs: ScreenerPreferences): Promise<void> {
+  try {
+    await fetch("/api/preferences", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(toSupabaseFormat(prefs)),
+    });
+  } catch {
+    // Ignore sync errors - localStorage is the fallback
+  }
+}
+
 export function usePreferences() {
   const [preferences, setPreferences] = useState<ScreenerPreferences>(defaultPreferences);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [isSynced, setIsSynced] = useState(false);
+  const syncTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
+  // Load from localStorage immediately, then fetch from Supabase
   useEffect(() => {
-    setPreferences(loadPreferences());
+    const localPrefs = loadPreferences();
+    setPreferences(localPrefs);
     setIsLoaded(true);
+
+    // Fetch from Supabase in background
+    async function fetchFromSupabase() {
+      try {
+        const res = await fetch("/api/preferences");
+        if (res.ok) {
+          const data = await res.json();
+          if (data.preferences) {
+            // Server data wins - merge with local
+            const serverPrefs = fromSupabaseFormat(data.preferences);
+            setPreferences((prev) => {
+              const merged = { ...prev, ...serverPrefs };
+              savePreferences(merged);
+              return merged;
+            });
+          } else {
+            // No server prefs yet - push local to server
+            syncToSupabase(localPrefs);
+          }
+        }
+      } catch {
+        // Ignore - localStorage is the fallback
+      }
+      setIsSynced(true);
+    }
+
+    fetchFromSupabase();
   }, []);
 
   const updatePreferences = useCallback((updates: Partial<ScreenerPreferences>) => {
     setPreferences((prev) => {
       const next = { ...prev, ...updates };
       savePreferences(next);
+
+      // Debounced sync to Supabase
+      if (syncTimeoutRef.current) {
+        clearTimeout(syncTimeoutRef.current);
+      }
+      syncTimeoutRef.current = setTimeout(() => {
+        syncToSupabase(next);
+      }, 1000);
+
       return next;
     });
   }, []);
@@ -151,6 +234,15 @@ export function usePreferences() {
         filters: { ...prev.filters, [period]: value },
       };
       savePreferences(next);
+
+      // Debounced sync to Supabase
+      if (syncTimeoutRef.current) {
+        clearTimeout(syncTimeoutRef.current);
+      }
+      syncTimeoutRef.current = setTimeout(() => {
+        syncToSupabase(next);
+      }, 1000);
+
       return next;
     });
   }, []);
@@ -180,6 +272,10 @@ export function usePreferences() {
         },
       };
       savePreferences(next);
+
+      // Sync to Supabase immediately for hide actions
+      syncToSupabase(next);
+
       return next;
     });
   }, []);
@@ -195,6 +291,10 @@ export function usePreferences() {
         },
       };
       savePreferences(next);
+
+      // Sync to Supabase immediately for unhide actions
+      syncToSupabase(next);
+
       return next;
     });
   }, []);
@@ -231,6 +331,7 @@ export function usePreferences() {
       }
 
       savePreferences(next);
+      syncToSupabase(next);
       return next;
     });
   }, []);
