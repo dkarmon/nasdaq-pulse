@@ -9,7 +9,8 @@ type YahooChartResult = {
       meta: {
         symbol: string;
         regularMarketPrice: number;
-        previousClose: number;
+        previousClose?: number;
+        chartPreviousClose?: number;
         currency: string;
         exchangeName: string;
         longName?: string;
@@ -80,7 +81,7 @@ export async function getQuote(symbol: string): Promise<YahooQuote | null> {
   return {
     symbol: result.meta.symbol,
     price: result.meta.regularMarketPrice,
-    previousClose: result.meta.previousClose,
+    previousClose: result.meta.previousClose ?? result.meta.chartPreviousClose ?? 0,
     name: result.meta.longName || result.meta.shortName || symbol,
     exchange: result.meta.exchangeName,
   };
@@ -280,7 +281,7 @@ export async function getQuoteAndGrowth(symbol: string): Promise<{
     quote: {
       symbol: result.meta.symbol,
       price: result.meta.regularMarketPrice,
-      previousClose: result.meta.previousClose,
+      previousClose: result.meta.previousClose ?? result.meta.chartPreviousClose ?? 0,
       name: result.meta.longName || result.meta.shortName || symbol,
       exchange: result.meta.exchangeName,
     },
