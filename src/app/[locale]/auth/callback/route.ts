@@ -41,6 +41,13 @@ export async function GET(request: Request) {
 
     const { data, error } = await supabase.auth.exchangeCodeForSession(code);
 
+    console.log("Auth callback - code exchange result:", {
+      hasUser: !!data.user,
+      userId: data.user?.id,
+      email: data.user?.email,
+      error: error?.message
+    });
+
     if (!error && data.user) {
       // Wait for cookies to be set (Supabase calls setAll asynchronously)
       await Promise.race([
@@ -60,6 +67,8 @@ export async function GET(request: Request) {
           user_name: userName,
         });
 
+      console.log("Auth callback - RPC result:", { result, rpcError: rpcError?.message });
+
       if (rpcError) {
         console.error("RPC error:", rpcError.message);
         await supabase.auth.signOut();
@@ -67,6 +76,7 @@ export async function GET(request: Request) {
       }
 
       if (result?.status === "denied") {
+        console.log("Auth callback - Access denied by RPC");
         // No invitation and admin exists - deny access
         await supabase.auth.signOut();
         return NextResponse.redirect(`${origin}/denied`);
