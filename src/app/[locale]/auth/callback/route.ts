@@ -50,56 +50,27 @@ export async function GET(request: Request) {
     if (!error && cookiesToSet.length > 0 && data.user) {
       const user = data.user;
       const userEmail = user.email?.toLowerCase();
+      const userName = user.user_metadata?.full_name || user.user_metadata?.name || null;
 
-      // Check if user already has a profile
-      const { data: existingProfile } = await supabase
-        .from("profiles")
-        .select("id")
-        .eq("id", user.id)
-        .single();
-
-      if (!existingProfile) {
-        // New user - check if they're allowed
-        // 1. Check if they have an invitation
-        const { data: invitation } = await supabase
-          .from("invitations")
-          .select("id, role")
-          .eq("email", userEmail)
-          .is("used_at", null)
-          .gt("expires_at", new Date().toISOString())
-          .single();
-
-        // 2. Check if any admin exists (first user becomes admin)
-        const { data: adminExists } = await supabase
-          .from("profiles")
-          .select("id")
-          .eq("role", "admin")
-          .limit(1)
-          .single();
-
-        if (!invitation && adminExists) {
-          // No invitation and admin exists - deny access
-          await supabase.auth.signOut();
-          return NextResponse.redirect(`${origin}/denied`);
-        }
-
-        // Create profile for new user
-        // First user becomes admin, otherwise use invitation role or default to user
-        const role = !adminExists ? "admin" : (invitation?.role || "user");
-        await supabase.from("profiles").insert({
-          id: user.id,
-          email: userEmail,
-          name: user.user_metadata?.full_name || user.user_metadata?.name || null,
-          role,
+      // Use RPC function to check invitation and create profile
+      // This bypasses RLS issues with auth.uid() on Vercel
+      const { data: result, error: rpcError } = await supabase
+        .rpc("check_and_use_invitation", {
+          user_email: userEmail,
+          user_id: user.id,
+          user_name: userName,
         });
 
-        // Mark invitation as used if exists
-        if (invitation) {
-          await supabase
-            .from("invitations")
-            .update({ used_at: new Date().toISOString() })
-            .eq("id", invitation.id);
-        }
+      if (rpcError) {
+        console.error("RPC error:", rpcError.message);
+        await supabase.auth.signOut();
+        return NextResponse.redirect(`${origin}/denied`);
+      }
+
+      if (result?.status === "denied") {
+        // No invitation and admin exists - deny access
+        await supabase.auth.signOut();
+        return NextResponse.redirect(`${origin}/denied`);
       }
 
       const forwardedHost = request.headers.get("x-forwarded-host");
