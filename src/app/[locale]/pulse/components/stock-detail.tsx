@@ -6,7 +6,8 @@
 import { useEffect, useState, useMemo } from "react";
 import { PriceChart } from "./price-chart";
 import { useLiveQuotes } from "@/hooks/useLiveQuotes";
-import type { StockDetailResponse, NewsResponse, NewsItem } from "@/lib/market-data/types";
+import { isStockRecommended } from "@/lib/market-data/recommendation";
+import type { StockDetailResponse, NewsResponse, NewsItem, Stock } from "@/lib/market-data/types";
 import { formatGrowth, formatPrice, formatMarketCap } from "@/lib/format";
 import styles from "./stock-detail.module.css";
 
@@ -38,13 +39,6 @@ type StockDetailProps = {
   };
 };
 
-function isRecommendedStock(growth5d: number | undefined, growth1m: number, growth6m: number, growth12m: number): boolean {
-  if (growth5d === undefined) return false;
-  return growth5d < growth1m &&
-         growth1m < growth6m &&
-         growth6m < growth12m;
-}
-
 function formatTimeAgo(dateString: string): string {
   const date = new Date(dateString);
   const now = new Date();
@@ -71,8 +65,13 @@ export function StockDetail({ symbol, onClose, locale = "en", labels }: StockDet
   // Fetch live quote for this symbol (only when recommended)
   const symbolsToFetch = useMemo(() => {
     if (!detail) return [];
-    const { growth5d, growth1m, growth6m, growth12m } = detail;
-    if (isRecommendedStock(growth5d, growth1m, growth6m, growth12m)) {
+    const stockForCheck = {
+      growth5d: detail.growth5d,
+      growth1m: detail.growth1m,
+      growth6m: detail.growth6m,
+      growth12m: detail.growth12m,
+    } as Stock;
+    if (isStockRecommended(stockForCheck)) {
       return [symbol];
     }
     return [];
@@ -153,7 +152,8 @@ export function StockDetail({ symbol, onClose, locale = "en", labels }: StockDet
           const currency = isTLV ? "ILS" : "USD";
           const primaryText = isTLV && nameHebrew ? nameHebrew : profile.symbol;
           const secondaryText = isTLV ? null : (nameHebrew || profile.name);
-          const isRecommended = isRecommendedStock(growth5d, growth1m, growth6m, growth12m);
+          const stockForCheck = { growth5d, growth1m, growth6m, growth12m } as Stock;
+          const isRecommended = isStockRecommended(stockForCheck);
           return (
             <>
               <div className={styles.symbolRow}>
