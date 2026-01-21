@@ -4,19 +4,6 @@
 import { createClient } from "@/lib/supabase/server";
 import { NextResponse } from "next/server";
 
-async function isAdmin(supabase: Awaited<ReturnType<typeof createClient>>) {
-  const { data: { user } } = await supabase.auth.getUser();
-  if (!user) return false;
-
-  const { data: profile } = await supabase
-    .from("profiles")
-    .select("role")
-    .eq("id", user.id)
-    .single();
-
-  return profile?.role === "admin";
-}
-
 export async function GET() {
   const supabase = await createClient();
 
@@ -39,7 +26,8 @@ export async function GET() {
 export async function POST(request: Request) {
   const supabase = await createClient();
 
-  if (!(await isAdmin(supabase))) {
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 403 });
   }
 
@@ -53,21 +41,20 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Invalid role" }, { status: 400 });
   }
 
-  const { data: { user } } = await supabase.auth.getUser();
-
+  // Use the database function to bypass RLS issues with auth.uid()
   const { data: invitation, error } = await supabase
-    .from("invitations")
-    .insert({
-      email: email.toLowerCase().trim(),
-      invited_by: user?.id,
-      role,
-    })
-    .select()
-    .single();
+    .rpc("create_invitation_for_admin", {
+      admin_user_id: user.id,
+      invite_email: email,
+      invite_role: role,
+    });
 
   if (error) {
-    if (error.code === "23505") {
+    if (error.code === "23505" || error.message.includes("duplicate")) {
       return NextResponse.json({ error: "Email already invited" }, { status: 409 });
+    }
+    if (error.message === "Unauthorized") {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 403 });
     }
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
@@ -78,7 +65,8 @@ export async function POST(request: Request) {
 export async function DELETE(request: Request) {
   const supabase = await createClient();
 
-  if (!(await isAdmin(supabase))) {
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 403 });
   }
 
@@ -89,13 +77,19 @@ export async function DELETE(request: Request) {
     return NextResponse.json({ error: "ID required" }, { status: 400 });
   }
 
-  const { error } = await supabase
-    .from("invitations")
-    .delete()
-    .eq("id", id);
+  // Use the database function to bypass RLS issues with auth.uid()
+  const { data: success, error } = await supabase
+    .rpc("delete_invitation_for_admin", {
+      user_id: user.id,
+      invitation_id: id,
+    });
 
   if (error) {
     return NextResponse.json({ error: error.message }, { status: 500 });
+  }
+
+  if (!success) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 403 });
   }
 
   return NextResponse.json({ success: true });
