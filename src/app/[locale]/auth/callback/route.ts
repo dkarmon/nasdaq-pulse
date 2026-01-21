@@ -13,36 +13,82 @@ export async function GET(request: Request) {
   console.log("Auth callback - code present:", !!code);
   console.log("Auth callback - all params:", Object.fromEntries(searchParams.entries()));
 
-  if (code) {
-    // Collect cookies to set on the response
-    const cookiesToSet: { name: string; value: string; options: CookieOptions }[] = [];
-    let cookiesSetResolve: () => void;
-    const cookiesSetPromise = new Promise<void>((resolve) => {
-      cookiesSetResolve = resolve;
-    });
+  // Create Supabase client early to check for existing session
+  const cookiesToSet: { name: string; value: string; options: CookieOptions }[] = [];
+  let cookiesSetResolve: () => void;
+  const cookiesSetPromise = new Promise<void>((resolve) => {
+    cookiesSetResolve = resolve;
+  });
 
-    const supabase = createServerClient(
-      process.env.NEXT_PUBLIC_SUPABASE_URL!,
-      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-      {
-        cookies: {
-          getAll() {
-            const cookieHeader = request.headers.get("cookie") || "";
-            return cookieHeader.split(";").map((cookie) => {
-              const [name, ...rest] = cookie.trim().split("=");
-              return { name, value: rest.join("=") };
-            }).filter((c) => c.name);
-          },
-          setAll(cookies) {
-            cookies.forEach((cookie) => {
-              cookiesToSet.push(cookie);
-            });
-            cookiesSetResolve();
-          },
+  const supabase = createServerClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    {
+      cookies: {
+        getAll() {
+          const cookieHeader = request.headers.get("cookie") || "";
+          return cookieHeader.split(";").map((cookie) => {
+            const [name, ...rest] = cookie.trim().split("=");
+            return { name, value: rest.join("=") };
+          }).filter((c) => c.name);
         },
-      }
-    );
+        setAll(cookies) {
+          cookies.forEach((cookie) => {
+            cookiesToSet.push(cookie);
+          });
+          cookiesSetResolve();
+        },
+      },
+    }
+  );
 
+  // For magic link flows (like invite emails), session may already be set
+  // Check for existing session first
+  const { data: { user: existingUser } } = await supabase.auth.getUser();
+
+  if (existingUser) {
+    console.log("Auth callback - existing session found for:", existingUser.email);
+
+    // Check/create profile via RPC
+    const { data: result, error: rpcError } = await supabase
+      .rpc("check_and_use_invitation", {
+        user_email: existingUser.email?.toLowerCase(),
+        user_id: existingUser.id,
+        user_name: existingUser.user_metadata?.full_name || existingUser.user_metadata?.name || null,
+      });
+
+    console.log("Auth callback - RPC result for existing user:", { result, rpcError: rpcError?.message });
+
+    if (rpcError) {
+      console.error("RPC error:", rpcError.message);
+      await supabase.auth.signOut();
+      return NextResponse.redirect(`${origin}/denied`);
+    }
+
+    if (result?.status === "denied") {
+      console.log("Auth callback - Access denied by RPC");
+      await supabase.auth.signOut();
+      return NextResponse.redirect(`${origin}/denied`);
+    }
+
+    // Redirect to the app
+    const forwardedHost = request.headers.get("x-forwarded-host");
+    const isLocalEnv = process.env.NODE_ENV === "development";
+
+    let redirectUrl: string;
+    if (isLocalEnv) {
+      redirectUrl = `${origin}${next}`;
+    } else if (forwardedHost) {
+      redirectUrl = `https://${forwardedHost}${next}`;
+    } else {
+      redirectUrl = `${origin}${next}`;
+    }
+
+    return NextResponse.redirect(redirectUrl);
+  }
+
+  if (code) {
+    // Exchange code for session (OAuth flow)
     const { data, error } = await supabase.auth.exchangeCodeForSession(code);
 
     console.log("Auth callback - code exchange result:", {
