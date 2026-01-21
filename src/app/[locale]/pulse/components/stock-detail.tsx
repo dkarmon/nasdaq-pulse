@@ -3,9 +3,11 @@
 
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { PriceChart } from "./price-chart";
-import type { StockDetailResponse, NewsResponse, NewsItem } from "@/lib/market-data/types";
+import { useLiveQuotes } from "@/hooks/useLiveQuotes";
+import { isStockRecommended } from "@/lib/market-data/recommendation";
+import type { StockDetailResponse, NewsResponse, NewsItem, Stock } from "@/lib/market-data/types";
 import { formatGrowth, formatPrice, formatMarketCap } from "@/lib/format";
 import styles from "./stock-detail.module.css";
 
@@ -37,13 +39,6 @@ type StockDetailProps = {
   };
 };
 
-function isRecommendedStock(growth5d: number | undefined, growth1m: number, growth6m: number, growth12m: number): boolean {
-  if (growth5d === undefined) return false;
-  return growth5d < growth1m &&
-         growth1m < growth6m &&
-         growth6m < growth12m;
-}
-
 function formatTimeAgo(dateString: string): string {
   const date = new Date(dateString);
   const now = new Date();
@@ -66,6 +61,23 @@ export function StockDetail({ symbol, onClose, locale = "en", labels }: StockDet
   const [news, setNews] = useState<NewsItem[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+
+  // Fetch live quote for this symbol (only when recommended)
+  const symbolsToFetch = useMemo(() => {
+    if (!detail) return [];
+    const stockForCheck = {
+      growth5d: detail.growth5d,
+      growth1m: detail.growth1m,
+      growth6m: detail.growth6m,
+      growth12m: detail.growth12m,
+    } as Stock;
+    if (isStockRecommended(stockForCheck)) {
+      return [symbol];
+    }
+    return [];
+  }, [detail, symbol]);
+  const { quotes: liveQuotes } = useLiveQuotes(symbolsToFetch);
+  const liveQuote = liveQuotes[symbol];
 
   useEffect(() => {
     async function fetchData() {
@@ -140,13 +152,24 @@ export function StockDetail({ symbol, onClose, locale = "en", labels }: StockDet
           const currency = isTLV ? "ILS" : "USD";
           const primaryText = isTLV && nameHebrew ? nameHebrew : profile.symbol;
           const secondaryText = isTLV ? null : (nameHebrew || profile.name);
+          const stockForCheck = { growth5d, growth1m, growth6m, growth12m } as Stock;
+          const isRecommended = isStockRecommended(stockForCheck);
           return (
             <>
               <div className={styles.symbolRow}>
-                {isRecommendedStock(growth5d, growth1m, growth6m, growth12m) && (
+                {isRecommended && (
                   <span className={styles.starIcon} title={labels.recommended}>★</span>
                 )}
                 <h2 className={styles.symbol}>{primaryText}</h2>
+                {isRecommended && liveQuote && (
+                  <span
+                    className={styles.liveGrowth}
+                    data-positive={liveQuote.changePercent >= 0}
+                    data-negative={liveQuote.changePercent < 0}
+                  >
+                    ({formatGrowth(liveQuote.changePercent)})
+                  </span>
+                )}
                 <span className={styles.priceInline}>({formatPrice(quote.price, currency)})</span>
                 <button
                   className={styles.copyButton}

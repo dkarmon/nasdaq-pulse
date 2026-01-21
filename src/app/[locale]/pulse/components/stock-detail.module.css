@@ -95,6 +95,22 @@
   margin-left: 4px;
 }
 
+.liveGrowth {
+  font-family: var(--font-space-grotesk), var(--font-manrope), system-ui, sans-serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  direction: ltr;
+  unicode-bidi: embed;
+}
+
+.liveGrowth[data-positive="true"] {
+  color: #8df0c7;
+}
+
+.liveGrowth[data-negative="true"] {
+  color: #f8bac8;
+}
+
 .copyButton {
   display: flex;
   align-items: center;

@@ -104,6 +104,22 @@
   cursor: help;
 }
 
+.liveGrowth {
+  font-family: var(--font-space-grotesk), var(--font-manrope), system-ui, sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  direction: ltr;
+  unicode-bidi: embed;
+}
+
+.liveGrowth[data-positive="true"] {
+  color: #8df0c7;
+}
+
+.liveGrowth[data-negative="true"] {
+  color: #f8bac8;
+}
+
 .price {
   font-family: var(--font-space-grotesk), var(--font-manrope), system-ui, sans-serif;
   font-weight: 700;

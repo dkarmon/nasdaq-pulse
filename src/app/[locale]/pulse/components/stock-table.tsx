@@ -6,6 +6,7 @@
 import type { Stock, SortPeriod } from "@/lib/market-data/types";
 import { isStockRecommended } from "@/lib/market-data/recommendation";
 import { formatGrowth, formatPrice } from "@/lib/format";
+import type { QuotesMap } from "@/hooks/useLiveQuotes";
 import styles from "./stock-table.module.css";
 
 type StockTableProps = {
@@ -14,6 +15,7 @@ type StockTableProps = {
   selectedSymbol: string | null;
   onSelectStock: (symbol: string) => void;
   onHideStock: (symbol: string) => void;
+  liveQuotes?: QuotesMap;
   labels: {
     stock: string;
     price: string;
@@ -35,6 +37,7 @@ export function StockTable({
   selectedSymbol,
   onSelectStock,
   onHideStock,
+  liveQuotes = {},
   labels,
 }: StockTableProps) {
   if (stocks.length === 0) {
@@ -61,6 +64,8 @@ export function StockTable({
         <tbody>
           {stocks.map((stock) => {
             const isSelected = selectedSymbol === stock.symbol;
+            const liveQuote = liveQuotes[stock.symbol];
+            const isRecommended = isStockRecommended(stock);
 
             return (
               <tr
@@ -77,12 +82,21 @@ export function StockTable({
                     return (
                       <>
                         <div className={styles.symbolRow}>
-                          {isStockRecommended(stock) && (
+                          {isRecommended && (
                             <span className={styles.starIcon} title={labels.recommended}>
                               ★
                             </span>
                           )}
                           <span className={styles.symbol}>{primaryText}</span>
+                          {isRecommended && liveQuote && (
+                            <span
+                              className={styles.liveGrowth}
+                              data-positive={liveQuote.changePercent >= 0}
+                              data-negative={liveQuote.changePercent < 0}
+                            >
+                              ({formatGrowth(liveQuote.changePercent)})
+                            </span>
+                          )}
                           {stock.hasSplitWarning && (
                             <span className={styles.splitWarning} title="Recent stock split - growth data may be inaccurate">
                               ⚠️
