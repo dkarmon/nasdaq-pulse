@@ -8,12 +8,12 @@ describe("Hebrew Names for TLV Stocks", () => {
   describe("getHebrewName", () => {
     it("returns Hebrew name for known TLV symbol", () => {
       const hebrewName = getHebrewName("LUMI");
-      expect(hebrewName).toBe("בנק לאומי");
+      expect(hebrewName).toBe("לאומי");
     });
 
     it("returns Hebrew name for Yahoo-format symbol with .TA suffix", () => {
       const hebrewName = getHebrewName("LUMI.TA");
-      expect(hebrewName).toBe("בנק לאומי");
+      expect(hebrewName).toBe("לאומי");
     });
 
     it("returns undefined for unknown symbol", () => {

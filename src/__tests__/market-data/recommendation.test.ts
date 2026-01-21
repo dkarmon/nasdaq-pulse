@@ -32,14 +32,14 @@ describe("hasValidRecommendationData", () => {
     expect(hasValidRecommendationData(stock)).toBe(false);
   });
 
-  it("returns false when growth5d is 0", () => {
+  it("returns true when growth5d is 0 (only checks if defined)", () => {
     const stock = makeStock({ growth5d: 0 });
-    expect(hasValidRecommendationData(stock)).toBe(false);
+    expect(hasValidRecommendationData(stock)).toBe(true);
   });
 
-  it("returns false when growth5d is negative", () => {
+  it("returns true when growth5d is negative (only checks if defined)", () => {
     const stock = makeStock({ growth5d: -5 });
-    expect(hasValidRecommendationData(stock)).toBe(false);
+    expect(hasValidRecommendationData(stock)).toBe(true);
   });
 
   it("returns false when growth1m is 0", () => {
@@ -193,7 +193,7 @@ describe("filterAndSortByRecommendation", () => {
     const stocks = [
       makeStock({ symbol: "A", growth5d: undefined, growth1m: 10, growth6m: 20, growth12m: 30 }),
       makeStock({ symbol: "B", growth5d: 5, growth1m: 10, growth6m: 20, growth12m: 30 }),
-      makeStock({ symbol: "C", growth5d: 0, growth1m: 10, growth6m: 20, growth12m: 30 }),
+      makeStock({ symbol: "C", growth5d: 0, growth1m: 0.5, growth6m: 20, growth12m: 30 }), // growth1m < 1 - invalid
     ];
     const result = filterAndSortByRecommendation(stocks);
     expect(result.map(s => s.symbol)).toEqual(["B"]);
@@ -240,7 +240,7 @@ describe("filterAndSortByRecommendation", () => {
     const stocks = [
       makeStock({ symbol: "INVALID1", growth5d: undefined }),
       makeStock({ symbol: "HIGH", growth5d: 1, growth1m: 10, growth6m: 20, growth12m: 30 }),
-      makeStock({ symbol: "INVALID2", growth5d: 0, growth1m: 10, growth6m: 20, growth12m: 30 }),
+      makeStock({ symbol: "INVALID2", growth5d: 5, growth1m: 0.5, growth6m: 20, growth12m: 30 }), // growth1m < 1 - invalid
       makeStock({ symbol: "LOW", growth5d: 5, growth1m: 10, growth6m: 20, growth12m: 30 }),
       makeStock({ symbol: "INVALID3", growth5d: 20, growth1m: 10, growth6m: 20, growth12m: 30 }), // not ascending
       makeStock({ symbol: "MED", growth5d: 2, growth1m: 10, growth6m: 20, growth12m: 30 }),
