@@ -5,6 +5,7 @@
 
 import type { Stock, SortPeriod } from "@/lib/market-data/types";
 import { isStockRecommended } from "@/lib/market-data/recommendation";
+import { formatGrowth, formatPrice } from "@/lib/format";
 import styles from "./stock-card.module.css";
 
 type StockCardProps = {
@@ -16,29 +17,6 @@ type StockCardProps = {
   hideLabel: string;
   recommendedLabel: string;
 };
-
-function formatMarketCap(value: number): string {
-  if (value >= 1e12) {
-    return `${(value / 1e12).toFixed(1)}T`;
-  }
-  if (value >= 1e9) {
-    return `${(value / 1e9).toFixed(0)}B`;
-  }
-  if (value >= 1e6) {
-    return `${(value / 1e6).toFixed(0)}M`;
-  }
-  return value.toLocaleString();
-}
-
-function formatGrowth(value: number): string {
-  const sign = value >= 0 ? "+" : "";
-  return `${sign}${value.toFixed(1)}%`;
-}
-
-function formatPrice(value: number, currency: string = "USD"): string {
-  const symbol = currency === "ILS" ? "₪" : "$";
-  return `${symbol}${value.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
-}
 
 export function StockCard({
   stock,

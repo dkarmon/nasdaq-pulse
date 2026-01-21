@@ -5,6 +5,7 @@
 
 import type { Stock, SortPeriod } from "@/lib/market-data/types";
 import { isStockRecommended } from "@/lib/market-data/recommendation";
+import { formatGrowth, formatPrice } from "@/lib/format";
 import styles from "./stock-table.module.css";
 
 type StockTableProps = {
@@ -27,16 +28,6 @@ type StockTableProps = {
     recommended: string;
   };
 };
-
-function formatGrowth(value: number): string {
-  const sign = value >= 0 ? "+" : "";
-  return `${sign}${value.toFixed(1)}%`;
-}
-
-function formatPrice(value: number, currency: string = "USD"): string {
-  const symbol = currency === "ILS" ? "₪" : "$";
-  return `${symbol}${value.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
-}
 
 export function StockTable({
   stocks,

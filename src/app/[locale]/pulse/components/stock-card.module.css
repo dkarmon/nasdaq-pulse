@@ -135,6 +135,8 @@
   font-family: var(--font-space-grotesk), var(--font-manrope), system-ui, sans-serif;
   font-weight: 700;
   font-size: 1rem;
+  direction: ltr;
+  unicode-bidi: embed;
 }
 
 .growthValue[data-positive="true"] {
