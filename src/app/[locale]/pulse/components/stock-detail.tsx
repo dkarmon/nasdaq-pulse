@@ -235,7 +235,7 @@ export function StockDetail({ symbol, onClose, locale = "en", labels }: StockDet
         </div>
       )}
 
-      <div className={styles.metricsRow}>
+      <div className={styles.metricsRow} dir="ltr">
         <div className={styles.metricCard}>
           <span
             className={styles.metricValue}
