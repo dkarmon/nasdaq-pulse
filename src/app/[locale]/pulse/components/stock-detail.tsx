@@ -6,6 +6,7 @@
 import { useEffect, useState } from "react";
 import { PriceChart } from "./price-chart";
 import type { StockDetailResponse, NewsResponse, NewsItem } from "@/lib/market-data/types";
+import { formatGrowth, formatPrice, formatMarketCap } from "@/lib/format";
 import styles from "./stock-detail.module.css";
 
 type StockDetailProps = {
@@ -43,19 +44,6 @@ function isRecommendedStock(growth5d: number | undefined, growth1m: number, grow
          growth6m < growth12m;
 }
 
-function formatPrice(value: number, currency: string = "USD"): string {
-  const symbol = currency === "ILS" ? "₪" : "$";
-  return `${symbol}${value.toLocaleString(undefined, {
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
-  })}`;
-}
-
-function formatGrowth(value: number): string {
-  const sign = value >= 0 ? "+" : "";
-  return `${sign}${value.toFixed(1)}%`;
-}
-
 function formatTimeAgo(dateString: string): string {
   const date = new Date(dateString);
   const now = new Date();
@@ -71,20 +59,6 @@ function formatTimeAgo(dateString: string): string {
     return `${diffHours}h ago`;
   }
   return `${diffDays}d ago`;
-}
-
-function formatMarketCap(value: number): string {
-  if (value === 0) return "N/A";
-  if (value >= 1_000_000_000_000) {
-    return `$${(value / 1_000_000_000_000).toFixed(2)}T`;
-  }
-  if (value >= 1_000_000_000) {
-    return `$${(value / 1_000_000_000).toFixed(2)}B`;
-  }
-  if (value >= 1_000_000) {
-    return `$${(value / 1_000_000).toFixed(2)}M`;
-  }
-  return `$${value.toLocaleString()}`;
 }
 
 export function StockDetail({ symbol, onClose, locale = "en", labels }: StockDetailProps) {

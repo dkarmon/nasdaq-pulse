@@ -155,6 +155,8 @@
   font-weight: 700;
   font-size: 1.05rem;
   text-align: end;
+  direction: ltr;
+  unicode-bidi: embed;
 }
 
 .growthCell[data-positive="true"] {
