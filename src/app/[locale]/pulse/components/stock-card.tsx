@@ -6,6 +6,7 @@
 import type { Stock, SortPeriod } from "@/lib/market-data/types";
 import { isStockRecommended } from "@/lib/market-data/recommendation";
 import { formatGrowth, formatPrice } from "@/lib/format";
+import type { QuotesMap, LiveQuote } from "@/hooks/useLiveQuotes";
 import styles from "./stock-card.module.css";
 
 type StockCardProps = {
@@ -16,6 +17,7 @@ type StockCardProps = {
   onHide: () => void;
   hideLabel: string;
   recommendedLabel: string;
+  liveQuote?: LiveQuote;
 };
 
 export function StockCard({
@@ -26,7 +28,9 @@ export function StockCard({
   onHide,
   hideLabel,
   recommendedLabel,
+  liveQuote,
 }: StockCardProps) {
+  const isRecommended = isStockRecommended(stock);
 
   return (
     <div
@@ -46,10 +50,19 @@ export function StockCard({
             return (
               <>
                 <span className={styles.symbol}>
-                  {isStockRecommended(stock) && (
+                  {isRecommended && (
                     <span className={styles.starIcon} title={recommendedLabel}>★</span>
                   )}
                   {primaryText}
+                  {isRecommended && liveQuote && (
+                    <span
+                      className={styles.liveGrowth}
+                      data-positive={liveQuote.changePercent >= 0}
+                      data-negative={liveQuote.changePercent < 0}
+                    >
+                      {" "}({formatGrowth(liveQuote.changePercent)})
+                    </span>
+                  )}
                   {stock.hasSplitWarning && (
                     <span className={styles.splitWarning} title="Recent stock split - growth data may be inaccurate"> ⚠️</span>
                   )}
@@ -126,6 +139,7 @@ type StockCardListProps = {
   selectedSymbol: string | null;
   onSelectStock: (symbol: string) => void;
   onHideStock: (symbol: string) => void;
+  liveQuotes?: QuotesMap;
   labels: {
     noStocks: string;
     hide: string;
@@ -139,6 +153,7 @@ export function StockCardList({
   selectedSymbol,
   onSelectStock,
   onHideStock,
+  liveQuotes = {},
   labels,
 }: StockCardListProps) {
   if (stocks.length === 0) {
@@ -161,6 +176,7 @@ export function StockCardList({
           onHide={() => onHideStock(stock.symbol)}
           hideLabel={labels.hide}
           recommendedLabel={labels.recommended}
+          liveQuote={liveQuotes[stock.symbol]}
         />
       ))}
     </div>

@@ -3,12 +3,13 @@
 
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useMemo } from "react";
 import { usePreferences } from "@/hooks/usePreferences";
+import { useLiveQuotes } from "@/hooks/useLiveQuotes";
 import { ControlsBar } from "./controls-bar";
 import { StockTable } from "./stock-table";
 import { StockCardList } from "./stock-card";
-import { filterAndSortByRecommendation } from "@/lib/market-data/recommendation";
+import { filterAndSortByRecommendation, isStockRecommended } from "@/lib/market-data/recommendation";
 import type { Stock, ScreenerResponse } from "@/lib/market-data/types";
 import type { Dictionary } from "@/lib/i18n";
 import styles from "./screener-client.module.css";
@@ -43,6 +44,14 @@ export function ScreenerClient({
   const [stocks, setStocks] = useState<Stock[]>(initialData.stocks);
   const [isLoading, setIsLoading] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+
+  // Get symbols of recommended stocks for live quotes
+  const recommendedSymbols = useMemo(() => {
+    return stocks.filter(isStockRecommended).map((s) => s.symbol);
+  }, [stocks]);
+
+  // Fetch live quotes for recommended stocks
+  const { quotes: liveQuotes } = useLiveQuotes(recommendedSymbols);
 
   const fetchScreenerData = useCallback(async (search?: string) => {
     if (!isLoaded) return;
@@ -153,6 +162,7 @@ export function ScreenerClient({
           selectedSymbol={selectedSymbol}
           onSelectStock={onSelectStock}
           onHideStock={hideStock}
+          liveQuotes={liveQuotes}
           labels={tableLabels}
         />
 
@@ -162,6 +172,7 @@ export function ScreenerClient({
           selectedSymbol={selectedSymbol}
           onSelectStock={onSelectStock}
           onHideStock={hideStock}
+          liveQuotes={liveQuotes}
           labels={cardLabels}
         />
       </div>

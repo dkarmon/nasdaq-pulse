@@ -3,8 +3,9 @@
 
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { PriceChart } from "./price-chart";
+import { useLiveQuotes } from "@/hooks/useLiveQuotes";
 import type { StockDetailResponse, NewsResponse, NewsItem } from "@/lib/market-data/types";
 import { formatGrowth, formatPrice, formatMarketCap } from "@/lib/format";
 import styles from "./stock-detail.module.css";
@@ -66,6 +67,18 @@ export function StockDetail({ symbol, onClose, locale = "en", labels }: StockDet
   const [news, setNews] = useState<NewsItem[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+
+  // Fetch live quote for this symbol (only when recommended)
+  const symbolsToFetch = useMemo(() => {
+    if (!detail) return [];
+    const { growth5d, growth1m, growth6m, growth12m } = detail;
+    if (isRecommendedStock(growth5d, growth1m, growth6m, growth12m)) {
+      return [symbol];
+    }
+    return [];
+  }, [detail, symbol]);
+  const { quotes: liveQuotes } = useLiveQuotes(symbolsToFetch);
+  const liveQuote = liveQuotes[symbol];
 
   useEffect(() => {
     async function fetchData() {
@@ -140,13 +153,23 @@ export function StockDetail({ symbol, onClose, locale = "en", labels }: StockDet
           const currency = isTLV ? "ILS" : "USD";
           const primaryText = isTLV && nameHebrew ? nameHebrew : profile.symbol;
           const secondaryText = isTLV ? null : (nameHebrew || profile.name);
+          const isRecommended = isRecommendedStock(growth5d, growth1m, growth6m, growth12m);
           return (
             <>
               <div className={styles.symbolRow}>
-                {isRecommendedStock(growth5d, growth1m, growth6m, growth12m) && (
+                {isRecommended && (
                   <span className={styles.starIcon} title={labels.recommended}>★</span>
                 )}
                 <h2 className={styles.symbol}>{primaryText}</h2>
+                {isRecommended && liveQuote && (
+                  <span
+                    className={styles.liveGrowth}
+                    data-positive={liveQuote.changePercent >= 0}
+                    data-negative={liveQuote.changePercent < 0}
+                  >
+                    ({formatGrowth(liveQuote.changePercent)})
+                  </span>
+                )}
                 <span className={styles.priceInline}>({formatPrice(quote.price, currency)})</span>
                 <button
                   className={styles.copyButton}
