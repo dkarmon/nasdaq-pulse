@@ -41,13 +41,12 @@ export async function GET(request: Request) {
 
     const { data, error } = await supabase.auth.exchangeCodeForSession(code);
 
-    // Wait for cookies to be set (Supabase calls setAll asynchronously)
-    await Promise.race([
-      cookiesSetPromise,
-      new Promise((resolve) => setTimeout(resolve, 1000)),
-    ]);
-
-    if (!error && cookiesToSet.length > 0 && data.user) {
+    if (!error && data.user) {
+      // Wait for cookies to be set (Supabase calls setAll asynchronously)
+      await Promise.race([
+        cookiesSetPromise,
+        new Promise((resolve) => setTimeout(resolve, 1000)),
+      ]);
       const user = data.user;
       const userEmail = user.email?.toLowerCase();
       const userName = user.user_metadata?.full_name || user.user_metadata?.name || null;
