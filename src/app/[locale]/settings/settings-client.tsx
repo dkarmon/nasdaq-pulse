@@ -18,6 +18,15 @@ type Invitation = {
   used_at: string | null;
 };
 
+type User = {
+  id: string;
+  email: string;
+  name: string | null;
+  role: "user" | "admin";
+  created_at: string;
+  last_login: string | null;
+};
+
 type SettingsClientProps = {
   dict: Dictionary;
   locale: Locale;
@@ -27,14 +36,17 @@ type SettingsClientProps = {
 export function SettingsClient({ dict, locale, isAdmin }: SettingsClientProps) {
   const { preferences, unhideStock } = usePreferences();
   const [invitations, setInvitations] = useState<Invitation[]>([]);
+  const [users, setUsers] = useState<User[]>([]);
   const [newEmail, setNewEmail] = useState("");
   const [newRole, setNewRole] = useState<"user" | "admin">("user");
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
+  const [updatingUserId, setUpdatingUserId] = useState<string | null>(null);
 
   useEffect(() => {
     if (isAdmin) {
       fetchInvitations();
+      fetchUsers();
     }
   }, [isAdmin]);
 
@@ -44,6 +56,27 @@ export function SettingsClient({ dict, locale, isAdmin }: SettingsClientProps) {
       const data = await res.json();
       setInvitations(data.invitations || []);
     }
+  };
+
+  const fetchUsers = async () => {
+    const res = await fetch("/api/admin/users");
+    if (res.ok) {
+      const data = await res.json();
+      setUsers(data.users || []);
+    }
+  };
+
+  const handleRoleChange = async (userId: string, newRole: "user" | "admin") => {
+    setUpdatingUserId(userId);
+    const res = await fetch("/api/admin/users", {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ userId, role: newRole }),
+    });
+    if (res.ok) {
+      fetchUsers();
+    }
+    setUpdatingUserId(null);
   };
 
   const handleInvite = async (e: React.FormEvent) => {
@@ -205,6 +238,40 @@ export function SettingsClient({ dict, locale, isAdmin }: SettingsClientProps) {
                     >
                       {dict.settings.delete}
                     </button>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+
+          <div className={styles.adminSubsection}>
+            <h3 className={styles.exchangeLabel}>{dict.settings.users}</h3>
+
+            {users.length === 0 ? (
+              <p className={styles.empty}>{dict.settings.noUsers}</p>
+            ) : (
+              <ul className={styles.stockList}>
+                {users.map((user) => (
+                  <li key={user.id} className={styles.stockItem}>
+                    <span className={styles.symbol}>{user.email}</span>
+                    <div className={styles.roleToggle}>
+                      <button
+                        type="button"
+                        className={`${styles.roleOption} ${user.role === "user" ? styles.roleOptionActive : ""}`}
+                        onClick={() => handleRoleChange(user.id, "user")}
+                        disabled={updatingUserId === user.id}
+                      >
+                        {dict.settings.user}
+                      </button>
+                      <button
+                        type="button"
+                        className={`${styles.roleOption} ${user.role === "admin" ? styles.roleOptionActive : ""}`}
+                        onClick={() => handleRoleChange(user.id, "admin")}
+                        disabled={updatingUserId === user.id}
+                      >
+                        {dict.settings.adminRole}
+                      </button>
+                    </div>
                   </li>
                 ))}
               </ul>
