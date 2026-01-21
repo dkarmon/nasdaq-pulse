@@ -43,10 +43,14 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 403 });
   }
 
-  const { email } = await request.json();
+  const { email, role = "user" } = await request.json();
 
   if (!email || typeof email !== "string") {
     return NextResponse.json({ error: "Email required" }, { status: 400 });
+  }
+
+  if (role !== "user" && role !== "admin") {
+    return NextResponse.json({ error: "Invalid role" }, { status: 400 });
   }
 
   const { data: { user } } = await supabase.auth.getUser();
@@ -56,6 +60,7 @@ export async function POST(request: Request) {
     .insert({
       email: email.toLowerCase().trim(),
       invited_by: user?.id,
+      role,
     })
     .select()
     .single();

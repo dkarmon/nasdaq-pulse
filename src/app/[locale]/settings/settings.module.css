@@ -165,6 +165,29 @@
   font-size: 0.9rem;
 }
 
+.role {
+  color: var(--accent);
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.roleSelect {
+  padding: 10px 14px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--foreground);
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.roleSelect:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
 .exchangeSection + .adminSubsection,
 .section + .section {
   margin-top: 24px;

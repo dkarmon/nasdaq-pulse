@@ -12,6 +12,7 @@ import styles from "./settings.module.css";
 type Invitation = {
   id: string;
   email: string;
+  role: "user" | "admin";
   created_at: string;
   expires_at: string;
   used_at: string | null;
@@ -27,6 +28,7 @@ export function SettingsClient({ dict, locale, isAdmin }: SettingsClientProps) {
   const { preferences, unhideStock } = usePreferences();
   const [invitations, setInvitations] = useState<Invitation[]>([]);
   const [newEmail, setNewEmail] = useState("");
+  const [newRole, setNewRole] = useState<"user" | "admin">("user");
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
 
@@ -54,12 +56,13 @@ export function SettingsClient({ dict, locale, isAdmin }: SettingsClientProps) {
     const res = await fetch("/api/admin/invitations", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email: newEmail.trim() }),
+      body: JSON.stringify({ email: newEmail.trim(), role: newRole }),
     });
 
     if (res.ok) {
       setMessage(dict.settings.inviteSent);
       setNewEmail("");
+      setNewRole("user");
       fetchInvitations();
     } else {
       const data = await res.json();
@@ -160,6 +163,15 @@ export function SettingsClient({ dict, locale, isAdmin }: SettingsClientProps) {
                 disabled={loading}
                 className={styles.inviteInput}
               />
+              <select
+                value={newRole}
+                onChange={(e) => setNewRole(e.target.value as "user" | "admin")}
+                disabled={loading}
+                className={styles.roleSelect}
+              >
+                <option value="user">{dict.settings.user}</option>
+                <option value="admin">{dict.settings.adminRole}</option>
+              </select>
               <button type="submit" disabled={loading} className={styles.inviteButton}>
                 {dict.settings.invite}
               </button>
@@ -174,6 +186,9 @@ export function SettingsClient({ dict, locale, isAdmin }: SettingsClientProps) {
                 {invitations.map((inv) => (
                   <li key={inv.id} className={styles.stockItem}>
                     <span className={styles.symbol}>{inv.email}</span>
+                    <span className={styles.role}>
+                      {inv.role === "admin" ? dict.settings.adminRole : dict.settings.user}
+                    </span>
                     <span className={styles.status}>{getInvitationStatus(inv)}</span>
                     <button
                       className={styles.unhideButton}

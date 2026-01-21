@@ -63,7 +63,7 @@ export async function GET(request: Request) {
         // 1. Check if they have an invitation
         const { data: invitation } = await supabase
           .from("invitations")
-          .select("id")
+          .select("id, role")
           .eq("email", userEmail)
           .is("used_at", null)
           .gt("expires_at", new Date().toISOString())
@@ -84,7 +84,8 @@ export async function GET(request: Request) {
         }
 
         // Create profile for new user
-        const role = !adminExists ? "admin" : "user";
+        // First user becomes admin, otherwise use invitation role or default to user
+        const role = !adminExists ? "admin" : (invitation?.role || "user");
         await supabase.from("profiles").insert({
           id: user.id,
           email: userEmail,
