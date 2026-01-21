@@ -163,15 +163,24 @@ export function SettingsClient({ dict, locale, isAdmin }: SettingsClientProps) {
                 disabled={loading}
                 className={styles.inviteInput}
               />
-              <select
-                value={newRole}
-                onChange={(e) => setNewRole(e.target.value as "user" | "admin")}
-                disabled={loading}
-                className={styles.roleSelect}
-              >
-                <option value="user">{dict.settings.user}</option>
-                <option value="admin">{dict.settings.adminRole}</option>
-              </select>
+              <div className={styles.roleToggle}>
+                <button
+                  type="button"
+                  className={`${styles.roleOption} ${newRole === "user" ? styles.roleOptionActive : ""}`}
+                  onClick={() => setNewRole("user")}
+                  disabled={loading}
+                >
+                  {dict.settings.user}
+                </button>
+                <button
+                  type="button"
+                  className={`${styles.roleOption} ${newRole === "admin" ? styles.roleOptionActive : ""}`}
+                  onClick={() => setNewRole("admin")}
+                  disabled={loading}
+                >
+                  {dict.settings.adminRole}
+                </button>
+              </div>
               <button type="submit" disabled={loading} className={styles.inviteButton}>
                 {dict.settings.invite}
               </button>
