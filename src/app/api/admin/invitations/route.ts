@@ -20,20 +20,20 @@ async function isAdmin(supabase: Awaited<ReturnType<typeof createClient>>) {
 export async function GET() {
   const supabase = await createClient();
 
-  if (!(await isAdmin(supabase))) {
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 403 });
   }
 
+  // Use the database function to bypass RLS issues with auth.uid()
   const { data: invitations, error } = await supabase
-    .from("invitations")
-    .select("*")
-    .order("created_at", { ascending: false });
+    .rpc("get_invitations_for_admin", { user_id: user.id });
 
   if (error) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 
-  return NextResponse.json({ invitations });
+  return NextResponse.json({ invitations: invitations || [] });
 }
 
 export async function POST(request: Request) {
