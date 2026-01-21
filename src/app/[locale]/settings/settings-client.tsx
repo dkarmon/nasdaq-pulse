@@ -283,12 +283,14 @@ export function SettingsClient({ dict, locale, isAdmin }: SettingsClientProps) {
                         {dict.settings.adminRole}
                       </button>
                     </div>
-                    <button
-                      className={styles.unhideButton}
-                      onClick={() => handleDeleteUser(user.id)}
-                    >
-                      {dict.settings.delete}
-                    </button>
+                    {user.role !== "admin" && (
+                      <button
+                        className={styles.unhideButton}
+                        onClick={() => handleDeleteUser(user.id)}
+                      >
+                        {dict.settings.delete}
+                      </button>
+                    )}
                   </li>
                 ))}
               </ul>
