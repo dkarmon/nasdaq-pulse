@@ -1,7 +1,7 @@
 // ABOUTME: Settings page server component.
 // ABOUTME: Displays settings UI for managing hidden stocks.
 
-import { auth } from "@/auth";
+import { createClient } from "@/lib/supabase/server";
 import { Locale, defaultLocale, getDictionary, isRTL, locales } from "@/lib/i18n";
 import { LocaleSwitcher } from "@/components/locale-switcher";
 import { SignOutButton } from "@/components/sign-out";
@@ -23,7 +23,9 @@ export default async function SettingsPage({ params }: SettingsPageProps) {
     : defaultLocale;
   const dict = getDictionary(locale);
   const rtl = isRTL(locale);
-  const session = await auth();
+
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
 
   return (
     <div className="page-shell" dir={rtl ? "rtl" : "ltr"} data-dir={rtl ? "rtl" : "ltr"}>
@@ -44,8 +46,8 @@ export default async function SettingsPage({ params }: SettingsPageProps) {
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
             <LocaleSwitcher locale={locale} />
-            {session?.user?.email && (
-              <span className="badge">{session.user.email}</span>
+            {user?.email && (
+              <span className="badge">{user.email}</span>
             )}
             <SignOutButton label={dict.app.logout} />
           </div>

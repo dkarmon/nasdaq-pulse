@@ -98,6 +98,7 @@ export type Dictionary = {
     deniedTitle: string;
     deniedBody: string;
     back: string;
+    checkEmail: string;
   };
 };
 
@@ -241,6 +242,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
       deniedBody:
         "Your Google account is not on the approved list. Contact the admin or try a different email.",
       back: "Back to landing",
+      checkEmail: "Check your email for the login link!",
     },
   },
   he: {
@@ -378,6 +380,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
       deniedTitle: "אין הרשאה",
       deniedBody: "החשבון אינו מורשה. פנו למנהל או התחברו עם מייל מאושר.",
       back: "חזרה לעמוד הראשי",
+      checkEmail: "בדקו את המייל - שלחנו לכם קישור להתחברות!",
     },
   },
 };

@@ -1,5 +1,20 @@
-export { auth as middleware } from "@/auth";
+// ABOUTME: Next.js middleware for Supabase Auth session management.
+// ABOUTME: Protects routes and refreshes auth tokens automatically.
+
+import { type NextRequest } from "next/server";
+import { updateSession } from "@/lib/supabase/middleware";
+
+export async function middleware(request: NextRequest) {
+  return await updateSession(request);
+}
 
 export const config = {
-  matcher: ["/en/pulse/:path*", "/he/pulse/:path*", "/api/stocks/:path*", "/api/news/:path*"],
+  matcher: [
+    "/en/pulse/:path*",
+    "/he/pulse/:path*",
+    "/en/settings/:path*",
+    "/he/settings/:path*",
+    "/api/stocks/:path*",
+    "/api/news/:path*",
+  ],
 };
