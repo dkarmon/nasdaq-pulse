@@ -3,114 +3,70 @@
 
 "use client";
 
-import { Suspense, useEffect, useState } from "react";
+import { Suspense, useEffect, useState, useRef } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
+import type { User } from "@supabase/supabase-js";
 
 function AuthCallbackContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [status, setStatus] = useState("Processing authentication...");
+  const processedRef = useRef(false);
 
   useEffect(() => {
-    const handleAuth = async () => {
-      const supabase = createClient();
-      const next = searchParams.get("next") ?? "/en/pulse";
+    if (processedRef.current) return;
 
-      try {
-        // Get the current session - this handles both:
-        // 1. OAuth code exchange (PKCE flow)
-        // 2. Token extraction from URL fragment (implicit flow)
-        const { data: { session }, error: sessionError } = await supabase.auth.getSession();
+    const supabase = createClient();
+    const next = searchParams.get("next") ?? "/en/pulse";
 
-        if (sessionError) {
-          console.error("Auth callback - session error:", sessionError.message);
-          router.push("/denied");
-          return;
-        }
+    const processUser = async (user: User) => {
+      if (processedRef.current) return;
+      processedRef.current = true;
 
-        if (!session?.user) {
-          // No session yet - might need to wait for fragment processing
-          // The Supabase client should auto-detect fragments
-          // Wait a moment and try again
-          await new Promise((resolve) => setTimeout(resolve, 500));
-
-          const { data: { session: retrySession } } = await supabase.auth.getSession();
-
-          if (!retrySession?.user) {
-            console.error("Auth callback - no session after retry");
-            router.push("/denied");
-            return;
-          }
-
-          // Continue with retry session
-          await processUser(supabase, retrySession.user, next);
-          return;
-        }
-
-        await processUser(supabase, session.user, next);
-      } catch (error) {
-        console.error("Auth callback - unexpected error:", error);
-        router.push("/denied");
-      }
-    };
-
-    const processUser = async (
-      supabase: ReturnType<typeof createClient>,
-      user: { id: string; email?: string; user_metadata?: Record<string, unknown> },
-      next: string
-    ) => {
       setStatus("Verifying access...");
 
-      // Check if user already has a profile
-      const { data: profile } = await supabase
-        .from("profiles")
-        .select("id")
-        .eq("id", user.id)
-        .single();
+      // Check if user already has a profile using RPC to avoid RLS timing issues
+      const { data: result, error: rpcError } = await supabase
+        .rpc("check_and_use_invitation", {
+          user_email: user.email?.toLowerCase(),
+          user_id: user.id,
+          user_name: (user.user_metadata?.full_name || user.user_metadata?.name || null) as string | null,
+          invited_role: (user.user_metadata?.invited_role as string) || "user",
+        });
 
-      if (profile) {
-        // Existing user - let them in
-        setStatus("Redirecting...");
-        router.push(next);
-        return;
-      }
+      console.log("Auth callback - RPC result:", { result, error: rpcError?.message });
 
-      // No profile - check if they were invited
-      const invitedRole = user.user_metadata?.invited_role as string | undefined;
-      const wasInvited = invitedRole || user.user_metadata?.invited_at;
+      if (rpcError) {
+        console.error("Auth callback - RPC error:", rpcError.message);
 
-      if (!wasInvited) {
-        // Not invited - check if first user (becomes admin)
-        const { count } = await supabase
+        // Check if this is a "user already exists" scenario
+        // The RPC should handle this gracefully, but if not, check directly
+        const { data: profile } = await supabase
           .from("profiles")
-          .select("*", { count: "exact", head: true });
+          .select("id")
+          .eq("id", user.id)
+          .maybeSingle();
 
-        if (count && count > 0) {
-          // Other users exist, this person isn't invited
-          console.log("Auth callback - Access denied: not invited and not first user");
+        if (profile) {
+          // Profile exists, let them in
+          setStatus("Redirecting...");
+          router.push(next);
+          return;
+        }
+
+        // Check if user was invited (has metadata from invite)
+        const wasInvited = user.user_metadata?.invited_role || user.user_metadata?.invited_at;
+        if (!wasInvited) {
+          // Not invited - deny access
+          console.log("Auth callback - Access denied: RPC failed and user not invited");
           await supabase.auth.signOut();
           router.push("/denied");
           return;
         }
-      }
 
-      // Create profile via RPC
-      const userEmail = user.email?.toLowerCase();
-      const userName = (user.user_metadata?.full_name || user.user_metadata?.name || null) as string | null;
-
-      const { data: result, error: rpcError } = await supabase
-        .rpc("check_and_use_invitation", {
-          user_email: userEmail,
-          user_id: user.id,
-          user_name: userName,
-          invited_role: invitedRole || "user",
-        });
-
-      console.log("Auth callback - RPC result:", { result, rpcError: rpcError?.message });
-
-      if (rpcError) {
-        console.error("RPC error:", rpcError.message);
+        // User was invited but RPC failed - something unexpected
+        console.error("Auth callback - Unexpected RPC failure for invited user");
         await supabase.auth.signOut();
         router.push("/denied");
         return;
@@ -121,7 +77,52 @@ function AuthCallbackContent() {
       router.push(next);
     };
 
-    handleAuth();
+    // Set up auth state listener FIRST
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(
+      async (event, session) => {
+        console.log("Auth callback - auth state change:", event, session?.user?.email);
+
+        if (event === "SIGNED_IN" && session?.user) {
+          await processUser(session.user);
+        }
+      }
+    );
+
+    // Also check for existing session (handles page reload, PKCE callback, etc.)
+    const checkExistingSession = async () => {
+      // Give the client a moment to process URL fragments
+      await new Promise((resolve) => setTimeout(resolve, 100));
+
+      const { data: { session }, error } = await supabase.auth.getSession();
+
+      if (error) {
+        console.error("Auth callback - getSession error:", error.message);
+        return;
+      }
+
+      if (session?.user && !processedRef.current) {
+        await processUser(session.user);
+      } else if (!session?.user) {
+        // No session yet - wait a bit longer for implicit flow
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+
+        const { data: { session: retrySession } } = await supabase.auth.getSession();
+
+        if (retrySession?.user && !processedRef.current) {
+          await processUser(retrySession.user);
+        } else if (!processedRef.current) {
+          console.error("Auth callback - no session after waiting");
+          processedRef.current = true;
+          router.push("/denied");
+        }
+      }
+    };
+
+    checkExistingSession();
+
+    return () => {
+      subscription.unsubscribe();
+    };
   }, [router, searchParams]);
 
   return (
