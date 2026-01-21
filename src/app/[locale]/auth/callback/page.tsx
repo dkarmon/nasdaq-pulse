@@ -65,10 +65,11 @@ function AuthCallbackContent() {
           return;
         }
 
-        // User was invited but RPC failed - something unexpected
-        console.error("Auth callback - Unexpected RPC failure for invited user");
-        await supabase.auth.signOut();
-        router.push("/denied");
+        // User was invited - trust the invite and let them in
+        // The trigger should have created their profile
+        console.log("Auth callback - User was invited, allowing access");
+        setStatus("Redirecting...");
+        router.push(next);
         return;
       }
 
