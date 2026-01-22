@@ -170,7 +170,7 @@ export function StockDetail({ symbol, onClose, locale = "en", labels }: StockDet
                     ({formatGrowth(liveQuote.changePercent)})
                   </span>
                 )}
-                <span className={styles.priceInline}>({formatPrice(quote.price, currency)})</span>
+                <span className={styles.priceInline}>({formatPrice(liveQuote?.price ?? quote.price, currency)})</span>
                 <button
                   className={styles.copyButton}
                   onClick={() => navigator.clipboard.writeText(profile.symbol)}
