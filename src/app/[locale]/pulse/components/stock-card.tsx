@@ -73,7 +73,7 @@ export function StockCard({
           })()}
         </div>
         <div className={styles.headerRight}>
-          <span className={styles.price}>{formatPrice(stock.price, stock.currency)}</span>
+          <span className={styles.price}>{formatPrice(liveQuote?.price ?? stock.price, stock.currency)}</span>
           <button
             className={styles.hideButton}
             onClick={(e) => {
