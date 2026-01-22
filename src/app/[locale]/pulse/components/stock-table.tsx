@@ -129,7 +129,7 @@ export function StockTable({
                   })()}
                 </td>
                 <td className={styles.priceCell}>
-                  {formatPrice(stock.price, stock.currency)}
+                  {formatPrice(liveQuote?.price ?? stock.price, stock.currency)}
                 </td>
                 <td
                   className={styles.growthCell}
