@@ -64,6 +64,7 @@ export async function getCompanyProfile(
       profile = {
         ...profile,
         sector: companyInfo.sector,
+        ...(companyInfo.industry && { industry: companyInfo.industry }),
         description: companyInfo.description,
         descriptionHebrew: companyInfo.descriptionHebrew,
       };
