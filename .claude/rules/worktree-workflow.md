@@ -15,18 +15,42 @@ CHECK: git branch --show-current
 
 ## Creating a Worktree
 
-When you need to work on a new feature or fix:
+Use the helper script to create a new worktree with all dependencies configured:
 
 ```bash
-# 1. Create branch and worktree in one command
+./scripts/new-worktree.sh <branch-name>
+cd .worktrees/<branch-name>
+```
+
+The script automatically:
+- Creates the git worktree and branch
+- Symlinks `.env.local` from the main repo (credentials stay in one place)
+- Runs `npm install`
+
+### Manual Worktree Creation
+
+If you need to create a worktree manually:
+
+```bash
+# 1. Create branch and worktree
 git worktree add .worktrees/<branch-name> -b <branch-name>
 
 # 2. Change to the worktree directory
 cd .worktrees/<branch-name>
 
-# 3. Install dependencies (node_modules are not shared)
+# 3. Symlink .env.local from main repo
+ln -s "$(git rev-parse --show-toplevel)/../.env.local" .env.local
+
+# 4. Install dependencies
 npm install
 ```
+
+## Environment Variables
+
+Worktrees use symlinked `.env.local` files pointing to the main repo:
+- Credentials are managed in one place
+- Changes to env vars apply to all worktrees immediately
+- No risk of credential drift between worktrees
 
 ## Branch Naming Conventions
 
@@ -63,13 +87,16 @@ cd /home/danny/projects/active/nasdaq-pulse
 # Remove the worktree
 git worktree remove .worktrees/<branch-name>
 
-# Delete the remote branch (if not auto-deleted by PR merge)
+# Delete the local branch (if not auto-deleted)
 git branch -d <branch-name>
 ```
 
 ## Quick Reference
 
 ```bash
+# Create new worktree (recommended)
+./scripts/new-worktree.sh feature/my-feature
+
 # List all worktrees
 git worktree list
 
