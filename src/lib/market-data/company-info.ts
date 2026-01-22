@@ -5,6 +5,7 @@ import companyInfoData from "./company-info.json";
 
 export type CompanyInfo = {
   sector?: string;
+  industry?: string;
   description?: string;
   descriptionHebrew?: string;
 };
