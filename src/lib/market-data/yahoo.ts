@@ -87,7 +87,7 @@ export async function getQuote(symbol: string): Promise<YahooQuote | null> {
   };
 }
 
-function calculateGrowthByCalendarMonths(
+export function calculateGrowthByCalendarMonths(
   prices: number[],
   timestamps: number[],
   monthsAgo: number
@@ -101,16 +101,15 @@ function calculateGrowthByCalendarMonths(
   targetDate.setMonth(targetDate.getMonth() - monthsAgo);
   const targetTime = targetDate.getTime();
 
-  // Find the price at the trading day on or after target date (Google's method)
+  // Find the price at the last trading day on or BEFORE target date.
+  // This gives us the full growth period.
   let targetIdx = 0;
   for (let i = 0; i < timestamps.length; i++) {
-    if (timestamps[i] * 1000 >= targetTime && prices[i] !== undefined) {
+    if (timestamps[i] * 1000 <= targetTime && prices[i] !== undefined) {
       targetIdx = i;
+    } else if (timestamps[i] * 1000 > targetTime) {
+      // Once we pass the target time, stop looking
       break;
-    }
-    // Keep track of the last valid index in case target is before all data
-    if (prices[i] !== undefined) {
-      targetIdx = i;
     }
   }
 
@@ -120,7 +119,7 @@ function calculateGrowthByCalendarMonths(
   return ((currentPrice - pastPrice) / pastPrice) * 100;
 }
 
-function calculateGrowthByDays(
+export function calculateGrowthByDays(
   prices: number[],
   timestamps: number[],
   daysAgo: number
@@ -134,16 +133,16 @@ function calculateGrowthByDays(
   targetDate.setDate(targetDate.getDate() - daysAgo);
   const targetTime = targetDate.getTime();
 
-  // Find the price at the trading day on or after target date
+  // Find the price at the last trading day on or BEFORE target date.
+  // This gives us the full growth period (e.g., if 5 days ago was Saturday,
+  // use Friday's close, not Monday's, to capture the full 5-day growth).
   let targetIdx = 0;
   for (let i = 0; i < timestamps.length; i++) {
-    if (timestamps[i] * 1000 >= targetTime && prices[i] !== undefined) {
+    if (timestamps[i] * 1000 <= targetTime && prices[i] !== undefined) {
       targetIdx = i;
+    } else if (timestamps[i] * 1000 > targetTime) {
+      // Once we pass the target time, stop looking
       break;
-    }
-    // Keep track of the last valid index in case target is before all data
-    if (prices[i] !== undefined) {
-      targetIdx = i;
     }
   }
 
