@@ -68,3 +68,12 @@ Before merging any branch:
 - Prefer MCP tools over CLI when both are available (e.g., Vercel MCP, Supabase MCP)
 - For testing loops, use concrete completion criteria that can be verified
 - For browser automation, prefer connecting to existing browser instances over starting new ones
+
+## Browser Testing
+
+When running UI verification or flow testing for this app:
+
+1. Run pre-flight check for dev-browser (see global CLAUDE.md)
+2. The app runs on `http://localhost:3000` (start with `npm run dev` if needed)
+3. Use named pages like `"nasdaq-home"`, `"stock-detail-AAPL"` for different views
+4. After testing, disconnect but leave relay running for future tests
