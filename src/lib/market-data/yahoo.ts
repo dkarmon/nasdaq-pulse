@@ -238,15 +238,20 @@ export async function getQuoteAndGrowth(symbol: string): Promise<{
   history: HistoricalDataPoint[];
   hasSplitWarning: boolean;
 } | null> {
-  // Single API call gets quote and historical data
-  const url = `${BASE_URL}/v8/finance/chart/${symbol}?interval=1d&range=1y`;
-  const data = await fetchYahoo<YahooChartResult>(url);
+  // Fetch both 1y (for growth/history) and 1d (for accurate previousClose) data
+  const yearUrl = `${BASE_URL}/v8/finance/chart/${symbol}?interval=1d&range=1y`;
+  const dayUrl = `${BASE_URL}/v8/finance/chart/${symbol}?interval=1d&range=1d`;
 
-  if (!data || data.chart.error || !data.chart.result) {
+  const [yearData, dayData] = await Promise.all([
+    fetchYahoo<YahooChartResult>(yearUrl),
+    fetchYahoo<YahooChartResult>(dayUrl),
+  ]);
+
+  if (!yearData || yearData.chart.error || !yearData.chart.result) {
     return null;
   }
 
-  const result = data.chart.result[0];
+  const result = yearData.chart.result[0];
   const quotes = result.indicators.quote[0];
 
   // Build aligned arrays of prices and timestamps (excluding null prices)
@@ -276,11 +281,19 @@ export async function getQuoteAndGrowth(symbol: string): Promise<{
   // Detect likely stock split (>200% single-day change in last 30 days)
   const hasSplitWarning = detectLikelySplit(closePrices, 30);
 
+  // Get previousClose from 1d data (accurate) or fall back to 1y data
+  const dayResult = dayData?.chart.result?.[0];
+  const previousClose =
+    dayResult?.meta.chartPreviousClose ??
+    result.meta.previousClose ??
+    result.meta.chartPreviousClose ??
+    0;
+
   return {
     quote: {
       symbol: result.meta.symbol,
       price: result.meta.regularMarketPrice,
-      previousClose: result.meta.previousClose ?? result.meta.chartPreviousClose ?? 0,
+      previousClose,
       name: result.meta.longName || result.meta.shortName || symbol,
       exchange: result.meta.exchangeName,
     },
