@@ -95,15 +95,8 @@ export type NewsResponse = {
   updatedAt: string;
 };
 
-export type FilterPreset = "any" | "5" | "10" | "25";
-
-export type FilterValue = FilterPreset | number;
-
 export type ScreenerFilters = {
-  max5d: FilterValue;
-  max1m: FilterValue;
-  max6m: FilterValue;
-  max12m: FilterValue;
+  minPrice: number | null;
 };
 
 export type ScreenerParams = {

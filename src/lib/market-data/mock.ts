@@ -451,25 +451,13 @@ function generateHistoricalData(
 }
 
 function applyFilters(stocks: Stock[], params: ScreenerParams): Stock[] {
-  const filterValue = (value: string | number): number => {
-    if (value === "any") return Infinity;
-    if (typeof value === "number") return value;
-    return parseFloat(value);
-  };
+  const minPrice = params.filters.minPrice;
 
-  return stocks.filter((stock) => {
-    const max5d = filterValue(params.filters.max5d);
-    const max1m = filterValue(params.filters.max1m);
-    const max6m = filterValue(params.filters.max6m);
-    const max12m = filterValue(params.filters.max12m);
+  if (minPrice === null) {
+    return stocks;
+  }
 
-    return (
-      (stock.growth5d ?? 0) <= max5d &&
-      stock.growth1m <= max1m &&
-      stock.growth6m <= max6m &&
-      stock.growth12m <= max12m
-    );
-  });
+  return stocks.filter((stock) => stock.price >= minPrice);
 }
 
 function sortStocks(stocks: Stock[], sortBy: string): Stock[] {

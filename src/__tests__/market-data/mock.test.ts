@@ -16,7 +16,7 @@ describe("Mock Market Data Provider", () => {
       const params: ScreenerParams = {
         sortBy: "1m",
         limit: 10,
-        filters: { max5d: "any", max1m: "any", max6m: "any", max12m: "any" },
+        filters: { minPrice: null },
         exchange: "nasdaq",
       };
 
@@ -37,7 +37,7 @@ describe("Mock Market Data Provider", () => {
       const params: ScreenerParams = {
         sortBy: "6m",
         limit: 10,
-        filters: { max5d: "any", max1m: "any", max6m: "any", max12m: "any" },
+        filters: { minPrice: null },
         exchange: "nasdaq",
       };
 
@@ -54,7 +54,7 @@ describe("Mock Market Data Provider", () => {
       const params: ScreenerParams = {
         sortBy: "12m",
         limit: 10,
-        filters: { max5d: "any", max1m: "any", max6m: "any", max12m: "any" },
+        filters: { minPrice: null },
         exchange: "nasdaq",
       };
 
@@ -71,7 +71,7 @@ describe("Mock Market Data Provider", () => {
       const params: ScreenerParams = {
         sortBy: "1m",
         limit: 5,
-        filters: { max5d: "any", max1m: "any", max6m: "any", max12m: "any" },
+        filters: { minPrice: null },
         exchange: "nasdaq",
       };
 
@@ -80,66 +80,42 @@ describe("Mock Market Data Provider", () => {
       expect(result.stocks).toHaveLength(5);
     });
 
-    it("filters by max 1m growth", () => {
+    it("filters by minimum price", () => {
       const params: ScreenerParams = {
         sortBy: "1m",
         limit: 100,
-        filters: { max5d: "any", max1m: "10", max6m: "any", max12m: "any" },
+        filters: { minPrice: 100 },
         exchange: "nasdaq",
       };
 
       const result = getScreenerData(params);
 
       for (const stock of result.stocks) {
-        expect(stock.growth1m).toBeLessThanOrEqual(10);
+        expect(stock.price).toBeGreaterThanOrEqual(100);
       }
     });
 
-    it("filters by max 6m growth", () => {
-      const params: ScreenerParams = {
-        sortBy: "6m",
-        limit: 100,
-        filters: { max5d: "any", max1m: "any", max6m: "25", max12m: "any" },
-        exchange: "nasdaq",
-      };
-
-      const result = getScreenerData(params);
-
-      for (const stock of result.stocks) {
-        expect(stock.growth6m).toBeLessThanOrEqual(25);
-      }
-    });
-
-    it("filters by max 12m growth", () => {
-      const params: ScreenerParams = {
-        sortBy: "12m",
-        limit: 100,
-        filters: { max5d: "any", max1m: "any", max6m: "any", max12m: 50 },
-        exchange: "nasdaq",
-      };
-
-      const result = getScreenerData(params);
-
-      for (const stock of result.stocks) {
-        expect(stock.growth12m).toBeLessThanOrEqual(50);
-      }
-    });
-
-    it("combines multiple filters", () => {
-      const params: ScreenerParams = {
+    it("returns all stocks when minPrice is null", () => {
+      const paramsWithFilter: ScreenerParams = {
         sortBy: "1m",
         limit: 100,
-        filters: { max5d: "any", max1m: "5", max6m: "10", max12m: "25" },
+        filters: { minPrice: 500 },
         exchange: "nasdaq",
       };
 
-      const result = getScreenerData(params);
+      const paramsWithoutFilter: ScreenerParams = {
+        sortBy: "1m",
+        limit: 100,
+        filters: { minPrice: null },
+        exchange: "nasdaq",
+      };
 
-      for (const stock of result.stocks) {
-        expect(stock.growth1m).toBeLessThanOrEqual(5);
-        expect(stock.growth6m).toBeLessThanOrEqual(10);
-        expect(stock.growth12m).toBeLessThanOrEqual(25);
-      }
+      const filteredResult = getScreenerData(paramsWithFilter);
+      const unfilteredResult = getScreenerData(paramsWithoutFilter);
+
+      expect(unfilteredResult.stocks.length).toBeGreaterThanOrEqual(
+        filteredResult.stocks.length
+      );
     });
   });
 

@@ -4,7 +4,7 @@
 "use client";
 
 import { useState, useCallback, useEffect, useRef } from "react";
-import type { SortPeriod, FilterValue, ScreenerFilters, Exchange } from "@/lib/market-data/types";
+import type { SortPeriod, ScreenerFilters, Exchange } from "@/lib/market-data/types";
 
 export type HiddenSymbols = Record<Exchange, string[]>;
 
@@ -30,10 +30,7 @@ const defaultPreferences: ScreenerPreferences = {
   sortBy: "1m",
   limit: 50,
   filters: {
-    max5d: "any",
-    max1m: "any",
-    max6m: "any",
-    max12m: "any",
+    minPrice: null,
   },
   exchange: "nasdaq",
   hiddenSymbols: {
@@ -44,10 +41,18 @@ const defaultPreferences: ScreenerPreferences = {
   preRecommendedState: null,
 };
 
+type LegacyFilters = {
+  max5d?: unknown;
+  max1m?: unknown;
+  max6m?: unknown;
+  max12m?: unknown;
+  minPrice?: number | null;
+};
+
 type LegacyPreferences = {
   sortBy?: SortPeriod;
   limit?: number;
-  filters?: ScreenerFilters;
+  filters?: LegacyFilters;
   hiddenSymbols?: string[] | HiddenSymbols;
   showRecommendedOnly?: boolean;
   exchange?: Exchange;
@@ -92,10 +97,7 @@ function loadPreferences(): ScreenerPreferences {
       sortBy: parsed.sortBy ?? defaultPreferences.sortBy,
       limit: parsed.limit ?? defaultPreferences.limit,
       filters: {
-        max5d: parsed.filters?.max5d ?? defaultPreferences.filters.max5d,
-        max1m: parsed.filters?.max1m ?? defaultPreferences.filters.max1m,
-        max6m: parsed.filters?.max6m ?? defaultPreferences.filters.max6m,
-        max12m: parsed.filters?.max12m ?? defaultPreferences.filters.max12m,
+        minPrice: parsed.filters?.minPrice ?? defaultPreferences.filters.minPrice,
       },
       exchange: parsed.exchange ?? defaultPreferences.exchange,
       hiddenSymbols: migrateHiddenSymbols(parsed.hiddenSymbols),
@@ -227,11 +229,11 @@ export function usePreferences() {
     updatePreferences({ limit });
   }, [updatePreferences]);
 
-  const setFilter = useCallback((period: keyof ScreenerFilters, value: FilterValue) => {
+  const setMinPrice = useCallback((value: number | null) => {
     setPreferences((prev) => {
       const next = {
         ...prev,
-        filters: { ...prev.filters, [period]: value },
+        filters: { ...prev.filters, minPrice: value },
       };
       savePreferences(next);
 
@@ -336,11 +338,7 @@ export function usePreferences() {
     });
   }, []);
 
-  const hasActiveFilters =
-    preferences.filters.max5d !== "any" ||
-    preferences.filters.max1m !== "any" ||
-    preferences.filters.max6m !== "any" ||
-    preferences.filters.max12m !== "any";
+  const hasActiveFilters = preferences.filters.minPrice !== null;
 
   // Get hidden symbols for current exchange
   const currentHiddenSymbols = preferences.hiddenSymbols[preferences.exchange];
@@ -350,7 +348,7 @@ export function usePreferences() {
     isLoaded,
     setSortBy,
     setLimit,
-    setFilter,
+    setMinPrice,
     clearFilters,
     hasActiveFilters,
     setExchange,

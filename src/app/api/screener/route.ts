@@ -8,23 +8,19 @@ import type {
   Stock,
   ScreenerParams,
   SortPeriod,
-  FilterValue,
   ScreenerResponse,
   Exchange,
 } from "@/lib/market-data/types";
 
-function parseFilterValue(value: string | null): FilterValue {
-  if (!value || value === "any") {
-    return "any";
-  }
-  if (value === "5" || value === "10" || value === "25") {
-    return value;
+function parseMinPrice(value: string | null): number | null {
+  if (!value || value === "null" || value === "") {
+    return null;
   }
   const num = parseFloat(value);
-  if (!isNaN(num)) {
+  if (!isNaN(num) && num > 0) {
     return num;
   }
-  return "any";
+  return null;
 }
 
 function parseSortPeriod(value: string | null): SortPeriod {
@@ -54,23 +50,13 @@ function parseExchange(value: string | null): Exchange {
 }
 
 function applyFilters(stocks: Stock[], params: ScreenerParams): Stock[] {
-  const filterValue = (value: FilterValue): number => {
-    if (value === "any") return Infinity;
-    if (typeof value === "number") return value;
-    return parseFloat(value);
-  };
+  const minPrice = params.filters.minPrice;
 
-  const max5d = filterValue(params.filters.max5d);
-  const max1m = filterValue(params.filters.max1m);
-  const max6m = filterValue(params.filters.max6m);
-  const max12m = filterValue(params.filters.max12m);
+  if (minPrice === null) {
+    return stocks;
+  }
 
-  return stocks.filter((stock) =>
-    (stock.growth5d ?? 0) <= max5d &&
-    stock.growth1m <= max1m &&
-    stock.growth6m <= max6m &&
-    stock.growth12m <= max12m
-  );
+  return stocks.filter((stock) => stock.price >= minPrice);
 }
 
 function sortStocks(stocks: Stock[], sortBy: SortPeriod): Stock[] {
@@ -151,10 +137,7 @@ export async function GET(request: NextRequest) {
     sortBy: parseSortPeriod(searchParams.get("sortBy")),
     limit: parseLimit(searchParams.get("limit")),
     filters: {
-      max5d: parseFilterValue(searchParams.get("max5d")),
-      max1m: parseFilterValue(searchParams.get("max1m")),
-      max6m: parseFilterValue(searchParams.get("max6m")),
-      max12m: parseFilterValue(searchParams.get("max12m")),
+      minPrice: parseMinPrice(searchParams.get("minPrice")),
     },
     exchange: parseExchange(searchParams.get("exchange")),
   };
