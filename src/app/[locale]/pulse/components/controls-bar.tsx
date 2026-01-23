@@ -168,8 +168,6 @@ export function ControlsBar({
             placeholder="0"
             value={localMinPrice}
             onChange={(e) => handleMinPriceChange(e.target.value)}
-            data-disabled={controlsDisabled}
-            disabled={controlsDisabled}
             min={0}
             step="any"
             aria-label={labels.minPrice}
@@ -178,8 +176,6 @@ export function ControlsBar({
             <button
               className={styles.clearButton}
               onClick={onClearFilters}
-              data-disabled={controlsDisabled}
-              disabled={controlsDisabled}
               title={labels.clearAll}
             >
               ✕
