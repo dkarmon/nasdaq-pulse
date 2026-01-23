@@ -1,10 +1,10 @@
-// ABOUTME: Control bar with exchange switcher, sort toggle, count presets, and filter presets.
+// ABOUTME: Control bar with exchange switcher, sort toggle, count presets, and minimum price filter.
 // ABOUTME: Designed for elderly users with large touch targets and clear labels.
 
 "use client";
 
 import { useState, useEffect } from "react";
-import type { SortPeriod, FilterPreset, FilterValue, ScreenerFilters, Exchange } from "@/lib/market-data/types";
+import type { SortPeriod, ScreenerFilters, Exchange } from "@/lib/market-data/types";
 import styles from "./controls-bar.module.css";
 
 type ControlsBarProps = {
@@ -18,7 +18,7 @@ type ControlsBarProps = {
   onExchangeChange: (exchange: Exchange) => void;
   onSortChange: (sort: SortPeriod) => void;
   onLimitChange: (limit: number) => void;
-  onFilterChange: (period: keyof ScreenerFilters, value: FilterValue) => void;
+  onMinPriceChange: (value: number | null) => void;
   onClearFilters: () => void;
   onSearchChange: (query: string) => void;
   onShowRecommendedOnlyChange: (show: boolean) => void;
@@ -26,10 +26,8 @@ type ControlsBarProps = {
   labels: {
     sortBy: string;
     show: string;
-    filters: string;
-    max: string;
+    minPrice: string;
     clearAll: string;
-    any: string;
     search: string;
     recommendedOnly: string;
     exchange: string;
@@ -40,7 +38,6 @@ type ControlsBarProps = {
 
 const SORT_OPTIONS: SortPeriod[] = ["5d", "1m", "6m", "12m", "az"];
 const LIMIT_OPTIONS = [25, 50];
-const FILTER_PRESETS: FilterPreset[] = ["any", "5", "10", "25"];
 const EXCHANGE_OPTIONS: Exchange[] = ["nasdaq", "tlv"];
 
 export function ControlsBar({
@@ -54,20 +51,32 @@ export function ControlsBar({
   onExchangeChange,
   onSortChange,
   onLimitChange,
-  onFilterChange,
+  onMinPriceChange,
   onClearFilters,
   onSearchChange,
   onShowRecommendedOnlyChange,
   hasActiveFilters,
   labels,
 }: ControlsBarProps) {
-  const [filtersExpanded, setFiltersExpanded] = useState(false);
+  const [localMinPrice, setLocalMinPrice] = useState<string>(
+    filters.minPrice !== null ? String(filters.minPrice) : ""
+  );
 
   useEffect(() => {
-    if (controlsDisabled) {
-      setFiltersExpanded(false);
+    setLocalMinPrice(filters.minPrice !== null ? String(filters.minPrice) : "");
+  }, [filters.minPrice]);
+
+  const handleMinPriceChange = (value: string) => {
+    setLocalMinPrice(value);
+    if (value === "") {
+      onMinPriceChange(null);
+    } else {
+      const num = parseFloat(value);
+      if (!isNaN(num) && num > 0) {
+        onMinPriceChange(num);
+      }
     }
-  }, [controlsDisabled]);
+  };
 
   const exchangeLabels: Record<Exchange, string> = {
     nasdaq: labels.nasdaq,
@@ -150,101 +159,33 @@ export function ControlsBar({
             ))}
           </div>
         </div>
-      </div>
 
-      <div className={styles.filterToggle}>
-        <button
-          className={styles.filterButton}
-          data-disabled={controlsDisabled}
-          disabled={controlsDisabled}
-          onClick={() => setFiltersExpanded(!filtersExpanded)}
-          aria-expanded={filtersExpanded}
-        >
-          {labels.filters} {filtersExpanded ? "▲" : "▼"}
-          {hasActiveFilters && <span className={styles.filterDot} />}
-        </button>
-      </div>
-
-      {filtersExpanded && (
-        <div className={styles.filterPanel}>
-          <FilterRow
-            label={`${labels.max} 5D:`}
-            value={filters.max5d}
-            onChange={(v) => onFilterChange("max5d", v)}
-            anyLabel={labels.any}
+        <div className={styles.priceFilterGroup}>
+          <span className={styles.label}>{labels.minPrice}:</span>
+          <input
+            type="number"
+            className={styles.priceInput}
+            placeholder="0"
+            value={localMinPrice}
+            onChange={(e) => handleMinPriceChange(e.target.value)}
+            data-disabled={controlsDisabled}
+            disabled={controlsDisabled}
+            min={0}
+            step="any"
+            aria-label={labels.minPrice}
           />
-          <FilterRow
-            label={`${labels.max} 1M:`}
-            value={filters.max1m}
-            onChange={(v) => onFilterChange("max1m", v)}
-            anyLabel={labels.any}
-          />
-          <FilterRow
-            label={`${labels.max} 6M:`}
-            value={filters.max6m}
-            onChange={(v) => onFilterChange("max6m", v)}
-            anyLabel={labels.any}
-          />
-          <FilterRow
-            label={`${labels.max} 12M:`}
-            value={filters.max12m}
-            onChange={(v) => onFilterChange("max12m", v)}
-            anyLabel={labels.any}
-          />
-
           {hasActiveFilters && (
-            <button className={styles.clearButton} onClick={onClearFilters}>
-              {labels.clearAll}
+            <button
+              className={styles.clearButton}
+              onClick={onClearFilters}
+              data-disabled={controlsDisabled}
+              disabled={controlsDisabled}
+              title={labels.clearAll}
+            >
+              ✕
             </button>
           )}
         </div>
-      )}
-    </div>
-  );
-}
-
-type FilterRowProps = {
-  label: string;
-  value: FilterValue;
-  onChange: (value: FilterValue) => void;
-  anyLabel: string;
-};
-
-function FilterRow({ label, value, onChange, anyLabel }: FilterRowProps) {
-  const isCustom = typeof value === "number" && !FILTER_PRESETS.includes(value.toString() as FilterPreset);
-
-  return (
-    <div className={styles.filterRow}>
-      <span className={styles.filterLabel}>{label}</span>
-      <div className={styles.pillGroup}>
-        {FILTER_PRESETS.map((preset) => (
-          <button
-            key={preset}
-            className={styles.pill}
-            data-active={value === preset || (preset !== "any" && value === Number(preset))}
-            onClick={() => onChange(preset)}
-            aria-pressed={value === preset || (preset !== "any" && value === Number(preset))}
-          >
-            {preset === "any" ? anyLabel : `≤${preset}%`}
-          </button>
-        ))}
-        <input
-          type="number"
-          className={styles.customInput}
-          placeholder="%"
-          value={isCustom ? value : ""}
-          onChange={(e) => {
-            const num = parseFloat(e.target.value);
-            if (!isNaN(num)) {
-              onChange(num);
-            } else if (e.target.value === "") {
-              onChange("any");
-            }
-          }}
-          min={0}
-          max={1000}
-          aria-label={`Custom maximum ${label}`}
-        />
       </div>
     </div>
   );

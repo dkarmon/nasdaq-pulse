@@ -23,10 +23,7 @@ async function getInitialScreenerData() {
     sortBy: "1m",
     limit: 50,
     filters: {
-      max5d: "any",
-      max1m: "any",
-      max6m: "any",
-      max12m: "any",
+      minPrice: null,
     },
     exchange: "nasdaq",
   };

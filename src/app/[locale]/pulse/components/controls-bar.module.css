@@ -114,6 +114,12 @@
   gap: 12px;
 }
 
+.priceFilterGroup {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
 .label {
   font-size: 1rem;
   font-weight: 600;
@@ -160,72 +166,11 @@
   pointer-events: none;
 }
 
-.filterToggle {
-  display: flex;
-}
-
-.filterButton {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  min-height: 48px;
-  padding: 12px 20px;
-  border-radius: 10px;
-  border: 1px solid var(--border);
-  background: rgba(255, 255, 255, 0.03);
-  color: var(--text);
-  font-weight: 600;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: border 120ms ease, background 120ms ease;
-}
-
-.filterButton:hover {
-  border-color: var(--accent);
-}
-
-.filterButton[data-disabled="true"] {
-  opacity: 0.4;
-  cursor: not-allowed;
-  pointer-events: none;
-}
-
-.filterDot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--accent);
-}
-
-.filterPanel {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  padding: 20px;
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-}
-
-.filterRow {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 12px;
-}
-
-.filterLabel {
-  min-width: 80px;
-  font-size: 1rem;
-  font-weight: 600;
-  color: var(--muted);
-}
-
-.customInput {
-  width: 70px;
+.priceInput {
+  width: 90px;
   min-height: 48px;
   padding: 12px 14px;
-  border-radius: 999px;
+  border-radius: 10px;
   border: 1px solid var(--border);
   background: rgba(255, 255, 255, 0.03);
   color: var(--text);
@@ -235,36 +180,43 @@
   transition: border 120ms ease, background 120ms ease;
 }
 
-.customInput::placeholder {
+.priceInput::placeholder {
   color: var(--muted);
 }
 
-.customInput:focus {
+.priceInput:focus {
   outline: none;
   border-color: var(--accent);
   background: rgba(16, 185, 129, 0.08);
 }
 
-.customInput::-webkit-inner-spin-button,
-.customInput::-webkit-outer-spin-button {
+.priceInput[data-disabled="true"] {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.priceInput::-webkit-inner-spin-button,
+.priceInput::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
 
-.customInput[type="number"] {
+.priceInput[type="number"] {
   -moz-appearance: textfield;
 }
 
 .clearButton {
-  align-self: flex-start;
-  min-height: 48px;
-  padding: 12px 20px;
-  border-radius: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
   border: 1px solid rgba(244, 67, 94, 0.4);
   background: rgba(244, 67, 94, 0.1);
   color: #ffd1d9;
   font-weight: 600;
-  font-size: 1rem;
+  font-size: 0.9rem;
   cursor: pointer;
   transition: border 120ms ease, background 120ms ease;
 }
@@ -274,16 +226,17 @@
   background: rgba(244, 67, 94, 0.15);
 }
 
+.clearButton[data-disabled="true"] {
+  opacity: 0.4;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
 @media (max-width: 768px) {
   .mainRow {
     flex-direction: column;
     align-items: flex-start;
     gap: 16px;
-  }
-
-  .filterLabel {
-    min-width: 70px;
-    font-size: 0.95rem;
   }
 
   .pill {

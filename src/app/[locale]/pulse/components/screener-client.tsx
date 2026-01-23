@@ -32,7 +32,7 @@ export function ScreenerClient({
     isLoaded,
     setSortBy,
     setLimit,
-    setFilter,
+    setMinPrice,
     clearFilters,
     hasActiveFilters,
     setExchange,
@@ -64,10 +64,7 @@ export function ScreenerClient({
       const params = new URLSearchParams({
         sortBy: preferences.sortBy,
         limit: limit.toString(),
-        max5d: String(preferences.filters.max5d),
-        max1m: String(preferences.filters.max1m),
-        max6m: String(preferences.filters.max6m),
-        max12m: String(preferences.filters.max12m),
+        minPrice: preferences.filters.minPrice !== null ? String(preferences.filters.minPrice) : "",
         exchange: preferences.exchange,
       });
 
@@ -95,10 +92,8 @@ export function ScreenerClient({
   const controlLabels = {
     sortBy: dict.screener.sortBy,
     show: dict.screener.show,
-    filters: dict.screener.filters,
-    max: dict.screener.max,
+    minPrice: dict.screener.minPrice,
     clearAll: dict.screener.clearAll,
-    any: dict.screener.any,
     search: dict.screener.search,
     recommendedOnly: dict.screener.recommendedOnly,
     exchange: dict.screener.exchange,
@@ -147,7 +142,7 @@ export function ScreenerClient({
         onExchangeChange={setExchange}
         onSortChange={setSortBy}
         onLimitChange={setLimit}
-        onFilterChange={setFilter}
+        onMinPriceChange={setMinPrice}
         onClearFilters={clearFilters}
         onSearchChange={setSearchQuery}
         onShowRecommendedOnlyChange={setShowRecommendedOnly}
