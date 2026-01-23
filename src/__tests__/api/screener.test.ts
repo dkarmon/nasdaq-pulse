@@ -62,18 +62,16 @@ describe("GET /api/screener", () => {
     expect(data.stocks.length).toBeLessThanOrEqual(25);
   });
 
-  it("respects filter parameters", async () => {
+  it("respects minPrice filter parameter", async () => {
     const request = createRequest({
-      max1m: "10",
-      max6m: "25",
+      minPrice: "50",
     });
     const response = await GET(request);
     const data = await response.json();
 
     expect(response.status).toBe(200);
     for (const stock of data.stocks) {
-      expect(stock.growth1m).toBeLessThanOrEqual(10);
-      expect(stock.growth6m).toBeLessThanOrEqual(25);
+      expect(stock.price).toBeGreaterThanOrEqual(50);
     }
   });
 
@@ -99,8 +97,8 @@ describe("GET /api/screener", () => {
     expect(data.stocks.length).toBeLessThanOrEqual(50);
   });
 
-  it("defaults invalid filter to any", async () => {
-    const request = createRequest({ max1m: "invalid" });
+  it("defaults invalid minPrice to null (no filter)", async () => {
+    const request = createRequest({ minPrice: "invalid" });
     const response = await GET(request);
     const data = await response.json();
 

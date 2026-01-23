@@ -306,7 +306,7 @@ export function usePreferences() {
       let next: ScreenerPreferences;
 
       if (show) {
-        // Enabling: save current state and clear filters
+        // Enabling: save current sort/limit state, keep filters active
         next = {
           ...prev,
           showRecommendedOnly: true,
@@ -315,10 +315,9 @@ export function usePreferences() {
             limit: prev.limit,
             filters: { ...prev.filters },
           },
-          filters: defaultPreferences.filters,
         };
       } else {
-        // Disabling: restore previous state if available
+        // Disabling: restore sort/limit but keep current filters
         const restored = prev.preRecommendedState;
         next = {
           ...prev,
@@ -327,7 +326,6 @@ export function usePreferences() {
           ...(restored && {
             sortBy: restored.sortBy,
             limit: restored.limit,
-            filters: { ...restored.filters },
           }),
         };
       }
