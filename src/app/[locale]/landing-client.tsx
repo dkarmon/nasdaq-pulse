@@ -16,10 +16,14 @@ type LandingClientProps = {
   rtl: boolean;
 };
 
-// Animation variants
+// Animation variants - optimized for performance
 const fadeInUp = {
-  hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0 },
+  hidden: { opacity: 0, y: 20 },
+  visible: { 
+    opacity: 1, 
+    y: 0,
+    transition: { duration: 0.4, ease: "easeOut" }
+  },
 };
 
 const staggerContainer = {
@@ -27,15 +31,19 @@ const staggerContainer = {
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.15,
-      delayChildren: 0.1,
+      staggerChildren: 0.1,
+      delayChildren: 0.05,
     },
   },
 };
 
 const scaleIn = {
-  hidden: { opacity: 0, scale: 0.9 },
-  visible: { opacity: 1, scale: 1 },
+  hidden: { opacity: 0, scale: 0.95 },
+  visible: { 
+    opacity: 1, 
+    scale: 1,
+    transition: { duration: 0.4, ease: "easeOut" }
+  },
 };
 
 export function LandingClient({ locale, dict, rtl }: LandingClientProps) {
@@ -50,14 +58,10 @@ export function LandingClient({ locale, dict, rtl }: LandingClientProps) {
       }}
       dir={rtl ? "rtl" : "ltr"}
     >
-      {/* Animated background gradients */}
+      {/* Static background gradients - CSS animations for better performance */}
       <div className="bg-gradients" style={{ position: "fixed", inset: 0, pointerEvents: "none", zIndex: 0 }}>
-        <motion.div
-          animate={{
-            scale: [1, 1.2, 1],
-            opacity: [0.3, 0.5, 0.3],
-          }}
-          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+        <div
+          className="bg-orb bg-orb-1"
           style={{
             position: "absolute",
             top: "-30%",
@@ -65,15 +69,12 @@ export function LandingClient({ locale, dict, rtl }: LandingClientProps) {
             width: "80%",
             height: "80%",
             background: "radial-gradient(circle, rgba(99, 102, 241, 0.15) 0%, transparent 60%)",
-            filter: "blur(100px)",
+            filter: "blur(80px)",
+            willChange: "transform",
           }}
         />
-        <motion.div
-          animate={{
-            scale: [1.2, 1, 1.2],
-            opacity: [0.2, 0.4, 0.2],
-          }}
-          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+        <div
+          className="bg-orb bg-orb-2"
           style={{
             position: "absolute",
             bottom: "-20%",
@@ -81,7 +82,8 @@ export function LandingClient({ locale, dict, rtl }: LandingClientProps) {
             width: "70%",
             height: "70%",
             background: "radial-gradient(circle, rgba(16, 185, 129, 0.12) 0%, transparent 60%)",
-            filter: "blur(100px)",
+            filter: "blur(80px)",
+            willChange: "transform",
           }}
         />
       </div>
@@ -570,6 +572,37 @@ export function LandingClient({ locale, dict, rtl }: LandingClientProps) {
 
       {/* Responsive styles */}
       <style jsx global>{`
+        /* GPU-accelerated background animations */
+        @keyframes float1 {
+          0%, 100% { transform: scale(1) translate(0, 0); }
+          50% { transform: scale(1.1) translate(2%, 2%); }
+        }
+        @keyframes float2 {
+          0%, 100% { transform: scale(1.1) translate(0, 0); }
+          50% { transform: scale(1) translate(-2%, -2%); }
+        }
+        .bg-orb {
+          animation-timing-function: ease-in-out;
+          animation-iteration-count: infinite;
+        }
+        .bg-orb-1 {
+          animation: float1 12s infinite;
+        }
+        .bg-orb-2 {
+          animation: float2 15s infinite;
+        }
+        
+        /* Disable animations for users who prefer reduced motion */
+        @media (prefers-reduced-motion: reduce) {
+          .bg-orb {
+            animation: none !important;
+          }
+          * {
+            animation-duration: 0.01ms !important;
+            transition-duration: 0.01ms !important;
+          }
+        }
+        
         @media (max-width: 900px) {
           .landing-page .hero-grid {
             grid-template-columns: 1fr !important;
@@ -588,6 +621,12 @@ export function LandingClient({ locale, dict, rtl }: LandingClientProps) {
           }
           .landing-page .stats-row {
             justify-content: center;
+          }
+          /* Simpler background on mobile */
+          .bg-orb {
+            filter: blur(60px) !important;
+            animation: none !important;
+            opacity: 0.5;
           }
         }
         @media (max-width: 480px) {
