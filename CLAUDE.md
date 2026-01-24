@@ -45,14 +45,6 @@ When working on multiple tasks or features:
 - Prioritize independent, easy tasks first (low-hanging fruit)
 - Never start a dependent task before its dependencies are complete
 
-### Task Documentation
-- Create a GitHub issue for each task containing:
-  - Implementation plan and approach
-  - Testing strategy
-  - Concerns and guidelines
-- During review, verify issue requirements are addressed
-- Close issues only after work is merged to main
-
 ### Branch Completion Checklist
 Before merging any branch:
 1. Run code simplification/review plugins if available
