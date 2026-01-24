@@ -19,11 +19,7 @@ type LandingClientProps = {
 // Animation variants - optimized for performance
 const fadeInUp = {
   hidden: { opacity: 0, y: 20 },
-  visible: { 
-    opacity: 1, 
-    y: 0,
-    transition: { duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }
-  },
+  visible: { opacity: 1, y: 0 },
 };
 
 const staggerContainer = {
@@ -39,11 +35,7 @@ const staggerContainer = {
 
 const scaleIn = {
   hidden: { opacity: 0, scale: 0.95 },
-  visible: { 
-    opacity: 1, 
-    scale: 1,
-    transition: { duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }
-  },
+  visible: { opacity: 1, scale: 1 },
 };
 
 export function LandingClient({ locale, dict, rtl }: LandingClientProps) {
