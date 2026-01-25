@@ -215,7 +215,7 @@ export function LandingClient({ locale, dict, rtl }: LandingClientProps) {
                 }}
               />
               <span style={{ color: "#10b981", fontWeight: 600, fontSize: "14px" }}>
-                Live Market Data
+                {dict.landing?.liveMarketData || "Live Market Data"}
               </span>
             </motion.div>
 
@@ -230,7 +230,7 @@ export function LandingClient({ locale, dict, rtl }: LandingClientProps) {
                 margin: 0,
               }}
             >
-              Spot the winners
+              {dict.landing?.heroTitle1 || "Spot the winners"}
               <br />
               <span
                 style={{
@@ -241,7 +241,7 @@ export function LandingClient({ locale, dict, rtl }: LandingClientProps) {
                   backgroundClip: "text",
                 }}
               >
-                before the crowd
+                {dict.landing?.heroTitle2 || "before the crowd"}
               </span>
             </motion.h1>
 
@@ -256,9 +256,7 @@ export function LandingClient({ locale, dict, rtl }: LandingClientProps) {
                 margin: 0,
               }}
             >
-              Track NASDAQ's fastest-growing stocks in real-time. 
-              Sort by 1-month, 6-month, or yearly growth. 
-              Simple, fast, no fluff.
+              {dict.landing?.heroSubtitle || "Track NASDAQ's fastest-growing stocks in real-time. Sort by 1-month, 6-month, or yearly growth. Simple, fast, no fluff."}
             </motion.p>
 
             <motion.div
@@ -287,7 +285,7 @@ export function LandingClient({ locale, dict, rtl }: LandingClientProps) {
                     transition: "all 200ms",
                   }}
                 >
-                  Start Tracking
+                  {dict.landing?.startTracking || "Start Tracking"}
                   <motion.span
                     animate={{ x: [0, 4, 0] }}
                     transition={{ duration: 1.5, repeat: Infinity }}
@@ -314,7 +312,7 @@ export function LandingClient({ locale, dict, rtl }: LandingClientProps) {
                     transition: "all 200ms",
                   }}
                 >
-                  Learn More
+                  {dict.landing?.learnMore || "Learn More"}
                 </Link>
               </motion.div>
             </motion.div>
@@ -336,17 +334,17 @@ export function LandingClient({ locale, dict, rtl }: LandingClientProps) {
             >
               <div>
                 <div style={{ fontSize: "2rem", fontWeight: 800, color: "#10b981" }}>100+</div>
-                <div style={{ fontSize: "0.9rem", color: "rgba(255,255,255,0.5)" }}>Stocks tracked</div>
+                <div style={{ fontSize: "0.9rem", color: "rgba(255,255,255,0.5)" }}>{dict.landing?.stocksTracked || "Stocks tracked"}</div>
               </div>
               <div style={{ width: "1px", height: "40px", background: "rgba(255,255,255,0.1)" }} />
               <div>
                 <div style={{ fontSize: "2rem", fontWeight: 800, color: "#6366f1" }}>60s</div>
-                <div style={{ fontSize: "0.9rem", color: "rgba(255,255,255,0.5)" }}>Refresh rate</div>
+                <div style={{ fontSize: "0.9rem", color: "rgba(255,255,255,0.5)" }}>{dict.landing?.refreshRate || "Refresh rate"}</div>
               </div>
               <div style={{ width: "1px", height: "40px", background: "rgba(255,255,255,0.1)" }} />
               <div>
                 <div style={{ fontSize: "2rem", fontWeight: 800, color: "#f59e0b" }}>Free</div>
-                <div style={{ fontSize: "0.9rem", color: "rgba(255,255,255,0.5)" }}>Always</div>
+                <div style={{ fontSize: "0.9rem", color: "rgba(255,255,255,0.5)" }}>{dict.landing?.alwaysFree || "Always"}</div>
               </div>
             </motion.div>
           </motion.div>
@@ -394,12 +392,12 @@ export function LandingClient({ locale, dict, rtl }: LandingClientProps) {
                 letterSpacing: "-0.02em",
               }}
             >
-              Everything you need.
+              {dict.landing?.everythingYouNeed || "Everything you need."}
               <br />
-              <span style={{ color: "rgba(255,255,255,0.5)" }}>Nothing you don't.</span>
+              <span style={{ color: "rgba(255,255,255,0.5)" }}>{dict.landing?.nothingYouDont || "Nothing you don't."}</span>
             </h2>
             <p style={{ fontSize: "1.2rem", color: "rgba(255,255,255,0.5)", maxWidth: "600px", margin: "0 auto" }}>
-              No complicated charts. No paid tiers. Just the data that matters.
+              {dict.landing?.featuresSubtitle || "No complicated charts. No paid tiers. Just the data that matters."}
             </p>
           </motion.div>
 
@@ -418,22 +416,22 @@ export function LandingClient({ locale, dict, rtl }: LandingClientProps) {
             {[
               {
                 icon: "📈",
-                title: "Growth Rankings",
-                description: "See which stocks are actually growing. Sort by 1-month, 6-month, or 12-month performance instantly.",
+                title: dict.landing?.growthRankings || "Growth Rankings",
+                description: dict.landing?.growthRankingsDesc || "See which stocks are actually growing. Sort by 1-month, 6-month, or 12-month performance instantly.",
                 gradient: "linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(16, 185, 129, 0.02))",
                 borderColor: "rgba(16, 185, 129, 0.2)",
               },
               {
                 icon: "⚡",
-                title: "Real-Time Updates",
-                description: "Fresh data every 60 seconds. Know what's moving right now, not what moved yesterday.",
+                title: dict.landing?.realTimeUpdates || "Real-Time Updates",
+                description: dict.landing?.realTimeUpdatesDesc || "Fresh data every 60 seconds. Know what's moving right now, not what moved yesterday.",
                 gradient: "linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(99, 102, 241, 0.02))",
                 borderColor: "rgba(99, 102, 241, 0.2)",
               },
               {
                 icon: "🎯",
-                title: "Zero Noise",
-                description: "No ads. No premium upsells. No \"analysts picks\". Just clean data and fast loading.",
+                title: dict.landing?.zeroNoise || "Zero Noise",
+                description: dict.landing?.zeroNoiseDesc || "No ads. No premium upsells. No \"analysts picks\". Just clean data and fast loading.",
                 gradient: "linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(245, 158, 11, 0.02))",
                 borderColor: "rgba(245, 158, 11, 0.2)",
               },
@@ -511,7 +509,7 @@ export function LandingClient({ locale, dict, rtl }: LandingClientProps) {
               position: "relative",
             }}
           >
-            Ready to find your next winner?
+            {dict.landing?.ctaTitle || "Ready to find your next winner?"}
           </motion.h2>
           <p
             style={{
@@ -521,7 +519,7 @@ export function LandingClient({ locale, dict, rtl }: LandingClientProps) {
               position: "relative",
             }}
           >
-            Join now. It takes 10 seconds with Google.
+            {dict.landing?.ctaSubtitle || "Join now. It takes 10 seconds with Google."}
           </p>
           <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.98 }}>
             <Link
@@ -540,7 +538,7 @@ export function LandingClient({ locale, dict, rtl }: LandingClientProps) {
                 position: "relative",
               }}
             >
-              Get Started Free
+              {dict.landing?.getStartedFree || "Get Started Free"}
               <span>→</span>
             </Link>
           </motion.div>

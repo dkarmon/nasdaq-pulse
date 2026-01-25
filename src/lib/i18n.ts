@@ -27,6 +27,28 @@ export type Dictionary = {
     demoTitle: string;
     demoSubtitle: string;
     demoList: LandingFeature[];
+    // New landing page
+    liveMarketData: string;
+    heroTitle1: string;
+    heroTitle2: string;
+    heroSubtitle: string;
+    startTracking: string;
+    learnMore: string;
+    stocksTracked: string;
+    refreshRate: string;
+    alwaysFree: string;
+    everythingYouNeed: string;
+    nothingYouDont: string;
+    featuresSubtitle: string;
+    growthRankings: string;
+    growthRankingsDesc: string;
+    realTimeUpdates: string;
+    realTimeUpdatesDesc: string;
+    zeroNoise: string;
+    zeroNoiseDesc: string;
+    ctaTitle: string;
+    ctaSubtitle: string;
+    getStartedFree: string;
   };
   app: {
     welcome: string;
@@ -183,6 +205,28 @@ export const dictionaries: Record<Locale, Dictionary> = {
           body: "Stale · refresh to retrieve",
         },
       ],
+      // New landing page
+      liveMarketData: "Live Market Data",
+      heroTitle1: "Spot the winners",
+      heroTitle2: "before the crowd",
+      heroSubtitle: "Track NASDAQ's fastest-growing stocks in real-time. Sort by 1-month, 6-month, or yearly growth. Simple, fast, no fluff.",
+      startTracking: "Start Tracking",
+      learnMore: "Learn More",
+      stocksTracked: "Stocks tracked",
+      refreshRate: "Refresh rate",
+      alwaysFree: "Always",
+      everythingYouNeed: "Everything you need.",
+      nothingYouDont: "Nothing you don't.",
+      featuresSubtitle: "No complicated charts. No paid tiers. Just the data that matters.",
+      growthRankings: "Growth Rankings",
+      growthRankingsDesc: "See which stocks are actually growing. Sort by 1-month, 6-month, or 12-month performance instantly.",
+      realTimeUpdates: "Real-Time Updates",
+      realTimeUpdatesDesc: "Fresh data every 60 seconds. Know what's moving right now, not what moved yesterday.",
+      zeroNoise: "Zero Noise",
+      zeroNoiseDesc: "No ads. No premium upsells. No \"analysts picks\". Just clean data and fast loading.",
+      ctaTitle: "Ready to find your next winner?",
+      ctaSubtitle: "Join now. It takes 10 seconds with Google.",
+      getStartedFree: "Get Started Free",
     },
     app: {
       welcome: "Welcome back to Nasdaq Pulse",
@@ -335,6 +379,28 @@ export const dictionaries: Record<Locale, Dictionary> = {
           body: "מיושן · רענון ינסה למשוך חדש",
         },
       ],
+      // New landing page
+      liveMarketData: "נתוני שוק בזמן אמת",
+      heroTitle1: "מצא את המנצחות",
+      heroTitle2: "לפני כולם",
+      heroSubtitle: "עקוב אחר המניות עם הצמיחה המהירה ביותר בנאסד״ק. מיין לפי צמיחה חודשית, חצי שנתית או שנתית. פשוט, מהיר, בלי מילים מיותרות.",
+      startTracking: "התחל לעקוב",
+      learnMore: "למד עוד",
+      stocksTracked: "מניות במעקב",
+      refreshRate: "קצב רענון",
+      alwaysFree: "תמיד",
+      everythingYouNeed: "כל מה שצריך.",
+      nothingYouDont: "בלי מה שלא.",
+      featuresSubtitle: "בלי גרפים מסובכים. בלי מסלולים בתשלום. רק הנתונים שחשובים.",
+      growthRankings: "דירוג צמיחה",
+      growthRankingsDesc: "ראה אילו מניות באמת צומחות. מיין לפי ביצועים של חודש, 6 חודשים או שנה.",
+      realTimeUpdates: "עדכונים בזמן אמת",
+      realTimeUpdatesDesc: "נתונים רעננים כל 60 שניות. דע מה זז עכשיו, לא מה זז אתמול.",
+      zeroNoise: "אפס רעש",
+      zeroNoiseDesc: "בלי פרסומות. בלי שדרוגים בתשלום. בלי \"המלצות אנליסטים\". רק נתונים נקיים וטעינה מהירה.",
+      ctaTitle: "מוכן למצוא את המנצחת הבאה?",
+      ctaSubtitle: "הצטרף עכשיו. לוקח 10 שניות עם Google.",
+      getStartedFree: "התחל בחינם",
     },
     app: {
       welcome: "ברוכים הבאים ל-Nasdaq Pulse",
