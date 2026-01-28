@@ -102,18 +102,31 @@ export function RecommendationPanel({ labels }: RecommendationPanelProps) {
 
   const appendToken = (token: string) => {
     setForm((prev) => {
-      const trimmed = prev.expression.trimEnd();
-      const prefix = trimmed.length > 0 ? `${trimmed} ` : "";
-      const nextExpr = `${prefix}${token}`;
-      return { ...prev, expression: nextExpr };
-    });
-    requestAnimationFrame(() => {
       const el = expressionRef.current;
-      if (el) {
-        const len = el.value.length;
-        el.focus();
-        el.setSelectionRange(len, len);
-      }
+      const expr = prev.expression ?? "";
+      const start = el ? el.selectionStart : expr.length;
+      const end = el ? el.selectionEnd : expr.length;
+
+      const before = expr.slice(0, start);
+      const after = expr.slice(end);
+
+      const needsSpaceBefore = before.length > 0 && !/[\s(+\-*/]/.test(before.slice(-1));
+      const needsSpaceAfter = after.length > 0 && !/^[\s)+\-*/,]/.test(after[0]);
+
+      const insertion = `${needsSpaceBefore ? " " : ""}${token}${needsSpaceAfter ? " " : ""}`;
+      const nextExpr = `${before}${insertion}${after}`;
+
+      // Move cursor after inserted token
+      requestAnimationFrame(() => {
+        const elNext = expressionRef.current;
+        if (elNext) {
+          const newPos = (before + insertion).length;
+          elNext.focus();
+          elNext.setSelectionRange(newPos, newPos);
+        }
+      });
+
+      return { ...prev, expression: nextExpr };
     });
   };
 
