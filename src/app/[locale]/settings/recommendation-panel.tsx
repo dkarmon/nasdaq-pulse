@@ -3,7 +3,7 @@
 
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { validateFormulaExpression } from "@/lib/recommendations/engine";
 import {
   filterAndSortByRecommendation,
@@ -69,6 +69,8 @@ export function RecommendationPanel({ labels }: RecommendationPanelProps) {
   const [message, setMessage] = useState<string | null>(null);
   const [previewStocks, setPreviewStocks] = useState<Stock[]>([]);
   const [previewScores, setPreviewScores] = useState<Stock[]>([]);
+  const [previewExchange, setPreviewExchange] = useState<Stock["exchange"]>("nasdaq");
+  const expressionRef = useRef<HTMLTextAreaElement | null>(null);
 
   const activeFormula = useMemo(
     () => formulas.find((f) => f.id === activeFormulaId) ?? null,
@@ -97,6 +99,23 @@ export function RecommendationPanel({ labels }: RecommendationPanelProps) {
   useEffect(() => {
     fetchFormulas();
   }, []);
+
+  const appendToken = (token: string) => {
+    setForm((prev) => {
+      const trimmed = prev.expression.trimEnd();
+      const prefix = trimmed.length > 0 ? `${trimmed} ` : "";
+      const nextExpr = `${prefix}${token}`;
+      return { ...prev, expression: nextExpr };
+    });
+    requestAnimationFrame(() => {
+      const el = expressionRef.current;
+      if (el) {
+        const len = el.value.length;
+        el.focus();
+        el.setSelectionRange(len, len);
+      }
+    });
+  };
 
   const handleValidate = () => {
     const result = validateFormulaExpression(form.expression);
@@ -170,7 +189,7 @@ export function RecommendationPanel({ labels }: RecommendationPanelProps) {
     setLoading(true);
     setMessage(null);
     try {
-      const res = await fetch("/api/screener?limit=50&includeScores=true");
+      const res = await fetch(`/api/screener?limit=50&includeScores=true&exchange=${previewExchange}`);
       if (res.ok) {
         const data = await res.json();
         const stocks: Stock[] = data.stocks ?? [];
@@ -305,6 +324,7 @@ export function RecommendationPanel({ labels }: RecommendationPanelProps) {
           <div className={styles.recoField}>
             <label>{labels.expression}</label>
             <textarea
+              ref={expressionRef}
               value={form.expression}
               onChange={(e) => setForm({ ...form, expression: e.target.value })}
               className={styles.recoTextarea}
@@ -317,10 +337,7 @@ export function RecommendationPanel({ labels }: RecommendationPanelProps) {
                   key={token}
                   type="button"
                   className={styles.tokenButton}
-                  onClick={() => setForm((prev) => ({
-                    ...prev,
-                    expression: `${prev.expression}${prev.expression.endsWith(" ") ? "" : prev.expression ? " " : ""}${token}`,
-                  }))}
+                  onClick={() => appendToken(token)}
                 >
                   {token}
                 </button>
@@ -330,10 +347,7 @@ export function RecommendationPanel({ labels }: RecommendationPanelProps) {
                   key={fn}
                   type="button"
                   className={styles.tokenButton}
-                  onClick={() => setForm((prev) => ({
-                    ...prev,
-                    expression: `${prev.expression}${prev.expression.endsWith(" ") ? "" : prev.expression ? " " : ""}${fn}()`,
-                  }))}
+                  onClick={() => appendToken(`${fn}()`)}
                 >
                   {fn}()
                 </button>
@@ -389,7 +403,21 @@ export function RecommendationPanel({ labels }: RecommendationPanelProps) {
           <div className={styles.previewBlock}>
             <div className={styles.previewHeader}>
               <h4>{labels.preview}</h4>
-              <span className={styles.previewHint}>{previewStocks.length} stocks sampled</span>
+              <div className={styles.previewControls}>
+                <div className={styles.roleToggle}>
+                  {(["nasdaq", "tlv"] as Stock["exchange"][]).map((ex) => (
+                    <button
+                      key={ex}
+                      type="button"
+                      className={`${styles.roleOption} ${previewExchange === ex ? styles.roleOptionActive : ""}`}
+                      onClick={() => setPreviewExchange(ex)}
+                    >
+                      {ex === "nasdaq" ? "NASDAQ" : "TLV"}
+                    </button>
+                  ))}
+                </div>
+                <span className={styles.previewHint}>{previewStocks.length} stocks sampled</span>
+              </div>
             </div>
             {previewScores.length === 0 ? (
               <p className={styles.empty}>{labels.previewEmpty}</p>
@@ -398,6 +426,8 @@ export function RecommendationPanel({ labels }: RecommendationPanelProps) {
                 <div className={styles.previewHead} role="row">
                   <span role="columnheader">Symbol</span>
                   <span role="columnheader">Score</span>
+                  <span role="columnheader">1D</span>
+                  <span role="columnheader">5D</span>
                   <span role="columnheader">1M</span>
                   <span role="columnheader">6M</span>
                   <span role="columnheader">12M</span>
@@ -408,9 +438,11 @@ export function RecommendationPanel({ labels }: RecommendationPanelProps) {
                     <span role="cell" className={styles.previewScore}>
                       {(stock.recommendationScore ?? 0).toFixed(2)}
                     </span>
-                    <span role="cell">{stock.growth1m.toFixed(2)}%</span>
-                    <span role="cell">{stock.growth6m.toFixed(2)}%</span>
-                    <span role="cell">{stock.growth12m.toFixed(2)}%</span>
+                    <span role="cell">{stock.growth1d !== undefined ? `${stock.growth1d.toFixed(1)}%` : "—"}</span>
+                    <span role="cell">{stock.growth5d !== undefined ? `${stock.growth5d.toFixed(1)}%` : "—"}</span>
+                    <span role="cell">{`${stock.growth1m.toFixed(1)}%`}</span>
+                    <span role="cell">{`${stock.growth6m.toFixed(1)}%`}</span>
+                    <span role="cell">{`${stock.growth12m.toFixed(1)}%`}</span>
                   </div>
                 ))}
               </div>
