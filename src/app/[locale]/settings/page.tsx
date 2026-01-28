@@ -49,12 +49,9 @@ export default async function SettingsPage({ params }: SettingsPageProps) {
             marginBottom: "24px",
           }}
         >
-          <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-            <Link href={`/${locale}/pulse`} style={{ display: "flex", alignItems: "center", gap: "10px", textDecoration: "none", color: "inherit" }}>
-              <span style={{ fontSize: "1.5rem", color: "var(--accent)" }}>◈</span>
-              <span style={{ fontSize: "1.25rem", fontWeight: 700, letterSpacing: "-0.02em" }}>Nasdaq Pulse</span>
-            </Link>
-          </div>
+          <Link href={`/${locale}/pulse`} style={{ textDecoration: "none", color: "inherit", fontSize: "1.25rem", fontWeight: 700, letterSpacing: "-0.02em" }}>
+            Nasdaq Pulse
+          </Link>
           <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
             <LocaleSwitcher locale={locale} />
             {user?.email && (
