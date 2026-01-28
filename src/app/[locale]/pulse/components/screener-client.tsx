@@ -14,7 +14,7 @@ import {
   isStockRecommended,
   scoreStocksWithFormula,
 } from "@/lib/market-data/recommendation";
-import type { Stock, ScreenerResponse } from "@/lib/market-data/types";
+import type { Stock, ScreenerFilters, ScreenerResponse } from "@/lib/market-data/types";
 import type { Dictionary } from "@/lib/i18n";
 import styles from "./screener-client.module.css";
 import type { RecommendationFormulaSummary } from "@/lib/recommendations/types";
@@ -50,6 +50,7 @@ export function ScreenerClient({
   const [stocks, setStocks] = useState<Stock[]>(initialData.stocks);
   const [isLoading, setIsLoading] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const [filters, setFilters] = useState<ScreenerFilters>({ minPrice: null });
 
   // Get symbols of recommended stocks for live quotes
   const scoredStocks = useMemo(
@@ -82,6 +83,10 @@ export function ScreenerClient({
         includeScores: "true",
       });
 
+      if (filters.minPrice !== null) {
+        params.set("minPrice", filters.minPrice.toString());
+      }
+
       if (search) {
         params.set("search", search);
       }
@@ -96,17 +101,19 @@ export function ScreenerClient({
     } finally {
       setIsLoading(false);
     }
-  }, [isLoaded, preferences, onFormulaChange]);
+  }, [isLoaded, preferences, filters.minPrice, onFormulaChange]);
 
   useEffect(() => {
     if (isLoaded) {
       fetchScreenerData(searchQuery || undefined);
     }
-  }, [isLoaded, fetchScreenerData, searchQuery]);
+  }, [isLoaded, fetchScreenerData, searchQuery, filters.minPrice]);
 
   const controlLabels = {
     sortBy: dict.screener.sortBy,
     show: dict.screener.show,
+    minPrice: dict.screener.minPrice,
+    clearAll: dict.screener.clearAll,
     search: dict.screener.search,
     recommendedOnly: dict.screener.recommendedOnly,
     exchange: dict.screener.exchange,
@@ -139,9 +146,16 @@ export function ScreenerClient({
     (stock) => !currentHiddenSymbols.includes(stock.symbol)
   );
 
+  const minPrice = filters.minPrice;
+  if (minPrice !== null) {
+    visibleStocks = visibleStocks.filter((stock) => stock.price >= minPrice);
+  }
+
   if (preferences.showRecommendedOnly) {
     visibleStocks = filterAndSortByRecommendation(visibleStocks, activeFormula ?? undefined);
   }
+
+  const hasActiveFilters = filters.minPrice !== null || preferences.showRecommendedOnly;
 
   return (
     <div className={styles.screener}>
@@ -149,14 +163,18 @@ export function ScreenerClient({
         exchange={preferences.exchange}
         sortBy={preferences.sortBy}
         limit={preferences.limit}
+        filters={filters}
         searchQuery={searchQuery}
         showRecommendedOnly={preferences.showRecommendedOnly}
         controlsDisabled={preferences.showRecommendedOnly}
         onExchangeChange={setExchange}
         onSortChange={setSortBy}
         onLimitChange={setLimit}
+        onMinPriceChange={(value) => setFilters((prev) => ({ ...prev, minPrice: value }))}
         onSearchChange={setSearchQuery}
         onShowRecommendedOnlyChange={setShowRecommendedOnly}
+        onClearFilters={() => setFilters({ minPrice: null })}
+        hasActiveFilters={hasActiveFilters}
         labels={controlLabels}
       />
 
