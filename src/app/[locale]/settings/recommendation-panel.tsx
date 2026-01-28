@@ -71,6 +71,7 @@ export function RecommendationPanel({ labels }: RecommendationPanelProps) {
   const [previewScores, setPreviewScores] = useState<Stock[]>([]);
   const [previewExchange, setPreviewExchange] = useState<Stock["exchange"]>("nasdaq");
   const expressionRef = useRef<HTMLTextAreaElement | null>(null);
+  const selectionRef = useRef<{ start: number; end: number }>({ start: 0, end: 0 });
 
   const activeFormula = useMemo(
     () => formulas.find((f) => f.id === activeFormulaId) ?? null,
@@ -102,10 +103,8 @@ export function RecommendationPanel({ labels }: RecommendationPanelProps) {
 
   const appendToken = (token: string) => {
     setForm((prev) => {
-      const el = expressionRef.current;
       const expr = prev.expression ?? "";
-      const start = el ? el.selectionStart : expr.length;
-      const end = el ? el.selectionEnd : expr.length;
+      const { start, end } = selectionRef.current ?? { start: expr.length, end: expr.length };
 
       const before = expr.slice(0, start);
       const after = expr.slice(end);
@@ -116,11 +115,12 @@ export function RecommendationPanel({ labels }: RecommendationPanelProps) {
       const insertion = `${needsSpaceBefore ? " " : ""}${token}${needsSpaceAfter ? " " : ""}`;
       const nextExpr = `${before}${insertion}${after}`;
 
-      // Move cursor after inserted token
+      const newPos = (before + insertion).length;
+      selectionRef.current = { start: newPos, end: newPos };
+
       requestAnimationFrame(() => {
         const elNext = expressionRef.current;
         if (elNext) {
-          const newPos = (before + insertion).length;
           elNext.focus();
           elNext.setSelectionRange(newPos, newPos);
         }
@@ -128,6 +128,15 @@ export function RecommendationPanel({ labels }: RecommendationPanelProps) {
 
       return { ...prev, expression: nextExpr };
     });
+  };
+
+  const handleSelectionChange = () => {
+    const el = expressionRef.current;
+    if (!el) return;
+    selectionRef.current = {
+      start: el.selectionStart ?? 0,
+      end: el.selectionEnd ?? el.selectionStart ?? 0,
+    };
   };
 
   const handleValidate = () => {
@@ -340,6 +349,9 @@ export function RecommendationPanel({ labels }: RecommendationPanelProps) {
               ref={expressionRef}
               value={form.expression}
               onChange={(e) => setForm({ ...form, expression: e.target.value })}
+              onSelect={handleSelectionChange}
+              onClick={handleSelectionChange}
+              onKeyUp={handleSelectionChange}
               className={styles.recoTextarea}
               rows={5}
               placeholder="(3*(g1m-g5d)/25 + 2*(g6m-g1m)/150 + (g12m-g6m)/182) * avg(g5d,g1m,g6m,g12m)"
