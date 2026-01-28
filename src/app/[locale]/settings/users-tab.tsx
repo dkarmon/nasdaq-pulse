@@ -1,5 +1,5 @@
 // ABOUTME: Tab component for managing users and invitations.
-// ABOUTME: Combines invitation sending and user role management.
+// ABOUTME: Two-card layout for inviting and managing users.
 
 "use client";
 
@@ -115,17 +115,18 @@ export function UsersTab({ dict }: UsersTabProps) {
   };
 
   const getInvitationStatus = (inv: Invitation) => {
-    if (inv.used_at) return dict.settings.used;
-    if (new Date(inv.expires_at) < new Date()) return dict.settings.expired;
-    return dict.settings.pending;
+    if (inv.used_at) return { label: dict.settings.used, type: "used" };
+    if (new Date(inv.expires_at) < new Date()) return { label: dict.settings.expired, type: "expired" };
+    return { label: dict.settings.pending, type: "pending" };
   };
 
-  return (
-    <section className={styles.section}>
-      <h2 className={styles.sectionTitle}>{dict.settings.admin}</h2>
+  const pendingInvitations = invitations.filter((inv) => !inv.used_at && new Date(inv.expires_at) >= new Date());
 
-      <div className={styles.adminSubsection}>
-        <h3 className={styles.exchangeLabel}>{dict.settings.invitations}</h3>
+  return (
+    <div className={styles.usersGrid}>
+      {/* Invite Section */}
+      <section className={styles.section}>
+        <h2 className={styles.sectionTitle}>{dict.settings.invitations}</h2>
 
         <form onSubmit={handleInvite} className={styles.inviteForm}>
           <input
@@ -143,69 +144,72 @@ export function UsersTab({ dict }: UsersTabProps) {
 
         {message && <p className={styles.message}>{message}</p>}
 
-        {invitations.length === 0 ? (
-          <p className={styles.empty}>{dict.settings.noInvitations}</p>
-        ) : (
-          <ul className={styles.stockList}>
-            {invitations.map((inv) => (
-              <li key={inv.id} className={styles.stockItem}>
-                <span className={styles.symbol}>{inv.email}</span>
-                <span className={styles.status}>{getInvitationStatus(inv)}</span>
-                {!inv.used_at && (
-                  <button
-                    className={styles.unhideButton}
-                    onClick={() => handleDeleteInvitation(inv.id)}
-                  >
-                    {dict.settings.delete}
-                  </button>
-                )}
-              </li>
+        {pendingInvitations.length > 0 && (
+          <div className={styles.inviteList}>
+            {pendingInvitations.map((inv) => (
+              <div key={inv.id} className={styles.inviteRow}>
+                <span className={styles.inviteEmail}>{inv.email}</span>
+                <button
+                  className={styles.linkButton}
+                  onClick={() => handleDeleteInvitation(inv.id)}
+                >
+                  {dict.settings.delete}
+                </button>
+              </div>
             ))}
-          </ul>
+          </div>
         )}
-      </div>
+      </section>
 
-      <div className={styles.adminSubsection}>
-        <h3 className={styles.exchangeLabel}>{dict.settings.users}</h3>
+      {/* Users Section */}
+      <section className={styles.section}>
+        <h2 className={styles.sectionTitle}>{dict.settings.users}</h2>
 
         {users.length === 0 ? (
           <p className={styles.empty}>{dict.settings.noUsers}</p>
         ) : (
-          <ul className={styles.stockList}>
+          <div className={styles.userList}>
             {users.map((user) => (
-              <li key={user.id} className={styles.stockItem}>
-                <span className={styles.symbol}>{user.email}</span>
-                <div className={styles.roleToggle}>
-                  <button
-                    type="button"
-                    className={`${styles.roleOption} ${user.role === "user" ? styles.roleOptionActive : ""}`}
-                    onClick={() => handleRoleChange(user.id, "user")}
-                    disabled={updatingUserId === user.id}
-                  >
-                    {dict.settings.user}
-                  </button>
-                  <button
-                    type="button"
-                    className={`${styles.roleOption} ${user.role === "admin" ? styles.roleOptionActive : ""}`}
-                    onClick={() => handleRoleChange(user.id, "admin")}
-                    disabled={updatingUserId === user.id}
-                  >
-                    {dict.settings.adminRole}
-                  </button>
+              <div key={user.id} className={styles.userRow}>
+                <div className={styles.userInfo}>
+                  <span className={styles.userEmail}>{user.email}</span>
+                  <span className={styles.userRole}>
+                    {user.role === "admin" ? dict.settings.adminRole : dict.settings.user}
+                  </span>
                 </div>
-                {user.role !== "admin" && (
-                  <button
-                    className={styles.unhideButton}
-                    onClick={() => handleDeleteUser(user.id)}
-                  >
-                    {dict.settings.delete}
-                  </button>
-                )}
-              </li>
+                <div className={styles.userActions}>
+                  <div className={styles.roleToggle}>
+                    <button
+                      type="button"
+                      className={`${styles.roleOption} ${user.role === "user" ? styles.roleOptionActive : ""}`}
+                      onClick={() => handleRoleChange(user.id, "user")}
+                      disabled={updatingUserId === user.id}
+                    >
+                      {dict.settings.user}
+                    </button>
+                    <button
+                      type="button"
+                      className={`${styles.roleOption} ${user.role === "admin" ? styles.roleOptionActive : ""}`}
+                      onClick={() => handleRoleChange(user.id, "admin")}
+                      disabled={updatingUserId === user.id}
+                    >
+                      {dict.settings.adminRole}
+                    </button>
+                  </div>
+                  {user.role !== "admin" && (
+                    <button
+                      className={styles.deleteButton}
+                      onClick={() => handleDeleteUser(user.id)}
+                    >
+                      {dict.settings.delete}
+                    </button>
+                  )}
+                </div>
+              </div>
             ))}
-          </ul>
+          </div>
         )}
-      </div>
-    </section>
+      </section>
+    </div>
   );
 }

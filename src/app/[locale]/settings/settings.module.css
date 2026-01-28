@@ -37,6 +37,97 @@
   border-bottom-color: var(--accent);
 }
 
+/* Users Tab Grid */
+.usersGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  align-items: start;
+}
+
+@media (max-width: 768px) {
+  .usersGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.inviteList {
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.inviteRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 14px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 8px;
+}
+
+.inviteEmail {
+  font-size: 0.95rem;
+  color: var(--foreground);
+}
+
+.userList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.userRow {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 14px 16px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.userInfo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.userEmail {
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.userRole {
+  font-size: 0.85rem;
+  color: var(--muted);
+  text-transform: capitalize;
+}
+
+.userActions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.deleteButton {
+  padding: 6px 12px;
+  background: transparent;
+  border: 1px solid rgba(255, 99, 99, 0.3);
+  border-radius: 6px;
+  color: #ff6b6b;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 150ms ease;
+}
+
+.deleteButton:hover {
+  background: rgba(255, 99, 99, 0.12);
+}
+
 /* Modal */
 .modalOverlay {
   position: fixed;
@@ -308,16 +399,6 @@
   font-weight: 700;
   font-size: 1.1rem;
   letter-spacing: 0.02em;
-  display: flex;
-  align-items: baseline;
-  gap: 8px;
-}
-
-.symbolMeta {
-  font-size: 0.85rem;
-  font-weight: 500;
-  color: var(--muted);
-  letter-spacing: 0.01em;
 }
 
 
