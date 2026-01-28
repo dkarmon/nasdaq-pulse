@@ -374,6 +374,35 @@
   }
 }
 
+/* Mobile collapsible sections - only on mobile */
+.mobileCollapsible {
+  display: block;
+}
+
+@media (min-width: 769px) {
+  .mobileCollapsible {
+    display: none;
+  }
+}
+
+/* Desktop always-visible sections - hidden on mobile */
+.desktopAlwaysVisible {
+  display: none;
+}
+
+@media (min-width: 769px) {
+  .desktopAlwaysVisible {
+    display: block;
+  }
+}
+
+.companyInfoInner {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
 @media (max-width: 360px) {
   .metricValue {
     font-size: 0.9rem;

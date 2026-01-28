@@ -20,8 +20,8 @@ export function LocaleSwitcher({ locale }: Props) {
   const href = getTargetHref(pathname, target);
 
   return (
-    <Link href={href} className="pill ghost" aria-label="Switch language">
-      <span>{target.toUpperCase()}</span>
+    <Link href={href} className="nav-icon-btn" aria-label="Switch language">
+      {target.toUpperCase()}
     </Link>
   );
 }

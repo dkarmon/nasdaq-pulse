@@ -719,219 +719,54 @@
   gap: 12px;
 }
 
-/* Omit Rules Panel */
-.toggleLabel {
-  display: flex;
-  align-items: center;
+/* Mobile stacked cards for formula preview */
+.previewCards {
+  display: none;
+  flex-direction: column;
   gap: 10px;
-  font-size: 0.9rem;
-  color: var(--muted);
 }
 
-.toggle {
-  width: 44px;
-  height: 24px;
-  border-radius: 12px;
-  background: rgba(255, 255, 255, 0.12);
-  border: none;
-  padding: 2px;
-  cursor: pointer;
-  transition: background-color 150ms ease;
-  position: relative;
+@media (max-width: 768px) {
+  .previewTable {
+    display: none;
+  }
+
+  .previewCards {
+    display: flex;
+  }
 }
 
-.toggle[data-active="true"] {
-  background: var(--accent);
-}
-
-.toggle:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-.toggleThumb {
-  display: block;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background: white;
-  transition: transform 150ms ease;
-}
-
-.toggle[data-active="true"] .toggleThumb {
-  transform: translateX(20px);
-}
-
-.syncRow {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  margin: 12px 0;
-  flex-wrap: wrap;
-}
-
-.syncLabel {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  cursor: pointer;
-  font-size: 0.95rem;
-}
-
-.syncLabel input[type="checkbox"] {
-  width: 18px;
-  height: 18px;
-  accent-color: var(--accent);
-}
-
-.syncHint {
-  color: var(--muted);
-  font-size: 0.9rem;
-}
-
-.exchangeTabs {
-  display: flex;
-  gap: 0;
-  margin: 16px 0;
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: 8px;
-  overflow: hidden;
-  width: fit-content;
-}
-
-.exchangeTab {
-  padding: 10px 20px;
-  background: rgba(255, 255, 255, 0.05);
-  border: none;
-  color: var(--muted);
-  font-size: 0.9rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: background-color 150ms ease, color 150ms ease;
-}
-
-.exchangeTab:not(:last-child) {
-  border-right: 1px solid rgba(255, 255, 255, 0.15);
-}
-
-.exchangeTab:hover:not([data-active="true"]) {
-  background: rgba(255, 255, 255, 0.08);
-}
-
-.exchangeTab[data-active="true"] {
-  background: linear-gradient(135deg, var(--accent), var(--accent-2));
-  color: #0b0f1a;
-}
-
-.rulesList {
+.previewCard {
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  margin-top: 12px;
-}
-
-.ruleRow {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  padding: 14px 16px;
+  gap: 8px;
+  padding: 12px;
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 10px;
-  flex-wrap: wrap;
 }
 
-.ruleRow[data-readonly="true"] {
-  opacity: 0.7;
-}
-
-.ruleField {
-  font-weight: 600;
-  font-size: 0.95rem;
-  min-width: 140px;
-}
-
-.ruleInputs {
+.previewCardHeader {
   display: flex;
-  gap: 16px;
-  flex: 1;
-}
-
-.ruleInputLabel {
-  display: flex;
+  justify-content: space-between;
   align-items: center;
-  gap: 8px;
-  font-size: 0.9rem;
-  color: var(--muted);
 }
 
-.ruleInput {
-  width: 80px;
-  padding: 8px 10px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: 6px;
-  color: var(--foreground);
-  font-size: 0.9rem;
+.previewCardName {
+  font-weight: 700;
+  font-size: 0.95rem;
 }
 
-.ruleInput:focus {
-  outline: none;
-  border-color: var(--accent);
+.previewCardScore {
+  font-family: var(--font-space-grotesk), var(--font-manrope), system-ui, sans-serif;
+  color: var(--accent);
+  font-weight: 700;
 }
 
-.ruleInput:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-}
-
-.ruleRemove {
-  background: transparent;
-  border: none;
-  color: var(--muted);
-  font-size: 1.25rem;
-  cursor: pointer;
-  padding: 4px 8px;
-  border-radius: 4px;
-  transition: background-color 150ms ease, color 150ms ease;
-}
-
-.ruleRemove:hover {
-  background: rgba(255, 99, 99, 0.12);
-  color: #ff6b6b;
-}
-
-.addRuleRow {
-  margin-top: 12px;
-}
-
-.addRuleSelect {
-  padding: 10px 14px;
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  color: var(--foreground);
-  font-size: 0.9rem;
-  cursor: pointer;
-  min-width: 180px;
-}
-
-.addRuleSelect:hover {
-  border-color: var(--accent);
-}
-
-.addRuleSelect:focus {
-  outline: none;
-  border-color: var(--accent);
-}
-
-.addRuleSelect option {
-  background: var(--card);
-  color: var(--foreground);
-}
-
-.saveRow {
-  margin-top: 16px;
+.previewCardMetrics {
   display: flex;
-  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+  font-size: 0.85rem;
+  color: var(--muted);
 }

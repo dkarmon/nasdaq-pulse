@@ -1,10 +1,11 @@
 // ABOUTME: Stock detail slide-in panel showing company info, metrics, chart, and news.
-// ABOUTME: Full-screen on mobile with back button, side panel on desktop.
+// ABOUTME: Full-screen on mobile with collapsible sections, side panel on desktop.
 
 "use client";
 
 import { useEffect, useState, useMemo } from "react";
 import { PriceChart } from "./price-chart";
+import { CollapsibleSection } from "./collapsible-section";
 import { useLiveQuotes } from "@/hooks/useLiveQuotes";
 import { isStockRecommended } from "@/lib/market-data/recommendation";
 import type { StockDetailResponse, NewsResponse, NewsItem, Stock } from "@/lib/market-data/types";
@@ -138,6 +139,15 @@ export function StockDetail({ symbol, onClose, locale = "en", activeFormula, lab
 
   const { profile, quote, history, growth1d, growth5d, growth1m, growth6m, growth12m, nameHebrew } = detail;
 
+  const isTLV = symbol.endsWith(".TA");
+  const currency = isTLV ? "ILS" : "USD";
+  const primaryText = isTLV && nameHebrew ? nameHebrew : profile.symbol;
+  const secondaryText = isTLV ? null : (nameHebrew || profile.name);
+  const stockForCheck = { growth5d, growth1m, growth6m, growth12m } as Stock;
+  const isRecommended = isStockRecommended(stockForCheck, activeFormula ?? undefined);
+
+  const hasCompanyInfo = profile.sector || profile.industry || profile.marketCap || profile.website || profile.description || profile.descriptionHebrew;
+
   return (
     <div className={styles.panel}>
       <div className={styles.header}>
@@ -150,91 +160,33 @@ export function StockDetail({ symbol, onClose, locale = "en", activeFormula, lab
       </div>
 
       <div className={styles.titleSection}>
-        {(() => {
-          const isTLV = symbol.endsWith(".TA");
-          const currency = isTLV ? "ILS" : "USD";
-          const primaryText = isTLV && nameHebrew ? nameHebrew : profile.symbol;
-          const secondaryText = isTLV ? null : (nameHebrew || profile.name);
-          const stockForCheck = { growth5d, growth1m, growth6m, growth12m } as Stock;
-          const isRecommended = isStockRecommended(stockForCheck, activeFormula ?? undefined);
-          return (
-            <>
-              <div className={styles.symbolRow}>
-                {isRecommended && (
-                  <span className={styles.starIcon} title={labels.recommended}>★</span>
-                )}
-                <h2 className={styles.symbol}>{primaryText}</h2>
-                {isRecommended && liveQuote && (
-                  <span
-                    className={styles.liveGrowth}
-                    data-positive={liveQuote.changePercent >= 0}
-                    data-negative={liveQuote.changePercent < 0}
-                  >
-                    ({formatGrowth(liveQuote.changePercent)})
-                  </span>
-                )}
-                <span className={styles.priceInline}>({formatPrice(liveQuote?.price ?? quote.price, currency)})</span>
-                <button
-                  className={styles.copyButton}
-                  onClick={() => navigator.clipboard.writeText(profile.symbol)}
-                  title="Copy ticker"
-                >
-                  ⧉
-                </button>
-              </div>
-              {secondaryText && <p className={styles.companyName}>{secondaryText}</p>}
-            </>
-          );
-        })()}
+        <div className={styles.symbolRow}>
+          {isRecommended && (
+            <span className={styles.starIcon} title={labels.recommended}>★</span>
+          )}
+          <h2 className={styles.symbol}>{primaryText}</h2>
+          {isRecommended && liveQuote && (
+            <span
+              className={styles.liveGrowth}
+              data-positive={liveQuote.changePercent >= 0}
+              data-negative={liveQuote.changePercent < 0}
+            >
+              ({formatGrowth(liveQuote.changePercent)})
+            </span>
+          )}
+          <span className={styles.priceInline}>({formatPrice(liveQuote?.price ?? quote.price, currency)})</span>
+          <button
+            className={styles.copyButton}
+            onClick={() => navigator.clipboard.writeText(profile.symbol)}
+            title="Copy ticker"
+          >
+            ⧉
+          </button>
+        </div>
+        {secondaryText && <p className={styles.companyName}>{secondaryText}</p>}
       </div>
 
-      {(profile.sector || profile.industry || profile.marketCap || profile.website) && (
-        <div className={styles.companyInfo}>
-          {profile.sector && (
-            <div className={styles.infoRow}>
-              <span className={styles.infoLabel}>{labels.sector}:</span>
-              <span className={styles.infoValue}>{profile.sector}</span>
-            </div>
-          )}
-          {profile.industry && (
-            <div className={styles.infoRow}>
-              <span className={styles.infoLabel}>{labels.industry}:</span>
-              <span className={styles.infoValue}>{profile.industry}</span>
-            </div>
-          )}
-          {profile.marketCap > 0 && (
-            <div className={styles.infoRow}>
-              <span className={styles.infoLabel}>{labels.marketCap}:</span>
-              <span className={styles.infoValue}>{formatMarketCap(profile.marketCap)}</span>
-            </div>
-          )}
-          {profile.website && (
-            <div className={styles.infoRow}>
-              <span className={styles.infoLabel}>{labels.website}:</span>
-              <a
-                href={profile.website}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={styles.infoLink}
-              >
-                {profile.website.replace(/^https?:\/\//, '').replace(/\/$/, '')}
-              </a>
-            </div>
-          )}
-        </div>
-      )}
-
-      {(profile.description || profile.descriptionHebrew) && (
-        <div className={styles.companyOverview}>
-          <h3 className={styles.overviewTitle}>{labels.companyOverview}</h3>
-          <p className={styles.overviewText}>
-            {locale === "he" && profile.descriptionHebrew
-              ? profile.descriptionHebrew
-              : profile.description}
-          </p>
-        </div>
-      )}
-
+      {/* Growth metrics - always visible */}
       <div className={styles.metricsRow} dir="ltr">
         <div className={styles.metricCard}>
           <span
@@ -288,47 +240,193 @@ export function StockDetail({ symbol, onClose, locale = "en", activeFormula, lab
         </div>
       </div>
 
+      {/* Chart - always visible */}
       <div className={styles.chartSection}>
         <PriceChart data={history} height={250} />
       </div>
 
-      <div className={styles.newsSection}>
-        <h3 className={styles.newsTitle}>{labels.latestNews}</h3>
-        {news.length === 0 ? (
-          <p className={styles.noNews}>{labels.noNews}</p>
-        ) : (
-          <div className={styles.newsList}>
-            {news.slice(0, 3).map((item) => (
-              <a
-                key={item.id}
-                href={item.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={styles.newsItem}
-              >
-                <div className={styles.newsHeader}>
-                  <span className={styles.newsHeadline}>{item.headline}</span>
-                  <span
-                    className={`badge ${
-                      item.sentiment === "positive"
-                        ? "positive"
-                        : item.sentiment === "negative"
-                        ? "negative"
-                        : ""
-                    }`}
+      {/* Company Info - collapsible on mobile, collapsed by default */}
+      {hasCompanyInfo && (
+        <div className={styles.mobileCollapsible}>
+          <CollapsibleSection title="Company Info" defaultExpanded={false}>
+            {(profile.sector || profile.industry || profile.marketCap || profile.website) && (
+              <div className={styles.companyInfoInner}>
+                {profile.sector && (
+                  <div className={styles.infoRow}>
+                    <span className={styles.infoLabel}>{labels.sector}:</span>
+                    <span className={styles.infoValue}>{profile.sector}</span>
+                  </div>
+                )}
+                {profile.industry && (
+                  <div className={styles.infoRow}>
+                    <span className={styles.infoLabel}>{labels.industry}:</span>
+                    <span className={styles.infoValue}>{profile.industry}</span>
+                  </div>
+                )}
+                {profile.marketCap > 0 && (
+                  <div className={styles.infoRow}>
+                    <span className={styles.infoLabel}>{labels.marketCap}:</span>
+                    <span className={styles.infoValue}>{formatMarketCap(profile.marketCap)}</span>
+                  </div>
+                )}
+                {profile.website && (
+                  <div className={styles.infoRow}>
+                    <span className={styles.infoLabel}>{labels.website}:</span>
+                    <a
+                      href={profile.website}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={styles.infoLink}
+                    >
+                      {profile.website.replace(/^https?:\/\//, '').replace(/\/$/, '')}
+                    </a>
+                  </div>
+                )}
+              </div>
+            )}
+            {(profile.description || profile.descriptionHebrew) && (
+              <p className={styles.overviewText}>
+                {locale === "he" && profile.descriptionHebrew
+                  ? profile.descriptionHebrew
+                  : profile.description}
+              </p>
+            )}
+          </CollapsibleSection>
+        </div>
+      )}
+
+      {/* Desktop: Always-visible company info */}
+      {hasCompanyInfo && (
+        <div className={styles.desktopAlwaysVisible}>
+          {(profile.sector || profile.industry || profile.marketCap || profile.website) && (
+            <div className={styles.companyInfo}>
+              {profile.sector && (
+                <div className={styles.infoRow}>
+                  <span className={styles.infoLabel}>{labels.sector}:</span>
+                  <span className={styles.infoValue}>{profile.sector}</span>
+                </div>
+              )}
+              {profile.industry && (
+                <div className={styles.infoRow}>
+                  <span className={styles.infoLabel}>{labels.industry}:</span>
+                  <span className={styles.infoValue}>{profile.industry}</span>
+                </div>
+              )}
+              {profile.marketCap > 0 && (
+                <div className={styles.infoRow}>
+                  <span className={styles.infoLabel}>{labels.marketCap}:</span>
+                  <span className={styles.infoValue}>{formatMarketCap(profile.marketCap)}</span>
+                </div>
+              )}
+              {profile.website && (
+                <div className={styles.infoRow}>
+                  <span className={styles.infoLabel}>{labels.website}:</span>
+                  <a
+                    href={profile.website}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={styles.infoLink}
                   >
-                    {item.sentiment}
-                  </span>
+                    {profile.website.replace(/^https?:\/\//, '').replace(/\/$/, '')}
+                  </a>
                 </div>
-                <div className={styles.newsMeta}>
-                  <span>{item.source}</span>
-                  <span>•</span>
-                  <span>{formatTimeAgo(item.publishedAt)}</span>
-                </div>
-              </a>
-            ))}
-          </div>
-        )}
+              )}
+            </div>
+          )}
+          {(profile.description || profile.descriptionHebrew) && (
+            <div className={styles.companyOverview}>
+              <h3 className={styles.overviewTitle}>{labels.companyOverview}</h3>
+              <p className={styles.overviewText}>
+                {locale === "he" && profile.descriptionHebrew
+                  ? profile.descriptionHebrew
+                  : profile.description}
+              </p>
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* News - collapsible on mobile, collapsed by default */}
+      <div className={styles.mobileCollapsible}>
+        <CollapsibleSection title={`${labels.latestNews} (${news.length})`} defaultExpanded={false}>
+          {news.length === 0 ? (
+            <p className={styles.noNews}>{labels.noNews}</p>
+          ) : (
+            <div className={styles.newsList}>
+              {news.slice(0, 3).map((item) => (
+                <a
+                  key={item.id}
+                  href={item.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={styles.newsItem}
+                >
+                  <div className={styles.newsHeader}>
+                    <span className={styles.newsHeadline}>{item.headline}</span>
+                    <span
+                      className={`badge ${
+                        item.sentiment === "positive"
+                          ? "positive"
+                          : item.sentiment === "negative"
+                          ? "negative"
+                          : ""
+                      }`}
+                    >
+                      {item.sentiment}
+                    </span>
+                  </div>
+                  <div className={styles.newsMeta}>
+                    <span>{item.source}</span>
+                    <span>•</span>
+                    <span>{formatTimeAgo(item.publishedAt)}</span>
+                  </div>
+                </a>
+              ))}
+            </div>
+          )}
+        </CollapsibleSection>
+      </div>
+
+      {/* Desktop: Always-visible news */}
+      <div className={styles.desktopAlwaysVisible}>
+        <div className={styles.newsSection}>
+          <h3 className={styles.newsTitle}>{labels.latestNews}</h3>
+          {news.length === 0 ? (
+            <p className={styles.noNews}>{labels.noNews}</p>
+          ) : (
+            <div className={styles.newsList}>
+              {news.slice(0, 3).map((item) => (
+                <a
+                  key={item.id}
+                  href={item.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={styles.newsItem}
+                >
+                  <div className={styles.newsHeader}>
+                    <span className={styles.newsHeadline}>{item.headline}</span>
+                    <span
+                      className={`badge ${
+                        item.sentiment === "positive"
+                          ? "positive"
+                          : item.sentiment === "negative"
+                          ? "negative"
+                          : ""
+                      }`}
+                    >
+                      {item.sentiment}
+                    </span>
+                  </div>
+                  <div className={styles.newsMeta}>
+                    <span>{item.source}</span>
+                    <span>•</span>
+                    <span>{formatTimeAgo(item.publishedAt)}</span>
+                  </div>
+                </a>
+              ))}
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
