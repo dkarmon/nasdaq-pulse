@@ -146,6 +146,18 @@ export type Dictionary = {
     saved: string;
     fetchError: string;
     save: string;
+    // Tab navigation
+    tabStocks: string;
+    tabUsers: string;
+    tabFormulas: string;
+    // Modal actions
+    cancel: string;
+    saveFormula: string;
+    editFormula: string;
+    newFormula: string;
+    deleteFormula: string;
+    confirmDelete: string;
+    noFormulas: string;
   };
   auth: {
     signinTitle: string;
@@ -350,6 +362,16 @@ export const dictionaries: Record<Locale, Dictionary> = {
       saved: "Saved",
       fetchError: "Could not load formulas",
       save: "Save",
+      tabStocks: "Stocks",
+      tabUsers: "Users",
+      tabFormulas: "Formulas",
+      cancel: "Cancel",
+      saveFormula: "Save Formula",
+      editFormula: "Edit Formula",
+      newFormula: "New Formula",
+      deleteFormula: "Delete",
+      confirmDelete: "Are you sure you want to delete this formula?",
+      noFormulas: "No formulas yet",
     },
     auth: {
       signinTitle: "Welcome to Nasdaq Pulse",
@@ -550,6 +572,16 @@ export const dictionaries: Record<Locale, Dictionary> = {
       saved: "נשמר",
       fetchError: "לא ניתן לטעון נוסחאות",
       save: "שמירה",
+      tabStocks: "מניות",
+      tabUsers: "משתמשים",
+      tabFormulas: "נוסחאות",
+      cancel: "ביטול",
+      saveFormula: "שמור נוסחה",
+      editFormula: "עריכת נוסחה",
+      newFormula: "נוסחה חדשה",
+      deleteFormula: "מחק",
+      confirmDelete: "האם למחוק את הנוסחה?",
+      noFormulas: "אין נוסחאות עדיין",
     },
     auth: {
       signinTitle: "ברוכים הבאים ל-Nasdaq Pulse",
