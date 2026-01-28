@@ -479,7 +479,11 @@ export function RecommendationPanel({ labels, screenerLabels }: RecommendationPa
                 </div>
                 {previewScores.map((stock) => (
                   <div key={stock.symbol} className={styles.previewRow} role="row">
-                    <span role="cell">{stock.symbol}</span>
+                    <span role="cell">
+                      {stock.symbol.endsWith(".TA") && stock.nameHebrew
+                        ? stock.nameHebrew
+                        : stock.symbol}
+                    </span>
                     <span role="cell" className={styles.previewScore}>
                       {(stock.recommendationScore ?? 0).toFixed(2)}
                     </span>
