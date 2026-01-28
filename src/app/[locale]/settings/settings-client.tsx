@@ -163,6 +163,15 @@ export function SettingsClient({ dict, locale, isAdmin }: SettingsClientProps) {
     fetchError: dict.settings.fetchError,
   };
 
+  const screenerLabels = {
+    growth1d: dict.screener.growth5d.replace("5D", "1D") || "1D",
+    growth5d: dict.screener.growth5d,
+    growth1m: dict.screener.growth1m,
+    growth6m: dict.screener.growth6m,
+    growth12m: dict.screener.growth12m,
+    stock: dict.screener.stock,
+  };
+
   return (
     <div className={styles.settings}>
       <div className={styles.header}>
@@ -329,7 +338,7 @@ export function SettingsClient({ dict, locale, isAdmin }: SettingsClientProps) {
           </div>
 
           <div className={styles.adminSubsection}>
-            <RecommendationPanel labels={recommendationLabels} />
+            <RecommendationPanel labels={recommendationLabels} screenerLabels={screenerLabels} />
           </div>
         </section>
       )}

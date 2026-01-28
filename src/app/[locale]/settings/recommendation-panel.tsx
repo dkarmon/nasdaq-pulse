@@ -40,6 +40,14 @@ type RecommendationPanelProps = {
     saved: string;
     fetchError: string;
   };
+  screenerLabels: {
+    growth1d: string;
+    growth5d: string;
+    growth1m: string;
+    growth6m: string;
+    growth12m: string;
+    stock: string;
+  };
 };
 
 type FormulaFormState = {
@@ -57,7 +65,7 @@ const emptyForm: FormulaFormState = {
   status: "draft",
 };
 
-export function RecommendationPanel({ labels }: RecommendationPanelProps) {
+export function RecommendationPanel({ labels, screenerLabels }: RecommendationPanelProps) {
   const [formulas, setFormulas] = useState<RecommendationFormulaSummary[]>([]);
   const [activeFormulaId, setActiveFormulaId] = useState<string | null>(null);
   const [form, setForm] = useState<FormulaFormState>(emptyForm);
@@ -228,6 +236,12 @@ export function RecommendationPanel({ labels }: RecommendationPanelProps) {
     } finally {
       setLoading(false);
     }
+  };
+
+  const formatGrowth = (value?: number) => {
+    if (value === undefined || value === null) return "—";
+    if (!Number.isFinite(value) || Math.abs(value) > 500) return "—";
+    return `${value.toFixed(1)}%`;
   };
 
   return (
@@ -449,13 +463,13 @@ export function RecommendationPanel({ labels }: RecommendationPanelProps) {
             ) : (
               <div className={styles.previewTable} role="table">
                 <div className={styles.previewHead} role="row">
-                  <span role="columnheader">Symbol</span>
+                  <span role="columnheader">{screenerLabels.stock}</span>
                   <span role="columnheader">Score</span>
-                  <span role="columnheader">1D</span>
-                  <span role="columnheader">5D</span>
-                  <span role="columnheader">1M</span>
-                  <span role="columnheader">6M</span>
-                  <span role="columnheader">12M</span>
+                  <span role="columnheader">{screenerLabels.growth1d}</span>
+                  <span role="columnheader">{screenerLabels.growth5d}</span>
+                  <span role="columnheader">{screenerLabels.growth1m}</span>
+                  <span role="columnheader">{screenerLabels.growth6m}</span>
+                  <span role="columnheader">{screenerLabels.growth12m}</span>
                 </div>
                 {previewScores.map((stock) => (
                   <div key={stock.symbol} className={styles.previewRow} role="row">
@@ -463,11 +477,11 @@ export function RecommendationPanel({ labels }: RecommendationPanelProps) {
                     <span role="cell" className={styles.previewScore}>
                       {(stock.recommendationScore ?? 0).toFixed(2)}
                     </span>
-                    <span role="cell">{stock.growth1d !== undefined ? `${stock.growth1d.toFixed(1)}%` : "—"}</span>
-                    <span role="cell">{stock.growth5d !== undefined ? `${stock.growth5d.toFixed(1)}%` : "—"}</span>
-                    <span role="cell">{`${stock.growth1m.toFixed(1)}%`}</span>
-                    <span role="cell">{`${stock.growth6m.toFixed(1)}%`}</span>
-                    <span role="cell">{`${stock.growth12m.toFixed(1)}%`}</span>
+                    <span role="cell">{formatGrowth(stock.growth1d)}</span>
+                    <span role="cell">{formatGrowth(stock.growth5d)}</span>
+                    <span role="cell">{formatGrowth(stock.growth1m)}</span>
+                    <span role="cell">{formatGrowth(stock.growth6m)}</span>
+                    <span role="cell">{formatGrowth(stock.growth12m)}</span>
                   </div>
                 ))}
               </div>
