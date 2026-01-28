@@ -206,8 +206,8 @@
 }
 
 .roleOptionActive {
-  background: var(--accent);
-  color: var(--background);
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  color: #0b0f1a;
 }
 
 .roleOption:disabled {
@@ -340,9 +340,10 @@
 }
 
 .primaryButton {
-  background: var(--accent);
-  color: var(--background);
-  border-color: var(--accent);
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  color: #0b0f1a;
+  border-color: transparent;
+  box-shadow: var(--shadow-glow);
 }
 
 .secondaryButton {
