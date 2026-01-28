@@ -164,7 +164,7 @@ export function SettingsClient({ dict, locale, isAdmin }: SettingsClientProps) {
   };
 
   const screenerLabels = {
-    growth1d: dict.screener.growth5d.replace("5D", "1D") || "1D",
+    growth1d: "1D",
     growth5d: dict.screener.growth5d,
     growth1m: dict.screener.growth1m,
     growth6m: dict.screener.growth6m,

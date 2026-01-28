@@ -246,7 +246,7 @@ export function RecommendationPanel({ labels, screenerLabels }: RecommendationPa
 
   const formatGrowth = (value?: number) => {
     if (value === undefined || value === null) return "—";
-    if (!Number.isFinite(value) || Math.abs(value) > 500) return "—";
+    if (!Number.isFinite(value)) return "—";
     return `${value.toFixed(1)}%`;
   };
 
