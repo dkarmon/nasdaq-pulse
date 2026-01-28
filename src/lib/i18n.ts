@@ -121,6 +121,31 @@ export type Dictionary = {
     role: string;
     user: string;
     adminRole: string;
+    recommendations: string;
+    recommendationsActive: string;
+    recommendationsSubtitle: string;
+    recommendationsName: string;
+    recommendationsDescription: string;
+    recommendationsExpression: string;
+    status: string;
+    draft: string;
+    published: string;
+    archived: string;
+    validate: string;
+    validationPassed: string;
+    errors: string;
+    warnings: string;
+    preview: string;
+    previewEmpty: string;
+    add: string;
+    update: string;
+    duplicate: string;
+    edit: string;
+    archive: string;
+    activeSaved: string;
+    saved: string;
+    fetchError: string;
+    save: string;
   };
   auth: {
     signinTitle: string;
@@ -300,6 +325,31 @@ export const dictionaries: Record<Locale, Dictionary> = {
       role: "Role",
       user: "User",
       adminRole: "Admin",
+      recommendations: "Recommendation formulas",
+      recommendationsActive: "Active formula",
+      recommendationsSubtitle: "Select, validate, and publish the expression that powers recommendations.",
+      recommendationsName: "Name",
+      recommendationsDescription: "Description",
+      recommendationsExpression: "Expression",
+      status: "Status",
+      draft: "Draft",
+      published: "Published",
+      archived: "Archived",
+      validate: "Validate",
+      validationPassed: "Expression looks valid",
+      errors: "Errors",
+      warnings: "Warnings",
+      preview: "Preview",
+      previewEmpty: "Nothing yet",
+      add: "New",
+      update: "Update",
+      duplicate: "Duplicate",
+      edit: "Edit",
+      archive: "Archive",
+      activeSaved: "Active formula updated",
+      saved: "Saved",
+      fetchError: "Could not load formulas",
+      save: "Save",
     },
     auth: {
       signinTitle: "Welcome to Nasdaq Pulse",
@@ -475,6 +525,31 @@ export const dictionaries: Record<Locale, Dictionary> = {
       role: "תפקיד",
       user: "משתמש",
       adminRole: "מנהל",
+      recommendations: "נוסחאות המלצה",
+      recommendationsActive: "נוסחה פעילה",
+      recommendationsSubtitle: "בחרו, ערכו ופרסמו את נוסחת הדירוג לסינון.",
+      recommendationsName: "שם",
+      recommendationsDescription: "תיאור",
+      recommendationsExpression: "ביטוי",
+      status: "סטטוס",
+      draft: "טיוטה",
+      published: "פורסם",
+      archived: "בארכיון",
+      validate: "אימות",
+      validationPassed: "הביטוי תקין",
+      errors: "שגיאות",
+      warnings: "אזהרות",
+      preview: "תצוגה מקדימה",
+      previewEmpty: "אין נתונים",
+      add: "חדש",
+      update: "עדכון",
+      duplicate: "שכפל",
+      edit: "ערוך",
+      archive: "העבר לארכיון",
+      activeSaved: "עודכנה נוסחה פעילה",
+      saved: "נשמר",
+      fetchError: "לא ניתן לטעון נוסחאות",
+      save: "שמירה",
     },
     auth: {
       signinTitle: "ברוכים הבאים ל-Nasdaq Pulse",

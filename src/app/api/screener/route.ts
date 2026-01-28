@@ -11,6 +11,8 @@ import type {
   ScreenerResponse,
   Exchange,
 } from "@/lib/market-data/types";
+import { fetchActiveFormula, summarizeFormula } from "@/lib/recommendations/server";
+import { filterAndSortByRecommendation, scoreStocksWithFormula } from "@/lib/market-data/recommendation";
 
 function parseMinPrice(value: string | null): number | null {
   if (!value || value === "null" || value === "") {
@@ -49,6 +51,10 @@ function parseExchange(value: string | null): Exchange {
   return "nasdaq";
 }
 
+function parseBoolean(value: string | null): boolean {
+  return value === "true" || value === "1";
+}
+
 function applyFilters(stocks: Stock[], params: ScreenerParams): Stock[] {
   const minPrice = params.filters.minPrice;
 
@@ -81,6 +87,8 @@ function sortStocks(stocks: Stock[], sortBy: SortPeriod): Stock[] {
 
 async function fetchScreenerData(params: ScreenerParams, search?: string): Promise<ScreenerResponse> {
   const exchange = params.exchange;
+  const recommendedOnly = (params as any).recommendedOnly === true;
+  const includeScores = (params as any).includeScores === true;
 
   // Try to get data from Redis first
   const stocks = await getStocks(exchange);
@@ -107,19 +115,45 @@ async function fetchScreenerData(params: ScreenerParams, search?: string): Promi
 
     filtered = applyFilters(filtered, params);
     filtered = sortStocks(filtered, params.sortBy);
-    filtered = filtered.slice(0, params.limit);
+
+    const activeFormula = await fetchActiveFormula({ fallbackToDefault: true });
+    let recommendationApplied: Stock[] = filtered;
+
+    if (recommendedOnly) {
+      recommendationApplied = filterAndSortByRecommendation(filtered, activeFormula ?? undefined);
+      recommendationApplied = recommendationApplied.slice(0, params.limit);
+    } else if (includeScores) {
+      recommendationApplied = scoreStocksWithFormula(filtered, activeFormula ?? undefined);
+    } else {
+      recommendationApplied = filtered.slice(0, params.limit);
+    }
 
     return {
-      stocks: filtered,
+      stocks: recommendationApplied,
       updatedAt: lastUpdated ?? new Date().toISOString(),
       source: "live",
       exchange,
+      recommendation: {
+        activeFormula: summarizeFormula(activeFormula ?? null),
+      },
     };
   }
 
   // Fall back to mock data if Redis is empty (only for NASDAQ)
   if (exchange === "nasdaq") {
-    return getMockScreenerData(params);
+    const response = await getMockScreenerData(params);
+    const activeFormula = await fetchActiveFormula({ fallbackToDefault: true });
+    return {
+      ...response,
+      recommendation: {
+        activeFormula: summarizeFormula(activeFormula ?? null),
+      },
+      stocks: recommendedOnly
+        ? filterAndSortByRecommendation(response.stocks, activeFormula ?? undefined).slice(0, params.limit)
+        : includeScores
+          ? scoreStocksWithFormula(response.stocks, activeFormula ?? undefined)
+          : response.stocks,
+    };
   }
 
   // Return empty for TLV if no data
@@ -128,6 +162,9 @@ async function fetchScreenerData(params: ScreenerParams, search?: string): Promi
     updatedAt: new Date().toISOString(),
     source: "cached",
     exchange,
+    recommendation: {
+      activeFormula: summarizeFormula(await fetchActiveFormula({ fallbackToDefault: true })),
+    },
   };
 }
 
@@ -142,9 +179,14 @@ export async function GET(request: NextRequest) {
     },
     exchange: parseExchange(searchParams.get("exchange")),
   };
+  const recommendedOnly = parseBoolean(searchParams.get("recommendedOnly"));
+  const includeScores = parseBoolean(searchParams.get("includeScores"));
 
   const search = searchParams.get("search") ?? undefined;
-  const data = await fetchScreenerData(params, search);
+  const data = await fetchScreenerData(
+    { ...params, ...(recommendedOnly ? { recommendedOnly: true } : {}), ...(includeScores ? { includeScores: true } : {}) } as ScreenerParams,
+    search
+  );
 
   return NextResponse.json(data);
 }

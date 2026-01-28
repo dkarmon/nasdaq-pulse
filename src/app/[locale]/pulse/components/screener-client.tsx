@@ -9,16 +9,23 @@ import { useLiveQuotes } from "@/hooks/useLiveQuotes";
 import { ControlsBar } from "./controls-bar";
 import { StockTable } from "./stock-table";
 import { StockCardList } from "./stock-card";
-import { filterAndSortByRecommendation, isStockRecommended } from "@/lib/market-data/recommendation";
+import {
+  filterAndSortByRecommendation,
+  isStockRecommended,
+  scoreStocksWithFormula,
+} from "@/lib/market-data/recommendation";
 import type { Stock, ScreenerResponse } from "@/lib/market-data/types";
 import type { Dictionary } from "@/lib/i18n";
 import styles from "./screener-client.module.css";
+import type { RecommendationFormulaSummary } from "@/lib/recommendations/types";
 
 type ScreenerClientProps = {
   initialData: ScreenerResponse;
   dict: Dictionary;
   onSelectStock: (symbol: string | null) => void;
   selectedSymbol: string | null;
+  activeFormula: RecommendationFormulaSummary | null;
+  onFormulaChange: (formula: RecommendationFormulaSummary | null) => void;
 };
 
 export function ScreenerClient({
@@ -26,6 +33,8 @@ export function ScreenerClient({
   dict,
   onSelectStock,
   selectedSymbol,
+  activeFormula,
+  onFormulaChange,
 }: ScreenerClientProps) {
   const {
     preferences,
@@ -46,9 +55,16 @@ export function ScreenerClient({
   const [searchQuery, setSearchQuery] = useState("");
 
   // Get symbols of recommended stocks for live quotes
+  const scoredStocks = useMemo(
+    () => scoreStocksWithFormula(stocks, activeFormula ?? undefined),
+    [stocks, activeFormula]
+  );
+
   const recommendedSymbols = useMemo(() => {
-    return stocks.filter(isStockRecommended).map((s) => s.symbol);
-  }, [stocks]);
+    return scoredStocks
+      .filter((stock) => isStockRecommended(stock, activeFormula ?? undefined))
+      .map((s) => s.symbol);
+  }, [scoredStocks, activeFormula]);
 
   // Fetch live quotes for recommended stocks
   const { quotes: liveQuotes } = useLiveQuotes(recommendedSymbols);
@@ -58,7 +74,7 @@ export function ScreenerClient({
 
     setIsLoading(true);
     try {
-      // When in recommended mode, fetch all stocks and filter client-side
+      // When in recommended mode, fetch all stocks and let the server return scores
       const limit = preferences.showRecommendedOnly ? 9999 : preferences.limit;
 
       const params = new URLSearchParams({
@@ -66,6 +82,8 @@ export function ScreenerClient({
         limit: limit.toString(),
         minPrice: preferences.filters.minPrice !== null ? String(preferences.filters.minPrice) : "",
         exchange: preferences.exchange,
+        recommendedOnly: preferences.showRecommendedOnly ? "true" : "false",
+        includeScores: "true",
       });
 
       if (search) {
@@ -76,12 +94,13 @@ export function ScreenerClient({
       const data: ScreenerResponse = await response.json();
 
       setStocks(data.stocks);
+      onFormulaChange(data.recommendation?.activeFormula ?? null);
     } catch (error) {
       console.error("Failed to fetch screener data:", error);
     } finally {
       setIsLoading(false);
     }
-  }, [isLoaded, preferences]);
+  }, [isLoaded, preferences, onFormulaChange]);
 
   useEffect(() => {
     if (isLoaded) {
@@ -122,12 +141,12 @@ export function ScreenerClient({
     recommended: dict.screener.recommended,
   };
 
-  let visibleStocks = stocks.filter(
+  let visibleStocks = scoredStocks.filter(
     (stock) => !currentHiddenSymbols.includes(stock.symbol)
   );
 
   if (preferences.showRecommendedOnly) {
-    visibleStocks = filterAndSortByRecommendation(visibleStocks);
+    visibleStocks = filterAndSortByRecommendation(visibleStocks, activeFormula ?? undefined);
   }
 
   return (

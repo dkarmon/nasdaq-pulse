@@ -9,6 +9,7 @@ import { StockDetail } from "./stock-detail";
 import type { ScreenerResponse } from "@/lib/market-data/types";
 import type { Dictionary } from "@/lib/i18n";
 import styles from "./pulse-wrapper.module.css";
+import type { RecommendationFormulaSummary } from "@/lib/recommendations/types";
 
 type PulseWrapperProps = {
   initialData: ScreenerResponse;
@@ -18,6 +19,9 @@ type PulseWrapperProps = {
 
 export function PulseWrapper({ initialData, dict, locale }: PulseWrapperProps) {
   const [selectedSymbol, setSelectedSymbol] = useState<string | null>(null);
+  const [activeFormula, setActiveFormula] = useState<RecommendationFormulaSummary | null>(
+    initialData.recommendation?.activeFormula ?? null
+  );
 
   const detailLabels = {
     backToList: dict.screener.backToList,
@@ -52,6 +56,8 @@ export function PulseWrapper({ initialData, dict, locale }: PulseWrapperProps) {
             dict={dict}
             selectedSymbol={selectedSymbol}
             onSelectStock={setSelectedSymbol}
+            activeFormula={activeFormula}
+            onFormulaChange={setActiveFormula}
           />
         </div>
 
@@ -61,6 +67,7 @@ export function PulseWrapper({ initialData, dict, locale }: PulseWrapperProps) {
               symbol={selectedSymbol}
               onClose={() => setSelectedSymbol(null)}
               locale={locale}
+              activeFormula={activeFormula}
               labels={detailLabels}
             />
           </div>

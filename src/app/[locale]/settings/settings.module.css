@@ -2,7 +2,8 @@
 /* ABOUTME: Clean layout for managing hidden stocks. */
 
 .settings {
-  max-width: 600px;
+  max-width: 1100px;
+  width: 100%;
 }
 
 .header {
@@ -232,4 +233,222 @@
   font-weight: 600;
   margin: 0 0 12px 0;
   color: var(--foreground);
+}
+
+.recoPanel {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.recoHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.recoHint {
+  margin: 4px 0 0 0;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.recoGrid {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 16px;
+}
+
+.recoCard {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.recoField {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.recoSelect,
+.recoInput,
+.recoTextarea {
+  width: 100%;
+  padding: 10px 12px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
+  color: var(--foreground);
+  font-size: 0.95rem;
+}
+
+.recoTextarea {
+  font-family: var(--font-manrope), system-ui, sans-serif;
+}
+
+.tokenRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.tokenButton {
+  padding: 6px 10px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 6px;
+  color: var(--foreground);
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+
+.primaryButton,
+.secondaryButton,
+.dangerButton,
+.linkButton {
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.primaryButton {
+  background: var(--accent);
+  color: var(--background);
+  border-color: var(--accent);
+}
+
+.secondaryButton {
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--foreground);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+.dangerButton {
+  background: rgba(255, 99, 99, 0.12);
+  color: #ff6b6b;
+  border-color: rgba(255, 99, 99, 0.3);
+}
+
+.linkButton {
+  background: transparent;
+  color: var(--accent);
+  border: none;
+  padding: 6px 8px;
+}
+
+.recoList {
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.recoRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.recoName {
+  font-weight: 700;
+}
+
+.recoMeta {
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.recoActions {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.recoActionsRow {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin: 8px 0;
+}
+
+.errorBox,
+.warningBox {
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 0.95rem;
+}
+
+.errorBox {
+  border: 1px solid rgba(255, 99, 99, 0.5);
+  background: rgba(255, 99, 99, 0.08);
+}
+
+.warningBox {
+  border: 1px solid rgba(255, 203, 112, 0.5);
+  background: rgba(255, 203, 112, 0.08);
+}
+
+.previewBlock {
+  margin-top: 12px;
+  border-top: 1px solid var(--border);
+  padding-top: 12px;
+}
+
+.previewHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.previewHint {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.previewTable {
+  display: grid;
+  gap: 6px;
+}
+
+.previewHead,
+.previewRow {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr 1fr 1fr 1fr;
+  gap: 6px;
+  padding: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+}
+
+.previewHead {
+  background: rgba(255, 255, 255, 0.04);
+  font-weight: 700;
+}
+
+.previewScore {
+  font-family: var(--font-space-grotesk), var(--font-manrope), system-ui, sans-serif;
+  color: var(--accent);
+}
+
+.message {
+  color: var(--accent);
+  margin: 6px 0;
+}
+
+@media (max-width: 960px) {
+  .recoGrid {
+    grid-template-columns: 1fr;
+  }
 }

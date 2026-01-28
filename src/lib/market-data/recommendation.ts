@@ -1,68 +1,73 @@
-// ABOUTME: Pure functions for recommendation filtering and scoring logic.
-// ABOUTME: Identifies stocks with consistent ascending growth patterns.
+// ABOUTME: Pure helpers for recommendation filtering and scoring.
+// ABOUTME: Wraps the expression-based evaluator with sane defaults.
 
+import { defaultRecommendationFormula } from "@/lib/recommendations/config";
+import {
+  calculateRecommendationScore as evalScore,
+  filterAndSortByScore,
+  scoreStocks,
+} from "@/lib/recommendations/engine";
+import type { RecommendationFormula, RecommendationFormulaSummary } from "@/lib/recommendations/types";
 import type { Stock } from "./types";
 
-/**
- * Checks if a stock has valid data for recommendation scoring.
- * Growth values for 1M, 6M, and 12M must be at least 1% to qualify.
- */
-export function hasValidRecommendationData(stock: Stock): boolean {
-  if (stock.growth5d === undefined) return false;
-  if (stock.growth1m < 1) return false;
-  if (stock.growth6m < 1) return false;
-  if (stock.growth12m < 1) return false;
-  return true;
-}
+type FormulaInput = RecommendationFormula | RecommendationFormulaSummary | null | undefined;
 
-/**
- * Checks if a stock meets the recommendation criteria:
- * growth must be strictly ascending (5D < 1M < 6M < 12M).
- */
-export function isRecommended(stock: Stock): boolean {
-  if (stock.growth5d === undefined) return false;
+function hasRequiredFields(stock: Stock): boolean {
   return (
-    stock.growth5d < stock.growth1m &&
-    stock.growth1m < stock.growth6m &&
-    stock.growth6m < stock.growth12m
+    stock.growth1m !== undefined &&
+    stock.growth6m !== undefined &&
+    stock.growth12m !== undefined &&
+    typeof stock.price === "number" &&
+    typeof stock.marketCap === "number"
   );
 }
 
-/**
- * Checks if a stock should be shown as recommended (with star icon).
- * Combines ascending growth pattern with minimum growth thresholds.
- */
-export function isStockRecommended(stock: Stock): boolean {
-  return hasValidRecommendationData(stock) && isRecommended(stock);
+export function hasValidRecommendationData(stock: Stock): boolean {
+  return hasRequiredFields(stock);
 }
 
-/**
- * Calculates a recommendation score based on growth acceleration.
- * Formula: (3*(1M-5D)/25 + 2*(6M-1M)/150 + (12M-6M)/182) * avgGrowth
- * where avgGrowth = (5D + 1M + 6M + 12M) / 4
- */
-export function calculateRecommendationScore(stock: Stock): number {
-  const growth5d = stock.growth5d!;
-  const diff1 = (3 * (stock.growth1m - growth5d)) / 25;
-  const diff2 = (2 * (stock.growth6m - stock.growth1m)) / 150;
-  const diff3 = (stock.growth12m - stock.growth6m) / 182;
-  const baseScore = diff1 + diff2 + diff3;
-  const avgGrowth = (growth5d + stock.growth1m + stock.growth6m + stock.growth12m) / 4;
-  return baseScore * avgGrowth;
+export function calculateRecommendationScore(
+  stock: Stock,
+  formula?: FormulaInput
+): number | null {
+  if (!hasRequiredFields(stock)) return null;
+
+  if (
+    stock.recommendationScore !== undefined &&
+    (formula === undefined ||
+      formula === null ||
+      (typeof (formula as any)?.id === "string" &&
+        stock.recommendationFormulaId === (formula as any).id))
+  ) {
+    return stock.recommendationScore;
+  }
+
+  const fallbackFormula =
+    formula ?? (stock.recommendationFormulaId ? null : defaultRecommendationFormula);
+
+  return evalScore(stock, fallbackFormula ?? defaultRecommendationFormula);
 }
 
-/**
- * Filters stocks to those meeting recommendation criteria with valid data,
- * then sorts by recommendation score descending (highest first).
- */
-export function filterAndSortByRecommendation(stocks: Stock[]): Stock[] {
-  const filtered = stocks.filter(
-    (stock) => hasValidRecommendationData(stock) && isRecommended(stock)
-  );
+export function isStockRecommended(
+  stock: Stock,
+  formula?: FormulaInput
+): boolean {
+  const score = calculateRecommendationScore(stock, formula);
+  return score !== null && score > 0;
+}
 
-  return filtered.sort((a, b) => {
-    const scoreA = calculateRecommendationScore(a);
-    const scoreB = calculateRecommendationScore(b);
-    return scoreB - scoreA;
-  });
+export function scoreStocksWithFormula(
+  stocks: Stock[],
+  formula?: FormulaInput
+): (Stock & { recommendationScore?: number })[] {
+  if (!stocks || stocks.length === 0) return [];
+  return scoreStocks(stocks, formula ?? defaultRecommendationFormula);
+}
+
+export function filterAndSortByRecommendation(
+  stocks: Stock[],
+  formula?: FormulaInput
+): Stock[] {
+  if (!stocks || stocks.length === 0) return [];
+  return filterAndSortByScore(stocks, formula ?? defaultRecommendationFormula);
 }

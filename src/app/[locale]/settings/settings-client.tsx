@@ -7,6 +7,7 @@ import { useState, useEffect } from "react";
 import { usePreferences } from "@/hooks/usePreferences";
 import type { Dictionary, Locale } from "@/lib/i18n";
 import Link from "next/link";
+import { RecommendationPanel } from "./recommendation-panel";
 import styles from "./settings.module.css";
 
 type Invitation = {
@@ -133,6 +134,34 @@ export function SettingsClient({ dict, locale, isAdmin }: SettingsClientProps) {
   const nasdaqHidden = preferences.hiddenSymbols.nasdaq;
   const tlvHidden = preferences.hiddenSymbols.tlv;
   const hasHiddenStocks = nasdaqHidden.length > 0 || tlvHidden.length > 0;
+
+  const recommendationLabels = {
+    title: dict.settings.recommendations,
+    activeLabel: dict.settings.recommendationsActive,
+    save: dict.settings.save,
+    creating: dict.settings.recommendationsSubtitle,
+    name: dict.settings.recommendationsName,
+    description: dict.settings.recommendationsDescription,
+    expression: dict.settings.recommendationsExpression,
+    status: dict.settings.status,
+    draft: dict.settings.draft,
+    published: dict.settings.published,
+    archived: dict.settings.archived,
+    validate: dict.settings.validate,
+    validationPassed: dict.settings.validationPassed,
+    errors: dict.settings.errors,
+    warnings: dict.settings.warnings,
+    preview: dict.settings.preview,
+    previewEmpty: dict.settings.previewEmpty,
+    add: dict.settings.add,
+    update: dict.settings.update,
+    duplicate: dict.settings.duplicate,
+    edit: dict.settings.edit,
+    archive: dict.settings.archive,
+    activeSaved: dict.settings.activeSaved,
+    saved: dict.settings.saved,
+    fetchError: dict.settings.fetchError,
+  };
 
   return (
     <div className={styles.settings}>
@@ -297,6 +326,10 @@ export function SettingsClient({ dict, locale, isAdmin }: SettingsClientProps) {
                 ))}
               </ul>
             )}
+          </div>
+
+          <div className={styles.adminSubsection}>
+            <RecommendationPanel labels={recommendationLabels} />
           </div>
         </section>
       )}

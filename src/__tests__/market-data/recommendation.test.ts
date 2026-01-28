@@ -1,251 +1,89 @@
-// ABOUTME: Tests for recommendation filtering and scoring logic.
-// ABOUTME: Covers data validation, recommendation criteria, and scoring formula.
+// ABOUTME: Tests for expression-based recommendation scoring and filtering.
 
 import { describe, it, expect } from "vitest";
 import {
-  hasValidRecommendationData,
-  isRecommended,
   calculateRecommendationScore,
   filterAndSortByRecommendation,
+  hasValidRecommendationData,
+  isStockRecommended,
 } from "@/lib/market-data/recommendation";
+import { defaultRecommendationFormula } from "@/lib/recommendations/config";
+import type { RecommendationFormula } from "@/lib/recommendations/types";
 import type { Stock } from "@/lib/market-data/types";
 
-function makeStock(overrides: Partial<Stock>): Stock {
+function makeStock(overrides: Partial<Stock> = {}): Stock {
   return {
     symbol: "TEST",
-    name: "Test Stock",
+    name: "Test",
     exchange: "nasdaq",
     price: 100,
     currency: "USD",
-    marketCap: 1000000000,
+    marketCap: 1_000_000_000,
+    growth5d: 5,
     growth1m: 10,
     growth6m: 20,
-    growth12m: 30,
+    growth12m: 40,
     updatedAt: new Date().toISOString(),
     ...overrides,
   };
 }
 
 describe("hasValidRecommendationData", () => {
-  it("returns false when growth5d is undefined", () => {
-    const stock = makeStock({ growth5d: undefined });
-    expect(hasValidRecommendationData(stock)).toBe(false);
-  });
-
-  it("returns true when growth5d is 0 (only checks if defined)", () => {
-    const stock = makeStock({ growth5d: 0 });
-    expect(hasValidRecommendationData(stock)).toBe(true);
-  });
-
-  it("returns true when growth5d is negative (only checks if defined)", () => {
-    const stock = makeStock({ growth5d: -5 });
-    expect(hasValidRecommendationData(stock)).toBe(true);
-  });
-
-  it("returns false when growth1m is 0", () => {
-    const stock = makeStock({ growth5d: 5, growth1m: 0 });
-    expect(hasValidRecommendationData(stock)).toBe(false);
-  });
-
-  it("returns false when growth1m is negative", () => {
-    const stock = makeStock({ growth5d: 5, growth1m: -3 });
-    expect(hasValidRecommendationData(stock)).toBe(false);
-  });
-
-  it("returns false when growth6m is 0", () => {
-    const stock = makeStock({ growth5d: 5, growth1m: 10, growth6m: 0 });
-    expect(hasValidRecommendationData(stock)).toBe(false);
-  });
-
-  it("returns false when growth6m is negative", () => {
-    const stock = makeStock({ growth5d: 5, growth1m: 10, growth6m: -2 });
-    expect(hasValidRecommendationData(stock)).toBe(false);
-  });
-
-  it("returns false when growth12m is 0", () => {
-    const stock = makeStock({ growth5d: 5, growth1m: 10, growth6m: 20, growth12m: 0 });
-    expect(hasValidRecommendationData(stock)).toBe(false);
-  });
-
-  it("returns false when growth12m is negative", () => {
-    const stock = makeStock({ growth5d: 5, growth1m: 10, growth6m: 20, growth12m: -5 });
-    expect(hasValidRecommendationData(stock)).toBe(false);
-  });
-
-  it("returns false when values are below 1", () => {
-    const stock = makeStock({ growth5d: 0.5, growth1m: 0.8, growth6m: 0.9, growth12m: 0.95 });
-    expect(hasValidRecommendationData(stock)).toBe(false);
-  });
-
-  it("returns true when all values are at least 1", () => {
-    const stock = makeStock({ growth5d: 1, growth1m: 2, growth6m: 3, growth12m: 4 });
-    expect(hasValidRecommendationData(stock)).toBe(true);
-  });
-
-  it("returns true when all values are well above 1", () => {
-    const stock = makeStock({ growth5d: 5, growth1m: 10, growth6m: 20, growth12m: 30 });
-    expect(hasValidRecommendationData(stock)).toBe(true);
-  });
-});
-
-describe("isRecommended", () => {
-  it("returns true when growth is strictly ascending (5D < 1M < 6M < 12M)", () => {
-    const stock = makeStock({ growth5d: 5, growth1m: 10, growth6m: 20, growth12m: 30 });
-    expect(isRecommended(stock)).toBe(true);
-  });
-
-  it("returns false when growth5d is undefined", () => {
-    const stock = makeStock({ growth5d: undefined, growth1m: 10, growth6m: 20, growth12m: 30 });
-    expect(isRecommended(stock)).toBe(false);
-  });
-
-  it("returns false when 5D equals 1M", () => {
-    const stock = makeStock({ growth5d: 10, growth1m: 10, growth6m: 20, growth12m: 30 });
-    expect(isRecommended(stock)).toBe(false);
-  });
-
-  it("returns false when 5D > 1M", () => {
-    const stock = makeStock({ growth5d: 15, growth1m: 10, growth6m: 20, growth12m: 30 });
-    expect(isRecommended(stock)).toBe(false);
-  });
-
-  it("returns false when 1M equals 6M", () => {
-    const stock = makeStock({ growth5d: 5, growth1m: 20, growth6m: 20, growth12m: 30 });
-    expect(isRecommended(stock)).toBe(false);
-  });
-
-  it("returns false when 1M > 6M", () => {
-    const stock = makeStock({ growth5d: 5, growth1m: 25, growth6m: 20, growth12m: 30 });
-    expect(isRecommended(stock)).toBe(false);
-  });
-
-  it("returns false when 6M equals 12M", () => {
-    const stock = makeStock({ growth5d: 5, growth1m: 10, growth6m: 30, growth12m: 30 });
-    expect(isRecommended(stock)).toBe(false);
-  });
-
-  it("returns false when 6M > 12M", () => {
-    const stock = makeStock({ growth5d: 5, growth1m: 10, growth6m: 35, growth12m: 30 });
-    expect(isRecommended(stock)).toBe(false);
-  });
-
-  it("returns true with negative values as long as they are ascending", () => {
-    const stock = makeStock({ growth5d: -20, growth1m: -10, growth6m: 5, growth12m: 15 });
-    expect(isRecommended(stock)).toBe(true);
-  });
-
-  it("returns true with all negative ascending values", () => {
-    const stock = makeStock({ growth5d: -40, growth1m: -30, growth6m: -20, growth12m: -10 });
-    expect(isRecommended(stock)).toBe(true);
+  it("requires growth1m/6m/12m fields", () => {
+    expect(hasValidRecommendationData(makeStock({ growth1m: undefined as any }))).toBe(false);
+    expect(hasValidRecommendationData(makeStock({ growth6m: undefined as any }))).toBe(false);
+    expect(hasValidRecommendationData(makeStock({ growth12m: undefined as any }))).toBe(false);
+    expect(hasValidRecommendationData(makeStock())).toBe(true);
   });
 });
 
 describe("calculateRecommendationScore", () => {
-  // Formula: (3*(1M-5D)/25 + 2*(6M-1M)/150 + (12M-6M)/182) * avgGrowth
-  // where avgGrowth = (5D + 1M + 6M + 12M) / 4
-
-  it("calculates score correctly with simple values", () => {
-    // 5D=10, 1M=20, 6M=40, 12M=60
-    // baseScore = 3*(20-10)/25 + 2*(40-20)/150 + (60-40)/182
-    //           = 1.2 + 0.2667 + 0.1099 = 1.5766
-    // avgGrowth = (10+20+40+60)/4 = 32.5
-    // score = 1.5766 * 32.5 ≈ 51.24
+  it("uses the seeded default expression", () => {
     const stock = makeStock({ growth5d: 10, growth1m: 20, growth6m: 40, growth12m: 60 });
-    expect(calculateRecommendationScore(stock)).toBeCloseTo(51.24, 1);
+    const score = calculateRecommendationScore(stock);
+    expect(score).toBeCloseTo(51.24, 1);
   });
 
-  it("calculates score correctly with equal ratios", () => {
-    // 5D=1, 1M=2, 6M=4, 12M=8 (each doubles)
-    // baseScore = 3*(2-1)/25 + 2*(4-2)/150 + (8-4)/182
-    //           = 0.12 + 0.0267 + 0.022 = 0.1687
-    // avgGrowth = (1+2+4+8)/4 = 3.75
-    // score = 0.1687 * 3.75 ≈ 0.63
-    const stock = makeStock({ growth5d: 1, growth1m: 2, growth6m: 4, growth12m: 8 });
-    expect(calculateRecommendationScore(stock)).toBeCloseTo(0.63, 1);
+  it("returns null when required data is missing", () => {
+    const score = calculateRecommendationScore(makeStock({ growth1m: undefined as any }));
+    expect(score).toBeNull();
   });
 
-  it("returns higher score for steeper early growth", () => {
-    // Stock A: 5D=1, 1M=10 (10x), 6M=20, 12M=30
-    const stockA = makeStock({ growth5d: 1, growth1m: 10, growth6m: 20, growth12m: 30 });
-    // Stock B: 5D=5, 1M=10 (2x), 6M=20, 12M=30
-    const stockB = makeStock({ growth5d: 5, growth1m: 10, growth6m: 20, growth12m: 30 });
+  it("supports custom formulas", () => {
+    const formula: RecommendationFormula = {
+      ...defaultRecommendationFormula,
+      id: "custom-1",
+      expression: "g1m + g6m + g12m",
+      status: "published",
+      version: 2,
+      name: "Sum",
+    };
+    const stock = makeStock({ growth1m: 1, growth6m: 2, growth12m: 3 });
+    expect(calculateRecommendationScore(stock, formula)).toBeCloseTo(6, 4);
+  });
+});
 
-    expect(calculateRecommendationScore(stockA)).toBeGreaterThan(calculateRecommendationScore(stockB));
+describe("isStockRecommended", () => {
+  it("uses cached score when present", () => {
+    const stock = makeStock({ recommendationScore: 5, recommendationFormulaId: defaultRecommendationFormula.id });
+    expect(isStockRecommended(stock)).toBe(true);
   });
 
-  it("handles decimal values correctly", () => {
-    // 5D=0.5, 1M=1.5, 6M=3, 12M=6
-    // baseScore = 3*(1.5-0.5)/25 + 2*(3-1.5)/150 + (6-3)/182
-    //           = 0.12 + 0.02 + 0.0165 = 0.1565
-    // avgGrowth = (0.5+1.5+3+6)/4 = 2.75
-    // score = 0.1565 * 2.75 ≈ 0.43
-    const stock = makeStock({ growth5d: 0.5, growth1m: 1.5, growth6m: 3, growth12m: 6 });
-    expect(calculateRecommendationScore(stock)).toBeCloseTo(0.43, 1);
+  it("returns false when score is negative", () => {
+    const stock = makeStock({ recommendationScore: -1 });
+    expect(isStockRecommended(stock)).toBe(false);
   });
 });
 
 describe("filterAndSortByRecommendation", () => {
-  it("returns empty array when given empty array", () => {
-    expect(filterAndSortByRecommendation([])).toEqual([]);
-  });
-
-  it("filters out stocks without valid recommendation data", () => {
+  it("filters to positive-scoring stocks and sorts descending", () => {
     const stocks = [
-      makeStock({ symbol: "A", growth5d: undefined, growth1m: 10, growth6m: 20, growth12m: 30 }),
-      makeStock({ symbol: "B", growth5d: 5, growth1m: 10, growth6m: 20, growth12m: 30 }),
-      makeStock({ symbol: "C", growth5d: 0, growth1m: 0.5, growth6m: 20, growth12m: 30 }), // growth1m < 1 - invalid
+      makeStock({ symbol: "LOW", growth5d: 1, growth1m: 2, growth6m: 3, growth12m: 4 }),
+      makeStock({ symbol: "HIGH", growth5d: 1, growth1m: 20, growth6m: 40, growth12m: 80 }),
+      makeStock({ symbol: "MISS", growth1m: undefined as any }),
     ];
     const result = filterAndSortByRecommendation(stocks);
-    expect(result.map(s => s.symbol)).toEqual(["B"]);
-  });
-
-  it("filters out non-recommended stocks", () => {
-    const stocks = [
-      makeStock({ symbol: "A", growth5d: 5, growth1m: 10, growth6m: 20, growth12m: 30 }), // ascending - recommended
-      makeStock({ symbol: "B", growth5d: 15, growth1m: 10, growth6m: 20, growth12m: 30 }), // 5D > 1M - not recommended
-      makeStock({ symbol: "C", growth5d: 5, growth1m: 10, growth6m: 8, growth12m: 30 }), // 6M < 1M - not recommended
-    ];
-    const result = filterAndSortByRecommendation(stocks);
-    expect(result.map(s => s.symbol)).toEqual(["A"]);
-  });
-
-  it("sorts by recommendation score descending (highest first)", () => {
-    const stocks = [
-      // Lower score: 5D=5, 1M=10, 6M=20, 12M=30
-      // 2.5*(10/5) + 2*(20/10) + 1.5*(30/20) = 5 + 4 + 2.25 = 11.25
-      makeStock({ symbol: "LOW", growth5d: 5, growth1m: 10, growth6m: 20, growth12m: 30 }),
-      // Higher score: 5D=1, 1M=10, 6M=20, 12M=30
-      // 2.5*(10/1) + 2*(20/10) + 1.5*(30/20) = 25 + 4 + 2.25 = 31.25
-      makeStock({ symbol: "HIGH", growth5d: 1, growth1m: 10, growth6m: 20, growth12m: 30 }),
-      // Medium score: 5D=2, 1M=10, 6M=20, 12M=30
-      // 2.5*(10/2) + 2*(20/10) + 1.5*(30/20) = 12.5 + 4 + 2.25 = 18.75
-      makeStock({ symbol: "MED", growth5d: 2, growth1m: 10, growth6m: 20, growth12m: 30 }),
-    ];
-    const result = filterAndSortByRecommendation(stocks);
-    expect(result.map(s => s.symbol)).toEqual(["HIGH", "MED", "LOW"]);
-  });
-
-  it("handles stocks with equal scores maintaining stable sort", () => {
-    const stocks = [
-      makeStock({ symbol: "A", growth5d: 5, growth1m: 10, growth6m: 20, growth12m: 30 }),
-      makeStock({ symbol: "B", growth5d: 5, growth1m: 10, growth6m: 20, growth12m: 30 }),
-    ];
-    const result = filterAndSortByRecommendation(stocks);
-    expect(result).toHaveLength(2);
-    // Both should be present (order doesn't matter for equal scores)
-    expect(result.map(s => s.symbol).sort()).toEqual(["A", "B"]);
-  });
-
-  it("works with a mix of valid and invalid stocks", () => {
-    const stocks = [
-      makeStock({ symbol: "INVALID1", growth5d: undefined }),
-      makeStock({ symbol: "HIGH", growth5d: 1, growth1m: 10, growth6m: 20, growth12m: 30 }),
-      makeStock({ symbol: "INVALID2", growth5d: 5, growth1m: 0.5, growth6m: 20, growth12m: 30 }), // growth1m < 1 - invalid
-      makeStock({ symbol: "LOW", growth5d: 5, growth1m: 10, growth6m: 20, growth12m: 30 }),
-      makeStock({ symbol: "INVALID3", growth5d: 20, growth1m: 10, growth6m: 20, growth12m: 30 }), // not ascending
-      makeStock({ symbol: "MED", growth5d: 2, growth1m: 10, growth6m: 20, growth12m: 30 }),
-    ];
-    const result = filterAndSortByRecommendation(stocks);
-    expect(result.map(s => s.symbol)).toEqual(["HIGH", "MED", "LOW"]);
+    expect(result.map((s) => s.symbol)).toEqual(["HIGH", "LOW"]);
+    expect(result[0].recommendationScore).toBeGreaterThan(result[1].recommendationScore ?? 0);
   });
 });

@@ -10,11 +10,13 @@ import { isStockRecommended } from "@/lib/market-data/recommendation";
 import type { StockDetailResponse, NewsResponse, NewsItem, Stock } from "@/lib/market-data/types";
 import { formatGrowth, formatPrice, formatMarketCap } from "@/lib/format";
 import styles from "./stock-detail.module.css";
+import type { RecommendationFormulaSummary } from "@/lib/recommendations/types";
 
 type StockDetailProps = {
   symbol: string;
   onClose: () => void;
   locale?: string;
+  activeFormula?: RecommendationFormulaSummary | null;
   labels: {
     backToList: string;
     price: string;
@@ -57,7 +59,7 @@ function formatTimeAgo(dateString: string): string {
   return `${diffDays}d ago`;
 }
 
-export function StockDetail({ symbol, onClose, locale = "en", labels }: StockDetailProps) {
+export function StockDetail({ symbol, onClose, locale = "en", activeFormula, labels }: StockDetailProps) {
   const [detail, setDetail] = useState<StockDetailResponse | null>(null);
   const [news, setNews] = useState<NewsItem[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -72,11 +74,11 @@ export function StockDetail({ symbol, onClose, locale = "en", labels }: StockDet
       growth6m: detail.growth6m,
       growth12m: detail.growth12m,
     } as Stock;
-    if (isStockRecommended(stockForCheck)) {
+    if (isStockRecommended(stockForCheck, activeFormula ?? undefined)) {
       return [symbol];
     }
     return [];
-  }, [detail, symbol]);
+  }, [detail, symbol, activeFormula]);
   const { quotes: liveQuotes } = useLiveQuotes(symbolsToFetch);
   const liveQuote = liveQuotes[symbol];
 
@@ -154,7 +156,7 @@ export function StockDetail({ symbol, onClose, locale = "en", labels }: StockDet
           const primaryText = isTLV && nameHebrew ? nameHebrew : profile.symbol;
           const secondaryText = isTLV ? null : (nameHebrew || profile.name);
           const stockForCheck = { growth5d, growth1m, growth6m, growth12m } as Stock;
-          const isRecommended = isStockRecommended(stockForCheck);
+          const isRecommended = isStockRecommended(stockForCheck, activeFormula ?? undefined);
           return (
             <>
               <div className={styles.symbolRow}>

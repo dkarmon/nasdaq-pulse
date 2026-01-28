@@ -20,6 +20,9 @@ export type Stock = {
   growth12m: number;
   updatedAt: string;
   hasSplitWarning?: boolean;
+  recommendationScore?: number;
+  recommendationFormulaId?: string;
+  recommendationFormulaVersion?: number;
 };
 
 export type Quote = {
@@ -77,6 +80,9 @@ export type ScreenerResponse = {
   updatedAt: string;
   source: "live" | "cached" | "seed";
   exchange: Exchange;
+  recommendation?: {
+    activeFormula?: import("@/lib/recommendations/types").RecommendationFormulaSummary | null;
+  };
 };
 
 export type StockDetailResponse = {
@@ -106,4 +112,6 @@ export type ScreenerParams = {
   limit: number;
   filters: ScreenerFilters;
   exchange: Exchange;
+  recommendedOnly?: boolean;
+  includeScores?: boolean;
 };

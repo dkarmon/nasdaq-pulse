@@ -12,6 +12,9 @@ import type {
   NewsResponse,
   ScreenerParams,
 } from "./types";
+import { defaultRecommendationFormula } from "@/lib/recommendations/config";
+import { filterAndSortByRecommendation, scoreStocksWithFormula } from "./recommendation";
+import type { RecommendationFormulaSummary } from "@/lib/recommendations/types";
 
 const rawMockStocks: Array<Stock & { growth1d?: number }> = [
   {
@@ -487,8 +490,23 @@ function sortStocks(stocks: Stock[], sortBy: string): Stock[] {
 }
 
 export function getScreenerData(params: ScreenerParams): ScreenerResponse {
+  const activeFormula: RecommendationFormulaSummary = {
+    id: defaultRecommendationFormula.id,
+    name: defaultRecommendationFormula.name,
+    description: defaultRecommendationFormula.description,
+    expression: defaultRecommendationFormula.expression,
+    status: defaultRecommendationFormula.status,
+    version: defaultRecommendationFormula.version,
+    updatedAt: defaultRecommendationFormula.updatedAt ?? new Date().toISOString(),
+  };
+
   let stocks = applyFilters(mockStocks, params);
   stocks = sortStocks(stocks, params.sortBy);
+  if (params.recommendedOnly) {
+    stocks = filterAndSortByRecommendation(stocks, activeFormula);
+  } else if (params.includeScores) {
+    stocks = scoreStocksWithFormula(stocks, activeFormula);
+  }
   stocks = stocks.slice(0, params.limit);
 
   return {
@@ -496,6 +514,9 @@ export function getScreenerData(params: ScreenerParams): ScreenerResponse {
     updatedAt: new Date().toISOString(),
     source: "cached",
     exchange: params.exchange ?? "nasdaq",
+    recommendation: {
+      activeFormula,
+    },
   };
 }
 
