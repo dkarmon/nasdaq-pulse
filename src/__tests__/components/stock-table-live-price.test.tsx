@@ -29,6 +29,7 @@ const defaultLabels = {
   stock: "Stock",
   price: "Price",
   growth: "Growth",
+  growth1d: "1D",
   growth5d: "5D",
   growth1m: "1M",
   growth6m: "6M",

@@ -109,6 +109,7 @@ export function computeGrowth(
 export async function getGrowthMetrics(
   symbol: string
 ): Promise<{
+  growth1d: number | null;
   growth1m: number | null;
   growth6m: number | null;
   growth12m: number | null;
@@ -120,6 +121,7 @@ export async function getGrowthMetrics(
   }
 
   return {
+    growth1d: computeGrowth(history, 1),
     growth1m: computeGrowth(history, 30),
     growth6m: computeGrowth(history, 180),
     growth12m: computeGrowth(history, 365),

@@ -201,6 +201,7 @@ async function refreshExchangeStocksInRange(
           price: data.quote.price,
           currency: exchange === "tlv" ? "ILS" : "USD",
           marketCap: 0,
+          growth1d: data.growth.growth1d,
           growth5d: data.growth.growth5d,
           growth1m: data.growth.growth1m,
           growth6m: data.growth.growth6m,

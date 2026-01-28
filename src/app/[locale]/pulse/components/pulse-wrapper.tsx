@@ -22,6 +22,7 @@ export function PulseWrapper({ initialData, dict, locale }: PulseWrapperProps) {
   const detailLabels = {
     backToList: dict.screener.backToList,
     price: dict.screener.price,
+    growth1d: dict.screener.growth1d,
     growth5d: dict.screener.growth5d,
     growth1m: dict.screener.growth1m,
     growth6m: dict.screener.growth6m,

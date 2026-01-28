@@ -88,6 +88,16 @@ export function StockCard({
       </div>
 
       <div className={styles.growthRow}>
+        <div className={styles.growthItem} data-active={sortBy === "1d"}>
+          <span
+            className={styles.growthValue}
+            data-positive={(stock.growth1d ?? 0) >= 0}
+            data-negative={(stock.growth1d ?? 0) < 0}
+          >
+            {formatGrowth(stock.growth1d ?? 0)}
+          </span>
+          <span className={styles.growthLabel}>1D</span>
+        </div>
         <div className={styles.growthItem} data-active={sortBy === "5d"}>
           <span
             className={styles.growthValue}

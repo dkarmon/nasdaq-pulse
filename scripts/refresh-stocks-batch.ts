@@ -53,6 +53,7 @@ async function refreshStocks() {
       stocks[stockIndex] = {
         ...oldData,
         price: quote.price,
+        growth1d: growth.growth1d,
         growth1m: growth.growth1m,
         growth6m: growth.growth6m,
         growth12m: growth.growth12m,
@@ -60,11 +61,12 @@ async function refreshStocks() {
       };
 
       const old1m = oldData.growth1m ? oldData.growth1m.toFixed(1) : 'N/A';
+      const old1d = oldData.growth1d ? oldData.growth1d.toFixed(1) : 'N/A';
       const old6m = oldData.growth6m ? oldData.growth6m.toFixed(1) : 'N/A';
       const old12m = oldData.growth12m ? oldData.growth12m.toFixed(1) : 'N/A';
 
-      console.log(`  Old: 1m=${old1m}%, 6m=${old6m}%, 12m=${old12m}%`);
-      console.log(`  New: 1m=${growth.growth1m.toFixed(1)}%, 6m=${growth.growth6m.toFixed(1)}%, 12m=${growth.growth12m.toFixed(1)}%`);
+      console.log(`  Old: 1d=${old1d}%, 1m=${old1m}%, 6m=${old6m}%, 12m=${old12m}%`);
+      console.log(`  New: 1d=${growth.growth1d.toFixed(2)}%, 1m=${growth.growth1m.toFixed(1)}%, 6m=${growth.growth6m.toFixed(1)}%, 12m=${growth.growth12m.toFixed(1)}%`);
 
       // Wait 1.5 seconds between requests to avoid rate limiting
       await sleep(1500);

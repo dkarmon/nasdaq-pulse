@@ -13,7 +13,7 @@ import type {
   ScreenerParams,
 } from "./types";
 
-const mockStocks: Stock[] = [
+const rawMockStocks: Array<Stock & { growth1d?: number }> = [
   {
     symbol: "NVDA",
     name: "NVIDIA Corporation",
@@ -341,6 +341,11 @@ const mockStocks: Stock[] = [
   },
 ];
 
+const mockStocks: Stock[] = rawMockStocks.map((stock) => ({
+  ...stock,
+  growth1d: stock.growth1d ?? (stock.growth5d ?? 0) / 5,
+}));
+
 const mockProfiles: Record<string, CompanyProfile> = {
   NVDA: {
     symbol: "NVDA",
@@ -464,6 +469,8 @@ function sortStocks(stocks: Stock[], sortBy: string): Stock[] {
   const sorted = [...stocks];
   sorted.sort((a, b) => {
     switch (sortBy) {
+      case "1d":
+        return (b.growth1d ?? 0) - (a.growth1d ?? 0);
       case "5d":
         return (b.growth5d ?? 0) - (a.growth5d ?? 0);
       case "1m":
@@ -507,15 +514,18 @@ export function getStockDetail(symbol: string): StockDetailResponse | null {
     week52Low: stock.price * 0.7,
   };
 
+  const dailyGrowth = stock.growth1d ?? (stock.growth5d ?? 0) / 5;
+  const previousClose = stock.price / (1 + dailyGrowth / 100);
+
   const quote: Quote = {
     symbol,
     price: stock.price,
-    change: stock.price * (stock.growth1m / 100 / 30),
-    changePct: stock.growth1m / 30,
+    change: stock.price - previousClose,
+    changePct: dailyGrowth,
     open: stock.price * 0.998,
     high: stock.price * 1.01,
     low: stock.price * 0.99,
-    previousClose: stock.price * 0.998,
+    previousClose,
     volume: Math.floor(10000000 + Math.random() * 50000000),
     updatedAt: new Date().toISOString(),
   };
@@ -524,6 +534,7 @@ export function getStockDetail(symbol: string): StockDetailResponse | null {
     profile,
     quote,
     history: generateHistoricalData(symbol, 365),
+    growth1d: stock.growth1d,
     growth5d: stock.growth5d,
     growth1m: stock.growth1m,
     growth6m: stock.growth6m,

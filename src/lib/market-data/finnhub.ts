@@ -197,6 +197,7 @@ type FinnhubCandle = {
 export type GrowthResult = {
   symbol: string;
   currentPrice: number;
+  growth1d: number;
   growth1m: number;
   growth6m: number;
   growth12m: number;
@@ -237,6 +238,7 @@ export async function getGrowthData(symbol: string): Promise<GrowthResult | null
 
   const prices = candles.c;
   const currentPrice = prices[prices.length - 1];
+  const previousClose = prices[Math.max(0, prices.length - 2)] ?? currentPrice;
 
   // Find prices at ~1 month, ~6 months, ~12 months ago
   // Daily candles, so ~22 trading days = 1 month, ~126 = 6 months, ~252 = 12 months
@@ -247,6 +249,7 @@ export async function getGrowthData(symbol: string): Promise<GrowthResult | null
   return {
     symbol,
     currentPrice,
+    growth1d: calculateGrowth(currentPrice, previousClose),
     growth1m: calculateGrowth(currentPrice, price1mAgo),
     growth6m: calculateGrowth(currentPrice, price6mAgo),
     growth12m: calculateGrowth(currentPrice, price12mAgo),

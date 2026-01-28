@@ -79,6 +79,7 @@ export type Dictionary = {
     noNews: string;
     viewAllNews: string;
     usingCachedData: string;
+    growth1d: string;
     growth5d: string;
     growth1m: string;
     growth6m: string;
@@ -257,6 +258,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
       noNews: "No recent news",
       viewAllNews: "View all news",
       usingCachedData: "Using cached data",
+      growth1d: "1D",
       growth5d: "5D",
       growth1m: "1M",
       growth6m: "6M",
@@ -431,6 +433,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
       noNews: "אין חדשות אחרונות",
       viewAllNews: "כל החדשות",
       usingCachedData: "מציג נתונים מהמטמון",
+      growth1d: "1D",
       growth5d: "5D",
       growth1m: "1M",
       growth6m: "6M",

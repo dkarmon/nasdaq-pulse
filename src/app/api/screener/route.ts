@@ -24,7 +24,7 @@ function parseMinPrice(value: string | null): number | null {
 }
 
 function parseSortPeriod(value: string | null): SortPeriod {
-  if (value === "5d" || value === "6m" || value === "12m" || value === "az") {
+  if (value === "1d" || value === "5d" || value === "6m" || value === "12m" || value === "az") {
     return value;
   }
   return "1m";
@@ -63,6 +63,7 @@ function sortStocks(stocks: Stock[], sortBy: SortPeriod): Stock[] {
   const sorted = [...stocks];
   sorted.sort((a, b) => {
     switch (sortBy) {
+      case "1d": return (b.growth1d ?? 0) - (a.growth1d ?? 0);
       case "5d": return (b.growth5d ?? 0) - (a.growth5d ?? 0);
       case "1m": return b.growth1m - a.growth1m;
       case "6m": return b.growth6m - a.growth6m;

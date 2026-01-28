@@ -36,7 +36,7 @@ type ControlsBarProps = {
   };
 };
 
-const SORT_OPTIONS: SortPeriod[] = ["5d", "1m", "6m", "12m", "az"];
+const SORT_OPTIONS: SortPeriod[] = ["1d", "5d", "1m", "6m", "12m", "az"];
 const LIMIT_OPTIONS = [25, 50];
 const EXCHANGE_OPTIONS: Exchange[] = ["nasdaq", "tlv"];
 

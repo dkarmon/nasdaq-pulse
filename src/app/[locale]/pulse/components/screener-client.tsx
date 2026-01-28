@@ -105,6 +105,7 @@ export function ScreenerClient({
     stock: dict.screener.stock,
     price: dict.screener.price,
     growth: dict.screener.growth,
+    growth1d: dict.screener.growth1d,
     growth5d: dict.screener.growth5d,
     growth1m: dict.screener.growth1m,
     growth6m: dict.screener.growth6m,

@@ -39,6 +39,7 @@ const mockStockDetail = {
     changePercent: 1.4,
   },
   history: [],
+  growth1d: 0.6,
   growth5d: 1.2,
   growth1m: 3.5,
   growth6m: 12.4,
@@ -49,6 +50,7 @@ const mockStockDetail = {
 const mockLabels = {
   backToList: "Back",
   price: "Price",
+  growth1d: "1D",
   growth5d: "5D",
   growth1m: "1M",
   growth6m: "6M",

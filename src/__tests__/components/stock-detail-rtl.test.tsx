@@ -29,6 +29,7 @@ const mockStockDetail = {
     changePercent: 1.4,
   },
   history: [],
+  growth1d: 0.8,
   growth5d: 1.2,
   growth1m: 3.5,
   growth6m: 12.4,
@@ -39,6 +40,7 @@ const mockStockDetail = {
 const mockLabels = {
   backToList: "Back",
   price: "Price",
+  growth1d: "1D",
   growth5d: "5D",
   growth1m: "1M",
   growth6m: "6M",
@@ -91,18 +93,18 @@ describe("StockDetail RTL", () => {
     );
 
     await waitFor(() => {
-      expect(screen.getByText("5D")).toBeInTheDocument();
+      expect(screen.getByText("1D")).toBeInTheDocument();
     });
 
     // Find the metrics row container (parent of the metric labels)
-    const metricLabel = screen.getByText("5D");
+    const metricLabel = screen.getByText("1D");
     const metricCard = metricLabel.closest('[class*="metricCard"]');
     const metricsRow = metricCard?.parentElement;
 
     expect(metricsRow).toHaveAttribute("dir", "ltr");
   });
 
-  it("displays metric periods in correct visual order: 5D, 1M, 6M, 12M", async () => {
+  it("displays metric periods in correct visual order: 1D, 5D, 1M, 6M, 12M", async () => {
     render(
       <StockDetail
         symbol="AAPL"
@@ -113,11 +115,11 @@ describe("StockDetail RTL", () => {
     );
 
     await waitFor(() => {
-      expect(screen.getByText("5D")).toBeInTheDocument();
+      expect(screen.getByText("1D")).toBeInTheDocument();
     });
 
     // Get all metric labels in order
-    const labels = ["5D", "1M", "6M", "12M"];
+    const labels = ["1D", "5D", "1M", "6M", "12M"];
     const labelElements = labels.map((label) => screen.getByText(label));
 
     // Verify they all exist (order is enforced by dir="ltr" on parent)
@@ -126,7 +128,7 @@ describe("StockDetail RTL", () => {
     });
 
     // Find the metrics row and verify it has LTR direction
-    const metricLabel = screen.getByText("5D");
+    const metricLabel = screen.getByText("1D");
     const metricCard = metricLabel.closest('[class*="metricCard"]');
     const metricsRow = metricCard?.parentElement;
 

@@ -18,6 +18,7 @@ type StockDetailProps = {
   labels: {
     backToList: string;
     price: string;
+    growth1d: string;
     growth5d: string;
     growth1m: string;
     growth6m: string;
@@ -133,7 +134,7 @@ export function StockDetail({ symbol, onClose, locale = "en", labels }: StockDet
     );
   }
 
-  const { profile, quote, history, growth5d, growth1m, growth6m, growth12m, nameHebrew } = detail;
+  const { profile, quote, history, growth1d, growth5d, growth1m, growth6m, growth12m, nameHebrew } = detail;
 
   return (
     <div className={styles.panel}>
@@ -233,6 +234,16 @@ export function StockDetail({ symbol, onClose, locale = "en", labels }: StockDet
       )}
 
       <div className={styles.metricsRow} dir="ltr">
+        <div className={styles.metricCard}>
+          <span
+            className={styles.metricValue}
+            data-positive={(growth1d ?? 0) >= 0}
+            data-negative={(growth1d ?? 0) < 0}
+          >
+            {formatGrowth(growth1d ?? 0)}
+          </span>
+          <span className={styles.metricLabel}>{labels.growth1d}</span>
+        </div>
         <div className={styles.metricCard}>
           <span
             className={styles.metricValue}

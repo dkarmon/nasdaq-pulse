@@ -50,6 +50,23 @@ describe("Mock Market Data Provider", () => {
       }
     });
 
+    it("returns stocks sorted by 1d growth", () => {
+      const params: ScreenerParams = {
+        sortBy: "1d",
+        limit: 10,
+        filters: { minPrice: null },
+        exchange: "nasdaq",
+      };
+
+      const result = getScreenerData(params);
+
+      for (let i = 0; i < result.stocks.length - 1; i++) {
+        expect((result.stocks[i].growth1d ?? 0)).toBeGreaterThanOrEqual(
+          result.stocks[i + 1].growth1d ?? 0
+        );
+      }
+    });
+
     it("returns stocks sorted by 12m growth", () => {
       const params: ScreenerParams = {
         sortBy: "12m",

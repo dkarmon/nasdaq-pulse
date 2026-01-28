@@ -132,6 +132,7 @@ export async function getStockDetail(
       updatedAt: new Date().toISOString(),
     },
     history: yahooData.history,
+    growth1d: yahooData.growth.growth1d,
     growth5d: yahooData.growth.growth5d,
     growth1m: yahooData.growth.growth1m,
     growth6m: yahooData.growth.growth6m,

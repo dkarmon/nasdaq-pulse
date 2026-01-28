@@ -43,6 +43,7 @@ export type YahooQuote = {
 export type YahooGrowth = {
   symbol: string;
   currentPrice: number;
+  growth1d: number;
   growth5d: number;
   growth1m: number;
   growth6m: number;
@@ -197,6 +198,7 @@ export async function getGrowthData(symbol: string): Promise<YahooGrowth | null>
   return {
     symbol: result.meta.symbol,
     currentPrice: result.meta.regularMarketPrice,
+    growth1d: calculateGrowthByDays(closePrices, validTimestamps, 1),
     growth5d: calculateGrowthByDays(closePrices, validTimestamps, 5),
     growth1m: calculateGrowthByCalendarMonths(closePrices, validTimestamps, 1),
     growth6m: calculateGrowthByCalendarMonths(closePrices, validTimestamps, 6),
@@ -289,6 +291,10 @@ export async function getQuoteAndGrowth(symbol: string): Promise<{
     result.meta.chartPreviousClose ??
     0;
 
+  const growth1d = previousClose
+    ? ((result.meta.regularMarketPrice - previousClose) / previousClose) * 100
+    : calculateGrowthByDays(closePrices, validTimestamps, 1);
+
   return {
     quote: {
       symbol: result.meta.symbol,
@@ -300,6 +306,7 @@ export async function getQuoteAndGrowth(symbol: string): Promise<{
     growth: {
       symbol: result.meta.symbol,
       currentPrice: result.meta.regularMarketPrice,
+      growth1d,
       growth5d: calculateGrowthByDays(closePrices, validTimestamps, 5),
       growth1m: calculateGrowthByCalendarMonths(closePrices, validTimestamps, 1),
       growth6m: calculateGrowthByCalendarMonths(closePrices, validTimestamps, 6),

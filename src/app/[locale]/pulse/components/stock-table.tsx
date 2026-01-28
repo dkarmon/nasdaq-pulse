@@ -20,6 +20,7 @@ type StockTableProps = {
     stock: string;
     price: string;
     growth: string;
+    growth1d: string;
     growth5d: string;
     growth1m: string;
     growth6m: string;
@@ -55,6 +56,7 @@ export function StockTable({
           <tr>
             <th className={styles.stockCol}>{labels.stock}</th>
             <th className={styles.priceCol}>{labels.price}</th>
+            <th className={styles.growthCol} data-active={sortBy === "1d"}>{labels.growth1d}</th>
             <th className={styles.growthCol} data-active={sortBy === "5d"}>{labels.growth5d}</th>
             <th className={styles.growthCol} data-active={sortBy === "1m"}>{labels.growth1m}</th>
             <th className={styles.growthCol} data-active={sortBy === "6m"}>{labels.growth6m}</th>
@@ -130,6 +132,14 @@ export function StockTable({
                 </td>
                 <td className={styles.priceCell}>
                   {formatPrice(liveQuote?.price ?? stock.price, stock.currency)}
+                </td>
+                <td
+                  className={styles.growthCell}
+                  data-positive={(stock.growth1d ?? 0) >= 0}
+                  data-negative={(stock.growth1d ?? 0) < 0}
+                  data-active={sortBy === "1d"}
+                >
+                  {formatGrowth(stock.growth1d ?? 0)}
                 </td>
                 <td
                   className={styles.growthCell}

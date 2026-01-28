@@ -3,7 +3,7 @@
 
 export type Exchange = "nasdaq" | "tlv";
 
-export type SortPeriod = "5d" | "1m" | "6m" | "12m" | "az";
+export type SortPeriod = "1d" | "5d" | "1m" | "6m" | "12m" | "az";
 
 export type Stock = {
   symbol: string;
@@ -13,6 +13,7 @@ export type Stock = {
   price: number;
   currency: string;
   marketCap: number;
+  growth1d?: number;
   growth5d?: number;
   growth1m: number;
   growth6m: number;
@@ -82,6 +83,7 @@ export type StockDetailResponse = {
   profile: CompanyProfile;
   quote: Quote;
   history: HistoricalDataPoint[];
+  growth1d?: number;
   growth5d?: number;
   growth1m: number;
   growth6m: number;
