@@ -158,6 +158,19 @@ export type Dictionary = {
     deleteFormula: string;
     confirmDelete: string;
     noFormulas: string;
+    // Omit rules
+    omitRules: string;
+    omitRulesAdminDefaults: string;
+    omitRulesAdminHint: string;
+    omitRulesSyncHint: string;
+    syncWithAdmin: string;
+    enabled: string;
+    addRule: string;
+    price: string;
+    marketCap: string;
+    min: string;
+    max: string;
+    noRules: string;
   };
   auth: {
     signinTitle: string;
@@ -372,6 +385,18 @@ export const dictionaries: Record<Locale, Dictionary> = {
       deleteFormula: "Delete",
       confirmDelete: "Are you sure you want to delete this formula?",
       noFormulas: "No formulas yet",
+      omitRules: "Omit Rules",
+      omitRulesAdminDefaults: "Omit Rules (Admin Defaults)",
+      omitRulesAdminHint: "These defaults apply to all synced users.",
+      omitRulesSyncHint: "Following admin rules. Toggle off to customize.",
+      syncWithAdmin: "Sync with admin",
+      enabled: "Enabled",
+      addRule: "Add Rule",
+      price: "Price",
+      marketCap: "Market Cap",
+      min: "Min",
+      max: "Max",
+      noRules: "No rules configured",
     },
     auth: {
       signinTitle: "Welcome to Nasdaq Pulse",
@@ -582,6 +607,18 @@ export const dictionaries: Record<Locale, Dictionary> = {
       deleteFormula: "מחק",
       confirmDelete: "האם למחוק את הנוסחה?",
       noFormulas: "אין נוסחאות עדיין",
+      omitRules: "כללי סינון",
+      omitRulesAdminDefaults: "כללי סינון (ברירות מחדל מנהל)",
+      omitRulesAdminHint: "הגדרות אלו חלות על כל המשתמשים המסונכרנים.",
+      omitRulesSyncHint: "עוקב אחרי הגדרות מנהל. כבה לבחירה מותאמת.",
+      syncWithAdmin: "סנכרון עם מנהל",
+      enabled: "מופעל",
+      addRule: "הוסף כלל",
+      price: "מחיר",
+      marketCap: "שווי שוק",
+      min: "מינימום",
+      max: "מקסימום",
+      noRules: "אין כללים מוגדרים",
     },
     auth: {
       signinTitle: "ברוכים הבאים ל-Nasdaq Pulse",

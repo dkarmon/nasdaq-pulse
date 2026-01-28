@@ -70,7 +70,7 @@ export function SettingsClient({ dict, locale, isAdmin }: SettingsClientProps) {
         ))}
       </div>
 
-      {currentTab === "stocks" && <StocksTab dict={dict} />}
+      {currentTab === "stocks" && <StocksTab dict={dict} isAdmin={isAdmin} />}
       {currentTab === "users" && isAdmin && <UsersTab dict={dict} />}
       {currentTab === "formulas" && isAdmin && <FormulasTab dict={dict} />}
     </div>

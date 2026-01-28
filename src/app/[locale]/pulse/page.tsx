@@ -22,9 +22,6 @@ async function getInitialScreenerData() {
   const params: ScreenerParams = {
     sortBy: "1m",
     limit: 50,
-    filters: {
-      minPrice: null,
-    },
     exchange: "nasdaq",
   };
 

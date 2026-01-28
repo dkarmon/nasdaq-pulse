@@ -41,9 +41,6 @@ export function ScreenerClient({
     isLoaded,
     setSortBy,
     setLimit,
-    setMinPrice,
-    clearFilters,
-    hasActiveFilters,
     setExchange,
     hideStock,
     setShowRecommendedOnly,
@@ -80,7 +77,6 @@ export function ScreenerClient({
       const params = new URLSearchParams({
         sortBy: preferences.sortBy,
         limit: limit.toString(),
-        minPrice: preferences.filters.minPrice !== null ? String(preferences.filters.minPrice) : "",
         exchange: preferences.exchange,
         recommendedOnly: preferences.showRecommendedOnly ? "true" : "false",
         includeScores: "true",
@@ -111,8 +107,6 @@ export function ScreenerClient({
   const controlLabels = {
     sortBy: dict.screener.sortBy,
     show: dict.screener.show,
-    minPrice: dict.screener.minPrice,
-    clearAll: dict.screener.clearAll,
     search: dict.screener.search,
     recommendedOnly: dict.screener.recommendedOnly,
     exchange: dict.screener.exchange,
@@ -155,18 +149,14 @@ export function ScreenerClient({
         exchange={preferences.exchange}
         sortBy={preferences.sortBy}
         limit={preferences.limit}
-        filters={preferences.filters}
         searchQuery={searchQuery}
         showRecommendedOnly={preferences.showRecommendedOnly}
         controlsDisabled={preferences.showRecommendedOnly}
         onExchangeChange={setExchange}
         onSortChange={setSortBy}
         onLimitChange={setLimit}
-        onMinPriceChange={setMinPrice}
-        onClearFilters={clearFilters}
         onSearchChange={setSearchQuery}
         onShowRecommendedOnlyChange={setShowRecommendedOnly}
-        hasActiveFilters={hasActiveFilters}
         labels={controlLabels}
       />
 

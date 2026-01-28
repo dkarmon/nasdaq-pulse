@@ -1,5 +1,5 @@
-// ABOUTME: Tests for usePreferences hook, focusing on filter behavior with recommended mode.
-// ABOUTME: Verifies that min price filter remains active when recommended only is enabled.
+// ABOUTME: Tests for usePreferences hook.
+// ABOUTME: Verifies preference state management and recommended mode behavior.
 
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 import { renderHook, act } from "@testing-library/react";
@@ -41,102 +41,68 @@ describe("usePreferences", () => {
     vi.restoreAllMocks();
   });
 
-  describe("min price filter with recommended only mode", () => {
-    it("should keep minPrice filter when enabling recommended only", () => {
-      const { result } = renderHook(() => usePreferences());
-
-      // Set a min price filter
-      act(() => {
-        result.current.setMinPrice(10);
-      });
-
-      expect(result.current.preferences.filters.minPrice).toBe(10);
-
-      // Enable recommended only
-      act(() => {
-        result.current.setShowRecommendedOnly(true);
-      });
-
-      // Min price should still be set
-      expect(result.current.preferences.showRecommendedOnly).toBe(true);
-      expect(result.current.preferences.filters.minPrice).toBe(10);
-    });
-
-    it("should allow changing minPrice while recommended only is active", () => {
-      const { result } = renderHook(() => usePreferences());
-
-      // Enable recommended only first
-      act(() => {
-        result.current.setShowRecommendedOnly(true);
-      });
-
-      // Set min price while in recommended mode
-      act(() => {
-        result.current.setMinPrice(25);
-      });
-
-      expect(result.current.preferences.filters.minPrice).toBe(25);
-
-      // Change it again
-      act(() => {
-        result.current.setMinPrice(50);
-      });
-
-      expect(result.current.preferences.filters.minPrice).toBe(50);
-    });
-
-    it("should preserve minPrice when disabling recommended only", () => {
-      const { result } = renderHook(() => usePreferences());
-
-      // Set min price and enable recommended
-      act(() => {
-        result.current.setMinPrice(15);
-      });
-      act(() => {
-        result.current.setShowRecommendedOnly(true);
-      });
-
-      expect(result.current.preferences.filters.minPrice).toBe(15);
-
-      // Disable recommended only
-      act(() => {
-        result.current.setShowRecommendedOnly(false);
-      });
-
-      // Min price should still be preserved
-      expect(result.current.preferences.filters.minPrice).toBe(15);
-    });
-
-    it("should restore sort and limit but keep current minPrice when disabling recommended only", () => {
+  describe("recommended only mode", () => {
+    it("should save and restore sort/limit when toggling recommended mode", () => {
       const { result } = renderHook(() => usePreferences());
 
       // Set initial state
       act(() => {
         result.current.setSortBy("6m");
         result.current.setLimit(25);
-        result.current.setMinPrice(10);
       });
+
+      expect(result.current.preferences.sortBy).toBe("6m");
+      expect(result.current.preferences.limit).toBe(25);
 
       // Enable recommended only (saves sort/limit to preRecommendedState)
       act(() => {
         result.current.setShowRecommendedOnly(true);
       });
 
-      // Change minPrice while in recommended mode
-      act(() => {
-        result.current.setMinPrice(30);
-      });
+      expect(result.current.preferences.showRecommendedOnly).toBe(true);
 
       // Disable recommended only
       act(() => {
         result.current.setShowRecommendedOnly(false);
       });
 
-      // Sort and limit should be restored from preRecommendedState
+      // Sort and limit should be restored
       expect(result.current.preferences.sortBy).toBe("6m");
       expect(result.current.preferences.limit).toBe(25);
-      // MinPrice should be the current value (30), not the saved one (10)
-      expect(result.current.preferences.filters.minPrice).toBe(30);
+    });
+  });
+
+  describe("exchange switching", () => {
+    it("should switch exchanges correctly", () => {
+      const { result } = renderHook(() => usePreferences());
+
+      expect(result.current.preferences.exchange).toBe("nasdaq");
+
+      act(() => {
+        result.current.setExchange("tlv");
+      });
+
+      expect(result.current.preferences.exchange).toBe("tlv");
+    });
+  });
+
+  describe("hidden stocks", () => {
+    it("should hide and unhide stocks per exchange", () => {
+      const { result } = renderHook(() => usePreferences());
+
+      // Hide a stock on nasdaq
+      act(() => {
+        result.current.hideStock("AAPL");
+      });
+
+      expect(result.current.currentHiddenSymbols).toContain("AAPL");
+
+      // Unhide the stock
+      act(() => {
+        result.current.unhideStock("AAPL");
+      });
+
+      expect(result.current.currentHiddenSymbols).not.toContain("AAPL");
     });
   });
 });

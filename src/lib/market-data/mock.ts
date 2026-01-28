@@ -458,16 +458,6 @@ function generateHistoricalData(
   return data;
 }
 
-function applyFilters(stocks: Stock[], params: ScreenerParams): Stock[] {
-  const minPrice = params.filters.minPrice;
-
-  if (minPrice === null) {
-    return stocks;
-  }
-
-  return stocks.filter((stock) => stock.price >= minPrice);
-}
-
 function sortStocks(stocks: Stock[], sortBy: string): Stock[] {
   const sorted = [...stocks];
   sorted.sort((a, b) => {
@@ -500,8 +490,7 @@ export function getScreenerData(params: ScreenerParams): ScreenerResponse {
     updatedAt: defaultRecommendationFormula.updatedAt ?? new Date().toISOString(),
   };
 
-  let stocks = applyFilters(mockStocks, params);
-  stocks = sortStocks(stocks, params.sortBy);
+  let stocks = sortStocks(mockStocks, params.sortBy);
   if (params.recommendedOnly) {
     stocks = filterAndSortByRecommendation(stocks, activeFormula);
   } else if (params.includeScores) {

@@ -21,7 +21,7 @@ import type {
 
 export type { Stock, Quote, CompanyProfile, HistoricalDataPoint, NewsItem };
 export type { ScreenerResponse, StockDetailResponse, NewsResponse };
-export type { ScreenerParams, SortPeriod, ScreenerFilters } from "./types";
+export type { ScreenerParams, SortPeriod } from "./types";
 
 export async function getScreener(
   params: ScreenerParams

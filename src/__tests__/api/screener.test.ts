@@ -15,6 +15,23 @@ vi.mock("@/lib/market-data/storage", () => ({
   getLastUpdated: vi.fn(() => Promise.resolve(new Date().toISOString())),
 }));
 
+vi.mock("@/lib/supabase/server", () => ({
+  createClient: vi.fn(() => Promise.resolve({
+    auth: {
+      getUser: vi.fn(() => Promise.resolve({ data: { user: null } })),
+    },
+  })),
+  createAdminClient: vi.fn(() => ({
+    from: vi.fn(() => ({
+      select: vi.fn(() => ({
+        eq: vi.fn(() => ({
+          maybeSingle: vi.fn(() => Promise.resolve({ data: null })),
+        })),
+      })),
+    })),
+  })),
+}));
+
 function createRequest(searchParams: Record<string, string> = {}): NextRequest {
   const url = new URL("http://localhost:3000/api/screener");
   Object.entries(searchParams).forEach(([key, value]) => {
@@ -75,19 +92,6 @@ describe("GET /api/screener", () => {
     expect(data.stocks.length).toBeLessThanOrEqual(25);
   });
 
-  it("respects minPrice filter parameter", async () => {
-    const request = createRequest({
-      minPrice: "50",
-    });
-    const response = await GET(request);
-    const data = await response.json();
-
-    expect(response.status).toBe(200);
-    for (const stock of data.stocks) {
-      expect(stock.price).toBeGreaterThanOrEqual(50);
-    }
-  });
-
   it("defaults invalid sortBy to 1m", async () => {
     const request = createRequest({ sortBy: "invalid" });
     const response = await GET(request);
@@ -108,15 +112,6 @@ describe("GET /api/screener", () => {
 
     expect(response.status).toBe(200);
     expect(data.stocks.length).toBeLessThanOrEqual(50);
-  });
-
-  it("defaults invalid minPrice to null (no filter)", async () => {
-    const request = createRequest({ minPrice: "invalid" });
-    const response = await GET(request);
-    const data = await response.json();
-
-    expect(response.status).toBe(200);
-    expect(data.stocks.length).toBeGreaterThan(0);
   });
 
   it("returns stocks with required fields", async () => {
