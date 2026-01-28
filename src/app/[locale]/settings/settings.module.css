@@ -279,11 +279,29 @@
 .recoTextarea {
   width: 100%;
   padding: 10px 12px;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border);
   border-radius: 8px;
   color: var(--foreground);
   font-size: 0.95rem;
+}
+
+.recoSelect {
+  appearance: none;
+  background-image: linear-gradient(45deg, transparent 50%, var(--accent) 50%),
+    linear-gradient(135deg, var(--accent) 50%, transparent 50%);
+  background-position: calc(100% - 18px) calc(50% - 2px), calc(100% - 12px) calc(50% - 2px);
+  background-size: 6px 6px, 6px 6px;
+  background-repeat: no-repeat;
+  cursor: pointer;
+}
+
+.recoSelect:focus,
+.recoInput:focus,
+.recoTextarea:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.25);
 }
 
 .recoTextarea {
@@ -291,7 +309,7 @@
 }
 
 .recoSelect option {
-  background: #0b0f1a;
+  background: var(--background);
   color: var(--foreground);
 }
 
