@@ -45,8 +45,12 @@ export default async function PulsePage({ params }: PulsePageProps) {
   const initialData = await getInitialScreenerData();
 
   return (
-    <div className="page-shell" dir={rtl ? "rtl" : "ltr"} data-dir={rtl ? "rtl" : "ltr"}>
-      <div className="container">
+    <div className="page-shell" dir={rtl ? "rtl" : "ltr"} data-dir={rtl ? "rtl" : "ltr"} style={{ position: "relative" }}>
+      <div className="bg-orbs" aria-hidden="true">
+        <div className="bg-orb bg-orb-indigo" />
+        <div className="bg-orb bg-orb-green" />
+      </div>
+      <div className="container" style={{ position: "relative", zIndex: 1 }}>
         <nav
           style={{
             display: "flex",
@@ -58,8 +62,23 @@ export default async function PulsePage({ params }: PulsePageProps) {
           }}
         >
           <div style={{ display: "flex", alignItems: "center", gap: "10px", flexShrink: 0, whiteSpace: "nowrap" }}>
-            <span style={{ fontSize: "1.5rem", color: "var(--accent)" }}>◈</span>
-            <span style={{ fontSize: "1.25rem", fontWeight: 700, letterSpacing: "-0.02em" }}>Nasdaq Pulse</span>
+            <div
+              style={{
+                width: 32,
+                height: 32,
+                borderRadius: "8px",
+                background: "linear-gradient(135deg, #6366f1, #10b981)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                fontWeight: 800,
+                fontSize: "0.9rem",
+                color: "#fff",
+              }}
+            >
+              N
+            </div>
+            <span style={{ fontSize: "1.1rem", fontWeight: 700, letterSpacing: "-0.02em" }}>Nasdaq Pulse</span>
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
             <Link
@@ -67,13 +86,16 @@ export default async function PulsePage({ params }: PulsePageProps) {
               style={{
                 color: "var(--muted)",
                 textDecoration: "none",
-                fontSize: "1.25rem",
+                fontSize: "1.1rem",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                width: "32px",
-                height: "32px",
-                transition: "color 150ms ease",
+                width: "36px",
+                height: "36px",
+                borderRadius: "8px",
+                border: "1px solid var(--glass-border)",
+                background: "var(--glass)",
+                transition: "border-color 150ms ease, color 150ms ease",
               }}
               title={dict.settings.title}
             >

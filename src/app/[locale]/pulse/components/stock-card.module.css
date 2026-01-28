@@ -17,23 +17,31 @@
   display: flex;
   flex-direction: column;
   gap: 12px;
-  padding: 20px;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01));
-  border: 1px solid var(--border);
+  padding: 18px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.02));
+  border: 1px solid var(--glass-border);
   border-radius: var(--radius);
+  backdrop-filter: blur(12px);
   cursor: pointer;
-  transition: border 150ms ease, background 150ms ease;
+  transition: border 150ms ease, background 150ms ease, transform 150ms ease;
 }
 
 .card:hover,
 .card:active {
-  border-color: var(--accent);
-  background: rgba(16, 185, 129, 0.05);
+  border-color: rgba(16, 185, 129, 0.4);
+  background: rgba(16, 185, 129, 0.06);
+  transform: translateY(-2px);
 }
 
 .card[data-selected="true"] {
-  background: linear-gradient(135deg, rgba(16, 185, 129, 0.08), rgba(16, 185, 129, 0.02));
-  border-color: rgba(16, 185, 129, 0.4);
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(16, 185, 129, 0.04));
+  border-color: rgba(16, 185, 129, 0.5);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card:hover {
+    transform: none;
+  }
 }
 
 .header {
@@ -55,20 +63,20 @@
   justify-content: center;
   width: 32px;
   height: 32px;
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--glass-border);
+  border-radius: 8px;
+  background: var(--glass);
   color: var(--muted);
   font-size: 1rem;
   cursor: pointer;
-  transition: border 120ms ease, color 120ms ease, background 120ms ease;
+  transition: border 150ms ease, color 150ms ease, background 150ms ease;
 }
 
 .hideButton:hover,
 .hideButton:active {
-  border-color: #f8bac8;
-  color: #f8bac8;
-  background: rgba(248, 186, 200, 0.1);
+  border-color: rgba(252, 165, 165, 0.5);
+  color: #fca5a5;
+  background: rgba(252, 165, 165, 0.1);
 }
 
 .symbolSection {
@@ -113,11 +121,11 @@
 }
 
 .liveGrowth[data-positive="true"] {
-  color: #8df0c7;
+  color: #86efac;
 }
 
 .liveGrowth[data-negative="true"] {
-  color: #f8bac8;
+  color: #fca5a5;
 }
 
 .price {
@@ -140,11 +148,14 @@
   gap: 2px;
   padding: 8px 4px;
   border-radius: 8px;
-  background: rgba(255, 255, 255, 0.02);
+  background: var(--glass);
+  border: 1px solid transparent;
+  transition: background 150ms ease, border-color 150ms ease;
 }
 
 .growthItem[data-active="true"] {
   background: rgba(16, 185, 129, 0.12);
+  border-color: rgba(16, 185, 129, 0.3);
 }
 
 .growthValue {
@@ -156,11 +167,11 @@
 }
 
 .growthValue[data-positive="true"] {
-  color: #8df0c7;
+  color: #86efac;
 }
 
 .growthValue[data-negative="true"] {
-  color: #f8bac8;
+  color: #fca5a5;
 }
 
 .growthLabel {

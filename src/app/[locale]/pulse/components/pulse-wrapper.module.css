@@ -24,6 +24,7 @@
 .title {
   font-size: 1.5rem;
   font-weight: 800;
+  letter-spacing: -0.02em;
   margin: 0;
 }
 
@@ -47,10 +48,11 @@
 .detailPanel {
   width: 40%;
   max-width: 480px;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01));
-  border: 1px solid var(--border);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.02));
+  border: 1px solid var(--glass-border);
   border-radius: var(--radius);
   padding: 24px;
+  backdrop-filter: blur(12px);
 }
 
 .detailPlaceholder {
@@ -65,19 +67,20 @@
   gap: 8px;
   min-height: 48px;
   padding: 12px 20px;
-  border-radius: 10px;
-  border: 1px solid var(--border);
-  background: rgba(255, 255, 255, 0.03);
+  border-radius: 12px;
+  border: 1px solid var(--glass-border);
+  background: var(--glass);
   color: var(--text);
   font-weight: 600;
   font-size: 1rem;
   cursor: pointer;
-  transition: border 120ms ease, background 120ms ease;
+  transition: border 150ms ease, background 150ms ease;
   align-self: flex-start;
 }
 
 .backButton:hover {
   border-color: var(--accent);
+  background: var(--glass-hover);
 }
 
 @media (max-width: 1024px) {

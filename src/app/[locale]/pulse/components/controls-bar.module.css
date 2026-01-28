@@ -4,7 +4,7 @@
 .controls {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 14px;
   margin-bottom: 24px;
 }
 
@@ -18,28 +18,29 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: 100px;
+  flex: 1;
   min-height: 48px;
-  padding: 12px 24px;
-  border-radius: 999px;
-  border: 2px solid var(--border);
-  background: rgba(255, 255, 255, 0.03);
+  padding: 12px 20px;
+  border-radius: 12px;
+  border: 1px solid var(--glass-border);
+  background: var(--glass);
   color: var(--text);
   font-weight: 700;
-  font-size: 1.1rem;
+  font-size: 1rem;
   cursor: pointer;
-  transition: border 120ms ease, transform 120ms ease, background 120ms ease;
+  transition: border 150ms ease, transform 150ms ease, background 150ms ease;
 }
 
 .exchangePill:hover {
   border-color: var(--accent);
+  background: var(--glass-hover);
   transform: translateY(-1px);
 }
 
 .exchangePill[data-active="true"] {
-  background: linear-gradient(135deg, rgba(16, 185, 129, 0.25), rgba(16, 185, 129, 0.1));
-  border-color: rgba(16, 185, 129, 0.8);
-  color: #befae3;
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(16, 185, 129, 0.08));
+  border-color: rgba(16, 185, 129, 0.5);
+  color: #a7f3d0;
 }
 
 .searchRow {
@@ -50,17 +51,18 @@
 }
 
 .searchInput {
-  width: 100%;
+  flex: 1;
+  min-width: 0;
   max-width: 400px;
   min-height: 48px;
-  padding: 12px 20px;
-  border-radius: 10px;
-  border: 1px solid var(--border);
-  background: rgba(255, 255, 255, 0.03);
+  padding: 12px 18px;
+  border-radius: 12px;
+  border: 1px solid var(--glass-border);
+  background: var(--glass);
   color: var(--text);
   font-weight: 500;
   font-size: 1rem;
-  transition: border 120ms ease, background 120ms ease;
+  transition: border 150ms ease, background 150ms ease;
 }
 
 .searchInput::placeholder {
@@ -78,32 +80,33 @@
   align-items: center;
   gap: 6px;
   min-height: 48px;
-  padding: 12px 20px;
-  border-radius: 10px;
-  border: 1px solid var(--border);
-  background: rgba(255, 255, 255, 0.03);
+  padding: 12px 16px;
+  border-radius: 12px;
+  border: 1px solid var(--glass-border);
+  background: var(--glass);
   color: var(--text);
   font-weight: 600;
   font-size: 0.95rem;
   cursor: pointer;
-  transition: border 120ms ease, background 120ms ease, color 120ms ease;
+  transition: border 150ms ease, background 150ms ease, color 150ms ease;
   white-space: nowrap;
 }
 
 .recommendedToggle:hover {
   border-color: #fbbf24;
+  background: var(--glass-hover);
 }
 
 .recommendedToggle[data-active="true"] {
   background: rgba(251, 191, 36, 0.15);
-  border-color: rgba(251, 191, 36, 0.6);
-  color: #fbbf24;
+  border-color: rgba(251, 191, 36, 0.5);
+  color: #fcd34d;
 }
 
 .mainRow {
   display: flex;
   flex-wrap: wrap;
-  gap: 24px;
+  gap: 20px;
   align-items: center;
 }
 
@@ -111,7 +114,7 @@
 .limitGroup {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
 }
 
 .priceFilterGroup {
@@ -121,7 +124,7 @@
 }
 
 .label {
-  font-size: 1rem;
+  font-size: 0.9rem;
   font-weight: 600;
   color: var(--muted);
   white-space: nowrap;
@@ -129,35 +132,36 @@
 
 .pillGroup {
   display: flex;
-  gap: 8px;
+  gap: 6px;
 }
 
 .pill {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: 56px;
-  min-height: 48px;
-  padding: 12px 16px;
-  border-radius: 999px;
-  border: 1px solid var(--border);
-  background: rgba(255, 255, 255, 0.03);
+  min-width: 52px;
+  min-height: 44px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1px solid var(--glass-border);
+  background: var(--glass);
   color: var(--text);
   font-weight: 600;
-  font-size: 1rem;
+  font-size: 0.95rem;
   cursor: pointer;
-  transition: border 120ms ease, transform 120ms ease, background 120ms ease;
+  transition: border 150ms ease, transform 150ms ease, background 150ms ease;
 }
 
 .pill:hover {
   border-color: var(--accent);
+  background: var(--glass-hover);
   transform: translateY(-1px);
 }
 
 .pill[data-active="true"] {
-  background: linear-gradient(135deg, rgba(16, 185, 129, 0.18), rgba(16, 185, 129, 0.08));
-  border-color: rgba(16, 185, 129, 0.6);
-  color: #befae3;
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(16, 185, 129, 0.08));
+  border-color: rgba(16, 185, 129, 0.5);
+  color: #a7f3d0;
 }
 
 .pill[data-disabled="true"] {
@@ -167,17 +171,17 @@
 }
 
 .priceInput {
-  width: 90px;
-  min-height: 48px;
-  padding: 12px 14px;
+  width: 80px;
+  min-height: 44px;
+  padding: 10px 12px;
   border-radius: 10px;
-  border: 1px solid var(--border);
-  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--glass-border);
+  background: var(--glass);
   color: var(--text);
   font-weight: 600;
-  font-size: 1rem;
+  font-size: 0.95rem;
   text-align: center;
-  transition: border 120ms ease, background 120ms ease;
+  transition: border 150ms ease, background 150ms ease;
 }
 
 .priceInput::placeholder {
@@ -209,20 +213,20 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  border: 1px solid rgba(244, 67, 94, 0.4);
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  border: 1px solid rgba(244, 67, 94, 0.3);
   background: rgba(244, 67, 94, 0.1);
-  color: #ffd1d9;
+  color: #fecaca;
   font-weight: 600;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   cursor: pointer;
-  transition: border 120ms ease, background 120ms ease;
+  transition: border 150ms ease, background 150ms ease;
 }
 
 .clearButton:hover {
-  border-color: rgba(244, 67, 94, 0.6);
+  border-color: rgba(244, 67, 94, 0.5);
   background: rgba(244, 67, 94, 0.15);
 }
 
@@ -233,15 +237,99 @@
 }
 
 @media (max-width: 768px) {
-  .mainRow {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 16px;
+  .controls {
+    gap: 12px;
   }
 
-  .pill {
-    min-width: 52px;
+  .exchangeRow {
+    gap: 8px;
+  }
+
+  .exchangePill {
+    padding: 10px 16px;
+    font-size: 0.95rem;
+  }
+
+  .searchRow {
+    gap: 8px;
+  }
+
+  .searchInput {
+    max-width: none;
     padding: 10px 14px;
     font-size: 0.95rem;
+  }
+
+  .recommendedToggle {
+    padding: 10px 14px;
+    font-size: 0.9rem;
+  }
+
+  .mainRow {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .sortGroup {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    width: 100%;
+  }
+
+  .sortGroup .pillGroup {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+    width: 100%;
+  }
+
+  .sortGroup .pill {
+    min-width: 0;
+    width: 100%;
+    padding: 10px 8px;
+    font-size: 0.9rem;
+  }
+
+  .limitGroup {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .limitGroup .pillGroup {
+    gap: 8px;
+  }
+
+  .limitGroup .pill {
+    min-width: 60px;
+  }
+
+  .priceFilterGroup {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .priceInput {
+    flex: 1;
+    max-width: 100px;
+  }
+}
+
+@media (max-width: 360px) {
+  .sortGroup .pill {
+    padding: 8px 6px;
+    font-size: 0.85rem;
+  }
+
+  .limitGroup .pill {
+    min-width: 50px;
+    padding: 8px 10px;
+    font-size: 0.9rem;
+  }
+
+  .exchangePill {
+    padding: 8px 12px;
+    font-size: 0.9rem;
   }
 }
