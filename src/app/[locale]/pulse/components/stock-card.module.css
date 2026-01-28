@@ -146,6 +146,8 @@
   font-weight: 600;
   direction: ltr;
   unicode-bidi: embed;
+  margin-left: 6px;
+  margin-right: 6px;
 }
 
 .liveGrowth[data-positive="true"] {

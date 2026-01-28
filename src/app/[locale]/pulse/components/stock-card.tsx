@@ -109,7 +109,7 @@ export function StockCard({
                   data-positive={liveQuote.changePercent >= 0}
                   data-negative={liveQuote.changePercent < 0}
                 >
-                  {" "}({formatGrowth(liveQuote.changePercent)})
+                  ({formatGrowth(liveQuote.changePercent)})
                 </span>
               )}
               {stock.hasSplitWarning && (

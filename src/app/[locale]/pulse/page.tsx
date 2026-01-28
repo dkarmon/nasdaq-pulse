@@ -58,27 +58,17 @@ export default async function PulsePage({ params }: PulsePageProps) {
           }}
         >
           <span className="brand-wordmark" style={{ fontSize: "1.25rem" }}>Nasdaq Pulse</span>
-          <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
             <Link
               href={`/${locale}/settings`}
-              style={{
-                color: "var(--muted)",
-                textDecoration: "none",
-                fontSize: "1.25rem",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                width: "32px",
-                height: "32px",
-                transition: "color 150ms ease",
-              }}
+              className="nav-icon-btn"
               title={dict.settings.title}
             >
               ⚙
             </Link>
             <LocaleSwitcher locale={locale} />
             {user?.email && (
-              <span className="badge">{user.email}</span>
+              <span className="badge hide-mobile">{user.email}</span>
             )}
             <SignOutButton label={dict.app.logout} />
           </div>

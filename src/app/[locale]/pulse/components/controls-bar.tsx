@@ -101,6 +101,19 @@ export function ControlsBar({
     <>
       {/* Mobile compact bar */}
       <div className={styles.mobileControls}>
+        <div className={styles.mobileExchangeToggle}>
+          {EXCHANGE_OPTIONS.map((option) => (
+            <button
+              key={option}
+              className={styles.mobileExchangeOption}
+              data-active={exchange === option}
+              onClick={() => onExchangeChange(option)}
+              aria-pressed={exchange === option}
+            >
+              {option === "nasdaq" ? "NASDAQ" : "TLV"}
+            </button>
+          ))}
+        </div>
         <input
           type="text"
           className={styles.mobileSearchInput}

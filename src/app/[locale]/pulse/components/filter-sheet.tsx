@@ -61,6 +61,21 @@ export function FilterSheet({
     setLocalMinPrice(minPrice !== null ? String(minPrice) : "");
   }, [minPrice]);
 
+  // Lock body scroll when sheet is open
+  useEffect(() => {
+    if (isOpen) {
+      document.documentElement.style.overflow = "hidden";
+      document.body.style.overflow = "hidden";
+    } else {
+      document.documentElement.style.overflow = "";
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.documentElement.style.overflow = "";
+      document.body.style.overflow = "";
+    };
+  }, [isOpen]);
+
   const handleMinPriceChange = (value: string) => {
     setLocalMinPrice(value);
     if (value === "") {

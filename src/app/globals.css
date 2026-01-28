@@ -220,6 +220,30 @@ button {
   font-size: 0.9rem;
 }
 
+.nav-icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border-radius: 10px;
+  border: 1px solid var(--glass-border);
+  background: var(--glass);
+  color: var(--muted);
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: border 150ms ease, background 150ms ease, color 150ms ease;
+}
+
+.nav-icon-btn:hover {
+  border-color: var(--glass-border-hover);
+  background: var(--glass-hover);
+  color: var(--text);
+}
+
 .badge.positive {
   color: #a7f3d0;
   border-color: rgba(16, 185, 129, 0.4);
@@ -324,6 +348,10 @@ button {
   .bg-orb {
     filter: blur(60px);
     opacity: 0.6;
+  }
+
+  .hide-mobile {
+    display: none !important;
   }
 }
 
