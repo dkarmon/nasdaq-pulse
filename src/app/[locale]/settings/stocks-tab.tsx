@@ -4,6 +4,7 @@
 "use client";
 
 import { usePreferences } from "@/hooks/usePreferences";
+import { getHebrewName } from "@/lib/market-data/tase-symbols";
 import type { Dictionary } from "@/lib/i18n";
 import styles from "./settings.module.css";
 
@@ -49,17 +50,23 @@ export function StocksTab({ dict }: StocksTabProps) {
             <div className={styles.exchangeSection}>
               <h3 className={styles.exchangeLabel}>{dict.screener.tlv}</h3>
               <ul className={styles.stockList}>
-                {tlvHidden.map((symbol) => (
-                  <li key={symbol} className={styles.stockItem}>
-                    <span className={styles.symbol}>{symbol}</span>
-                    <button
-                      className={styles.unhideButton}
-                      onClick={() => unhideStock(symbol, "tlv")}
-                    >
-                      {dict.settings.unhide}
-                    </button>
-                  </li>
-                ))}
+                {tlvHidden.map((symbol) => {
+                  const hebrewName = getHebrewName(symbol);
+                  return (
+                    <li key={symbol} className={styles.stockItem}>
+                      <span className={styles.symbol}>
+                        {hebrewName || symbol}
+                        {hebrewName && <span className={styles.symbolMeta}>{symbol}</span>}
+                      </span>
+                      <button
+                        className={styles.unhideButton}
+                        onClick={() => unhideStock(symbol, "tlv")}
+                      >
+                        {dict.settings.unhide}
+                      </button>
+                    </li>
+                  );
+                })}
               </ul>
             </div>
           )}
