@@ -80,22 +80,25 @@
   letter-spacing: 0.02em;
 }
 
+
 .unhideButton {
-  padding: 8px 16px;
-  background: transparent;
-  border: 1px solid var(--accent);
-  border-radius: 6px;
-  color: var(--accent);
-  font-size: 0.9rem;
-  font-weight: 500;
+  padding: 9px 16px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  border: 1px solid transparent;
+  border-radius: 10px;
+  color: #0b0f1a;
+  font-size: 0.92rem;
+  font-weight: 600;
   cursor: pointer;
-  transition: background 150ms ease, color 150ms ease;
+  transition: transform 150ms ease, box-shadow 150ms ease;
+  box-shadow: var(--shadow-glow);
 }
 
 .unhideButton:hover {
-  background: var(--accent);
-  color: var(--background);
+  transform: translateY(-1px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
 }
+
 
 .section + .section {
   margin-top: 24px;
