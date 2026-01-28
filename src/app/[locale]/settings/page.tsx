@@ -50,7 +50,7 @@ export default async function SettingsPage({ params }: SettingsPageProps) {
           }}
         >
           <Link href={`/${locale}/pulse`} style={{ textDecoration: "none", color: "inherit", fontSize: "1.25rem", fontWeight: 700, letterSpacing: "-0.02em" }}>
-            Nasdaq Pulse
+            <span className="brand-wordmark" style={{ fontSize: "1.25rem" }}>Nasdaq Pulse</span>
           </Link>
           <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
             <LocaleSwitcher locale={locale} />

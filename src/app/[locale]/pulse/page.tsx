@@ -57,7 +57,7 @@ export default async function PulsePage({ params }: PulsePageProps) {
             flexWrap: "wrap",
           }}
         >
-          <span style={{ fontSize: "1.25rem", fontWeight: 700, letterSpacing: "-0.02em" }}>Nasdaq Pulse</span>
+          <span className="brand-wordmark" style={{ fontSize: "1.25rem" }}>Nasdaq Pulse</span>
           <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
             <Link
               href={`/${locale}/settings`}

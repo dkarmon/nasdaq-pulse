@@ -40,6 +40,9 @@ export default async function SignIn({ params }: SignInProps) {
         </Link>
 
         <div className={styles.card}>
+          <div className={styles.logoSection}>
+            <span className={`${styles.logoText} brand-wordmark`}>Nasdaq&nbsp;Pulse</span>
+          </div>
           <h1 className={styles.title}>{dict.auth.signinTitle}</h1>
           <p className={styles.subtitle}>{dict.auth.signinSubtitle}</p>
 
