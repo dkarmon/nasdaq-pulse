@@ -1,4 +1,4 @@
-// ABOUTME: Tab component for managing hidden stocks.
+// ABOUTME: Tab component for managing hidden stocks and omit rules.
 // ABOUTME: Displays per-exchange lists with unhide functionality.
 
 "use client";
@@ -6,13 +6,15 @@
 import { usePreferences } from "@/hooks/usePreferences";
 import { getHebrewName } from "@/lib/market-data/tase-symbols";
 import type { Dictionary } from "@/lib/i18n";
+import { OmitRulesPanel } from "./omit-rules-panel";
 import styles from "./settings.module.css";
 
 type StocksTabProps = {
   dict: Dictionary;
+  isAdmin: boolean;
 };
 
-export function StocksTab({ dict }: StocksTabProps) {
+export function StocksTab({ dict, isAdmin }: StocksTabProps) {
   const { preferences, unhideStock } = usePreferences();
 
   const nasdaqHidden = preferences.hiddenSymbols.nasdaq;
@@ -20,8 +22,11 @@ export function StocksTab({ dict }: StocksTabProps) {
   const hasHiddenStocks = nasdaqHidden.length > 0 || tlvHidden.length > 0;
 
   return (
-    <section className={styles.section}>
-      <h2 className={styles.sectionTitle}>{dict.settings.hiddenStocks}</h2>
+    <>
+      <OmitRulesPanel dict={dict} isAdmin={isAdmin} />
+
+      <section className={styles.section}>
+        <h2 className={styles.sectionTitle}>{dict.settings.hiddenStocks}</h2>
 
       {!hasHiddenStocks ? (
         <p className={styles.empty}>{dict.settings.noHiddenStocks}</p>
@@ -66,6 +71,7 @@ export function StocksTab({ dict }: StocksTabProps) {
           )}
         </>
       )}
-    </section>
+      </section>
+    </>
   );
 }

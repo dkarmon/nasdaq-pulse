@@ -103,14 +103,32 @@ export type NewsResponse = {
   updatedAt: string;
 };
 
-export type ScreenerFilters = {
-  minPrice: number | null;
+export type OmitField = "price" | "marketCap" | "growth1d" | "growth5d" | "growth1m" | "growth6m" | "growth12m";
+
+export type OmitRule = {
+  field: OmitField;
+  min?: number | null;
+  max?: number | null;
+};
+
+export type ExchangeOmitRules = {
+  nasdaq: OmitRule[];
+  tlv: OmitRule[];
+};
+
+export type OmitRulesConfig = {
+  rules: ExchangeOmitRules;
+  enabled: boolean;
+};
+
+export type UserOmitPrefs = {
+  syncWithAdmin: boolean;
+  customRules: OmitRulesConfig | null;
 };
 
 export type ScreenerParams = {
   sortBy: SortPeriod;
   limit: number;
-  filters: ScreenerFilters;
   exchange: Exchange;
   recommendedOnly?: boolean;
   includeScores?: boolean;

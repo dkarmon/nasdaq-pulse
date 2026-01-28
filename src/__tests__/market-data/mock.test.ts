@@ -1,5 +1,5 @@
 // ABOUTME: Tests for the mock market data provider.
-// ABOUTME: Verifies screener data, filtering, sorting, and detail responses.
+// ABOUTME: Verifies screener data, sorting, and detail responses.
 
 import { describe, it, expect } from "vitest";
 import {
@@ -16,7 +16,6 @@ describe("Mock Market Data Provider", () => {
       const params: ScreenerParams = {
         sortBy: "1m",
         limit: 10,
-        filters: { minPrice: null },
         exchange: "nasdaq",
       };
 
@@ -37,7 +36,6 @@ describe("Mock Market Data Provider", () => {
       const params: ScreenerParams = {
         sortBy: "6m",
         limit: 10,
-        filters: { minPrice: null },
         exchange: "nasdaq",
       };
 
@@ -54,7 +52,6 @@ describe("Mock Market Data Provider", () => {
       const params: ScreenerParams = {
         sortBy: "1d",
         limit: 10,
-        filters: { minPrice: null },
         exchange: "nasdaq",
       };
 
@@ -71,7 +68,6 @@ describe("Mock Market Data Provider", () => {
       const params: ScreenerParams = {
         sortBy: "12m",
         limit: 10,
-        filters: { minPrice: null },
         exchange: "nasdaq",
       };
 
@@ -88,51 +84,12 @@ describe("Mock Market Data Provider", () => {
       const params: ScreenerParams = {
         sortBy: "1m",
         limit: 5,
-        filters: { minPrice: null },
         exchange: "nasdaq",
       };
 
       const result = getScreenerData(params);
 
       expect(result.stocks).toHaveLength(5);
-    });
-
-    it("filters by minimum price", () => {
-      const params: ScreenerParams = {
-        sortBy: "1m",
-        limit: 100,
-        filters: { minPrice: 100 },
-        exchange: "nasdaq",
-      };
-
-      const result = getScreenerData(params);
-
-      for (const stock of result.stocks) {
-        expect(stock.price).toBeGreaterThanOrEqual(100);
-      }
-    });
-
-    it("returns all stocks when minPrice is null", () => {
-      const paramsWithFilter: ScreenerParams = {
-        sortBy: "1m",
-        limit: 100,
-        filters: { minPrice: 500 },
-        exchange: "nasdaq",
-      };
-
-      const paramsWithoutFilter: ScreenerParams = {
-        sortBy: "1m",
-        limit: 100,
-        filters: { minPrice: null },
-        exchange: "nasdaq",
-      };
-
-      const filteredResult = getScreenerData(paramsWithFilter);
-      const unfilteredResult = getScreenerData(paramsWithoutFilter);
-
-      expect(unfilteredResult.stocks.length).toBeGreaterThanOrEqual(
-        filteredResult.stocks.length
-      );
     });
   });
 
