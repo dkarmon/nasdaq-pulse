@@ -222,6 +222,14 @@ export function RecommendationPanel({ labels, screenerLabels }: RecommendationPa
   };
 
   const handlePreview = async () => {
+    const hasDraft = form.expression.trim().length > 0;
+    if (!hasDraft && !activeFormulaId) {
+      setPreviewStocks([]);
+      setPreviewScores([]);
+      setMessage(labels.previewEmpty);
+      return;
+    }
+
     setLoading(true);
     setMessage(null);
     try {
