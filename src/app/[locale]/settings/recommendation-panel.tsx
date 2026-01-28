@@ -244,6 +244,12 @@ export function RecommendationPanel({ labels, screenerLabels }: RecommendationPa
     }
   };
 
+  useEffect(() => {
+    // Auto-refresh preview when exchange changes
+    handlePreview();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [previewExchange]);
+
   const formatGrowth = (value?: number) => {
     if (value === undefined || value === null) return "—";
     if (!Number.isFinite(value)) return "—";
@@ -480,9 +486,7 @@ export function RecommendationPanel({ labels, screenerLabels }: RecommendationPa
                 {previewScores.map((stock) => (
                   <div key={stock.symbol} className={styles.previewRow} role="row">
                     <span role="cell">
-                      {stock.symbol.endsWith(".TA") && stock.nameHebrew
-                        ? stock.nameHebrew
-                        : stock.symbol}
+                      {stock.nameHebrew ?? stock.name ?? stock.symbol}
                     </span>
                     <span role="cell" className={styles.previewScore}>
                       {(stock.recommendationScore ?? 0).toFixed(2)}
