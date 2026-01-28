@@ -40,33 +40,40 @@ export async function GET() {
 }
 
 export async function PATCH(request: Request) {
-  const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
+  try {
+    const supabase = await createClient();
+    const { data: { user } } = await supabase.auth.getUser();
 
-  if (!user) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    if (!user) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    if (!(await isAdmin(user.id))) {
+      return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+    }
+
+    const body = await request.json();
+    const omitRules = body.omitRules as OmitRulesConfig | null;
+
+    const adminClient = createAdminClient();
+    const { error } = await adminClient
+      .from("recommendation_settings")
+      .upsert({
+        id: true,
+        omit_rules: omitRules,
+        updated_by: user.id,
+        updated_at: new Date().toISOString(),
+      }, { onConflict: "id" });
+
+    if (error) {
+      console.error("Failed to save omit rules:", error);
+      return NextResponse.json({ error: error.message }, { status: 500 });
+    }
+
+    return NextResponse.json({ success: true, omitRules });
+  } catch (err) {
+    console.error("Unexpected error in PATCH /api/admin/omit-rules:", err);
+    const message = err instanceof Error ? err.message : String(err);
+    return NextResponse.json({ error: message }, { status: 500 });
   }
-
-  if (!(await isAdmin(user.id))) {
-    return NextResponse.json({ error: "Forbidden" }, { status: 403 });
-  }
-
-  const body = await request.json();
-  const omitRules = body.omitRules as OmitRulesConfig | null;
-
-  const adminClient = createAdminClient();
-  const { error } = await adminClient
-    .from("recommendation_settings")
-    .upsert({
-      id: true,
-      omit_rules: omitRules,
-      updated_by: user.id,
-      updated_at: new Date().toISOString(),
-    }, { onConflict: "id" });
-
-  if (error) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
-  }
-
-  return NextResponse.json({ success: true, omitRules });
 }
