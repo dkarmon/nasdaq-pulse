@@ -171,6 +171,12 @@ export function RecommendationPanel({ labels, screenerLabels }: RecommendationPa
         setMessage(data.error || "Error");
       } else {
         setMessage(labels.saved);
+        if (data.formula?.id) {
+          // Keep dropdown in sync; auto-select new formula when it's published
+          if (data.formula.status === "published") {
+            setActiveFormulaId(data.formula.id);
+          }
+        }
         setForm(emptyForm);
         setValidation({ errors: [], warnings: [] });
         fetchFormulas();

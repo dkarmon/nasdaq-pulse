@@ -279,8 +279,8 @@
 .recoTextarea {
   width: 100%;
   padding: 10px 12px;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 8px;
   color: var(--foreground);
   font-size: 0.95rem;
@@ -288,6 +288,11 @@
 
 .recoTextarea {
   font-family: var(--font-manrope), system-ui, sans-serif;
+}
+
+.recoSelect option {
+  background: #0b0f1a;
+  color: var(--foreground);
 }
 
 .tokenRow {
