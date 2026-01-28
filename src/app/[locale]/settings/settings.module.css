@@ -145,19 +145,20 @@
 
 .inviteButton {
   padding: 10px 20px;
-  background: var(--accent);
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
   border: none;
   border-radius: 8px;
-  color: var(--background);
+  color: #0b0f1a;
   font-size: 0.95rem;
   font-weight: 600;
   cursor: pointer;
   transition: transform 150ms ease, box-shadow 150ms ease;
+  box-shadow: var(--shadow-glow);
 }
 
 .inviteButton:hover {
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
 }
 
 .inviteButton:active {
