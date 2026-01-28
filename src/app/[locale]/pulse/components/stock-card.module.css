@@ -150,7 +150,7 @@
 .growthValue {
   font-family: var(--font-space-grotesk), var(--font-manrope), system-ui, sans-serif;
   font-weight: 700;
-  font-size: 1rem;
+  font-size: 0.9rem;
   direction: ltr;
   unicode-bidi: embed;
 }

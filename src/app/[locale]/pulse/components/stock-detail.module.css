@@ -225,7 +225,7 @@
 
 .metricValue {
   font-family: var(--font-space-grotesk), var(--font-manrope), system-ui, sans-serif;
-  font-size: 1.1rem;
+  font-size: 0.98rem;
   font-weight: 700;
   overflow: hidden;
   text-overflow: ellipsis;

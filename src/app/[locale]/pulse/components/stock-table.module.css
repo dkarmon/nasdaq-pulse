@@ -169,7 +169,7 @@
 .growthCell {
   font-family: var(--font-space-grotesk), var(--font-manrope), system-ui, sans-serif;
   font-weight: 700;
-  font-size: 1.05rem;
+  font-size: 0.95rem;
   text-align: end;
   direction: ltr;
   unicode-bidi: embed;
