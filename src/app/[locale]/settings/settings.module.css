@@ -907,8 +907,8 @@
 
 .addRuleSelect {
   padding: 10px 14px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: var(--card);
+  border: 1px solid var(--border);
   border-radius: 8px;
   color: var(--foreground);
   font-size: 0.9rem;
@@ -916,9 +916,18 @@
   min-width: 180px;
 }
 
+.addRuleSelect:hover {
+  border-color: var(--accent);
+}
+
 .addRuleSelect:focus {
   outline: none;
   border-color: var(--accent);
+}
+
+.addRuleSelect option {
+  background: var(--card);
+  color: var(--foreground);
 }
 
 .saveRow {
