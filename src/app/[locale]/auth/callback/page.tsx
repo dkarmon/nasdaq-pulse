@@ -32,7 +32,7 @@ function AuthCallbackContent() {
           user_email: user.email?.toLowerCase(),
           user_id: user.id,
           user_name: (user.user_metadata?.full_name || user.user_metadata?.name || null) as string | null,
-          invited_role: (user.user_metadata?.invited_role as string) || "user",
+          invited_role: "user",
         });
 
       console.log("Auth callback - RPC result:", { result, error: rpcError?.message });

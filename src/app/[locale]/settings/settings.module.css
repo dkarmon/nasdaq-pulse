@@ -179,14 +179,6 @@
   font-size: 0.9rem;
 }
 
-.role {
-  color: var(--accent);
-  font-size: 0.85rem;
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.03em;
-}
-
 .roleToggle {
   display: flex;
   border: 1px solid rgba(255, 255, 255, 0.15);
