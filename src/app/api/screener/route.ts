@@ -124,6 +124,7 @@ async function fetchScreenerData(params: ScreenerParams, search?: string): Promi
       recommendationApplied = recommendationApplied.slice(0, params.limit);
     } else if (includeScores) {
       recommendationApplied = scoreStocksWithFormula(filtered, activeFormula ?? undefined);
+      recommendationApplied = recommendationApplied.slice(0, params.limit);
     } else {
       recommendationApplied = filtered.slice(0, params.limit);
     }
@@ -151,7 +152,7 @@ async function fetchScreenerData(params: ScreenerParams, search?: string): Promi
       stocks: recommendedOnly
         ? filterAndSortByRecommendation(response.stocks, activeFormula ?? undefined).slice(0, params.limit)
         : includeScores
-          ? scoreStocksWithFormula(response.stocks, activeFormula ?? undefined)
+          ? scoreStocksWithFormula(response.stocks, activeFormula ?? undefined).slice(0, params.limit)
           : response.stocks,
     };
   }
