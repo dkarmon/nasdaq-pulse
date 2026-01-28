@@ -266,34 +266,63 @@ export function FormulaEditorModal({
           {previewScores.length === 0 ? (
             <p className={styles.empty}>{dict.settings.previewEmpty}</p>
           ) : (
-            <div className={styles.previewTable} role="table">
-              <div className={styles.previewHead} role="row">
-                <span role="columnheader">{screenerLabels.stock}</span>
-                <span role="columnheader">Score</span>
-                <span role="columnheader">{screenerLabels.growth1d}</span>
-                <span role="columnheader">{screenerLabels.growth5d}</span>
-                <span role="columnheader">{screenerLabels.growth1m}</span>
-                <span role="columnheader">{screenerLabels.growth6m}</span>
-                <span role="columnheader">{screenerLabels.growth12m}</span>
-              </div>
-              {previewScores.map((stock) => (
-                <div key={stock.symbol} className={styles.previewRow} role="row">
-                  <span role="cell">
-                    {stock.exchange === "tlv" || stock.symbol.endsWith(".TA")
-                      ? (stock.nameHebrew ?? stock.name ?? stock.symbol)
-                      : stock.symbol}
-                  </span>
-                  <span role="cell" className={styles.previewScore}>
-                    {(stock.recommendationScore ?? 0).toFixed(2)}
-                  </span>
-                  <span role="cell">{formatGrowth(stock.growth1d)}</span>
-                  <span role="cell">{formatGrowth(stock.growth5d)}</span>
-                  <span role="cell">{formatGrowth(stock.growth1m)}</span>
-                  <span role="cell">{formatGrowth(stock.growth6m)}</span>
-                  <span role="cell">{formatGrowth(stock.growth12m)}</span>
+            <>
+              {/* Desktop: Grid table */}
+              <div className={styles.previewTable} role="table">
+                <div className={styles.previewHead} role="row">
+                  <span role="columnheader">{screenerLabels.stock}</span>
+                  <span role="columnheader">Score</span>
+                  <span role="columnheader">{screenerLabels.growth1d}</span>
+                  <span role="columnheader">{screenerLabels.growth5d}</span>
+                  <span role="columnheader">{screenerLabels.growth1m}</span>
+                  <span role="columnheader">{screenerLabels.growth6m}</span>
+                  <span role="columnheader">{screenerLabels.growth12m}</span>
                 </div>
-              ))}
-            </div>
+                {previewScores.map((stock) => (
+                  <div key={stock.symbol} className={styles.previewRow} role="row">
+                    <span role="cell">
+                      {stock.exchange === "tlv" || stock.symbol.endsWith(".TA")
+                        ? (stock.nameHebrew ?? stock.name ?? stock.symbol)
+                        : stock.symbol}
+                    </span>
+                    <span role="cell" className={styles.previewScore}>
+                      {(stock.recommendationScore ?? 0).toFixed(2)}
+                    </span>
+                    <span role="cell">{formatGrowth(stock.growth1d)}</span>
+                    <span role="cell">{formatGrowth(stock.growth5d)}</span>
+                    <span role="cell">{formatGrowth(stock.growth1m)}</span>
+                    <span role="cell">{formatGrowth(stock.growth6m)}</span>
+                    <span role="cell">{formatGrowth(stock.growth12m)}</span>
+                  </div>
+                ))}
+              </div>
+
+              {/* Mobile: Stacked cards */}
+              <div className={styles.previewCards}>
+                {previewScores.map((stock) => {
+                  const stockName = stock.exchange === "tlv" || stock.symbol.endsWith(".TA")
+                    ? (stock.nameHebrew ?? stock.name ?? stock.symbol)
+                    : stock.symbol;
+                  return (
+                    <div key={stock.symbol} className={styles.previewCard}>
+                      <div className={styles.previewCardHeader}>
+                        <span className={styles.previewCardName}>{stockName}</span>
+                        <span className={styles.previewCardScore}>
+                          {(stock.recommendationScore ?? 0).toFixed(2)} ★
+                        </span>
+                      </div>
+                      <div className={styles.previewCardMetrics}>
+                        <span>1D:{formatGrowth(stock.growth1d)}</span>
+                        <span>5D:{formatGrowth(stock.growth5d)}</span>
+                        <span>1M:{formatGrowth(stock.growth1m)}</span>
+                        <span>6M:{formatGrowth(stock.growth6m)}</span>
+                        <span>12M:{formatGrowth(stock.growth12m)}</span>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </>
           )}
         </div>
 

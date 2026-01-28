@@ -718,3 +718,55 @@
   align-items: center;
   gap: 12px;
 }
+
+/* Mobile stacked cards for formula preview */
+.previewCards {
+  display: none;
+  flex-direction: column;
+  gap: 10px;
+}
+
+@media (max-width: 768px) {
+  .previewTable {
+    display: none;
+  }
+
+  .previewCards {
+    display: flex;
+  }
+}
+
+.previewCard {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+}
+
+.previewCardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.previewCardName {
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+.previewCardScore {
+  font-family: var(--font-space-grotesk), var(--font-manrope), system-ui, sans-serif;
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.previewCardMetrics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+  font-size: 0.85rem;
+  color: var(--muted);
+}

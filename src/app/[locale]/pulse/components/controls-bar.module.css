@@ -1,11 +1,130 @@
 /* ABOUTME: Styles for the screener controls bar component. */
-/* ABOUTME: Large touch targets (48px+) and clear visual hierarchy for accessibility. */
+/* ABOUTME: Compact mobile bar with filter button; full desktop layout. */
 
-.controls {
+/* Mobile compact controls - only visible on mobile */
+.mobileControls {
+  display: none;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+@media (max-width: 768px) {
+  .mobileControls {
+    display: flex;
+  }
+}
+
+.mobileSearchInput {
+  flex: 1;
+  min-width: 0;
+  min-height: 48px;
+  padding: 12px 16px;
+  border-radius: 12px;
+  border: 1px solid var(--glass-border);
+  background: var(--glass);
+  color: var(--text);
+  font-weight: 500;
+  font-size: 1rem;
+  transition: border 150ms ease, background 150ms ease;
+}
+
+.mobileSearchInput::placeholder {
+  color: var(--muted);
+}
+
+.mobileSearchInput:focus {
+  outline: none;
+  border-color: var(--accent);
+  background: rgba(16, 185, 129, 0.08);
+}
+
+.mobileRecommendedToggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  border: 1px solid var(--glass-border);
+  background: var(--glass);
+  color: var(--text);
+  font-size: 1.25rem;
+  cursor: pointer;
+  transition: border 150ms ease, background 150ms ease, color 150ms ease;
+  flex-shrink: 0;
+}
+
+.mobileRecommendedToggle:hover {
+  border-color: #fbbf24;
+  background: var(--glass-hover);
+}
+
+.mobileRecommendedToggle[data-active="true"] {
+  background: rgba(251, 191, 36, 0.15);
+  border-color: rgba(251, 191, 36, 0.5);
+  color: #fcd34d;
+}
+
+.mobileFilterButton {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  border: 1px solid var(--glass-border);
+  background: var(--glass);
+  color: var(--text);
+  cursor: pointer;
+  transition: border 150ms ease, background 150ms ease;
+  flex-shrink: 0;
+}
+
+.mobileFilterButton:hover {
+  border-color: var(--accent);
+  background: var(--glass-hover);
+}
+
+.mobileFilterButton[data-has-filters="true"] {
+  border-color: rgba(16, 185, 129, 0.5);
+  background: rgba(16, 185, 129, 0.1);
+}
+
+.filterIcon {
+  width: 20px;
+  height: 20px;
+}
+
+.filterBadge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 4px;
+  border-radius: 9px;
+  background: var(--accent);
+  color: #0b0f1a;
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+
+/* Desktop full controls - hidden on mobile */
+.desktopControls {
   display: flex;
   flex-direction: column;
   gap: 14px;
   margin-bottom: 24px;
+}
+
+@media (max-width: 768px) {
+  .desktopControls {
+    display: none;
+  }
 }
 
 .exchangeRow {
@@ -236,100 +355,15 @@
   pointer-events: none;
 }
 
-@media (max-width: 768px) {
-  .controls {
-    gap: 12px;
-  }
-
-  .exchangeRow {
-    gap: 8px;
-  }
-
-  .exchangePill {
-    padding: 10px 16px;
-    font-size: 0.95rem;
-  }
-
-  .searchRow {
-    gap: 8px;
-  }
-
-  .searchInput {
-    max-width: none;
-    padding: 10px 14px;
-    font-size: 0.95rem;
-  }
-
-  .recommendedToggle {
-    padding: 10px 14px;
-    font-size: 0.9rem;
-  }
-
-  .mainRow {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 12px;
-  }
-
-  .sortGroup {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 8px;
-    width: 100%;
-  }
-
-  .sortGroup .pillGroup {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 6px;
-    width: 100%;
-  }
-
-  .sortGroup .pill {
-    min-width: 0;
-    width: 100%;
-    padding: 10px 8px;
-    font-size: 0.9rem;
-  }
-
-  .limitGroup {
-    width: 100%;
-    justify-content: space-between;
-  }
-
-  .limitGroup .pillGroup {
-    gap: 8px;
-  }
-
-  .limitGroup .pill {
-    min-width: 60px;
-  }
-
-  .priceFilterGroup {
-    width: 100%;
-    justify-content: space-between;
-  }
-
-  .priceInput {
-    flex: 1;
-    max-width: 100px;
-  }
-}
-
 @media (max-width: 360px) {
-  .sortGroup .pill {
-    padding: 8px 6px;
-    font-size: 0.85rem;
+  .mobileSearchInput {
+    padding: 10px 12px;
+    font-size: 0.95rem;
   }
 
-  .limitGroup .pill {
-    min-width: 50px;
-    padding: 8px 10px;
-    font-size: 0.9rem;
-  }
-
-  .exchangePill {
-    padding: 8px 12px;
-    font-size: 0.9rem;
+  .mobileRecommendedToggle,
+  .mobileFilterButton {
+    width: 44px;
+    height: 44px;
   }
 }
