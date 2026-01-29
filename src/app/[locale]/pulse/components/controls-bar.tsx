@@ -24,7 +24,6 @@ type ControlsBarProps = {
   labels: {
     sortBy: string;
     show: string;
-    clearAll: string;
     search: string;
     recommendedOnly: string;
     exchange: string;
