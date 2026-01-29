@@ -12,19 +12,13 @@ describe("FilterSheet", () => {
     exchange: "nasdaq" as const,
     sortBy: "1d" as const,
     limit: 25,
-    minPrice: null as number | null,
     controlsDisabled: false,
     onExchangeChange: vi.fn(),
     onSortChange: vi.fn(),
     onLimitChange: vi.fn(),
-    onMinPriceChange: vi.fn(),
-    onClearFilters: vi.fn(),
-    hasActiveFilters: false,
     labels: {
       sortBy: "Sort by",
       show: "Show",
-      minPrice: "Min Price",
-      clearAll: "Clear All",
       exchange: "Exchange",
       nasdaq: "NASDAQ",
       tlv: "TLV",
@@ -77,17 +71,6 @@ describe("FilterSheet", () => {
     render(<FilterSheet {...defaultProps} />);
     fireEvent.click(screen.getByText("Apply Filters"));
     expect(defaultProps.onClose).toHaveBeenCalled();
-  });
-
-  it("shows Clear All button when hasActiveFilters is true", () => {
-    render(<FilterSheet {...defaultProps} hasActiveFilters={true} />);
-    expect(screen.getByText("Clear All")).toBeInTheDocument();
-  });
-
-  it("calls onClearFilters when Clear All is clicked", () => {
-    render(<FilterSheet {...defaultProps} hasActiveFilters={true} />);
-    fireEvent.click(screen.getByText("Clear All"));
-    expect(defaultProps.onClearFilters).toHaveBeenCalled();
   });
 
   it("shows active state for current exchange", () => {

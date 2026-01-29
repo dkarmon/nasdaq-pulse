@@ -3,7 +3,7 @@
 
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import type { SortPeriod, Exchange } from "@/lib/market-data/types";
 import styles from "./filter-sheet.module.css";
 
@@ -13,19 +13,13 @@ type FilterSheetProps = {
   exchange: Exchange;
   sortBy: SortPeriod;
   limit: number;
-  minPrice: number | null;
   controlsDisabled?: boolean;
   onExchangeChange: (exchange: Exchange) => void;
   onSortChange: (sort: SortPeriod) => void;
   onLimitChange: (limit: number) => void;
-  onMinPriceChange: (value: number | null) => void;
-  onClearFilters: () => void;
-  hasActiveFilters: boolean;
   labels: {
     sortBy: string;
     show: string;
-    minPrice: string;
-    clearAll: string;
     exchange: string;
     nasdaq: string;
     tlv: string;
@@ -43,24 +37,12 @@ export function FilterSheet({
   exchange,
   sortBy,
   limit,
-  minPrice,
   controlsDisabled = false,
   onExchangeChange,
   onSortChange,
   onLimitChange,
-  onMinPriceChange,
-  onClearFilters,
-  hasActiveFilters,
   labels,
 }: FilterSheetProps) {
-  const [localMinPrice, setLocalMinPrice] = useState<string>(
-    minPrice !== null ? String(minPrice) : ""
-  );
-
-  useEffect(() => {
-    setLocalMinPrice(minPrice !== null ? String(minPrice) : "");
-  }, [minPrice]);
-
   // Lock body scroll when sheet is open
   useEffect(() => {
     if (isOpen) {
@@ -75,18 +57,6 @@ export function FilterSheet({
       document.body.style.overflow = "";
     };
   }, [isOpen]);
-
-  const handleMinPriceChange = (value: string) => {
-    setLocalMinPrice(value);
-    if (value === "") {
-      onMinPriceChange(null);
-    } else {
-      const num = parseFloat(value);
-      if (!isNaN(num) && num > 0) {
-        onMinPriceChange(num);
-      }
-    }
-  };
 
   const exchangeLabels: Record<Exchange, string> = {
     nasdaq: labels.nasdaq,
@@ -162,29 +132,10 @@ export function FilterSheet({
           </div>
         </div>
 
-        <div className={styles.section}>
-          <span className={styles.label}>{labels.minPrice}</span>
-          <input
-            type="number"
-            className={styles.priceInput}
-            placeholder="0"
-            value={localMinPrice}
-            onChange={(e) => handleMinPriceChange(e.target.value)}
-            min={0}
-            step="any"
-            aria-label={labels.minPrice}
-          />
-        </div>
-
         <div className={styles.actions}>
           <button className={styles.applyButton} onClick={onClose}>
             {labels.apply}
           </button>
-          {hasActiveFilters && (
-            <button className={styles.clearButton} onClick={onClearFilters}>
-              {labels.clearAll}
-            </button>
-          )}
         </div>
       </div>
     </div>

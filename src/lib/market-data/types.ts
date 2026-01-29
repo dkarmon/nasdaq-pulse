@@ -5,9 +5,7 @@ export type Exchange = "nasdaq" | "tlv";
 
 export type SortPeriod = "1d" | "5d" | "1m" | "6m" | "12m" | "az";
 
-export type ScreenerFilters = {
-  minPrice: number | null;
-};
+export type ScreenerFilters = Record<string, never>;
 
 export type Stock = {
   symbol: string;
