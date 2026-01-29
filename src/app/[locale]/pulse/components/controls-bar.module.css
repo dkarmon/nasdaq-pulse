@@ -186,8 +186,8 @@
 }
 
 .exchangePill[data-active="true"] {
-  background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(16, 185, 129, 0.08));
-  border-color: rgba(16, 185, 129, 0.5);
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.25), rgba(99, 102, 241, 0.25));
+  border-color: rgba(16, 185, 129, 0.4);
   color: #a7f3d0;
 }
 

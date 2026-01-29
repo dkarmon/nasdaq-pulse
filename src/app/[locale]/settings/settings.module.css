@@ -991,6 +991,7 @@
   cursor: pointer;
   transition: border-color 150ms ease, background-color 150ms ease;
   min-width: 180px;
+  color-scheme: dark;
 }
 
 .addRuleSelect:hover {
