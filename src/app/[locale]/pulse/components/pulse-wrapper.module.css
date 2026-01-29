@@ -51,6 +51,11 @@
   border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: 24px;
+  position: sticky;
+  top: 24px;
+  align-self: flex-start;
+  max-height: calc(100vh - 48px);
+  overflow-y: auto;
 }
 
 .detailPlaceholder {
@@ -88,6 +93,7 @@
   .detailPanel {
     width: 100%;
     max-width: none;
+    max-height: none;
     position: fixed;
     top: 0;
     left: 0;
@@ -98,6 +104,7 @@
     overflow-y: auto;
     background: var(--bg);
     border: none;
+    align-self: stretch;
   }
 }
 
