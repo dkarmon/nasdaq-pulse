@@ -5,6 +5,7 @@ import { createClient } from "@/lib/supabase/server";
 import { Locale, defaultLocale, getDictionary, isRTL, locales } from "@/lib/i18n";
 import { LocaleSwitcher } from "@/components/locale-switcher";
 import { SignOutButton } from "@/components/sign-out";
+import { BrandLogo } from "@/components/brand-logo";
 import { SettingsClient } from "./settings-client";
 import Link from "next/link";
 
@@ -49,14 +50,9 @@ export default async function SettingsPage({ params }: SettingsPageProps) {
             marginBottom: "24px",
           }}
         >
-          <Link href={`/${locale}/pulse`} style={{ textDecoration: "none", color: "inherit", fontSize: "1.25rem", fontWeight: 700, letterSpacing: "-0.02em" }}>
-            <span className="brand-wordmark" style={{ fontSize: "1.25rem" }}>Nasdaq Pulse</span>
-          </Link>
+          <BrandLogo href={`/${locale}/pulse`} size="sm" />
           <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
             <LocaleSwitcher locale={locale} />
-            {user?.email && (
-              <span className="badge">{user.email}</span>
-            )}
             <SignOutButton label={dict.app.logout} />
           </div>
         </nav>

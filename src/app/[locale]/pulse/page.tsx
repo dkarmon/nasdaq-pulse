@@ -5,6 +5,7 @@ import { createClient } from "@/lib/supabase/server";
 import { Locale, defaultLocale, getDictionary, isRTL, locales } from "@/lib/i18n";
 import { LocaleSwitcher } from "@/components/locale-switcher";
 import { SignOutButton } from "@/components/sign-out";
+import { BrandLogo } from "@/components/brand-logo";
 import { PulseWrapper } from "./components/pulse-wrapper";
 import { getScreenerData } from "@/lib/market-data/mock";
 import type { ScreenerParams } from "@/lib/market-data/types";
@@ -54,7 +55,7 @@ export default async function PulsePage({ params }: PulsePageProps) {
             flexWrap: "wrap",
           }}
         >
-          <span className="brand-wordmark" style={{ fontSize: "1.25rem" }}>Nasdaq Pulse</span>
+          <BrandLogo size="sm" />
           <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
             <Link
               href={`/${locale}/settings`}

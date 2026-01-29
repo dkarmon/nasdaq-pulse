@@ -8,6 +8,7 @@ import { motion } from "framer-motion";
 import { LogIn } from "lucide-react";
 import { HeroVideoPlayer } from "@/components/remotion/HeroVideoPlayer";
 import { LocaleSwitcher } from "@/components/locale-switcher";
+import { BrandLogo } from "@/components/brand-logo";
 import type { Locale } from "@/lib/i18n";
 
 type LandingClientProps = {
@@ -106,28 +107,8 @@ export function LandingClient({ locale, dict, rtl }: LandingClientProps) {
             alignItems: "center",
           }}
         >
-          <motion.div
-            whileHover={{ scale: 1.02 }}
-            style={{ display: "flex", alignItems: "center", gap: "12px" }}
-          >
-            <div
-              style={{
-                width: "36px",
-                height: "36px",
-                borderRadius: "10px",
-                background: "linear-gradient(135deg, #6366f1, #10b981)",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                fontWeight: 800,
-                fontSize: "18px",
-              }}
-            >
-              N
-            </div>
-            <span style={{ fontWeight: 700, fontSize: "1.2rem", letterSpacing: "-0.02em" }}>
-              Nasdaq Pulse
-            </span>
+          <motion.div whileHover={{ scale: 1.02 }}>
+            <BrandLogo />
           </motion.div>
 
           <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>

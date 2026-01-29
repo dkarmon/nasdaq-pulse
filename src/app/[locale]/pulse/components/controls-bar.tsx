@@ -87,28 +87,30 @@ export function ControlsBar({
           onChange={(e) => onSearchChange(e.target.value)}
           aria-label={labels.search}
         />
-        <button
-          className={styles.mobileRecommendedToggle}
-          data-active={showRecommendedOnly}
-          onClick={() => onShowRecommendedOnlyChange(!showRecommendedOnly)}
-          aria-pressed={showRecommendedOnly}
-          title={labels.recommendedOnly}
-        >
-          ★
-        </button>
-        <button
-          className={styles.mobileFilterButton}
-          onClick={() => setIsFilterSheetOpen(true)}
-          data-has-filters={activeFilterCount > 0}
-          aria-label="Open filters"
-        >
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={styles.filterIcon}>
-            <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3" />
-          </svg>
-          {activeFilterCount > 0 && (
-            <span className={styles.filterBadge}>{activeFilterCount}</span>
-          )}
-        </button>
+        <div className={styles.mobileActionsRow}>
+          <button
+            className={styles.mobileRecommendedToggle}
+            data-active={showRecommendedOnly}
+            onClick={() => onShowRecommendedOnlyChange(!showRecommendedOnly)}
+            aria-pressed={showRecommendedOnly}
+            title={labels.recommendedOnly}
+          >
+            ★
+          </button>
+          <button
+            className={styles.mobileFilterButton}
+            onClick={() => setIsFilterSheetOpen(true)}
+            data-has-filters={activeFilterCount > 0}
+            aria-label="Open filters"
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={styles.filterIcon}>
+              <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3" />
+            </svg>
+            {activeFilterCount > 0 && (
+              <span className={styles.filterBadge}>{activeFilterCount}</span>
+            )}
+          </button>
+        </div>
       </div>
 
       {/* Desktop full controls */}

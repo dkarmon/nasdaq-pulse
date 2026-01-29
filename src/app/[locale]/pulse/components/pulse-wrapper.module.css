@@ -45,19 +45,38 @@
   overflow-x: auto;
 }
 
+.mainPanelWithDetail {
+  flex: 1;
+  min-width: 0;
+  overflow-x: auto;
+  margin-right: calc(40% + 24px);
+  max-width: calc(60% - 24px);
+}
+
 .detailPanel {
+  position: fixed;
+  right: 0;
+  top: 0;
+  bottom: 0;
   width: 40%;
   max-width: 480px;
+  z-index: 50;
+  animation: slideInRight 300ms ease-out;
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.02));
-  border: 1px solid var(--glass-border);
-  border-radius: var(--radius);
+  border-left: 1px solid var(--glass-border);
+  border-radius: var(--radius) 0 0 var(--radius);
   padding: 24px;
   backdrop-filter: blur(12px);
-  position: sticky;
-  top: 24px;
-  align-self: flex-start;
-  max-height: calc(100vh - 48px);
   overflow-y: auto;
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
 }
 
 .detailPlaceholder {
@@ -93,21 +112,20 @@
     flex-direction: column;
   }
 
+  .mainPanelWithDetail {
+    margin-right: 0;
+    max-width: none;
+  }
+
   .detailPanel {
     width: 100%;
     max-width: none;
-    max-height: none;
-    position: fixed;
-    top: 0;
     left: 0;
-    right: 0;
-    bottom: 0;
     border-radius: 0;
     z-index: 100;
-    overflow-y: auto;
     background: var(--bg);
     border: none;
-    align-self: stretch;
+    border-left: none;
   }
 }
 

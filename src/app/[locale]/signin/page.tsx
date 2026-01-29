@@ -5,6 +5,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { Locale, defaultLocale, getDictionary, isRTL, locales } from "@/lib/i18n";
+import { BrandLogo } from "@/components/brand-logo";
 import styles from "./signin.module.css";
 import { SignInForm } from "./signin-form";
 
@@ -41,27 +42,11 @@ export default async function SignIn({ params }: SignInProps) {
 
         <div className={styles.card}>
           <div className={styles.logoSection}>
-            <span className={`${styles.logoText} brand-wordmark`}>Nasdaq&nbsp;Pulse</span>
+            <BrandLogo size="lg" />
           </div>
-          <h1 className={styles.title}>{dict.auth.signinTitle}</h1>
           <p className={styles.subtitle}>{dict.auth.signinSubtitle}</p>
 
           <SignInForm locale={locale} dict={dict} />
-
-          <div className={styles.features}>
-            <div className={styles.feature}>
-              <span className={styles.featureIcon}>📊</span>
-              <span>Real-time market data</span>
-            </div>
-            <div className={styles.feature}>
-              <span className={styles.featureIcon}>⚡</span>
-              <span>1M, 6M, 12M growth tracking</span>
-            </div>
-            <div className={styles.feature}>
-              <span className={styles.featureIcon}>🌐</span>
-              <span>Bilingual EN/HE support</span>
-            </div>
-          </div>
         </div>
 
         <p className={styles.notice}>
