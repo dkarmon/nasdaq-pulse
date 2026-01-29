@@ -4,7 +4,7 @@
 import { GoogleGenAI } from "@google/genai";
 import type { GeminiAnalysisResponse } from "./types";
 
-const MODEL_VERSION = "gemini-2.0-flash";
+export const MODEL_VERSION = "gemini-2.0-flash";
 
 export type StockMetrics = {
   sector?: string;
@@ -50,6 +50,11 @@ function formatMarketCap(marketCap: number): string {
   return `$${marketCap.toFixed(0)}`;
 }
 
+function formatGrowth(value: number): string {
+  const sign = value >= 0 ? "+" : "";
+  return `${sign}${value.toFixed(2)}%`;
+}
+
 function formatMetrics(metrics: StockMetrics): string {
   const lines: string[] = [];
 
@@ -68,14 +73,14 @@ function formatMetrics(metrics: StockMetrics): string {
   lines.push("");
   lines.push("Growth Performance:");
   if (metrics.growth1d !== undefined) {
-    lines.push(`  1 Day: ${metrics.growth1d >= 0 ? "+" : ""}${metrics.growth1d.toFixed(2)}%`);
+    lines.push(`  1 Day: ${formatGrowth(metrics.growth1d)}`);
   }
   if (metrics.growth5d !== undefined) {
-    lines.push(`  5 Day: ${metrics.growth5d >= 0 ? "+" : ""}${metrics.growth5d.toFixed(2)}%`);
+    lines.push(`  5 Day: ${formatGrowth(metrics.growth5d)}`);
   }
-  lines.push(`  1 Month: ${metrics.growth1m >= 0 ? "+" : ""}${metrics.growth1m.toFixed(2)}%`);
-  lines.push(`  6 Month: ${metrics.growth6m >= 0 ? "+" : ""}${metrics.growth6m.toFixed(2)}%`);
-  lines.push(`  12 Month: ${metrics.growth12m >= 0 ? "+" : ""}${metrics.growth12m.toFixed(2)}%`);
+  lines.push(`  1 Month: ${formatGrowth(metrics.growth1m)}`);
+  lines.push(`  6 Month: ${formatGrowth(metrics.growth6m)}`);
+  lines.push(`  12 Month: ${formatGrowth(metrics.growth12m)}`);
 
   if (metrics.description) {
     lines.push("");
@@ -138,4 +143,3 @@ export async function generateStockAnalysis(
   };
 }
 
-export { MODEL_VERSION };

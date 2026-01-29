@@ -31,7 +31,6 @@ type ApiResponse = {
   analysis: StockAnalysisType | null;
   error?: string;
   code?: string;
-  newsCount?: number;
 };
 
 function formatTimeAgo(dateString: string): string {
