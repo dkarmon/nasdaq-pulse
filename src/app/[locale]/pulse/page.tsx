@@ -64,9 +64,6 @@ export default async function PulsePage({ params }: PulsePageProps) {
               ⚙
             </Link>
             <LocaleSwitcher locale={locale} />
-            {user?.email && (
-              <span className="badge hide-mobile">{user.email}</span>
-            )}
             <SignOutButton label={dict.app.logout} />
           </div>
         </nav>

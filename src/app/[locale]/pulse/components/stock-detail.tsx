@@ -1,4 +1,4 @@
-// ABOUTME: Stock detail slide-in panel showing company info, metrics, chart, and news.
+// ABOUTME: Stock detail slide-in panel showing company info, metrics, chart, and AI analysis.
 // ABOUTME: Full-screen on mobile with collapsible sections, side panel on desktop.
 
 "use client";
@@ -9,7 +9,7 @@ import { CollapsibleSection } from "./collapsible-section";
 import { StockAnalysis } from "./stock-analysis";
 import { useLiveQuotes } from "@/hooks/useLiveQuotes";
 import { isStockRecommended } from "@/lib/market-data/recommendation";
-import type { StockDetailResponse, NewsResponse, NewsItem, Stock } from "@/lib/market-data/types";
+import type { StockDetailResponse, Stock } from "@/lib/market-data/types";
 import { formatGrowth, formatPrice, formatMarketCap } from "@/lib/format";
 import styles from "./stock-detail.module.css";
 import type { RecommendationFormulaSummary } from "@/lib/recommendations/types";
@@ -56,26 +56,8 @@ type StockDetailProps = {
   };
 };
 
-function formatTimeAgo(dateString: string): string {
-  const date = new Date(dateString);
-  const now = new Date();
-  const diffMs = now.getTime() - date.getTime();
-  const diffMins = Math.floor(diffMs / 60000);
-  const diffHours = Math.floor(diffMs / 3600000);
-  const diffDays = Math.floor(diffMs / 86400000);
-
-  if (diffMins < 60) {
-    return `${diffMins}m ago`;
-  }
-  if (diffHours < 24) {
-    return `${diffHours}h ago`;
-  }
-  return `${diffDays}d ago`;
-}
-
 export function StockDetail({ symbol, onClose, locale = "en", activeFormula, labels, aiAnalysisLabels }: StockDetailProps) {
   const [detail, setDetail] = useState<StockDetailResponse | null>(null);
-  const [news, setNews] = useState<NewsItem[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -102,10 +84,7 @@ export function StockDetail({ symbol, onClose, locale = "en", activeFormula, lab
       setError(null);
 
       try {
-        const [detailRes, newsRes] = await Promise.all([
-          fetch(`/api/stock/${symbol}`),
-          fetch(`/api/news/${symbol}`),
-        ]);
+        const detailRes = await fetch(`/api/stock/${symbol}`);
 
         if (!detailRes.ok) {
           throw new Error("Failed to fetch stock details");
@@ -113,11 +92,6 @@ export function StockDetail({ symbol, onClose, locale = "en", activeFormula, lab
 
         const detailData: StockDetailResponse = await detailRes.json();
         setDetail(detailData);
-
-        if (newsRes.ok) {
-          const newsData: NewsResponse = await newsRes.json();
-          setNews(newsData.items);
-        }
       } catch (err) {
         setError(err instanceof Error ? err.message : "Unknown error");
       } finally {
@@ -258,6 +232,13 @@ export function StockDetail({ symbol, onClose, locale = "en", activeFormula, lab
         <PriceChart data={history} height={250} />
       </div>
 
+      {/* AI Analysis */}
+      <StockAnalysis
+        symbol={symbol}
+        locale={locale}
+        labels={aiAnalysisLabels}
+      />
+
       {/* Company Info - collapsible on mobile, collapsed by default */}
       {hasCompanyInfo && (
         <div className={styles.mobileCollapsible}>
@@ -358,96 +339,6 @@ export function StockDetail({ symbol, onClose, locale = "en", activeFormula, lab
           )}
         </div>
       )}
-
-      {/* News - collapsible on mobile, collapsed by default */}
-      <div className={styles.mobileCollapsible}>
-        <CollapsibleSection title={`${labels.latestNews} (${news.length})`} defaultExpanded={false}>
-          {news.length === 0 ? (
-            <p className={styles.noNews}>{labels.noNews}</p>
-          ) : (
-            <div className={styles.newsList}>
-              {news.slice(0, 3).map((item) => (
-                <a
-                  key={item.id}
-                  href={item.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={styles.newsItem}
-                >
-                  <div className={styles.newsHeader}>
-                    <span className={styles.newsHeadline}>{item.headline}</span>
-                    <span
-                      className={`badge ${
-                        item.sentiment === "positive"
-                          ? "positive"
-                          : item.sentiment === "negative"
-                          ? "negative"
-                          : ""
-                      }`}
-                    >
-                      {item.sentiment}
-                    </span>
-                  </div>
-                  <div className={styles.newsMeta}>
-                    <span>{item.source}</span>
-                    <span>•</span>
-                    <span>{formatTimeAgo(item.publishedAt)}</span>
-                  </div>
-                </a>
-              ))}
-            </div>
-          )}
-        </CollapsibleSection>
-      </div>
-
-      {/* Desktop: Always-visible news */}
-      <div className={styles.desktopAlwaysVisible}>
-        <div className={styles.newsSection}>
-          <h3 className={styles.newsTitle}>{labels.latestNews}</h3>
-          {news.length === 0 ? (
-            <p className={styles.noNews}>{labels.noNews}</p>
-          ) : (
-            <div className={styles.newsList}>
-              {news.slice(0, 3).map((item) => (
-                <a
-                  key={item.id}
-                  href={item.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={styles.newsItem}
-                >
-                  <div className={styles.newsHeader}>
-                    <span className={styles.newsHeadline}>{item.headline}</span>
-                    <span
-                      className={`badge ${
-                        item.sentiment === "positive"
-                          ? "positive"
-                          : item.sentiment === "negative"
-                          ? "negative"
-                          : ""
-                      }`}
-                    >
-                      {item.sentiment}
-                    </span>
-                  </div>
-                  <div className={styles.newsMeta}>
-                    <span>{item.source}</span>
-                    <span>•</span>
-                    <span>{formatTimeAgo(item.publishedAt)}</span>
-                  </div>
-                </a>
-              ))}
-            </div>
-          )}
-        </div>
-      </div>
-
-      {/* AI Analysis */}
-      <StockAnalysis
-        symbol={symbol}
-        locale={locale}
-        labels={aiAnalysisLabels}
-      />
     </div>
   );
 }
