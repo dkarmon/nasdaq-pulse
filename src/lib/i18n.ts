@@ -187,6 +187,18 @@ export type Dictionary = {
     back: string;
     checkEmail: string;
   };
+  aiAnalysis: {
+    title: string;
+    generate: string;
+    refresh: string;
+    updated: string;
+    notEnoughNews: string;
+    generating: string;
+    error: string;
+    buy: string;
+    hold: string;
+    sell: string;
+  };
 };
 
 export const defaultLocale: Locale = "en";
@@ -412,6 +424,18 @@ export const dictionaries: Record<Locale, Dictionary> = {
       back: "Back to landing",
       checkEmail: "Check your email for the login link!",
     },
+    aiAnalysis: {
+      title: "Analysis",
+      generate: "Generate Analysis",
+      refresh: "Refresh",
+      updated: "Updated",
+      notEnoughNews: "Not enough recent news to generate analysis",
+      generating: "Generating...",
+      error: "Failed to generate analysis",
+      buy: "Buy",
+      hold: "Hold",
+      sell: "Sell",
+    },
   },
   he: {
     nav: {
@@ -630,6 +654,18 @@ export const dictionaries: Record<Locale, Dictionary> = {
       deniedBody: "החשבון אינו מורשה. פנו למנהל או התחברו עם מייל מאושר.",
       back: "חזרה לעמוד הראשי",
       checkEmail: "בדקו את המייל - שלחנו לכם קישור להתחברות!",
+    },
+    aiAnalysis: {
+      title: "ניתוח",
+      generate: "צור ניתוח",
+      refresh: "רענן",
+      updated: "עודכן",
+      notEnoughNews: "אין מספיק חדשות אחרונות ליצירת ניתוח",
+      generating: "מייצר...",
+      error: "יצירת הניתוח נכשלה",
+      buy: "קנייה",
+      hold: "החזקה",
+      sell: "מכירה",
     },
   },
 };
