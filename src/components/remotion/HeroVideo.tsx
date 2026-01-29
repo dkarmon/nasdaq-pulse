@@ -1,7 +1,7 @@
 // ABOUTME: Remotion composition for the landing page hero video.
 // ABOUTME: Animated stock ticker and chart visualization.
 
-import { AbsoluteFill, interpolate, useCurrentFrame, useVideoConfig, spring, Easing } from "remotion";
+import { AbsoluteFill, interpolate, useCurrentFrame, useVideoConfig, spring } from "remotion";
 
 // Animated stock row component
 const StockRow = ({ 
@@ -160,7 +160,7 @@ const MiniChart = ({ delay, color }: { delay: number; color: string }) => {
 // Main composition
 export const HeroVideo = () => {
   const frame = useCurrentFrame();
-  const { fps, durationInFrames } = useVideoConfig();
+  const { fps } = useVideoConfig();
   
   const fadeIn = interpolate(frame, [0, 20], [0, 1], {
     extrapolateRight: "clamp",

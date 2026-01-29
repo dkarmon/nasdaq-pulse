@@ -1,3 +1,6 @@
+// ABOUTME: Language switcher component for locale navigation.
+// ABOUTME: Toggles between available locales while preserving the current path.
+
 "use client";
 
 import Link from "next/link";
