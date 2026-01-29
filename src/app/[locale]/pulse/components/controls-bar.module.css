@@ -20,10 +20,9 @@
   gap: 10px;
 }
 
-.mobileSearchInput {
-  width: 100%;
+.mobileSearchInput,
+.searchInput {
   min-height: 48px;
-  padding: 12px 16px;
   border-radius: 12px;
   border: 1px solid var(--glass-border);
   background: var(--glass);
@@ -33,37 +32,50 @@
   transition: border 150ms ease, background 150ms ease;
 }
 
-.mobileSearchInput::placeholder {
+.mobileSearchInput {
+  width: 100%;
+  padding: 12px 16px;
+}
+
+.mobileSearchInput::placeholder,
+.searchInput::placeholder {
   color: var(--muted);
 }
 
-.mobileSearchInput:focus {
+.mobileSearchInput:focus,
+.searchInput:focus {
   outline: none;
   border-color: var(--accent);
   background: rgba(16, 185, 129, 0.08);
 }
 
-.mobileRecommendedToggle {
+.mobileRecommendedToggle,
+.recommendedToggle {
   display: flex;
   align-items: center;
   justify-content: center;
-  flex: 1;
   min-height: 48px;
   border-radius: 12px;
   border: 1px solid var(--glass-border);
   background: var(--glass);
   color: var(--text);
-  font-size: 1.25rem;
   cursor: pointer;
   transition: border 150ms ease, background 150ms ease, color 150ms ease;
 }
 
-.mobileRecommendedToggle:hover {
+.mobileRecommendedToggle {
+  flex: 1;
+  font-size: 1.25rem;
+}
+
+.mobileRecommendedToggle:hover,
+.recommendedToggle:hover {
   border-color: #fbbf24;
   background: var(--glass-hover);
 }
 
-.mobileRecommendedToggle[data-active="true"] {
+.mobileRecommendedToggle[data-active="true"],
+.recommendedToggle[data-active="true"] {
   background: rgba(251, 191, 36, 0.15);
   border-color: rgba(251, 191, 36, 0.5);
   color: #fcd34d;
@@ -141,7 +153,8 @@
   transition: background 150ms ease, color 150ms ease;
 }
 
-.mobileExchangeOption[data-active="true"] {
+.mobileExchangeOption[data-active="true"],
+.exchangePill[data-active="true"] {
   background: linear-gradient(135deg, #10b981, #6366f1);
   border-color: transparent;
   color: #0b0f1a;
@@ -192,14 +205,6 @@
   transform: translateY(-1px);
 }
 
-.exchangePill[data-active="true"] {
-  background: linear-gradient(135deg, #10b981, #6366f1);
-  border-color: transparent;
-  color: #0b0f1a;
-  font-weight: 700;
-  box-shadow: 0 4px 16px rgba(16, 185, 129, 0.3);
-}
-
 .searchRow {
   display: flex;
   gap: 12px;
@@ -211,53 +216,15 @@
   flex: 1;
   min-width: 0;
   max-width: 400px;
-  min-height: 48px;
   padding: 12px 18px;
-  border-radius: 12px;
-  border: 1px solid var(--glass-border);
-  background: var(--glass);
-  color: var(--text);
-  font-weight: 500;
-  font-size: 1rem;
-  transition: border 150ms ease, background 150ms ease;
-}
-
-.searchInput::placeholder {
-  color: var(--muted);
-}
-
-.searchInput:focus {
-  outline: none;
-  border-color: var(--accent);
-  background: rgba(16, 185, 129, 0.08);
 }
 
 .recommendedToggle {
-  display: inline-flex;
-  align-items: center;
   gap: 6px;
-  min-height: 48px;
   padding: 12px 16px;
-  border-radius: 12px;
-  border: 1px solid var(--glass-border);
-  background: var(--glass);
-  color: var(--text);
   font-weight: 600;
   font-size: 0.95rem;
-  cursor: pointer;
-  transition: border 150ms ease, background 150ms ease, color 150ms ease;
   white-space: nowrap;
-}
-
-.recommendedToggle:hover {
-  border-color: #fbbf24;
-  background: var(--glass-hover);
-}
-
-.recommendedToggle[data-active="true"] {
-  background: rgba(251, 191, 36, 0.15);
-  border-color: rgba(251, 191, 36, 0.5);
-  color: #fcd34d;
 }
 
 .mainRow {

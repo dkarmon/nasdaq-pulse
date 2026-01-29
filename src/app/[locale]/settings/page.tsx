@@ -7,7 +7,6 @@ import { LocaleSwitcher } from "@/components/locale-switcher";
 import { SignOutButton } from "@/components/sign-out";
 import { BrandLogo } from "@/components/brand-logo";
 import { SettingsClient } from "./settings-client";
-import Link from "next/link";
 
 type SettingsPageProps = {
   params: Promise<{ locale: string }>;
@@ -28,7 +27,6 @@ export default async function SettingsPage({ params }: SettingsPageProps) {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
 
-  // Get user's role
   let isAdmin = false;
   if (user) {
     const { data: profile } = await supabase

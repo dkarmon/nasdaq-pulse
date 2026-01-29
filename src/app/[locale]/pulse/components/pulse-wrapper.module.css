@@ -39,16 +39,14 @@
   gap: 24px;
 }
 
-.mainPanel {
+.mainPanel,
+.mainPanelWithDetail {
   flex: 1;
   min-width: 0;
   overflow-x: auto;
 }
 
 .mainPanelWithDetail {
-  flex: 1;
-  min-width: 0;
-  overflow-x: auto;
   margin-right: calc(40% + 24px);
   max-width: calc(60% - 24px);
 }
