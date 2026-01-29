@@ -20,26 +20,28 @@ export type StockMetrics = {
   description?: string;
 };
 
-const ANALYSIS_PROMPT = `You are a stock analyst. Analyze {company} ({symbol}) based on the provided metrics and your knowledge of the company.
+const ANALYSIS_PROMPT = `You are a stock analyst. Provide a recommendation for {company} ({symbol}) based PRIMARILY on analyst reports and market-moving news.
 
-STOCK METRICS:
+CURRENT STOCK DATA:
 {metrics}
 
-Search for recent analyst reports, financial news, and market sentiment about this company to inform your analysis.
+Search for and base your analysis on:
+1. ANALYST REPORTS: Recent ratings from major investment banks (Goldman Sachs, Morgan Stanley, JP Morgan, etc.), price targets, upgrades/downgrades
+2. EARNINGS & FINANCIALS: Latest quarterly results, revenue growth, EPS, guidance changes
+3. MARKET-MOVING NEWS: M&A activity, product launches, regulatory decisions, major contracts, management changes, or other events that directly impact the stock
+
+DO NOT base your recommendation on general market commentary or common sense reasoning. Only cite specific analyst actions, financial results, or concrete news events.
 
 IMPORTANT: Respond with ONLY a valid JSON object (no markdown, no code blocks, no extra text). Use this exact structure:
 {"recommendation":"buy","english":"Your 2-3 paragraph analysis in English","hebrew":"Same analysis in Hebrew"}
 
 The recommendation field must be exactly one of: "buy", "hold", or "sell"
 
-Guidelines:
-- Analyze growth trends: positive multi-timeframe growth suggests momentum
-- Consider sector context, competitive position, and market cap for risk assessment
-- Reference recent analyst ratings, earnings reports, or significant company news if available
-- "buy": Strong growth metrics, positive momentum, favorable outlook, analyst upgrades
-- "hold": Mixed signals, stable but no clear direction, wait for catalysts
-- "sell": Declining metrics, negative momentum, concerning trends, analyst downgrades
-- Be specific about the numbers and recent events driving your recommendation`;
+Your analysis MUST include:
+- Specific analyst ratings and price targets (e.g., "Goldman Sachs rates Buy with $250 target")
+- Recent earnings data if available (e.g., "Q3 revenue of $X, up Y% YoY")
+- Concrete news events affecting the stock (e.g., "Company announced acquisition of X")
+- The consensus view among analysts (e.g., "15 of 20 analysts rate Buy")`;
 
 function formatMarketCap(marketCap: number): string {
   if (marketCap >= 1e12) return `$${(marketCap / 1e12).toFixed(2)}T`;
