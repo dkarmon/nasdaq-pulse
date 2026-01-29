@@ -107,8 +107,8 @@ function sortStocks(stocks: Stock[], sortBy: SortPeriod): Stock[] {
 
 async function fetchScreenerData(params: ScreenerParams, search?: string, userId?: string | null): Promise<ScreenerResponse> {
   const exchange = params.exchange;
-  const recommendedOnly = (params as any).recommendedOnly === true;
-  const includeScores = (params as any).includeScores === true;
+  const recommendedOnly = params.recommendedOnly === true;
+  const includeScores = params.includeScores === true;
 
   // Fetch effective omit rules for user (or admin defaults if no user)
   const omitRules = await fetchEffectiveOmitRules(userId ?? null);
@@ -208,16 +208,12 @@ export async function GET(request: NextRequest) {
     sortBy: parseSortPeriod(searchParams.get("sortBy")),
     limit: parseLimit(searchParams.get("limit")),
     exchange: parseExchange(searchParams.get("exchange")),
+    recommendedOnly: parseBoolean(searchParams.get("recommendedOnly")),
+    includeScores: parseBoolean(searchParams.get("includeScores")),
   };
-  const recommendedOnly = parseBoolean(searchParams.get("recommendedOnly"));
-  const includeScores = parseBoolean(searchParams.get("includeScores"));
 
   const search = searchParams.get("search") ?? undefined;
-  const data = await fetchScreenerData(
-    { ...params, ...(recommendedOnly ? { recommendedOnly: true } : {}), ...(includeScores ? { includeScores: true } : {}) } as ScreenerParams,
-    search,
-    userId
-  );
+  const data = await fetchScreenerData(params, search, userId);
 
   return NextResponse.json(data);
 }

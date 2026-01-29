@@ -14,7 +14,6 @@ export const config = {
     "/he/pulse/:path*",
     "/en/settings/:path*",
     "/he/settings/:path*",
-    "/api/stocks/:path*",
     "/api/news/:path*",
   ],
 };
