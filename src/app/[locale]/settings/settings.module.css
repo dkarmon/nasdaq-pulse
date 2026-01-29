@@ -770,3 +770,263 @@
   font-size: 0.85rem;
   color: var(--muted);
 }
+
+/* Toggle switch (used by omit rules) */
+.toggleLabel {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.95rem;
+  color: var(--foreground);
+}
+
+.toggle {
+  position: relative;
+  width: 44px;
+  height: 24px;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background-color 150ms ease, border-color 150ms ease;
+}
+
+.toggle[data-active="true"] {
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  border-color: transparent;
+}
+
+.toggle:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.toggleThumb {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 18px;
+  height: 18px;
+  background: white;
+  border-radius: 50%;
+  transition: transform 150ms ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.toggle[data-active="true"] .toggleThumb {
+  transform: translateX(20px);
+}
+
+/* Sync with admin controls */
+.syncRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 12px 0 16px 0;
+  flex-wrap: wrap;
+}
+
+.syncLabel {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.95rem;
+  color: var(--foreground);
+  cursor: pointer;
+}
+
+.syncLabel input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--accent);
+  cursor: pointer;
+}
+
+.syncHint {
+  font-size: 0.85rem;
+  color: var(--muted);
+  font-style: italic;
+}
+
+/* Exchange tabs (NASDAQ/TLV) */
+.exchangeTabs {
+  display: flex;
+  gap: 0;
+  margin: 16px 0;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  width: fit-content;
+}
+
+.exchangeTab {
+  padding: 10px 20px;
+  background: rgba(255, 255, 255, 0.05);
+  border: none;
+  color: var(--muted);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 150ms ease, color 150ms ease;
+}
+
+.exchangeTab:not(:last-child) {
+  border-right: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.exchangeTab:hover:not([data-active="true"]) {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--foreground);
+}
+
+.exchangeTab[data-active="true"] {
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  color: #0b0f1a;
+}
+
+/* Rules list */
+.rulesList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.ruleRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  flex-wrap: wrap;
+}
+
+.ruleRow[data-readonly="true"] {
+  opacity: 0.7;
+}
+
+.ruleField {
+  font-weight: 600;
+  font-size: 0.95rem;
+  min-width: 140px;
+  color: var(--foreground);
+}
+
+.ruleInputs {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex: 1;
+}
+
+.ruleInputLabel {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+.ruleInput {
+  width: 90px;
+  padding: 8px 10px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 6px;
+  color: var(--foreground);
+  font-size: 0.9rem;
+  transition: border-color 150ms ease, background-color 150ms ease;
+}
+
+.ruleInput::placeholder {
+  color: var(--muted);
+}
+
+.ruleInput:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.ruleInput:focus {
+  outline: none;
+  border-color: var(--accent);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.ruleInput:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.ruleRemove {
+  padding: 6px 10px;
+  background: transparent;
+  border: 1px solid rgba(255, 99, 99, 0.3);
+  border-radius: 6px;
+  color: #ff6b6b;
+  font-size: 1.1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 150ms ease;
+  line-height: 1;
+}
+
+.ruleRemove:hover {
+  background: rgba(255, 99, 99, 0.12);
+}
+
+/* Add rule dropdown */
+.addRuleRow {
+  margin-top: 8px;
+}
+
+.addRuleSelect {
+  padding: 10px 14px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 8px;
+  color: var(--foreground);
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: border-color 150ms ease, background-color 150ms ease;
+  min-width: 180px;
+}
+
+.addRuleSelect:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.addRuleSelect:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+/* Save button row */
+.saveRow {
+  margin-top: 16px;
+  display: flex;
+  gap: 12px;
+}
+
+/* Mobile responsive for omit rules */
+@media (max-width: 600px) {
+  .ruleRow {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .ruleField {
+    min-width: auto;
+  }
+
+  .ruleInputs {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .ruleRemove {
+    align-self: flex-end;
+  }
+}
