@@ -143,8 +143,6 @@ export function ScreenerClient({
     visibleStocks = filterAndSortByRecommendation(visibleStocks, activeFormula ?? undefined);
   }
 
-  const hasActiveFilters = preferences.showRecommendedOnly;
-
   return (
     <div className={styles.screener}>
       <ControlsBar
@@ -159,7 +157,6 @@ export function ScreenerClient({
         onLimitChange={setLimit}
         onSearchChange={setSearchQuery}
         onShowRecommendedOnlyChange={setShowRecommendedOnly}
-        hasActiveFilters={hasActiveFilters}
         labels={controlLabels}
       />
 

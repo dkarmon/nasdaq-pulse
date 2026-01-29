@@ -20,7 +20,6 @@ type ControlsBarProps = {
   onLimitChange: (limit: number) => void;
   onSearchChange: (query: string) => void;
   onShowRecommendedOnlyChange: (show: boolean) => void;
-  hasActiveFilters: boolean;
   labels: {
     sortBy: string;
     show: string;
@@ -32,9 +31,9 @@ type ControlsBarProps = {
   };
 };
 
-const SORT_OPTIONS: SortPeriod[] = ["1d", "5d", "1m", "6m", "12m", "az"];
-const LIMIT_OPTIONS = [25, 50];
-const EXCHANGE_OPTIONS: Exchange[] = ["nasdaq", "tlv"];
+export const SORT_OPTIONS: SortPeriod[] = ["1d", "5d", "1m", "6m", "12m", "az"];
+export const LIMIT_OPTIONS = [25, 50];
+export const EXCHANGE_OPTIONS: Exchange[] = ["nasdaq", "tlv"];
 
 function countActiveFilters(showRecommendedOnly: boolean): number {
   return showRecommendedOnly ? 1 : 0;
@@ -52,7 +51,6 @@ export function ControlsBar({
   onLimitChange,
   onSearchChange,
   onShowRecommendedOnlyChange,
-  hasActiveFilters,
   labels,
 }: ControlsBarProps) {
   const [isFilterSheetOpen, setIsFilterSheetOpen] = useState(false);

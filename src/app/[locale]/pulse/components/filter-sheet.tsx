@@ -5,6 +5,7 @@
 
 import { useEffect } from "react";
 import type { SortPeriod, Exchange } from "@/lib/market-data/types";
+import { SORT_OPTIONS, LIMIT_OPTIONS, EXCHANGE_OPTIONS } from "./controls-bar";
 import styles from "./filter-sheet.module.css";
 
 type FilterSheetProps = {
@@ -26,10 +27,6 @@ type FilterSheetProps = {
     apply: string;
   };
 };
-
-const SORT_OPTIONS: SortPeriod[] = ["1d", "5d", "1m", "6m", "12m", "az"];
-const LIMIT_OPTIONS = [25, 50];
-const EXCHANGE_OPTIONS: Exchange[] = ["nasdaq", "tlv"];
 
 export function FilterSheet({
   isOpen,
