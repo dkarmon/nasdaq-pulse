@@ -3,15 +3,13 @@
 
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
-import { getNews, getCompanyProfile } from "@/lib/market-data";
-import { generateStockAnalysis } from "@/lib/ai/gemini";
+import { getStockDetail } from "@/lib/market-data";
+import { generateStockAnalysis, type StockMetrics } from "@/lib/ai/gemini";
 import type { StockAnalysis, NewsSource } from "@/lib/ai/types";
 
 type RouteParams = {
   params: Promise<{ symbol: string }>;
 };
-
-const MIN_NEWS_ARTICLES = 3;
 
 function mapDbToAnalysis(row: {
   id: string;
@@ -115,29 +113,37 @@ export async function POST(request: NextRequest, { params }: RouteParams) {
     }
   }
 
-  // Fetch news
-  const newsResponse = await getNews(upperSymbol);
-  const news = newsResponse.items.slice(0, 10);
-
-  if (news.length < MIN_NEWS_ARTICLES) {
+  // Fetch stock detail for metrics
+  const stockDetail = await getStockDetail(upperSymbol);
+  if (!stockDetail) {
     return NextResponse.json(
-      {
-        error: `Not enough recent news articles to generate analysis. Found ${news.length}, need at least ${MIN_NEWS_ARTICLES}.`,
-        code: "INSUFFICIENT_NEWS",
-        newsCount: news.length,
-      },
-      { status: 400 }
+      { error: "Stock not found", code: "NOT_FOUND" },
+      { status: 404 }
     );
   }
 
-  // Get company name
-  const profile = await getCompanyProfile(upperSymbol);
-  const companyName = profile?.name || upperSymbol;
+  // Build metrics from stock detail
+  const isTLV = upperSymbol.endsWith(".TA");
+  const metrics: StockMetrics = {
+    price: stockDetail.quote.price,
+    currency: isTLV ? "ILS" : "USD",
+    marketCap: stockDetail.profile.marketCap,
+    sector: stockDetail.profile.sector,
+    industry: stockDetail.profile.industry,
+    growth1d: stockDetail.growth1d,
+    growth5d: stockDetail.growth5d,
+    growth1m: stockDetail.growth1m,
+    growth6m: stockDetail.growth6m,
+    growth12m: stockDetail.growth12m,
+    description: stockDetail.profile.description,
+  };
 
-  // Generate analysis with Gemini
+  const companyName = stockDetail.profile.name || upperSymbol;
+
+  // Generate analysis with Gemini (uses Google Search grounding)
   let result;
   try {
-    result = await generateStockAnalysis(upperSymbol, companyName, news);
+    result = await generateStockAnalysis(upperSymbol, companyName, metrics);
   } catch (err) {
     console.error("Gemini analysis error:", err);
     return NextResponse.json(
@@ -149,13 +155,6 @@ export async function POST(request: NextRequest, { params }: RouteParams) {
     );
   }
 
-  // Prepare news sources for storage
-  const newsSources: NewsSource[] = news.map((item) => ({
-    headline: item.headline,
-    url: item.url,
-    publishedAt: item.publishedAt,
-  }));
-
   // Insert into database
   const { data: inserted, error: insertError } = await supabase
     .from("stock_analyses")
@@ -164,8 +163,8 @@ export async function POST(request: NextRequest, { params }: RouteParams) {
       recommendation: result.analysis.recommendation,
       analysis_en: result.analysis.english,
       analysis_he: result.analysis.hebrew,
-      news_sources: newsSources,
-      news_count: news.length,
+      news_sources: [],
+      news_count: 0,
       model_version: result.modelVersion,
       generated_at: new Date().toISOString(),
     })

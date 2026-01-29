@@ -67,7 +67,6 @@ export function StockAnalysis({ symbol, locale, labels }: StockAnalysisProps) {
   const [isLoading, setIsLoading] = useState(true);
   const [isGenerating, setIsGenerating] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [insufficientNews, setInsufficientNews] = useState(false);
 
   const fetchAnalysis = useCallback(async () => {
     setIsLoading(true);
@@ -90,7 +89,6 @@ export function StockAnalysis({ symbol, locale, labels }: StockAnalysisProps) {
   const generateAnalysis = async () => {
     setIsGenerating(true);
     setError(null);
-    setInsufficientNews(false);
 
     try {
       const res = await fetch(`/api/analysis/${symbol}`, {
@@ -100,10 +98,6 @@ export function StockAnalysis({ symbol, locale, labels }: StockAnalysisProps) {
       const data: ApiResponse = await res.json();
 
       if (!res.ok) {
-        if (data.code === "INSUFFICIENT_NEWS") {
-          setInsufficientNews(true);
-          return;
-        }
         throw new Error(data.error || "Failed to generate analysis");
       }
 
@@ -128,20 +122,6 @@ export function StockAnalysis({ symbol, locale, labels }: StockAnalysisProps) {
   const renderContent = () => {
     if (isLoading) {
       return <div className={styles.loading}>{labels.generate}...</div>;
-    }
-
-    if (insufficientNews) {
-      return (
-        <div className={styles.insufficientNews}>
-          <p>{labels.notEnoughNews}</p>
-          <button
-            className={styles.generateButton}
-            onClick={() => setInsufficientNews(false)}
-          >
-            OK
-          </button>
-        </div>
-      );
     }
 
     if (error) {
