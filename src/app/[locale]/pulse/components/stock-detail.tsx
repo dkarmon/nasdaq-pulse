@@ -6,6 +6,7 @@
 import { useEffect, useState, useMemo } from "react";
 import { PriceChart } from "./price-chart";
 import { CollapsibleSection } from "./collapsible-section";
+import { StockAnalysis } from "./stock-analysis";
 import { useLiveQuotes } from "@/hooks/useLiveQuotes";
 import { isStockRecommended } from "@/lib/market-data/recommendation";
 import type { StockDetailResponse, NewsResponse, NewsItem, Stock } from "@/lib/market-data/types";
@@ -41,6 +42,18 @@ type StockDetailProps = {
     companyOverview: string;
     website: string;
   };
+  aiAnalysisLabels: {
+    title: string;
+    generate: string;
+    refresh: string;
+    updated: string;
+    notEnoughNews: string;
+    generating: string;
+    error: string;
+    buy: string;
+    hold: string;
+    sell: string;
+  };
 };
 
 function formatTimeAgo(dateString: string): string {
@@ -60,7 +73,7 @@ function formatTimeAgo(dateString: string): string {
   return `${diffDays}d ago`;
 }
 
-export function StockDetail({ symbol, onClose, locale = "en", activeFormula, labels }: StockDetailProps) {
+export function StockDetail({ symbol, onClose, locale = "en", activeFormula, labels, aiAnalysisLabels }: StockDetailProps) {
   const [detail, setDetail] = useState<StockDetailResponse | null>(null);
   const [news, setNews] = useState<NewsItem[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -428,6 +441,13 @@ export function StockDetail({ symbol, onClose, locale = "en", activeFormula, lab
           )}
         </div>
       </div>
+
+      {/* AI Analysis */}
+      <StockAnalysis
+        symbol={symbol}
+        locale={locale}
+        labels={aiAnalysisLabels}
+      />
     </div>
   );
 }

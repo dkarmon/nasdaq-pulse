@@ -47,6 +47,8 @@ export function PulseWrapper({ initialData, dict, locale }: PulseWrapperProps) {
     website: dict.screener.website,
   };
 
+  const aiAnalysisLabels = dict.aiAnalysis;
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.content}>
@@ -69,6 +71,7 @@ export function PulseWrapper({ initialData, dict, locale }: PulseWrapperProps) {
               locale={locale}
               activeFormula={activeFormula}
               labels={detailLabels}
+              aiAnalysisLabels={aiAnalysisLabels}
             />
           </div>
         )}

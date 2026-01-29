@@ -71,6 +71,19 @@ const mockLabels = {
   website: "Website",
 };
 
+const mockAiAnalysisLabels = {
+  title: "Analysis",
+  generate: "Generate Analysis",
+  refresh: "Refresh",
+  updated: "Updated",
+  notEnoughNews: "Not enough recent news",
+  generating: "Generating...",
+  error: "Failed to generate",
+  buy: "Buy",
+  hold: "Hold",
+  sell: "Sell",
+};
+
 describe("StockDetail live price display", () => {
   beforeEach(() => {
     vi.clearAllMocks();
@@ -115,6 +128,7 @@ describe("StockDetail live price display", () => {
         onClose={() => {}}
         locale="en"
         labels={mockLabels}
+        aiAnalysisLabels={mockAiAnalysisLabels}
       />
     );
 
@@ -142,6 +156,7 @@ describe("StockDetail live price display", () => {
         onClose={() => {}}
         locale="en"
         labels={mockLabels}
+        aiAnalysisLabels={mockAiAnalysisLabels}
       />
     );
 
@@ -173,6 +188,7 @@ describe("StockDetail live price display", () => {
         onClose={() => {}}
         locale="en"
         labels={mockLabels}
+        aiAnalysisLabels={mockAiAnalysisLabels}
       />
     );
 

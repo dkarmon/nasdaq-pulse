@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@auth/upstash-redis-adapter": "^2.11.1",
+    "@google/genai": "^1.38.0",
     "@remotion/cli": "^4.0.409",
     "@remotion/player": "^4.0.409",
     "@supabase/ssr": "^0.8.0",
