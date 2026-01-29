@@ -5,7 +5,7 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { LogIn } from "lucide-react";
+import { LogIn, TrendingUp, Zap, Target } from "lucide-react";
 import { HeroVideoPlayer } from "@/components/remotion/HeroVideoPlayer";
 import { LocaleSwitcher } from "@/components/locale-switcher";
 import type { Locale } from "@/lib/i18n";
@@ -415,21 +415,21 @@ export function LandingClient({ locale, dict, rtl }: LandingClientProps) {
           >
             {[
               {
-                icon: "📈",
+                icon: <TrendingUp size={48} className="text-emerald-500" />,
                 title: dict.landing?.growthRankings || "Growth Rankings",
                 description: dict.landing?.growthRankingsDesc || "See which stocks are actually growing. Sort by 1-month, 6-month, or 12-month performance instantly.",
                 gradient: "linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(16, 185, 129, 0.02))",
                 borderColor: "rgba(16, 185, 129, 0.2)",
               },
               {
-                icon: "⚡",
+                icon: <Zap size={48} className="text-indigo-500" />,
                 title: dict.landing?.realTimeUpdates || "Real-Time Updates",
                 description: dict.landing?.realTimeUpdatesDesc || "Fresh data every 60 seconds. Know what's moving right now, not what moved yesterday.",
                 gradient: "linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(99, 102, 241, 0.02))",
                 borderColor: "rgba(99, 102, 241, 0.2)",
               },
               {
-                icon: "🎯",
+                icon: <Target size={48} className="text-amber-500" />,
                 title: dict.landing?.zeroNoise || "Zero Noise",
                 description: dict.landing?.zeroNoiseDesc || "No ads. No premium upsells. No \"analysts picks\". Just clean data and fast loading.",
                 gradient: "linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(245, 158, 11, 0.02))",
