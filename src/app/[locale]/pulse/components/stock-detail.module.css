@@ -94,7 +94,7 @@
   font-size: 1.25rem;
   font-weight: 600;
   color: var(--muted);
-  margin-left: 4px;
+  margin-left: 12px;
 }
 
 .liveGrowth {
@@ -211,11 +211,13 @@
 
 .metricsRow {
   display: flex;
+  flex-wrap: wrap;
   gap: 8px;
 }
 
 .metricCard {
-  flex: 1;
+  flex: 1 1 auto;
+  min-width: 70px;
   display: flex;
   flex-direction: column;
   gap: 2px;

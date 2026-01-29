@@ -39,16 +39,10 @@
   gap: 24px;
 }
 
-.mainPanel,
-.mainPanelWithDetail {
+.mainPanel {
   flex: 1;
   min-width: 0;
   overflow-x: auto;
-}
-
-.mainPanelWithDetail {
-  margin-right: calc(40% + 24px);
-  max-width: calc(60% - 24px);
 }
 
 .detailPanel {
@@ -66,6 +60,25 @@
   padding: 24px;
   backdrop-filter: blur(12px);
   overflow-y: auto;
+  scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+  scrollbar-width: thin;
+}
+
+.detailPanel::-webkit-scrollbar {
+  width: 8px;
+}
+
+.detailPanel::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.detailPanel::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+}
+
+.detailPanel::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
 }
 
 @keyframes slideInRight {
@@ -108,11 +121,6 @@
 @media (max-width: 1024px) {
   .content {
     flex-direction: column;
-  }
-
-  .mainPanelWithDetail {
-    margin-right: 0;
-    max-width: none;
   }
 
   .detailPanel {

@@ -152,16 +152,6 @@ export function StockDetail({ symbol, onClose, locale = "en", activeFormula, lab
             <span className={styles.starIcon} title={labels.recommended}>★</span>
           )}
           <h2 className={styles.symbol}>{primaryText}</h2>
-          {isRecommended && liveQuote && (
-            <span
-              className={styles.liveGrowth}
-              data-positive={liveQuote.changePercent >= 0}
-              data-negative={liveQuote.changePercent < 0}
-            >
-              ({formatGrowth(liveQuote.changePercent)})
-            </span>
-          )}
-          <span className={styles.priceInline}>({formatPrice(liveQuote?.price ?? quote.price, currency)})</span>
           <button
             className={styles.copyButton}
             onClick={() => navigator.clipboard.writeText(profile.symbol)}
@@ -169,6 +159,18 @@ export function StockDetail({ symbol, onClose, locale = "en", activeFormula, lab
           >
             ⧉
           </button>
+          <span className={styles.priceInline}>
+            {formatPrice(liveQuote?.price ?? quote.price, currency)}
+            {isRecommended && liveQuote && (
+              <span
+                className={styles.liveGrowth}
+                data-positive={liveQuote.changePercent >= 0}
+                data-negative={liveQuote.changePercent < 0}
+              >
+                {" "}({formatGrowth(liveQuote.changePercent)})
+              </span>
+            )}
+          </span>
         </div>
         {secondaryText && <p className={styles.companyName}>{secondaryText}</p>}
       </div>

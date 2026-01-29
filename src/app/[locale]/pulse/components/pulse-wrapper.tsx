@@ -52,7 +52,7 @@ export function PulseWrapper({ initialData, dict, locale }: PulseWrapperProps) {
   return (
     <div className={styles.wrapper}>
       <div className={styles.content}>
-        <div className={selectedSymbol ? styles.mainPanelWithDetail : styles.mainPanel}>
+        <div className={styles.mainPanel}>
           <ScreenerClient
             initialData={initialData}
             dict={dict}

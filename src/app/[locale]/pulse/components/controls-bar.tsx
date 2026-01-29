@@ -115,20 +115,18 @@ export function ControlsBar({
 
       {/* Desktop full controls */}
       <div className={styles.desktopControls}>
-        <div className={styles.exchangeRow}>
-          <div className={styles.pillGroup}>
-            {EXCHANGE_OPTIONS.map((option) => (
-              <button
-                key={option}
-                className={styles.exchangePill}
-                data-active={exchange === option}
-                onClick={() => onExchangeChange(option)}
-                aria-pressed={exchange === option}
-              >
-                {exchangeLabels[option]}
-              </button>
-            ))}
-          </div>
+        <div className={styles.exchangeToggle}>
+          {EXCHANGE_OPTIONS.map((option) => (
+            <button
+              key={option}
+              className={styles.exchangeOption}
+              data-active={exchange === option}
+              onClick={() => onExchangeChange(option)}
+              aria-pressed={exchange === option}
+            >
+              {exchangeLabels[option]}
+            </button>
+          ))}
         </div>
 
         <div className={styles.searchRow}>
