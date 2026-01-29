@@ -61,20 +61,18 @@
 
 .logoSection {
   display: flex;
+  justify-content: center;
   align-items: center;
-  gap: 12px;
-  margin-bottom: 32px;
-}
-
-.logoIcon {
-  font-size: 2rem;
-  color: var(--accent);
+  margin-bottom: 20px;
 }
 
 .logoText {
-  font-size: 1.5rem;
-  font-weight: 700;
+  font-size: 1.6rem;
+  font-weight: 800;
   letter-spacing: -0.02em;
+  background: var(--brand-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .title {
@@ -82,6 +80,9 @@
   font-weight: 800;
   margin: 0 0 12px;
   letter-spacing: -0.02em;
+  background: var(--brand-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .subtitle {

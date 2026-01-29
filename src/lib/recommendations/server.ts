@@ -233,3 +233,36 @@ export function clearActiveFormulaCache() {
 export function getDefaultFormula() {
   return defaultRecommendationFormula;
 }
+
+import type { OmitRulesConfig, UserOmitPrefs } from "@/lib/market-data/types";
+
+export async function fetchEffectiveOmitRules(
+  userId: string | null
+): Promise<OmitRulesConfig | null> {
+  const supabase = createAdminClient();
+
+  // If we have a user, check their preferences
+  if (userId) {
+    const { data: userPrefs } = await supabase
+      .from("user_preferences")
+      .select("omit_rules")
+      .eq("user_id", userId)
+      .maybeSingle();
+
+    const userOmitPrefs = userPrefs?.omit_rules as UserOmitPrefs | null;
+
+    // If user has sync off and custom rules, use those
+    if (userOmitPrefs && !userOmitPrefs.syncWithAdmin && userOmitPrefs.customRules) {
+      return userOmitPrefs.customRules;
+    }
+  }
+
+  // Otherwise, fetch admin defaults
+  const { data: settings } = await supabase
+    .from("recommendation_settings")
+    .select("omit_rules")
+    .eq("id", true)
+    .maybeSingle();
+
+  return (settings?.omit_rules as OmitRulesConfig | null) ?? null;
+}

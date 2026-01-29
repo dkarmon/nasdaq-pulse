@@ -22,9 +22,6 @@ async function getInitialScreenerData() {
   const params: ScreenerParams = {
     sortBy: "1m",
     limit: 50,
-    filters: {
-      minPrice: null,
-    },
     exchange: "nasdaq",
   };
 
@@ -57,31 +54,18 @@ export default async function PulsePage({ params }: PulsePageProps) {
             flexWrap: "wrap",
           }}
         >
-          <div style={{ display: "flex", alignItems: "center", gap: "10px", flexShrink: 0, whiteSpace: "nowrap" }}>
-            <span style={{ fontSize: "1.5rem", color: "var(--accent)" }}>◈</span>
-            <span style={{ fontSize: "1.25rem", fontWeight: 700, letterSpacing: "-0.02em" }}>Nasdaq Pulse</span>
-          </div>
-          <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+          <span className="brand-wordmark" style={{ fontSize: "1.25rem" }}>Nasdaq Pulse</span>
+          <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
             <Link
               href={`/${locale}/settings`}
-              style={{
-                color: "var(--muted)",
-                textDecoration: "none",
-                fontSize: "1.25rem",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                width: "32px",
-                height: "32px",
-                transition: "color 150ms ease",
-              }}
+              className="nav-icon-btn"
               title={dict.settings.title}
             >
               ⚙
             </Link>
             <LocaleSwitcher locale={locale} />
             {user?.email && (
-              <span className="badge">{user.email}</span>
+              <span className="badge hide-mobile">{user.email}</span>
             )}
             <SignOutButton label={dict.app.logout} />
           </div>

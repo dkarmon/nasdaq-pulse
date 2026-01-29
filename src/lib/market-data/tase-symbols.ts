@@ -53,19 +53,3 @@ export function getEnglishName(symbol: string): string | undefined {
   const plainSymbol = fromYahooSymbol(symbol);
   return TASE_STOCKS.find((s) => s.symbol === plainSymbol)?.name;
 }
-
-/**
- * Returns full stock info for a symbol.
- */
-export function getTaseStockInfo(symbol: string): TaseStock | undefined {
-  const plainSymbol = fromYahooSymbol(symbol);
-  return TASE_STOCKS.find((s) => s.symbol === plainSymbol);
-}
-
-/**
- * Checks if a symbol is a TASE stock.
- */
-export function isTaseSymbol(symbol: string): boolean {
-  const plainSymbol = fromYahooSymbol(symbol);
-  return TASE_STOCKS.some((s) => s.symbol === plainSymbol);
-}

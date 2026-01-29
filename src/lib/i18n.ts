@@ -1,3 +1,6 @@
+// ABOUTME: Internationalization constants and dictionaries for English and Hebrew.
+// ABOUTME: Provides type-safe translations and RTL detection for the UI.
+
 export const locales = ["en", "he"] as const;
 
 export type Locale = (typeof locales)[number];
@@ -65,8 +68,6 @@ export type Dictionary = {
   screener: {
     sortBy: string;
     show: string;
-    minPrice: string;
-    clearAll: string;
     search: string;
     stock: string;
     price: string;
@@ -146,6 +147,31 @@ export type Dictionary = {
     saved: string;
     fetchError: string;
     save: string;
+    // Tab navigation
+    tabStocks: string;
+    tabUsers: string;
+    tabFormulas: string;
+    // Modal actions
+    cancel: string;
+    saveFormula: string;
+    editFormula: string;
+    newFormula: string;
+    deleteFormula: string;
+    confirmDelete: string;
+    noFormulas: string;
+    // Omit rules
+    omitRules: string;
+    omitRulesAdminDefaults: string;
+    omitRulesAdminHint: string;
+    omitRulesSyncHint: string;
+    syncWithAdmin: string;
+    enabled: string;
+    addRule: string;
+    price: string;
+    marketCap: string;
+    min: string;
+    max: string;
+    noRules: string;
   };
   auth: {
     signinTitle: string;
@@ -160,6 +186,18 @@ export type Dictionary = {
     deniedBody: string;
     back: string;
     checkEmail: string;
+  };
+  aiAnalysis: {
+    title: string;
+    generate: string;
+    refresh: string;
+    updated: string;
+    notEnoughNews: string;
+    generating: string;
+    error: string;
+    buy: string;
+    hold: string;
+    sell: string;
   };
 };
 
@@ -269,8 +307,6 @@ export const dictionaries: Record<Locale, Dictionary> = {
     screener: {
       sortBy: "Sort by",
       show: "Show",
-      minPrice: "Min price",
-      clearAll: "Clear all",
       search: "Search...",
       stock: "Stock",
       price: "Price",
@@ -350,6 +386,28 @@ export const dictionaries: Record<Locale, Dictionary> = {
       saved: "Saved",
       fetchError: "Could not load formulas",
       save: "Save",
+      tabStocks: "Stocks",
+      tabUsers: "Users",
+      tabFormulas: "Formulas",
+      cancel: "Cancel",
+      saveFormula: "Save Formula",
+      editFormula: "Edit Formula",
+      newFormula: "New Formula",
+      deleteFormula: "Delete",
+      confirmDelete: "Are you sure you want to delete this formula?",
+      noFormulas: "No formulas yet",
+      omitRules: "Omit Rules",
+      omitRulesAdminDefaults: "Omit Rules (Admin Defaults)",
+      omitRulesAdminHint: "These defaults apply to all synced users.",
+      omitRulesSyncHint: "Following admin rules. Toggle off to customize.",
+      syncWithAdmin: "Sync with admin",
+      enabled: "Enabled",
+      addRule: "Add Rule",
+      price: "Price",
+      marketCap: "Market Cap",
+      min: "Min",
+      max: "Max",
+      noRules: "No rules configured",
     },
     auth: {
       signinTitle: "Welcome to Nasdaq Pulse",
@@ -365,6 +423,18 @@ export const dictionaries: Record<Locale, Dictionary> = {
         "Your Google account is not on the approved list. Contact the admin or try a different email.",
       back: "Back to landing",
       checkEmail: "Check your email for the login link!",
+    },
+    aiAnalysis: {
+      title: "Analysis",
+      generate: "Generate Analysis",
+      refresh: "Refresh",
+      updated: "Updated",
+      notEnoughNews: "Not enough recent news to generate analysis",
+      generating: "Generating...",
+      error: "Failed to generate analysis",
+      buy: "Buy",
+      hold: "Hold",
+      sell: "Sell",
     },
   },
   he: {
@@ -469,8 +539,6 @@ export const dictionaries: Record<Locale, Dictionary> = {
     screener: {
       sortBy: "מיון לפי",
       show: "הצג",
-      minPrice: "מחיר מינימום",
-      clearAll: "נקה הכל",
       search: "...חיפוש",
       stock: "מניה",
       price: "מחיר",
@@ -550,6 +618,28 @@ export const dictionaries: Record<Locale, Dictionary> = {
       saved: "נשמר",
       fetchError: "לא ניתן לטעון נוסחאות",
       save: "שמירה",
+      tabStocks: "מניות",
+      tabUsers: "משתמשים",
+      tabFormulas: "נוסחאות",
+      cancel: "ביטול",
+      saveFormula: "שמור נוסחה",
+      editFormula: "עריכת נוסחה",
+      newFormula: "נוסחה חדשה",
+      deleteFormula: "מחק",
+      confirmDelete: "האם למחוק את הנוסחה?",
+      noFormulas: "אין נוסחאות עדיין",
+      omitRules: "כללי סינון",
+      omitRulesAdminDefaults: "כללי סינון (ברירות מחדל מנהל)",
+      omitRulesAdminHint: "הגדרות אלו חלות על כל המשתמשים המסונכרנים.",
+      omitRulesSyncHint: "עוקב אחרי הגדרות מנהל. כבה לבחירה מותאמת.",
+      syncWithAdmin: "סנכרון עם מנהל",
+      enabled: "מופעל",
+      addRule: "הוסף כלל",
+      price: "מחיר",
+      marketCap: "שווי שוק",
+      min: "מינימום",
+      max: "מקסימום",
+      noRules: "אין כללים מוגדרים",
     },
     auth: {
       signinTitle: "ברוכים הבאים ל-Nasdaq Pulse",
@@ -564,6 +654,18 @@ export const dictionaries: Record<Locale, Dictionary> = {
       deniedBody: "החשבון אינו מורשה. פנו למנהל או התחברו עם מייל מאושר.",
       back: "חזרה לעמוד הראשי",
       checkEmail: "בדקו את המייל - שלחנו לכם קישור להתחברות!",
+    },
+    aiAnalysis: {
+      title: "ניתוח",
+      generate: "צור ניתוח",
+      refresh: "רענן",
+      updated: "עודכן",
+      notEnoughNews: "אין מספיק חדשות אחרונות ליצירת ניתוח",
+      generating: "מייצר...",
+      error: "יצירת הניתוח נכשלה",
+      buy: "קנייה",
+      hold: "החזקה",
+      sell: "מכירה",
     },
   },
 };

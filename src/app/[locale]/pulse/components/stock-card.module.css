@@ -1,10 +1,10 @@
 /* ABOUTME: Styles for the mobile stock card component. */
-/* ABOUTME: Large touch targets (48px+) and clear visual hierarchy. */
+/* ABOUTME: Compact cards with swipe-to-hide and inline metrics. */
 
 .cardList {
   display: none;
   flex-direction: column;
-  gap: 16px;
+  gap: 10px;
 }
 
 @media (max-width: 768px) {
@@ -13,33 +13,67 @@
   }
 }
 
+.cardWrapper {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius);
+}
+
 .card {
+  position: relative;
+  z-index: 1;
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  padding: 20px;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01));
-  border: 1px solid var(--border);
+  gap: 8px;
+  padding: 12px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.02));
+  border: 1px solid var(--glass-border);
   border-radius: var(--radius);
+  backdrop-filter: blur(12px);
   cursor: pointer;
   transition: border 150ms ease, background 150ms ease;
 }
 
+.card[data-swiping="true"] {
+  transition: none;
+}
+
 .card:hover,
 .card:active {
-  border-color: var(--accent);
-  background: rgba(16, 185, 129, 0.05);
+  border-color: rgba(16, 185, 129, 0.4);
+  background: rgba(16, 185, 129, 0.06);
 }
 
 .card[data-selected="true"] {
-  background: linear-gradient(135deg, rgba(16, 185, 129, 0.08), rgba(16, 185, 129, 0.02));
-  border-color: rgba(16, 185, 129, 0.4);
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(16, 185, 129, 0.04));
+  border-color: rgba(16, 185, 129, 0.5);
+}
+
+.swipeAction {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, rgba(244, 63, 94, 0.9), rgba(220, 38, 38, 0.9));
+  color: white;
+  font-weight: 600;
+  font-size: 0.9rem;
+  opacity: 0;
+  transition: opacity 150ms ease;
+}
+
+.swipeAction[data-visible="true"] {
+  opacity: 1;
 }
 
 .header {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: center;
   gap: 12px;
 }
 
@@ -49,48 +83,50 @@
   gap: 8px;
 }
 
+/* Hide button is hidden on mobile, shown on desktop for non-touch */
 .hideButton {
-  display: flex;
+  display: none;
   align-items: center;
   justify-content: center;
   width: 32px;
   height: 32px;
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--glass-border);
+  border-radius: 8px;
+  background: var(--glass);
   color: var(--muted);
   font-size: 1rem;
   cursor: pointer;
-  transition: border 120ms ease, color 120ms ease, background 120ms ease;
+  transition: border 150ms ease, color 150ms ease, background 150ms ease;
+}
+
+@media (min-width: 769px) {
+  .hideButton {
+    display: flex;
+  }
 }
 
 .hideButton:hover,
 .hideButton:active {
-  border-color: #f8bac8;
-  color: #f8bac8;
-  background: rgba(248, 186, 200, 0.1);
+  border-color: rgba(252, 165, 165, 0.5);
+  color: #fca5a5;
+  background: rgba(252, 165, 165, 0.1);
 }
 
 .symbolSection {
   display: flex;
   flex-direction: column;
   gap: 2px;
+  min-width: 0;
 }
 
 .symbol {
   font-family: var(--font-space-grotesk), var(--font-manrope), system-ui, sans-serif;
   font-weight: 800;
-  font-size: 1.25rem;
+  font-size: 1.1rem;
   letter-spacing: 0.02em;
-}
-
-.companyName {
-  font-size: 0.85rem;
-  color: var(--muted);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 200px;
 }
 
 .starIcon {
@@ -106,30 +142,32 @@
 
 .liveGrowth {
   font-family: var(--font-space-grotesk), var(--font-manrope), system-ui, sans-serif;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   font-weight: 600;
   direction: ltr;
   unicode-bidi: embed;
+  margin-left: 6px;
+  margin-right: 6px;
 }
 
 .liveGrowth[data-positive="true"] {
-  color: #8df0c7;
+  color: #86efac;
 }
 
 .liveGrowth[data-negative="true"] {
-  color: #f8bac8;
+  color: #fca5a5;
 }
 
 .price {
   font-family: var(--font-space-grotesk), var(--font-manrope), system-ui, sans-serif;
   font-weight: 700;
-  font-size: 1.1rem;
+  font-size: 1rem;
   white-space: nowrap;
 }
 
 .growthRow {
   display: flex;
-  gap: 8px;
+  gap: 4px;
 }
 
 .growthItem {
@@ -137,34 +175,37 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 2px;
-  padding: 8px 4px;
-  border-radius: 8px;
-  background: rgba(255, 255, 255, 0.02);
+  gap: 1px;
+  padding: 4px 2px;
+  border-radius: 6px;
+  background: transparent;
+  border: 1px solid transparent;
+  transition: background 150ms ease, border-color 150ms ease;
 }
 
 .growthItem[data-active="true"] {
   background: rgba(16, 185, 129, 0.12);
+  border-color: rgba(16, 185, 129, 0.3);
 }
 
 .growthValue {
   font-family: var(--font-space-grotesk), var(--font-manrope), system-ui, sans-serif;
   font-weight: 700;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   direction: ltr;
   unicode-bidi: embed;
 }
 
 .growthValue[data-positive="true"] {
-  color: #8df0c7;
+  color: #86efac;
 }
 
 .growthValue[data-negative="true"] {
-  color: #f8bac8;
+  color: #fca5a5;
 }
 
 .growthLabel {
-  font-size: 0.75rem;
+  font-size: 0.65rem;
   color: var(--muted);
   text-transform: uppercase;
 }
@@ -174,4 +215,26 @@
   text-align: center;
   color: var(--muted);
   font-size: 1.1rem;
+}
+
+@media (max-width: 360px) {
+  .card {
+    padding: 10px;
+  }
+
+  .symbol {
+    font-size: 1rem;
+  }
+
+  .price {
+    font-size: 0.95rem;
+  }
+
+  .growthValue {
+    font-size: 0.8rem;
+  }
+
+  .growthLabel {
+    font-size: 0.6rem;
+  }
 }

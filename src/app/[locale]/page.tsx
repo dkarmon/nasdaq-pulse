@@ -1,9 +1,7 @@
 // ABOUTME: Redesigned landing page with Stripe-style aesthetics.
 // ABOUTME: Features Remotion hero video and Framer Motion animations.
 
-import Link from "next/link";
 import { Locale, defaultLocale, getDictionary, isRTL, locales } from "@/lib/i18n";
-import { LocaleSwitcher } from "@/components/locale-switcher";
 import { LandingClient } from "./landing-client";
 
 type LandingProps = {

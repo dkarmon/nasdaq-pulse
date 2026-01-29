@@ -1,3 +1,6 @@
+// ABOUTME: Language switcher component for locale navigation.
+// ABOUTME: Toggles between available locales while preserving the current path.
+
 "use client";
 
 import Link from "next/link";
@@ -20,8 +23,8 @@ export function LocaleSwitcher({ locale }: Props) {
   const href = getTargetHref(pathname, target);
 
   return (
-    <Link href={href} className="pill ghost" aria-label="Switch language">
-      <span>{target.toUpperCase()}</span>
+    <Link href={href} className="nav-icon-btn" aria-label="Switch language">
+      {target.toUpperCase()}
     </Link>
   );
 }

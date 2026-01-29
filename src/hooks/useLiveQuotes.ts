@@ -3,7 +3,7 @@
 
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import type { LiveQuote } from "@/app/api/live-quotes/route";
 
 export type { LiveQuote };
@@ -22,24 +22,15 @@ export function useLiveQuotes(symbols: string[]): UseLiveQuotesResult {
   const [error, setError] = useState<string | null>(null);
   const [fetchedAt, setFetchedAt] = useState<string | null>(null);
 
-  // Track symbols to detect changes
   const symbolsKey = symbols.join(",");
-  const prevSymbolsKeyRef = useRef<string>("");
 
   useEffect(() => {
-    // Skip if no symbols
     if (symbols.length === 0) {
       setQuotes({});
       setIsLoading(false);
       setError(null);
       return;
     }
-
-    // Only fetch if symbols changed
-    if (prevSymbolsKeyRef.current === symbolsKey && Object.keys(quotes).length > 0) {
-      return;
-    }
-    prevSymbolsKeyRef.current = symbolsKey;
 
     async function fetchQuotes() {
       setIsLoading(true);

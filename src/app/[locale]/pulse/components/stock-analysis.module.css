@@ -1,0 +1,194 @@
+/* ABOUTME: Styles for the AI stock analysis component. */
+/* ABOUTME: Includes recommendation badge colors and responsive layout. */
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 16px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.02));
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  backdrop-filter: blur(8px);
+}
+
+.sectionTitle {
+  font-size: 1rem;
+  font-weight: 700;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--muted);
+}
+
+.analysisContent {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  width: fit-content;
+}
+
+.badge[data-recommendation="buy"] {
+  background: rgba(34, 197, 94, 0.2);
+  color: #86efac;
+  border: 1px solid rgba(34, 197, 94, 0.3);
+}
+
+.badge[data-recommendation="hold"] {
+  background: rgba(234, 179, 8, 0.2);
+  color: #fde047;
+  border: 1px solid rgba(234, 179, 8, 0.3);
+}
+
+.badge[data-recommendation="sell"] {
+  background: rgba(239, 68, 68, 0.2);
+  color: #fca5a5;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.analysisText {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.analysisText p {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--text);
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 12px;
+  border-top: 1px solid var(--glass-border);
+}
+
+.timestamp {
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.refreshButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: 1px solid var(--glass-border);
+  border-radius: 8px;
+  background: var(--glass);
+  color: var(--muted);
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: border 150ms ease, color 150ms ease, background 150ms ease;
+}
+
+.refreshButton:hover:not(:disabled) {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--glass-hover);
+}
+
+.refreshButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.generateButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 20px;
+  border: 1px solid var(--accent);
+  border-radius: 8px;
+  background: rgba(16, 185, 129, 0.1);
+  color: var(--accent);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 150ms ease, transform 150ms ease;
+}
+
+.generateButton:hover:not(:disabled) {
+  background: rgba(16, 185, 129, 0.2);
+  transform: translateY(-1px);
+}
+
+.generateButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .generateButton:hover:not(:disabled) {
+    transform: none;
+  }
+}
+
+.noAnalysis {
+  display: flex;
+  justify-content: center;
+  padding: 16px 0;
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  padding: 16px 0;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 0;
+}
+
+.error p {
+  margin: 0;
+  color: var(--danger);
+  font-size: 0.95rem;
+  text-align: center;
+}
+
+/* Mobile collapsible sections - only on mobile */
+.mobileCollapsible {
+  display: block;
+}
+
+@media (min-width: 769px) {
+  .mobileCollapsible {
+    display: none;
+  }
+}
+
+/* Desktop always-visible sections - hidden on mobile */
+.desktopAlwaysVisible {
+  display: none;
+}
+
+@media (min-width: 769px) {
+  .desktopAlwaysVisible {
+    display: block;
+  }
+}

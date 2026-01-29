@@ -1,5 +1,5 @@
 // ABOUTME: API route returning screener data with growth metrics.
-// ABOUTME: Supports NASDAQ and TLV exchanges, sorting, and filtering by maximum growth thresholds.
+// ABOUTME: Supports NASDAQ and TLV exchanges, sorting, and omit rules filtering.
 
 import { NextRequest, NextResponse } from "next/server";
 import { getStocks, getLastUpdated } from "@/lib/market-data/storage";
@@ -10,20 +10,12 @@ import type {
   SortPeriod,
   ScreenerResponse,
   Exchange,
+  OmitRulesConfig,
+  OmitRule,
 } from "@/lib/market-data/types";
-import { fetchActiveFormula, summarizeFormula } from "@/lib/recommendations/server";
+import { fetchActiveFormula, summarizeFormula, fetchEffectiveOmitRules } from "@/lib/recommendations/server";
+import { createClient } from "@/lib/supabase/server";
 import { filterAndSortByRecommendation, scoreStocksWithFormula } from "@/lib/market-data/recommendation";
-
-function parseMinPrice(value: string | null): number | null {
-  if (!value || value === "null" || value === "") {
-    return null;
-  }
-  const num = parseFloat(value);
-  if (!isNaN(num) && num > 0) {
-    return num;
-  }
-  return null;
-}
 
 function parseSortPeriod(value: string | null): SortPeriod {
   if (value === "1d" || value === "5d" || value === "6m" || value === "12m" || value === "az") {
@@ -55,14 +47,42 @@ function parseBoolean(value: string | null): boolean {
   return value === "true" || value === "1";
 }
 
-function applyFilters(stocks: Stock[], params: ScreenerParams): Stock[] {
-  const minPrice = params.filters.minPrice;
+function getStockFieldValue(stock: Stock, field: OmitRule["field"]): number | undefined {
+  switch (field) {
+    case "price": return stock.price;
+    case "marketCap": return stock.marketCap;
+    case "growth1d": return stock.growth1d;
+    case "growth5d": return stock.growth5d;
+    case "growth1m": return stock.growth1m;
+    case "growth6m": return stock.growth6m;
+    case "growth12m": return stock.growth12m;
+  }
+}
 
-  if (minPrice === null) {
+function applyOmitRules(stocks: Stock[], rules: OmitRulesConfig | null, exchange: Exchange): Stock[] {
+  if (!rules || !rules.enabled) {
     return stocks;
   }
 
-  return stocks.filter((stock) => stock.price >= minPrice);
+  const exchangeRules = rules.rules[exchange];
+  if (!exchangeRules || exchangeRules.length === 0) {
+    return stocks;
+  }
+
+  return stocks.filter((stock) => {
+    for (const rule of exchangeRules) {
+      const value = getStockFieldValue(stock, rule.field);
+      if (value === undefined) continue;
+
+      if (rule.min != null && value < rule.min) {
+        return false;
+      }
+      if (rule.max != null && value > rule.max) {
+        return false;
+      }
+    }
+    return true;
+  });
 }
 
 function sortStocks(stocks: Stock[], sortBy: SortPeriod): Stock[] {
@@ -85,10 +105,13 @@ function sortStocks(stocks: Stock[], sortBy: SortPeriod): Stock[] {
   return sorted;
 }
 
-async function fetchScreenerData(params: ScreenerParams, search?: string): Promise<ScreenerResponse> {
+async function fetchScreenerData(params: ScreenerParams, search?: string, userId?: string | null): Promise<ScreenerResponse> {
   const exchange = params.exchange;
-  const recommendedOnly = (params as any).recommendedOnly === true;
-  const includeScores = (params as any).includeScores === true;
+  const recommendedOnly = params.recommendedOnly === true;
+  const includeScores = params.includeScores === true;
+
+  // Fetch effective omit rules for user (or admin defaults if no user)
+  const omitRules = await fetchEffectiveOmitRules(userId ?? null);
 
   // Try to get data from Redis first
   const stocks = await getStocks(exchange);
@@ -113,7 +136,7 @@ async function fetchScreenerData(params: ScreenerParams, search?: string): Promi
       });
     }
 
-    filtered = applyFilters(filtered, params);
+    filtered = applyOmitRules(filtered, omitRules, exchange);
     filtered = sortStocks(filtered, params.sortBy);
 
     const activeFormula = await fetchActiveFormula({ fallbackToDefault: true });
@@ -124,6 +147,7 @@ async function fetchScreenerData(params: ScreenerParams, search?: string): Promi
       recommendationApplied = recommendationApplied.slice(0, params.limit);
     } else if (includeScores) {
       recommendationApplied = scoreStocksWithFormula(filtered, activeFormula ?? undefined);
+      recommendationApplied = recommendationApplied.slice(0, params.limit);
     } else {
       recommendationApplied = filtered.slice(0, params.limit);
     }
@@ -143,16 +167,20 @@ async function fetchScreenerData(params: ScreenerParams, search?: string): Promi
   if (exchange === "nasdaq") {
     const response = await getMockScreenerData(params);
     const activeFormula = await fetchActiveFormula({ fallbackToDefault: true });
+    let mockStocks = applyOmitRules(response.stocks, omitRules, exchange);
+
+    if (recommendedOnly) {
+      mockStocks = filterAndSortByRecommendation(mockStocks, activeFormula ?? undefined).slice(0, params.limit);
+    } else if (includeScores) {
+      mockStocks = scoreStocksWithFormula(mockStocks, activeFormula ?? undefined).slice(0, params.limit);
+    }
+
     return {
       ...response,
       recommendation: {
         activeFormula: summarizeFormula(activeFormula ?? null),
       },
-      stocks: recommendedOnly
-        ? filterAndSortByRecommendation(response.stocks, activeFormula ?? undefined).slice(0, params.limit)
-        : includeScores
-          ? scoreStocksWithFormula(response.stocks, activeFormula ?? undefined)
-          : response.stocks,
+      stocks: mockStocks,
     };
   }
 
@@ -171,22 +199,21 @@ async function fetchScreenerData(params: ScreenerParams, search?: string): Promi
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
 
+  // Get user ID for omit rules (optional - guest users get admin defaults)
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+  const userId = user?.id ?? null;
+
   const params: ScreenerParams = {
     sortBy: parseSortPeriod(searchParams.get("sortBy")),
     limit: parseLimit(searchParams.get("limit")),
-    filters: {
-      minPrice: parseMinPrice(searchParams.get("minPrice")),
-    },
     exchange: parseExchange(searchParams.get("exchange")),
+    recommendedOnly: parseBoolean(searchParams.get("recommendedOnly")),
+    includeScores: parseBoolean(searchParams.get("includeScores")),
   };
-  const recommendedOnly = parseBoolean(searchParams.get("recommendedOnly"));
-  const includeScores = parseBoolean(searchParams.get("includeScores"));
 
   const search = searchParams.get("search") ?? undefined;
-  const data = await fetchScreenerData(
-    { ...params, ...(recommendedOnly ? { recommendedOnly: true } : {}), ...(includeScores ? { includeScores: true } : {}) } as ScreenerParams,
-    search
-  );
+  const data = await fetchScreenerData(params, search, userId);
 
   return NextResponse.json(data);
 }

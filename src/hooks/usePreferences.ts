@@ -1,23 +1,21 @@
 // ABOUTME: Custom hook for persisting user preferences in localStorage and Supabase.
-// ABOUTME: Stores screener sort, limit, filter, exchange, and hidden stocks settings.
+// ABOUTME: Stores screener sort, limit, exchange, and hidden stocks settings.
 
 "use client";
 
 import { useState, useCallback, useEffect, useRef } from "react";
-import type { SortPeriod, ScreenerFilters, Exchange } from "@/lib/market-data/types";
+import type { SortPeriod, Exchange } from "@/lib/market-data/types";
 
 export type HiddenSymbols = Record<Exchange, string[]>;
 
 export type PreRecommendedState = {
   sortBy: SortPeriod;
   limit: number;
-  filters: ScreenerFilters;
 };
 
 export type ScreenerPreferences = {
   sortBy: SortPeriod;
   limit: number;
-  filters: ScreenerFilters;
   exchange: Exchange;
   hiddenSymbols: HiddenSymbols;
   showRecommendedOnly: boolean;
@@ -29,9 +27,6 @@ const STORAGE_KEY = "nasdaq-pulse-prefs";
 const defaultPreferences: ScreenerPreferences = {
   sortBy: "1m",
   limit: 50,
-  filters: {
-    minPrice: null,
-  },
   exchange: "nasdaq",
   hiddenSymbols: {
     nasdaq: [],
@@ -41,18 +36,10 @@ const defaultPreferences: ScreenerPreferences = {
   preRecommendedState: null,
 };
 
-type LegacyFilters = {
-  max5d?: unknown;
-  max1m?: unknown;
-  max6m?: unknown;
-  max12m?: unknown;
-  minPrice?: number | null;
-};
-
 type LegacyPreferences = {
   sortBy?: SortPeriod;
   limit?: number;
-  filters?: LegacyFilters;
+  filters?: unknown;
   hiddenSymbols?: string[] | HiddenSymbols;
   showRecommendedOnly?: boolean;
   exchange?: Exchange;
@@ -96,9 +83,6 @@ function loadPreferences(): ScreenerPreferences {
     return {
       sortBy: parsed.sortBy ?? defaultPreferences.sortBy,
       limit: parsed.limit ?? defaultPreferences.limit,
-      filters: {
-        minPrice: parsed.filters?.minPrice ?? defaultPreferences.filters.minPrice,
-      },
       exchange: parsed.exchange ?? defaultPreferences.exchange,
       hiddenSymbols: migrateHiddenSymbols(parsed.hiddenSymbols),
       showRecommendedOnly: parsed.showRecommendedOnly ?? defaultPreferences.showRecommendedOnly,
@@ -126,7 +110,6 @@ function toSupabaseFormat(prefs: ScreenerPreferences) {
   return {
     sort_by: prefs.sortBy,
     display_limit: prefs.limit,
-    filters: prefs.filters,
     exchange: prefs.exchange,
     hidden_symbols: prefs.hiddenSymbols,
     show_recommended_only: prefs.showRecommendedOnly,
@@ -137,7 +120,6 @@ function toSupabaseFormat(prefs: ScreenerPreferences) {
 function fromSupabaseFormat(data: {
   sort_by?: string;
   display_limit?: number;
-  filters?: ScreenerFilters;
   exchange?: string;
   hidden_symbols?: HiddenSymbols;
   show_recommended_only?: boolean;
@@ -145,7 +127,6 @@ function fromSupabaseFormat(data: {
   return {
     sortBy: (data.sort_by as SortPeriod) || defaultPreferences.sortBy,
     limit: data.display_limit || defaultPreferences.limit,
-    filters: data.filters || defaultPreferences.filters,
     exchange: (data.exchange as Exchange) || defaultPreferences.exchange,
     hiddenSymbols: data.hidden_symbols || defaultPreferences.hiddenSymbols,
     showRecommendedOnly: data.show_recommended_only ?? defaultPreferences.showRecommendedOnly,
@@ -167,7 +148,6 @@ async function syncToSupabase(prefs: ScreenerPreferences): Promise<void> {
 export function usePreferences() {
   const [preferences, setPreferences] = useState<ScreenerPreferences>(defaultPreferences);
   const [isLoaded, setIsLoaded] = useState(false);
-  const [isSynced, setIsSynced] = useState(false);
   const syncTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   // Load from localStorage immediately, then fetch from Supabase
@@ -198,7 +178,6 @@ export function usePreferences() {
       } catch {
         // Ignore - localStorage is the fallback
       }
-      setIsSynced(true);
     }
 
     fetchFromSupabase();
@@ -227,30 +206,6 @@ export function usePreferences() {
 
   const setLimit = useCallback((limit: number) => {
     updatePreferences({ limit });
-  }, [updatePreferences]);
-
-  const setMinPrice = useCallback((value: number | null) => {
-    setPreferences((prev) => {
-      const next = {
-        ...prev,
-        filters: { ...prev.filters, minPrice: value },
-      };
-      savePreferences(next);
-
-      // Debounced sync to Supabase
-      if (syncTimeoutRef.current) {
-        clearTimeout(syncTimeoutRef.current);
-      }
-      syncTimeoutRef.current = setTimeout(() => {
-        syncToSupabase(next);
-      }, 1000);
-
-      return next;
-    });
-  }, []);
-
-  const clearFilters = useCallback(() => {
-    updatePreferences({ filters: defaultPreferences.filters });
   }, [updatePreferences]);
 
   const setExchange = useCallback((exchange: Exchange) => {
@@ -306,18 +261,17 @@ export function usePreferences() {
       let next: ScreenerPreferences;
 
       if (show) {
-        // Enabling: save current sort/limit state, keep filters active
+        // Enabling: save current sort/limit state
         next = {
           ...prev,
           showRecommendedOnly: true,
           preRecommendedState: {
             sortBy: prev.sortBy,
             limit: prev.limit,
-            filters: { ...prev.filters },
           },
         };
       } else {
-        // Disabling: restore sort/limit but keep current filters
+        // Disabling: restore sort/limit
         const restored = prev.preRecommendedState;
         next = {
           ...prev,
@@ -336,8 +290,6 @@ export function usePreferences() {
     });
   }, []);
 
-  const hasActiveFilters = preferences.filters.minPrice !== null;
-
   // Get hidden symbols for current exchange
   const currentHiddenSymbols = preferences.hiddenSymbols[preferences.exchange];
 
@@ -346,9 +298,6 @@ export function usePreferences() {
     isLoaded,
     setSortBy,
     setLimit,
-    setMinPrice,
-    clearFilters,
-    hasActiveFilters,
     setExchange,
     hideStock,
     unhideStock,

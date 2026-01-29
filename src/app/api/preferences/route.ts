@@ -35,7 +35,7 @@ export async function POST(request: Request) {
   }
 
   const body = await request.json();
-  const { sort_by, display_limit, filters, exchange, hidden_symbols, show_recommended_only } = body;
+  const { sort_by, display_limit, filters, exchange, hidden_symbols, show_recommended_only, omit_rules } = body;
 
   // Upsert preferences
   const { data: prefs, error } = await supabase
@@ -48,6 +48,7 @@ export async function POST(request: Request) {
       exchange,
       hidden_symbols,
       show_recommended_only,
+      omit_rules,
       updated_at: new Date().toISOString(),
     }, {
       onConflict: "user_id",

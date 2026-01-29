@@ -6,6 +6,346 @@
   width: 100%;
 }
 
+/* Tab Navigation */
+.tabs {
+  display: flex;
+  gap: 0;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 24px;
+}
+
+.tab {
+  padding: 12px 24px;
+  color: var(--muted);
+  font-weight: 600;
+  border-bottom: 2px solid transparent;
+  background: transparent;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  cursor: pointer;
+  transition: color 150ms ease, border-color 150ms ease;
+  font-size: 0.95rem;
+}
+
+.tab:hover:not(.tabActive) {
+  color: var(--foreground);
+}
+
+.tabActive {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+
+/* Users Tab Grid */
+.usersGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  align-items: start;
+}
+
+@media (max-width: 768px) {
+  .usersGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.inviteList {
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.inviteRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 14px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 8px;
+}
+
+.inviteEmail {
+  font-size: 0.95rem;
+  color: var(--foreground);
+}
+
+.userList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.userRow {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 14px 16px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.userInfo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.userEmail {
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.userRole {
+  font-size: 0.85rem;
+  color: var(--muted);
+  text-transform: capitalize;
+}
+
+.userActions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.deleteButton {
+  padding: 6px 12px;
+  background: transparent;
+  border: 1px solid rgba(255, 99, 99, 0.3);
+  border-radius: 6px;
+  color: #ff6b6b;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 150ms ease;
+}
+
+.deleteButton:hover {
+  background: rgba(255, 99, 99, 0.12);
+}
+
+/* Modal */
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(4px);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal {
+  width: min(90vw, 800px);
+  max-height: 90vh;
+  overflow-y: auto;
+  background: var(--bg, #0f172a);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 24px;
+  animation: modalIn 200ms ease-out;
+  scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+  scrollbar-width: thin;
+}
+
+.modal::-webkit-scrollbar {
+  width: 8px;
+}
+
+.modal::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.modal::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+}
+
+.modal::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+@keyframes modalIn {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.modalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.modalTitle {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.modalClose {
+  background: transparent;
+  border: none;
+  color: var(--muted);
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 4px 8px;
+  line-height: 1;
+  transition: color 150ms ease;
+}
+
+.modalClose:hover {
+  color: var(--foreground);
+}
+
+.modalFooter {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+}
+
+/* Radio Row (formula selection) */
+.radioRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.02);
+  cursor: pointer;
+  transition: border-color 150ms ease, background-color 150ms ease;
+}
+
+.radioRow:hover {
+  border-color: rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.radioRowActive {
+  border-color: var(--accent);
+  background: rgba(16, 185, 129, 0.08);
+}
+
+.radioIndicator {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 2px solid var(--muted);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 150ms ease, background-color 150ms ease;
+}
+
+.radioIndicatorActive {
+  border-color: var(--accent);
+  background: var(--accent);
+}
+
+.radioIndicatorActive::after {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #0b0f1a;
+}
+
+.radioContent {
+  flex: 1;
+  min-width: 0;
+}
+
+.radioName {
+  font-weight: 700;
+}
+
+.radioMeta {
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.radioActions {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+/* Overflow menu button */
+.overflowButton {
+  background: transparent;
+  border: none;
+  color: var(--muted);
+  font-size: 1.25rem;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: background-color 150ms ease, color 150ms ease;
+}
+
+.overflowButton:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--foreground);
+}
+
+/* Dropdown menu */
+.dropdownMenu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: #0c1220;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 4px 0;
+  min-width: 120px;
+  z-index: 50;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+.dropdownItem {
+  display: block;
+  width: 100%;
+  padding: 8px 12px;
+  background: transparent;
+  border: none;
+  color: var(--foreground);
+  font-size: 0.9rem;
+  text-align: start;
+  cursor: pointer;
+  transition: background-color 150ms ease;
+}
+
+.dropdownItem:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.dropdownItemDanger {
+  color: #ff6b6b;
+}
+
+.dropdownItemDanger:hover {
+  background: rgba(255, 99, 99, 0.12);
+}
+
+.dropdownWrapper {
+  position: relative;
+}
+
 .header {
   display: flex;
   justify-content: space-between;
@@ -80,22 +420,25 @@
   letter-spacing: 0.02em;
 }
 
+
 .unhideButton {
-  padding: 8px 16px;
-  background: transparent;
-  border: 1px solid var(--accent);
-  border-radius: 6px;
-  color: var(--accent);
-  font-size: 0.9rem;
-  font-weight: 500;
+  padding: 9px 16px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  border: 1px solid transparent;
+  border-radius: 10px;
+  color: #0b0f1a;
+  font-size: 0.92rem;
+  font-weight: 600;
   cursor: pointer;
-  transition: background 150ms ease, color 150ms ease;
+  transition: transform 150ms ease, box-shadow 150ms ease;
+  box-shadow: var(--shadow-glow);
 }
 
 .unhideButton:hover {
-  background: var(--accent);
-  color: var(--background);
+  transform: translateY(-1px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
 }
+
 
 .section + .section {
   margin-top: 24px;
@@ -142,19 +485,20 @@
 
 .inviteButton {
   padding: 10px 20px;
-  background: var(--accent);
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
   border: none;
   border-radius: 8px;
-  color: var(--background);
+  color: #0b0f1a;
   font-size: 0.95rem;
   font-weight: 600;
   cursor: pointer;
   transition: transform 150ms ease, box-shadow 150ms ease;
+  box-shadow: var(--shadow-glow);
 }
 
 .inviteButton:hover {
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
 }
 
 .inviteButton:active {
@@ -177,14 +521,6 @@
 .status {
   color: var(--muted);
   font-size: 0.9rem;
-}
-
-.role {
-  color: var(--accent);
-  font-size: 0.85rem;
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.03em;
 }
 
 .roleToggle {
@@ -214,8 +550,8 @@
 }
 
 .roleOptionActive {
-  background: var(--accent);
-  color: var(--background);
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  color: #0b0f1a;
 }
 
 .roleOption:disabled {
@@ -235,12 +571,6 @@
   color: var(--foreground);
 }
 
-.recoPanel {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
 .recoHeader {
   display: flex;
   justify-content: space-between;
@@ -254,19 +584,6 @@
   font-size: 0.95rem;
 }
 
-.recoGrid {
-  display: grid;
-  grid-template-columns: 1fr 1.4fr;
-  gap: 16px;
-}
-
-.recoCard {
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 16px;
-  background: rgba(255, 255, 255, 0.02);
-}
-
 .recoField {
   display: flex;
   flex-direction: column;
@@ -274,7 +591,6 @@
   margin-bottom: 12px;
 }
 
-.recoSelect,
 .recoInput,
 .recoTextarea {
   width: 100%;
@@ -286,18 +602,6 @@
   font-size: 0.95rem;
 }
 
-.recoSelect {
-  appearance: none;
-  background:
-    linear-gradient(45deg, transparent 50%, var(--accent) 50%) right 12px center/7px 7px no-repeat,
-    linear-gradient(135deg, var(--accent) 50%, transparent 50%) right 6px center/7px 7px no-repeat,
-    rgba(255, 255, 255, 0.05);
-  border: 1px solid var(--border);
-  color: var(--foreground);
-  cursor: pointer;
-}
-
-.recoSelect:focus,
 .recoInput:focus,
 .recoTextarea:focus {
   outline: none;
@@ -305,18 +609,8 @@
   box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.25);
 }
 
-.recoSelect:hover {
-  background-color: rgba(255, 255, 255, 0.08);
-  border-color: rgba(255, 255, 255, 0.25);
-}
-
 .recoTextarea {
   font-family: var(--font-manrope), system-ui, sans-serif;
-}
-
-.recoSelect option {
-  background: #0c1220;
-  color: var(--foreground);
 }
 
 .tokenRow {
@@ -337,7 +631,6 @@
 
 .primaryButton,
 .secondaryButton,
-.dangerButton,
 .linkButton {
   padding: 10px 14px;
   border-radius: 8px;
@@ -348,21 +641,16 @@
 }
 
 .primaryButton {
-  background: var(--accent);
-  color: var(--background);
-  border-color: var(--accent);
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  color: #0b0f1a;
+  border-color: transparent;
+  box-shadow: var(--shadow-glow);
 }
 
 .secondaryButton {
   background: rgba(255, 255, 255, 0.04);
   color: var(--foreground);
   border-color: rgba(255, 255, 255, 0.12);
-}
-
-.dangerButton {
-  background: rgba(255, 99, 99, 0.12);
-  color: #ff6b6b;
-  border-color: rgba(255, 99, 99, 0.3);
 }
 
 .linkButton {
@@ -377,38 +665,6 @@
   display: flex;
   flex-direction: column;
   gap: 8px;
-}
-
-.recoRow {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 12px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 8px;
-  background: rgba(255, 255, 255, 0.02);
-}
-
-.recoName {
-  font-weight: 700;
-}
-
-.recoMeta {
-  color: var(--muted);
-  font-size: 0.85rem;
-}
-
-.recoActions {
-  display: flex;
-  gap: 6px;
-  align-items: center;
-}
-
-.recoActionsRow {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-  margin: 8px 0;
 }
 
 .errorBox,
@@ -482,8 +738,315 @@
   gap: 12px;
 }
 
-@media (max-width: 960px) {
-  .recoGrid {
-    grid-template-columns: 1fr;
+/* Mobile stacked cards for formula preview */
+.previewCards {
+  display: none;
+  flex-direction: column;
+  gap: 10px;
+}
+
+@media (max-width: 768px) {
+  .previewTable {
+    display: none;
+  }
+
+  .previewCards {
+    display: flex;
+  }
+}
+
+.previewCard {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+}
+
+.previewCardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.previewCardName {
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+.previewCardScore {
+  font-family: var(--font-space-grotesk), var(--font-manrope), system-ui, sans-serif;
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.previewCardMetrics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+/* Toggle switch (used by omit rules) */
+.toggleLabel {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.95rem;
+  color: var(--foreground);
+}
+
+.toggle {
+  position: relative;
+  width: 44px;
+  height: 24px;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background-color 150ms ease, border-color 150ms ease;
+}
+
+.toggle[data-active="true"] {
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  border-color: transparent;
+}
+
+.toggle:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.toggleThumb {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 18px;
+  height: 18px;
+  background: white;
+  border-radius: 50%;
+  transition: transform 150ms ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.toggle[data-active="true"] .toggleThumb {
+  transform: translateX(20px);
+}
+
+/* Sync with admin controls */
+.syncRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 12px 0 16px 0;
+  flex-wrap: wrap;
+}
+
+.syncLabel {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.95rem;
+  color: var(--foreground);
+  cursor: pointer;
+}
+
+.syncLabel input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--accent);
+  cursor: pointer;
+}
+
+.syncHint {
+  font-size: 0.85rem;
+  color: var(--muted);
+  font-style: italic;
+}
+
+/* Exchange tabs (NASDAQ/TLV) */
+.exchangeTabs {
+  display: flex;
+  gap: 0;
+  margin: 16px 0;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  width: fit-content;
+}
+
+.exchangeTab {
+  padding: 10px 20px;
+  background: rgba(255, 255, 255, 0.05);
+  border: none;
+  color: var(--muted);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 150ms ease, color 150ms ease;
+}
+
+.exchangeTab:not(:last-child) {
+  border-right: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.exchangeTab:hover:not([data-active="true"]) {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--foreground);
+}
+
+.exchangeTab[data-active="true"] {
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  color: #0b0f1a;
+}
+
+/* Rules list */
+.rulesList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.ruleRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  flex-wrap: wrap;
+}
+
+.ruleRow[data-readonly="true"] {
+  opacity: 0.7;
+}
+
+.ruleField {
+  font-weight: 600;
+  font-size: 0.95rem;
+  min-width: 140px;
+  color: var(--foreground);
+}
+
+.ruleInputs {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex: 1;
+}
+
+.ruleInputLabel {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+.ruleInput {
+  width: 90px;
+  padding: 8px 10px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 6px;
+  color: var(--foreground);
+  font-size: 0.9rem;
+  transition: border-color 150ms ease, background-color 150ms ease;
+}
+
+.ruleInput::placeholder {
+  color: var(--muted);
+}
+
+.ruleInput:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.ruleInput:focus {
+  outline: none;
+  border-color: var(--accent);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.ruleInput:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.ruleRemove {
+  padding: 6px 10px;
+  background: transparent;
+  border: 1px solid rgba(255, 99, 99, 0.3);
+  border-radius: 6px;
+  color: #ff6b6b;
+  font-size: 1.1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 150ms ease;
+  line-height: 1;
+}
+
+.ruleRemove:hover {
+  background: rgba(255, 99, 99, 0.12);
+}
+
+/* Add rule dropdown */
+.addRuleRow {
+  margin-top: 8px;
+}
+
+.addRuleSelect {
+  padding: 10px 14px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 8px;
+  color: var(--foreground);
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: border-color 150ms ease, background-color 150ms ease;
+  min-width: 180px;
+  color-scheme: dark;
+}
+
+.addRuleSelect:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.addRuleSelect:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+/* Save button row */
+.saveRow {
+  margin-top: 16px;
+  display: flex;
+  gap: 12px;
+}
+
+/* Mobile responsive for omit rules */
+@media (max-width: 600px) {
+  .ruleRow {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .ruleField {
+    min-width: auto;
+  }
+
+  .ruleInputs {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .ruleRemove {
+    align-self: flex-end;
   }
 }
