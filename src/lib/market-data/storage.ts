@@ -95,28 +95,6 @@ export async function isDataFresh(exchange: Exchange = "nasdaq", maxAgeHours = 2
   return ageHours < maxAgeHours;
 }
 
-// Clear all data (for debugging)
-export async function clearAll(exchange?: Exchange): Promise<void> {
-  if (exchange) {
-    const keys = getKeys(exchange);
-    await redis.del(keys.STOCKS);
-    await redis.del(keys.LAST_UPDATED);
-    await redis.del(keys.RUN_STATUS);
-  } else {
-    // Clear all exchanges
-    const nasdaqKeys = getKeys("nasdaq");
-    const tlvKeys = getKeys("tlv");
-    await redis.del(nasdaqKeys.STOCKS);
-    await redis.del(nasdaqKeys.LAST_UPDATED);
-    await redis.del(nasdaqKeys.RUN_STATUS);
-    await redis.del(tlvKeys.STOCKS);
-    await redis.del(tlvKeys.LAST_UPDATED);
-    await redis.del(tlvKeys.RUN_STATUS);
-    await redis.del(SHARED_KEYS.PROFILES);
-    await redis.del(SHARED_KEYS.HISTORY);
-  }
-}
-
 // Run status tracking
 export type RunStatus = {
   range: string;

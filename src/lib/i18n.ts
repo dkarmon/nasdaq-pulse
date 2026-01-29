@@ -1,3 +1,6 @@
+// ABOUTME: Internationalization constants and dictionaries for English and Hebrew.
+// ABOUTME: Provides type-safe translations and RTL detection for the UI.
+
 export const locales = ["en", "he"] as const;
 
 export type Locale = (typeof locales)[number];

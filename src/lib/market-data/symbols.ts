@@ -28,5 +28,3 @@ export const NASDAQ_SYMBOLS = [
 ] as const;
 
 export type NasdaqSymbol = typeof NASDAQ_SYMBOLS[number];
-
-export const SYMBOL_COUNT = NASDAQ_SYMBOLS.length;

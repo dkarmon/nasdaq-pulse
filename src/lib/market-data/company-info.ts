@@ -24,7 +24,3 @@ export function getCompanyInfo(symbol: string): CompanyInfo | null {
 export function hasCompanyInfo(symbol: string): boolean {
   return symbol in companyInfoMap;
 }
-
-export function getSupportedSymbols(): string[] {
-  return Object.keys(companyInfoMap);
-}

@@ -1,6 +1,8 @@
 // ABOUTME: Yahoo Finance API client for quotes and historical data.
 // ABOUTME: No API key required - uses unofficial but reliable Yahoo Finance endpoints.
 
+import type { HistoricalDataPoint } from "./types";
+
 const BASE_URL = "https://query1.finance.yahoo.com";
 
 type YahooChartResult = {
@@ -206,34 +208,6 @@ export async function getGrowthData(symbol: string): Promise<YahooGrowth | null>
   };
 }
 
-type YahooQuoteSummary = {
-  quoteSummary: {
-    result: Array<{
-      summaryDetail?: {
-        marketCap?: { raw: number };
-      };
-      price?: {
-        marketCap?: { raw: number };
-        longName?: string;
-        shortName?: string;
-      };
-    }> | null;
-    error: null | { code: string; description: string };
-  };
-};
-
-export async function getMarketCap(symbol: string): Promise<number> {
-  const url = `${BASE_URL}/v10/finance/quoteSummary/${symbol}?modules=price`;
-  const data = await fetchYahoo<YahooQuoteSummary>(url);
-
-  if (!data || data.quoteSummary.error || !data.quoteSummary.result) {
-    return 0;
-  }
-
-  const result = data.quoteSummary.result[0];
-  return result.price?.marketCap?.raw ?? 0;
-}
-
 export async function getQuoteAndGrowth(symbol: string): Promise<{
   quote: YahooQuote;
   growth: YahooGrowth;
@@ -320,15 +294,6 @@ export async function getQuoteAndGrowth(symbol: string): Promise<{
     hasSplitWarning,
   };
 }
-
-export type HistoricalDataPoint = {
-  date: string;
-  open: number;
-  high: number;
-  low: number;
-  close: number;
-  volume: number;
-};
 
 export async function getHistoricalData(symbol: string, days: number = 365): Promise<HistoricalDataPoint[]> {
   const range = days <= 30 ? "1mo" : days <= 90 ? "3mo" : days <= 180 ? "6mo" : "1y";

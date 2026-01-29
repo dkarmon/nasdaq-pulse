@@ -1,3 +1,6 @@
+// ABOUTME: Static demo data for unauthenticated users to preview the app.
+// ABOUTME: Includes sample stock quotes and news items.
+
 export type DemoQuote = {
   symbol: string;
   price: number;

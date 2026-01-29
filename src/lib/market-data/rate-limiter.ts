@@ -115,16 +115,6 @@ export const finnhubLimiter = createRateLimiter("finnhub", {
   requestsPerMinute: 60,
 });
 
-export const twelveDataLimiter = createRateLimiter("twelveData", {
-  requestsPerMinute: 8,
-  requestsPerDay: 800,
-});
-
-export const alphaVantageLimiter = createRateLimiter("alphaVantage", {
-  requestsPerMinute: 5,
-  requestsPerDay: 500,
-});
-
 export const newsApiLimiter = createRateLimiter("newsApi", {
   requestsPerMinute: 10,
   requestsPerDay: 100,
