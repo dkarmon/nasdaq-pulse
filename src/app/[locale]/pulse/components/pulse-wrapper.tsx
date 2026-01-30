@@ -15,9 +15,10 @@ type PulseWrapperProps = {
   initialData: ScreenerResponse;
   dict: Dictionary;
   locale: string;
+  isAdmin: boolean;
 };
 
-export function PulseWrapper({ initialData, dict, locale }: PulseWrapperProps) {
+export function PulseWrapper({ initialData, dict, locale, isAdmin }: PulseWrapperProps) {
   const [selectedSymbol, setSelectedSymbol] = useState<string | null>(null);
   const [activeFormula, setActiveFormula] = useState<RecommendationFormulaSummary | null>(
     initialData.recommendation?.activeFormula ?? null
@@ -60,6 +61,7 @@ export function PulseWrapper({ initialData, dict, locale }: PulseWrapperProps) {
             onSelectStock={setSelectedSymbol}
             activeFormula={activeFormula}
             onFormulaChange={setActiveFormula}
+            isAdmin={isAdmin}
           />
         </div>
 

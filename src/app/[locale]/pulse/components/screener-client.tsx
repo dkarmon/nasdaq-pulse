@@ -26,6 +26,7 @@ type ScreenerClientProps = {
   selectedSymbol: string | null;
   activeFormula: RecommendationFormulaSummary | null;
   onFormulaChange: (formula: RecommendationFormulaSummary | null) => void;
+  isAdmin: boolean;
 };
 
 export function ScreenerClient({
@@ -35,6 +36,7 @@ export function ScreenerClient({
   selectedSymbol,
   activeFormula,
   onFormulaChange,
+  isAdmin,
 }: ScreenerClientProps) {
   const {
     preferences,
@@ -135,6 +137,15 @@ export function ScreenerClient({
     recommended: dict.screener.recommended,
   };
 
+  // Compute ranks before filtering - stocks are already sorted by the API
+  const rankMap = useMemo(() => {
+    const map = new Map<string, number>();
+    scoredStocks.forEach((stock, index) => {
+      map.set(stock.symbol, index + 1);
+    });
+    return map;
+  }, [scoredStocks]);
+
   let visibleStocks = scoredStocks.filter(
     (stock) => !currentHiddenSymbols.includes(stock.symbol)
   );
@@ -157,6 +168,9 @@ export function ScreenerClient({
         onLimitChange={setLimit}
         onSearchChange={setSearchQuery}
         onShowRecommendedOnlyChange={setShowRecommendedOnly}
+        isAdmin={isAdmin}
+        activeFormula={activeFormula}
+        onFormulaChange={onFormulaChange}
         labels={controlLabels}
       />
 
@@ -168,6 +182,7 @@ export function ScreenerClient({
           onSelectStock={onSelectStock}
           onHideStock={hideStock}
           liveQuotes={liveQuotes}
+          rankMap={rankMap}
           labels={tableLabels}
         />
 
@@ -178,6 +193,7 @@ export function ScreenerClient({
           onSelectStock={onSelectStock}
           onHideStock={hideStock}
           liveQuotes={liveQuotes}
+          rankMap={rankMap}
           labels={cardLabels}
         />
       </div>

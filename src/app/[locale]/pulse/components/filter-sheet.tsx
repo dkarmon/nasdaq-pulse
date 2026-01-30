@@ -5,6 +5,7 @@
 
 import { useEffect } from "react";
 import type { SortPeriod, Exchange } from "@/lib/market-data/types";
+import type { RecommendationFormulaSummary } from "@/lib/recommendations/types";
 import { SORT_OPTIONS, LIMIT_OPTIONS, EXCHANGE_OPTIONS } from "./controls-bar";
 import styles from "./filter-sheet.module.css";
 
@@ -18,12 +19,17 @@ type FilterSheetProps = {
   onExchangeChange: (exchange: Exchange) => void;
   onSortChange: (sort: SortPeriod) => void;
   onLimitChange: (limit: number) => void;
+  isAdmin?: boolean;
+  formulas?: RecommendationFormulaSummary[];
+  activeFormula?: RecommendationFormulaSummary | null;
+  onFormulaChange?: (formulaId: string) => void;
   labels: {
     sortBy: string;
     show: string;
     exchange: string;
     nasdaq: string;
     tlv: string;
+    formula?: string;
     apply: string;
   };
 };
@@ -38,6 +44,10 @@ export function FilterSheet({
   onExchangeChange,
   onSortChange,
   onLimitChange,
+  isAdmin = false,
+  formulas = [],
+  activeFormula,
+  onFormulaChange,
   labels,
 }: FilterSheetProps) {
   // Lock body scroll when sheet is open
@@ -128,6 +138,23 @@ export function FilterSheet({
             ))}
           </div>
         </div>
+
+        {isAdmin && formulas.length > 0 && onFormulaChange && (
+          <div className={styles.section}>
+            <span className={styles.label}>{labels.formula || "Formula"}</span>
+            <select
+              className={styles.formulaSelect}
+              value={activeFormula?.id || ""}
+              onChange={(e) => onFormulaChange(e.target.value)}
+            >
+              {formulas.map((formula) => (
+                <option key={formula.id} value={formula.id}>
+                  {formula.name}
+                </option>
+              ))}
+            </select>
+          </div>
+        )}
 
         <div className={styles.actions}>
           <button className={styles.applyButton} onClick={onClose}>
