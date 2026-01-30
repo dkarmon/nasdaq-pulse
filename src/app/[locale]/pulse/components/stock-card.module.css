@@ -129,6 +129,14 @@
   text-overflow: ellipsis;
 }
 
+.rankBadge {
+  font-family: var(--font-space-grotesk), var(--font-manrope), system-ui, sans-serif;
+  font-weight: 600;
+  font-size: 0.75rem;
+  color: var(--muted);
+  margin-right: 6px;
+}
+
 .starIcon {
   color: #fbbf24;
   margin-right: 4px;

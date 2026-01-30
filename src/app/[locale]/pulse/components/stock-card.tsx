@@ -21,6 +21,7 @@ type StockCardProps = {
   hideLabel: string;
   recommendedLabel: string;
   liveQuote?: LiveQuote;
+  rank?: number;
 };
 
 export function StockCard({
@@ -32,6 +33,7 @@ export function StockCard({
   hideLabel,
   recommendedLabel,
   liveQuote,
+  rank,
 }: StockCardProps) {
   const isRecommended = isStockRecommended(stock);
   const [swipeOffset, setSwipeOffset] = useState(0);
@@ -99,6 +101,9 @@ export function StockCard({
         <div className={styles.header}>
           <div className={styles.symbolSection}>
             <span className={styles.symbol}>
+              {rank !== undefined && (
+                <span className={styles.rankBadge}>#{rank}</span>
+              )}
               {isRecommended && (
                 <span className={styles.starIcon} title={recommendedLabel}>★</span>
               )}
@@ -201,6 +206,7 @@ type StockCardListProps = {
   onSelectStock: (symbol: string) => void;
   onHideStock: (symbol: string) => void;
   liveQuotes?: QuotesMap;
+  rankMap?: Map<string, number>;
   labels: {
     noStocks: string;
     hide: string;
@@ -215,6 +221,7 @@ export function StockCardList({
   onSelectStock,
   onHideStock,
   liveQuotes = {},
+  rankMap,
   labels,
 }: StockCardListProps) {
   if (stocks.length === 0) {
@@ -238,6 +245,7 @@ export function StockCardList({
           hideLabel={labels.hide}
           recommendedLabel={labels.recommended}
           liveQuote={liveQuotes[stock.symbol]}
+          rank={rankMap?.get(stock.symbol)}
         />
       ))}
     </div>
