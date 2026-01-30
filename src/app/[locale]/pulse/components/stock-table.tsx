@@ -16,6 +16,7 @@ type StockTableProps = {
   onSelectStock: (symbol: string) => void;
   onHideStock: (symbol: string) => void;
   liveQuotes?: QuotesMap;
+  rankMap?: Map<string, number>;
   labels: {
     stock: string;
     price: string;
@@ -39,6 +40,7 @@ export function StockTable({
   onSelectStock,
   onHideStock,
   liveQuotes = {},
+  rankMap,
   labels,
 }: StockTableProps) {
   if (stocks.length === 0) {
@@ -54,6 +56,7 @@ export function StockTable({
       <table className={styles.table}>
         <thead>
           <tr>
+            <th className={styles.rankCol}>#</th>
             <th className={styles.stockCol}>{labels.stock}</th>
             <th className={styles.priceCol}>{labels.price}</th>
             <th className={styles.growthCol} data-active={sortBy === "1d"}>{labels.growth1d}</th>
@@ -68,6 +71,7 @@ export function StockTable({
             const isSelected = selectedSymbol === stock.symbol;
             const liveQuote = liveQuotes[stock.symbol];
             const isRecommended = isStockRecommended(stock);
+            const rank = rankMap?.get(stock.symbol);
 
             return (
               <tr
@@ -76,6 +80,7 @@ export function StockTable({
                 className={styles.row}
                 onClick={() => onSelectStock(stock.symbol)}
               >
+                <td className={styles.rankCell}>{rank ?? "—"}</td>
                 <td className={styles.stockCell}>
                   {(() => {
                     const isTLV = stock.symbol.endsWith(".TA");

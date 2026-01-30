@@ -8,6 +8,7 @@ import { BrandLogo } from "@/components/brand-logo";
 import { PulseWrapper } from "./components/pulse-wrapper";
 import { getScreenerData } from "@/lib/market-data/mock";
 import type { ScreenerParams } from "@/lib/market-data/types";
+import { createClient } from "@/lib/supabase/server";
 import Link from "next/link";
 
 type PulsePageProps = {
@@ -37,6 +38,18 @@ export default async function PulsePage({ params }: PulsePageProps) {
   const rtl = isRTL(locale);
 
   const initialData = await getInitialScreenerData();
+
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+  let isAdmin = false;
+  if (user) {
+    const { data: profile } = await supabase
+      .from("profiles")
+      .select("role")
+      .eq("id", user.id)
+      .single();
+    isAdmin = profile?.role === "admin";
+  }
 
   return (
     <div className="page-shell" dir={rtl ? "rtl" : "ltr"} data-dir={rtl ? "rtl" : "ltr"}>
@@ -69,6 +82,7 @@ export default async function PulsePage({ params }: PulsePageProps) {
           initialData={initialData}
           dict={dict}
           locale={locale}
+          isAdmin={isAdmin}
         />
       </div>
     </div>

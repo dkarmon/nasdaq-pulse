@@ -260,7 +260,9 @@ export function FormulaEditorModal({
                   </button>
                 ))}
               </div>
-              <span className={styles.previewHint}>{previewStocks.length} stocks sampled</span>
+              <span className={styles.previewSampleInfo} title={`${previewStocks.length} stocks sampled`}>
+                ⓘ
+              </span>
             </div>
           </div>
           {previewScores.length === 0 ? (
