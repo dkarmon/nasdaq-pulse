@@ -140,6 +140,31 @@
   margin: 0 0 8px 0;
 }
 
+.companyPanel {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 16px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.02));
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  backdrop-filter: blur(8px);
+}
+
+.companyMeta {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.companyDescription {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding-top: 12px;
+}
+
 .companyInfo {
   display: flex;
   flex-direction: column;

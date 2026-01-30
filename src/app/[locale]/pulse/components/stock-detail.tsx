@@ -291,54 +291,56 @@ export function StockDetail({ symbol, onClose, locale = "en", activeFormula, lab
         </div>
       )}
 
-      {/* Desktop: Always-visible company info */}
+      {/* Desktop: Always-visible company info - merged into single panel */}
       {hasCompanyInfo && (
         <div className={styles.desktopAlwaysVisible}>
-          {(profile.sector || profile.industry || profile.marketCap || profile.website) && (
-            <div className={styles.companyInfo}>
-              {profile.sector && (
-                <div className={styles.infoRow}>
-                  <span className={styles.infoLabel}>{labels.sector}:</span>
-                  <span className={styles.infoValue}>{profile.sector}</span>
-                </div>
-              )}
-              {profile.industry && (
-                <div className={styles.infoRow}>
-                  <span className={styles.infoLabel}>{labels.industry}:</span>
-                  <span className={styles.infoValue}>{profile.industry}</span>
-                </div>
-              )}
-              {profile.marketCap > 0 && (
-                <div className={styles.infoRow}>
-                  <span className={styles.infoLabel}>{labels.marketCap}:</span>
-                  <span className={styles.infoValue}>{formatMarketCap(profile.marketCap)}</span>
-                </div>
-              )}
-              {profile.website && (
-                <div className={styles.infoRow}>
-                  <span className={styles.infoLabel}>{labels.website}:</span>
-                  <a
-                    href={profile.website}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={styles.infoLink}
-                  >
-                    {profile.website.replace(/^https?:\/\//, '').replace(/\/$/, '')}
-                  </a>
-                </div>
-              )}
-            </div>
-          )}
-          {(profile.description || profile.descriptionHebrew) && (
-            <div className={styles.companyOverview}>
-              <h3 className={styles.overviewTitle}>{labels.companyOverview}</h3>
-              <p className={styles.overviewText}>
-                {locale === "he" && profile.descriptionHebrew
-                  ? profile.descriptionHebrew
-                  : profile.description}
-              </p>
-            </div>
-          )}
+          <div className={styles.companyPanel}>
+            {(profile.sector || profile.industry || profile.marketCap || profile.website) && (
+              <div className={styles.companyMeta}>
+                {profile.sector && (
+                  <div className={styles.infoRow}>
+                    <span className={styles.infoLabel}>{labels.sector}:</span>
+                    <span className={styles.infoValue}>{profile.sector}</span>
+                  </div>
+                )}
+                {profile.industry && (
+                  <div className={styles.infoRow}>
+                    <span className={styles.infoLabel}>{labels.industry}:</span>
+                    <span className={styles.infoValue}>{profile.industry}</span>
+                  </div>
+                )}
+                {profile.marketCap > 0 && (
+                  <div className={styles.infoRow}>
+                    <span className={styles.infoLabel}>{labels.marketCap}:</span>
+                    <span className={styles.infoValue}>{formatMarketCap(profile.marketCap)}</span>
+                  </div>
+                )}
+                {profile.website && (
+                  <div className={styles.infoRow}>
+                    <span className={styles.infoLabel}>{labels.website}:</span>
+                    <a
+                      href={profile.website}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={styles.infoLink}
+                    >
+                      {profile.website.replace(/^https?:\/\//, '').replace(/\/$/, '')}
+                    </a>
+                  </div>
+                )}
+              </div>
+            )}
+            {(profile.description || profile.descriptionHebrew) && (
+              <div className={styles.companyDescription}>
+                <h3 className={styles.overviewTitle}>{labels.companyOverview}</h3>
+                <p className={styles.overviewText}>
+                  {locale === "he" && profile.descriptionHebrew
+                    ? profile.descriptionHebrew
+                    : profile.description}
+                </p>
+              </div>
+            )}
+          </div>
         </div>
       )}
     </div>
