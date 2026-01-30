@@ -16,6 +16,12 @@
   font-size: 1rem;
 }
 
+.table thead {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
 .table th {
   padding: 14px 12px;
   text-align: start;
@@ -25,7 +31,7 @@
   letter-spacing: 0.06em;
   color: var(--muted);
   border-bottom: 1px solid var(--glass-border);
-  background: rgba(255, 255, 255, 0.02);
+  background: var(--bg, #0b0f1a);
 }
 
 .table td {
@@ -47,6 +53,19 @@
 .row[data-selected="true"] {
   background: linear-gradient(90deg, rgba(16, 185, 129, 0.1), transparent);
   border-left: 3px solid var(--accent);
+}
+
+.rankCol {
+  width: 50px;
+  text-align: center;
+}
+
+.rankCell {
+  text-align: center;
+  color: var(--muted);
+  font-family: var(--font-space-grotesk), var(--font-manrope), system-ui, sans-serif;
+  font-weight: 600;
+  font-size: 0.9rem;
 }
 
 .stockCol {
