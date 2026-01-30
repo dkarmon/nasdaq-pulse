@@ -3,8 +3,9 @@
 
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import type { SortPeriod, Exchange } from "@/lib/market-data/types";
+import type { RecommendationFormulaSummary } from "@/lib/recommendations/types";
 import { FilterSheet } from "./filter-sheet";
 import styles from "./controls-bar.module.css";
 
@@ -20,6 +21,9 @@ type ControlsBarProps = {
   onLimitChange: (limit: number) => void;
   onSearchChange: (query: string) => void;
   onShowRecommendedOnlyChange: (show: boolean) => void;
+  isAdmin?: boolean;
+  activeFormula?: RecommendationFormulaSummary | null;
+  onFormulaChange?: (formula: RecommendationFormulaSummary) => void;
   labels: {
     sortBy: string;
     show: string;
@@ -28,6 +32,7 @@ type ControlsBarProps = {
     exchange: string;
     nasdaq: string;
     tlv: string;
+    formula?: string;
   };
 };
 
@@ -51,9 +56,39 @@ export function ControlsBar({
   onLimitChange,
   onSearchChange,
   onShowRecommendedOnlyChange,
+  isAdmin = false,
+  activeFormula,
+  onFormulaChange,
   labels,
 }: ControlsBarProps) {
   const [isFilterSheetOpen, setIsFilterSheetOpen] = useState(false);
+  const [formulas, setFormulas] = useState<RecommendationFormulaSummary[]>([]);
+
+  useEffect(() => {
+    if (isAdmin) {
+      fetch("/api/admin/recommendation-formulas")
+        .then((res) => res.ok ? res.json() : null)
+        .then((data) => {
+          if (data?.formulas) {
+            setFormulas(data.formulas);
+          }
+        })
+        .catch(() => {});
+    }
+  }, [isAdmin]);
+
+  const handleFormulaChange = async (formulaId: string) => {
+    const formula = formulas.find((f) => f.id === formulaId);
+    if (!formula || !onFormulaChange) return;
+
+    await fetch("/api/admin/recommendation-settings", {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ activeFormulaId: formulaId }),
+    });
+
+    onFormulaChange(formula);
+  };
 
   const exchangeLabels: Record<Exchange, string> = {
     nasdaq: labels.nasdaq,
@@ -66,28 +101,21 @@ export function ControlsBar({
     <>
       {/* Mobile compact bar */}
       <div className={styles.mobileControls}>
-        <div className={styles.mobileExchangeToggle}>
-          {EXCHANGE_OPTIONS.map((option) => (
-            <button
-              key={option}
-              className={styles.mobileExchangeOption}
-              data-active={exchange === option}
-              onClick={() => onExchangeChange(option)}
-              aria-pressed={exchange === option}
-            >
-              {option === "nasdaq" ? "NASDAQ" : "TLV"}
-            </button>
-          ))}
-        </div>
-        <input
-          type="text"
-          className={styles.mobileSearchInput}
-          placeholder={labels.search}
-          value={searchQuery}
-          onChange={(e) => onSearchChange(e.target.value)}
-          aria-label={labels.search}
-        />
-        <div className={styles.mobileActionsRow}>
+        {/* Row 1: Exchange toggle, starred, filter button */}
+        <div className={styles.mobileControlsRow}>
+          <div className={styles.mobileExchangeToggle}>
+            {EXCHANGE_OPTIONS.map((option) => (
+              <button
+                key={option}
+                className={styles.mobileExchangeOption}
+                data-active={exchange === option}
+                onClick={() => onExchangeChange(option)}
+                aria-pressed={exchange === option}
+              >
+                {option === "nasdaq" ? "NASDAQ" : "TLV"}
+              </button>
+            ))}
+          </div>
           <button
             className={styles.mobileRecommendedToggle}
             data-active={showRecommendedOnly}
@@ -111,6 +139,15 @@ export function ControlsBar({
             )}
           </button>
         </div>
+        {/* Row 2: Search (full width) */}
+        <input
+          type="text"
+          className={styles.mobileSearchInput}
+          placeholder={labels.search}
+          value={searchQuery}
+          onChange={(e) => onSearchChange(e.target.value)}
+          aria-label={labels.search}
+        />
       </div>
 
       {/* Desktop full controls */}
@@ -188,6 +225,23 @@ export function ControlsBar({
             </div>
           </div>
 
+          {isAdmin && formulas.length > 0 && (
+            <div className={styles.formulaGroup}>
+              <span className={styles.label}>{labels.formula || "Formula"}:</span>
+              <select
+                className={styles.formulaSelect}
+                value={activeFormula?.id || ""}
+                onChange={(e) => handleFormulaChange(e.target.value)}
+              >
+                {formulas.map((formula) => (
+                  <option key={formula.id} value={formula.id}>
+                    {formula.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+          )}
+
         </div>
       </div>
 
@@ -202,12 +256,17 @@ export function ControlsBar({
         onExchangeChange={onExchangeChange}
         onSortChange={onSortChange}
         onLimitChange={onLimitChange}
+        isAdmin={isAdmin}
+        formulas={formulas}
+        activeFormula={activeFormula}
+        onFormulaChange={handleFormulaChange}
         labels={{
           sortBy: labels.sortBy,
           show: labels.show,
           exchange: labels.exchange,
           nasdaq: labels.nasdaq,
           tlv: labels.tlv,
+          formula: labels.formula || "Formula",
           apply: "Apply Filters",
         }}
       />
