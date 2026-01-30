@@ -3,6 +3,8 @@
 
 .tableWrapper {
   overflow-x: auto;
+  overflow-y: auto;
+  max-height: calc(100vh - 280px);
   -webkit-overflow-scrolling: touch;
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.01));
   border: 1px solid var(--glass-border);
