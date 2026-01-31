@@ -44,10 +44,6 @@ export const SORT_OPTIONS: SortPeriod[] = ["1d", "5d", "1m", "6m", "12m", "az"];
 export const LIMIT_OPTIONS = [25, 50];
 export const EXCHANGE_OPTIONS: Exchange[] = ["nasdaq", "tlv"];
 
-function countActiveFilters(showRecommendedOnly: boolean): number {
-  return showRecommendedOnly ? 1 : 0;
-}
-
 export function ControlsBar({
   exchange,
   sortBy,
@@ -113,7 +109,7 @@ export function ControlsBar({
     tlv: labels.tlv,
   };
 
-  const activeFilterCount = countActiveFilters(showRecommendedOnly);
+  const activeFilterCount = showRecommendedOnly ? 1 : 0;
 
   return (
     <>

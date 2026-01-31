@@ -112,31 +112,7 @@
   gap: 6px;
 }
 
-.copyButton {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 24px;
-  height: 24px;
-  border: 1px solid transparent;
-  border-radius: 4px;
-  background: transparent;
-  color: var(--muted);
-  font-size: 0.85rem;
-  cursor: pointer;
-  opacity: 0;
-  transition: opacity 120ms ease, border 120ms ease, color 120ms ease;
-}
-
-.row:hover .copyButton {
-  opacity: 1;
-}
-
-.copyButton:hover {
-  border-color: var(--accent);
-  color: var(--accent);
-}
-
+.copyButton,
 .hideButton {
   display: flex;
   align-items: center;
@@ -153,8 +129,14 @@
   transition: opacity 120ms ease, border 120ms ease, color 120ms ease;
 }
 
+.row:hover .copyButton,
 .row:hover .hideButton {
   opacity: 1;
+}
+
+.copyButton:hover {
+  border-color: var(--accent);
+  color: var(--accent);
 }
 
 .hideButton:hover {
@@ -198,11 +180,13 @@
   unicode-bidi: embed;
 }
 
-.liveGrowth[data-positive="true"] {
+.liveGrowth[data-positive="true"],
+.growthCell[data-positive="true"] {
   color: #86efac;
 }
 
-.liveGrowth[data-negative="true"] {
+.liveGrowth[data-negative="true"],
+.growthCell[data-negative="true"] {
   color: #fca5a5;
 }
 
@@ -219,14 +203,6 @@
   text-align: end;
   direction: ltr;
   unicode-bidi: embed;
-}
-
-.growthCell[data-positive="true"] {
-  color: #86efac;
-}
-
-.growthCell[data-negative="true"] {
-  color: #fca5a5;
 }
 
 .growthCol[data-active="true"] {
