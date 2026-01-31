@@ -165,17 +165,6 @@
   padding-top: 12px;
 }
 
-.companyInfo {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  padding: 16px;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.02));
-  border: 1px solid var(--glass-border);
-  border-radius: 12px;
-  backdrop-filter: blur(8px);
-}
-
 .infoRow {
   display: flex;
   gap: 8px;
@@ -205,17 +194,6 @@
 .infoLink:hover {
   opacity: 0.8;
   text-decoration: underline;
-}
-
-.companyOverview {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  padding: 16px;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.02));
-  border: 1px solid var(--glass-border);
-  border-radius: 12px;
-  backdrop-filter: blur(8px);
 }
 
 .overviewTitle {

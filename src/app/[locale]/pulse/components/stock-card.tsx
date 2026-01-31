@@ -138,56 +138,24 @@ export function StockCard({
         </div>
 
         <div className={styles.growthRow}>
-          <div className={styles.growthItem} data-active={sortBy === "1d"}>
-            <span
-              className={styles.growthValue}
-              data-positive={(stock.growth1d ?? 0) >= 0}
-              data-negative={(stock.growth1d ?? 0) < 0}
-            >
-              {formatGrowth(stock.growth1d ?? 0)}
-            </span>
-            <span className={styles.growthLabel}>1D</span>
-          </div>
-          <div className={styles.growthItem} data-active={sortBy === "5d"}>
-            <span
-              className={styles.growthValue}
-              data-positive={(stock.growth5d ?? 0) >= 0}
-              data-negative={(stock.growth5d ?? 0) < 0}
-            >
-              {formatGrowth(stock.growth5d ?? 0)}
-            </span>
-            <span className={styles.growthLabel}>5D</span>
-          </div>
-          <div className={styles.growthItem} data-active={sortBy === "1m"}>
-            <span
-              className={styles.growthValue}
-              data-positive={stock.growth1m >= 0}
-              data-negative={stock.growth1m < 0}
-            >
-              {formatGrowth(stock.growth1m)}
-            </span>
-            <span className={styles.growthLabel}>1M</span>
-          </div>
-          <div className={styles.growthItem} data-active={sortBy === "6m"}>
-            <span
-              className={styles.growthValue}
-              data-positive={stock.growth6m >= 0}
-              data-negative={stock.growth6m < 0}
-            >
-              {formatGrowth(stock.growth6m)}
-            </span>
-            <span className={styles.growthLabel}>6M</span>
-          </div>
-          <div className={styles.growthItem} data-active={sortBy === "12m"}>
-            <span
-              className={styles.growthValue}
-              data-positive={stock.growth12m >= 0}
-              data-negative={stock.growth12m < 0}
-            >
-              {formatGrowth(stock.growth12m)}
-            </span>
-            <span className={styles.growthLabel}>12M</span>
-          </div>
+          {([
+            { period: "1d", value: stock.growth1d ?? 0 },
+            { period: "5d", value: stock.growth5d ?? 0 },
+            { period: "1m", value: stock.growth1m },
+            { period: "6m", value: stock.growth6m },
+            { period: "12m", value: stock.growth12m },
+          ] as const).map(({ period, value }) => (
+            <div key={period} className={styles.growthItem} data-active={sortBy === period}>
+              <span
+                className={styles.growthValue}
+                data-positive={value >= 0}
+                data-negative={value < 0}
+              >
+                {formatGrowth(value)}
+              </span>
+              <span className={styles.growthLabel}>{period.toUpperCase()}</span>
+            </div>
+          ))}
         </div>
       </div>
 

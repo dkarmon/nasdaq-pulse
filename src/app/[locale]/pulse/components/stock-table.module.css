@@ -75,7 +75,6 @@
 }
 
 .priceCol,
-.capCol,
 .growthCol {
   text-align: end;
   white-space: nowrap;
@@ -185,8 +184,7 @@
   color: #fca5a5;
 }
 
-.priceCell,
-.capCell {
+.priceCell {
   font-family: var(--font-space-grotesk), var(--font-manrope), system-ui, sans-serif;
   font-weight: 600;
   text-align: end;

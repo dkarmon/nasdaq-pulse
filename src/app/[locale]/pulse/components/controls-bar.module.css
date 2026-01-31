@@ -256,12 +256,6 @@
   border-color: var(--accent);
 }
 
-.priceFilterGroup {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
 .label {
   font-size: 0.9rem;
   font-weight: 600;
@@ -304,72 +298,6 @@
 }
 
 .pill[data-disabled="true"] {
-  opacity: 0.4;
-  cursor: not-allowed;
-  pointer-events: none;
-}
-
-.priceInput {
-  width: 80px;
-  min-height: 44px;
-  padding: 10px 12px;
-  border-radius: 10px;
-  border: 1px solid var(--glass-border);
-  background: var(--glass);
-  color: var(--text);
-  font-weight: 600;
-  font-size: 0.95rem;
-  text-align: center;
-  transition: border 150ms ease, background 150ms ease;
-}
-
-.priceInput::placeholder {
-  color: var(--muted);
-}
-
-.priceInput:focus {
-  outline: none;
-  border-color: var(--accent);
-  background: rgba(16, 185, 129, 0.08);
-}
-
-.priceInput[data-disabled="true"] {
-  opacity: 0.4;
-  cursor: not-allowed;
-}
-
-.priceInput::-webkit-inner-spin-button,
-.priceInput::-webkit-outer-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
-.priceInput[type="number"] {
-  -moz-appearance: textfield;
-}
-
-.clearButton {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 34px;
-  height: 34px;
-  border-radius: 8px;
-  border: 1px solid rgba(244, 67, 94, 0.3);
-  background: rgba(244, 67, 94, 0.1);
-  color: #fecaca;
-  font-weight: 600;
-  font-size: 0.85rem;
-  cursor: pointer;
-  transition: border 150ms ease, background 150ms ease;
-}
-
-.clearButton:hover {
-  border-color: rgba(244, 67, 94, 0.5);
-  background: rgba(244, 67, 94, 0.15);
-}
-
-.clearButton[data-disabled="true"] {
   opacity: 0.4;
   cursor: not-allowed;
   pointer-events: none;
