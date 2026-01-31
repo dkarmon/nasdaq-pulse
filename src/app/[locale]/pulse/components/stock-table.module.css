@@ -6,9 +6,13 @@
   overflow-y: auto;
   max-height: calc(100vh - 280px);
   -webkit-overflow-scrolling: touch;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.01));
+  background: var(--bg-dark);
   border: 1px solid var(--glass-border);
-  border-radius: var(--radius);
+  border-top: none;
+  border-bottom-left-radius: var(--radius);
+  border-bottom-right-radius: var(--radius);
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
   backdrop-filter: blur(12px);
 
   /* Scrollbar styling */

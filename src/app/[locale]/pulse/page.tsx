@@ -54,16 +54,7 @@ export default async function PulsePage({ params }: PulsePageProps) {
   return (
     <div className="page-shell" dir={rtl ? "rtl" : "ltr"} data-dir={rtl ? "rtl" : "ltr"}>
       <div className="container">
-        <nav
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            marginBottom: "24px",
-            gap: "8px",
-            flexWrap: "wrap",
-          }}
-        >
+        <nav className="pulseNav">
           <BrandLogo size="sm" />
           <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
             <Link

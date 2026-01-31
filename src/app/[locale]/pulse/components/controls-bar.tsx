@@ -166,21 +166,22 @@ export function ControlsBar({
 
       {/* Desktop full controls */}
       <div className={styles.desktopControls}>
-        <div className={styles.exchangeToggle}>
-          {EXCHANGE_OPTIONS.map((option) => (
-            <button
-              key={option}
-              className={styles.exchangeOption}
-              data-active={exchange === option}
-              onClick={() => onExchangeChange(option)}
-              aria-pressed={exchange === option}
-            >
-              {exchangeLabels[option]}
-            </button>
-          ))}
-        </div>
+        {/* Row 1: Exchange + Search + Recommended + Export */}
+        <div className={styles.primaryRow}>
+          <div className={styles.exchangeToggle}>
+            {EXCHANGE_OPTIONS.map((option) => (
+              <button
+                key={option}
+                className={styles.exchangeOption}
+                data-active={exchange === option}
+                onClick={() => onExchangeChange(option)}
+                aria-pressed={exchange === option}
+              >
+                {exchangeLabels[option]}
+              </button>
+            ))}
+          </div>
 
-        <div className={styles.searchRow}>
           <input
             type="text"
             className={styles.searchInput}
@@ -189,6 +190,7 @@ export function ControlsBar({
             onChange={(e) => onSearchChange(e.target.value)}
             aria-label={labels.search}
           />
+
           <button
             className={styles.recommendedToggle}
             data-active={showRecommendedOnly}
@@ -196,11 +198,22 @@ export function ControlsBar({
             aria-pressed={showRecommendedOnly}
             title={labels.recommendedOnly}
           >
-            ★ {labels.recommendedOnly}
+            ★
           </button>
+
+          {isAdmin && visibleStocks && rankMap && (
+            <button
+              className={styles.exportButton}
+              onClick={handleExport}
+              title="Export to Excel"
+            >
+              <Download size={18} />
+            </button>
+          )}
         </div>
 
-        <div className={styles.mainRow} data-disabled={controlsDisabled}>
+        {/* Row 2: Sort + Show + Formula */}
+        <div className={styles.secondaryRow} data-disabled={controlsDisabled}>
           <div className={styles.sortGroup}>
             <span className={styles.label}>{labels.sortBy}:</span>
             <div className={styles.pillGroup}>
@@ -254,16 +267,6 @@ export function ControlsBar({
                 ))}
               </select>
             </div>
-          )}
-
-          {isAdmin && visibleStocks && rankMap && (
-            <button
-              className={styles.exportButton}
-              onClick={handleExport}
-              title="Export to Excel"
-            >
-              <Download size={18} />
-            </button>
           )}
         </div>
       </div>
