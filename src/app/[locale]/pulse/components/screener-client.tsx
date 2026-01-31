@@ -189,6 +189,8 @@ export function ScreenerClient({
         isAdmin={isAdmin}
         activeFormula={activeFormula}
         onFormulaChange={onFormulaChange}
+        onRefresh={fetchScreenerData}
+        isRefreshing={isLoading}
         visibleStocks={visibleStocks}
         rankMap={rankMap}
         labels={controlLabels}

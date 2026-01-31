@@ -4,7 +4,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Download } from "lucide-react";
+import { Download, RotateCw } from "lucide-react";
 import type { Stock, SortPeriod, Exchange } from "@/lib/market-data/types";
 import type { RecommendationFormulaSummary } from "@/lib/recommendations/types";
 import { exportToExcel } from "@/lib/excel-export";
@@ -26,6 +26,8 @@ type ControlsBarProps = {
   isAdmin?: boolean;
   activeFormula?: RecommendationFormulaSummary | null;
   onFormulaChange?: (formula: RecommendationFormulaSummary) => void;
+  onRefresh?: () => void;
+  isRefreshing?: boolean;
   visibleStocks?: Stock[];
   rankMap?: Map<string, number>;
   labels: {
@@ -59,6 +61,8 @@ export function ControlsBar({
   isAdmin = false,
   activeFormula,
   onFormulaChange,
+  onRefresh,
+  isRefreshing = false,
   visibleStocks,
   rankMap,
   labels,
@@ -139,6 +143,16 @@ export function ControlsBar({
           >
             ★
           </button>
+          {isAdmin && onRefresh && (
+            <button
+              className={styles.mobileRefreshButton}
+              onClick={onRefresh}
+              disabled={isRefreshing}
+              title="Refresh data"
+            >
+              <RotateCw size={20} className={isRefreshing ? styles.spinning : ""} />
+            </button>
+          )}
           <button
             className={styles.mobileFilterButton}
             onClick={() => setIsFilterSheetOpen(true)}
@@ -200,6 +214,17 @@ export function ControlsBar({
           >
             ★
           </button>
+
+          {isAdmin && onRefresh && (
+            <button
+              className={styles.refreshButton}
+              onClick={onRefresh}
+              disabled={isRefreshing}
+              title="Refresh data"
+            >
+              <RotateCw size={18} className={isRefreshing ? styles.spinning : ""} />
+            </button>
+          )}
 
           {isAdmin && visibleStocks && rankMap && (
             <button

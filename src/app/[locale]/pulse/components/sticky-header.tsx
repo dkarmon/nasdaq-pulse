@@ -25,6 +25,8 @@ type StickyHeaderProps = {
   isAdmin?: boolean;
   activeFormula?: RecommendationFormulaSummary | null;
   onFormulaChange?: (formula: RecommendationFormulaSummary) => void;
+  onRefresh?: () => void;
+  isRefreshing?: boolean;
   visibleStocks?: Stock[];
   rankMap?: Map<string, number>;
   labels: {
@@ -55,6 +57,8 @@ export function StickyHeader({
   isAdmin = false,
   activeFormula,
   onFormulaChange,
+  onRefresh,
+  isRefreshing = false,
   visibleStocks,
   rankMap,
   labels,
@@ -77,6 +81,8 @@ export function StickyHeader({
         isAdmin={isAdmin}
         activeFormula={activeFormula}
         onFormulaChange={onFormulaChange}
+        onRefresh={onRefresh}
+        isRefreshing={isRefreshing}
         visibleStocks={visibleStocks}
         rankMap={rankMap}
         labels={labels}
