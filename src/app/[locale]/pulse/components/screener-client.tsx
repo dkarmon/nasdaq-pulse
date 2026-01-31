@@ -52,6 +52,13 @@ export function ScreenerClient({
   const [stocks, setStocks] = useState<Stock[]>(initialData.stocks);
   const [isLoading, setIsLoading] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const [debouncedSearch, setDebouncedSearch] = useState("");
+
+  // Debounce search to avoid excessive API calls
+  useEffect(() => {
+    const timer = setTimeout(() => setDebouncedSearch(searchQuery), 300);
+    return () => clearTimeout(timer);
+  }, [searchQuery]);
 
   // Get symbols of recommended stocks for live quotes
   const scoredStocks = useMemo(
@@ -73,8 +80,9 @@ export function ScreenerClient({
 
     setIsLoading(true);
     try {
-      // When in recommended mode, fetch all stocks and let the server return scores
-      const limit = preferences.showRecommendedOnly ? 9999 : preferences.limit;
+      // When searching or in recommended mode, fetch all stocks to ensure search can find anything
+      const needsAllStocks = preferences.showRecommendedOnly || debouncedSearch;
+      const limit = needsAllStocks ? 9999 : preferences.limit;
 
       const params = new URLSearchParams({
         sortBy: preferences.sortBy,
@@ -94,7 +102,7 @@ export function ScreenerClient({
     } finally {
       setIsLoading(false);
     }
-  }, [isLoaded, preferences, onFormulaChange]);
+  }, [isLoaded, preferences, onFormulaChange, debouncedSearch]);
 
   useEffect(() => {
     if (isLoaded) {
