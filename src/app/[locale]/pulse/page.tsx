@@ -51,29 +51,32 @@ export default async function PulsePage({ params }: PulsePageProps) {
     isAdmin = profile?.role === "admin";
   }
 
+  const navContent = (
+    <>
+      <BrandLogo size="sm" />
+      <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+        <Link
+          href={`/${locale}/settings`}
+          className="nav-icon-btn"
+          title={dict.settings.title}
+        >
+          ⚙
+        </Link>
+        <LocaleSwitcher locale={locale} />
+        <SignOutButton label={dict.app.logout} />
+      </div>
+    </>
+  );
+
   return (
     <div className="page-shell" dir={rtl ? "rtl" : "ltr"} data-dir={rtl ? "rtl" : "ltr"}>
       <div className="container">
-        <nav className="pulseNav">
-          <BrandLogo size="sm" />
-          <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-            <Link
-              href={`/${locale}/settings`}
-              className="nav-icon-btn"
-              title={dict.settings.title}
-            >
-              ⚙
-            </Link>
-            <LocaleSwitcher locale={locale} />
-            <SignOutButton label={dict.app.logout} />
-          </div>
-        </nav>
-
         <PulseWrapper
           initialData={initialData}
           dict={dict}
           locale={locale}
           isAdmin={isAdmin}
+          navContent={navContent}
         />
       </div>
     </div>

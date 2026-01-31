@@ -2,10 +2,6 @@
 /* ABOUTME: Clean layout with accessible font sizes and clear visual hierarchy. */
 
 .tableWrapper {
-  overflow-x: auto;
-  overflow-y: auto;
-  max-height: calc(100vh - 280px);
-  -webkit-overflow-scrolling: touch;
   background: var(--bg-dark);
   border: 1px solid var(--glass-border);
   border-top: none;
@@ -13,29 +9,6 @@
   border-bottom-right-radius: var(--radius);
   border-top-left-radius: 0;
   border-top-right-radius: 0;
-  backdrop-filter: blur(12px);
-
-  /* Scrollbar styling */
-  scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
-  scrollbar-width: thin;
-}
-
-.tableWrapper::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-}
-
-.tableWrapper::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.tableWrapper::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 4px;
-}
-
-.tableWrapper::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.3);
 }
 
 .table {
@@ -46,7 +19,7 @@
 
 .table thead {
   position: sticky;
-  top: 0;
+  top: var(--sticky-header-height, 198px);
   z-index: 10;
 }
 

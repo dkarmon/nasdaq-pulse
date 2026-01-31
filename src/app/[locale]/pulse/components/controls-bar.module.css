@@ -189,8 +189,6 @@
   padding: 16px;
   margin-bottom: 0;
   background: var(--bg-dark);
-  border-left: 1px solid var(--glass-border);
-  border-right: 1px solid var(--glass-border);
 }
 
 @media (max-width: 768px) {

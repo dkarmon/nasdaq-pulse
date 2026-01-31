@@ -42,7 +42,6 @@
 .mainPanel {
   flex: 1;
   min-width: 0;
-  overflow-x: auto;
 }
 
 .detailPanel {

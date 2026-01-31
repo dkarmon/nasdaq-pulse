@@ -40,6 +40,11 @@
 
   /* Accessibility: minimum touch target */
   --min-touch-target: 48px;
+
+  /* Sticky header heights for pulse page */
+  --sticky-nav-height: 57px;
+  --sticky-controls-height: 141px;
+  --sticky-header-height: 198px; /* nav + controls */
 }
 
 *,
@@ -53,10 +58,15 @@ html {
   font-size: 18px;
 }
 
-html,
+html {
+  overflow-x: clip;
+  overflow-y: visible;
+}
+
 body {
   max-width: 100vw;
-  overflow-x: hidden;
+  overflow-x: clip;
+  overflow-y: visible;
   background: linear-gradient(180deg, var(--bg-dark) 0%, var(--bg) 50%, var(--bg-dark) 100%);
 }
 

@@ -1,0 +1,86 @@
+// ABOUTME: Unified sticky header combining nav bar and controls bar.
+// ABOUTME: Stays fixed at top of viewport while page content scrolls.
+
+"use client";
+
+import { ReactNode } from "react";
+import { ControlsBar } from "./controls-bar";
+import type { Stock, SortPeriod, Exchange } from "@/lib/market-data/types";
+import type { RecommendationFormulaSummary } from "@/lib/recommendations/types";
+import styles from "./sticky-header.module.css";
+
+type StickyHeaderProps = {
+  navContent: ReactNode;
+  exchange: Exchange;
+  sortBy: SortPeriod;
+  limit: number;
+  searchQuery: string;
+  showRecommendedOnly: boolean;
+  controlsDisabled?: boolean;
+  onExchangeChange: (exchange: Exchange) => void;
+  onSortChange: (sort: SortPeriod) => void;
+  onLimitChange: (limit: number) => void;
+  onSearchChange: (query: string) => void;
+  onShowRecommendedOnlyChange: (show: boolean) => void;
+  isAdmin?: boolean;
+  activeFormula?: RecommendationFormulaSummary | null;
+  onFormulaChange?: (formula: RecommendationFormulaSummary) => void;
+  visibleStocks?: Stock[];
+  rankMap?: Map<string, number>;
+  labels: {
+    sortBy: string;
+    show: string;
+    search: string;
+    recommendedOnly: string;
+    exchange: string;
+    nasdaq: string;
+    tlv: string;
+    formula?: string;
+  };
+};
+
+export function StickyHeader({
+  navContent,
+  exchange,
+  sortBy,
+  limit,
+  searchQuery,
+  showRecommendedOnly,
+  controlsDisabled = false,
+  onExchangeChange,
+  onSortChange,
+  onLimitChange,
+  onSearchChange,
+  onShowRecommendedOnlyChange,
+  isAdmin = false,
+  activeFormula,
+  onFormulaChange,
+  visibleStocks,
+  rankMap,
+  labels,
+}: StickyHeaderProps) {
+  return (
+    <div className={styles.stickyHeader}>
+      <nav className={styles.nav}>{navContent}</nav>
+      <ControlsBar
+        exchange={exchange}
+        sortBy={sortBy}
+        limit={limit}
+        searchQuery={searchQuery}
+        showRecommendedOnly={showRecommendedOnly}
+        controlsDisabled={controlsDisabled}
+        onExchangeChange={onExchangeChange}
+        onSortChange={onSortChange}
+        onLimitChange={onLimitChange}
+        onSearchChange={onSearchChange}
+        onShowRecommendedOnlyChange={onShowRecommendedOnlyChange}
+        isAdmin={isAdmin}
+        activeFormula={activeFormula}
+        onFormulaChange={onFormulaChange}
+        visibleStocks={visibleStocks}
+        rankMap={rankMap}
+        labels={labels}
+      />
+    </div>
+  );
+}
