@@ -56,6 +56,54 @@ type StockDetailProps = {
   };
 };
 
+type CompanyMetaProps = {
+  profile: StockDetailResponse["profile"];
+  labels: StockDetailProps["labels"];
+  wrapperClassName?: string;
+};
+
+function CompanyMeta({ profile, labels, wrapperClassName }: CompanyMetaProps): React.ReactNode {
+  if (!profile.sector && !profile.industry && !profile.marketCap && !profile.website) {
+    return null;
+  }
+
+  return (
+    <div className={wrapperClassName}>
+      {profile.sector && (
+        <div className={styles.infoRow}>
+          <span className={styles.infoLabel}>{labels.sector}:</span>
+          <span className={styles.infoValue}>{profile.sector}</span>
+        </div>
+      )}
+      {profile.industry && (
+        <div className={styles.infoRow}>
+          <span className={styles.infoLabel}>{labels.industry}:</span>
+          <span className={styles.infoValue}>{profile.industry}</span>
+        </div>
+      )}
+      {profile.marketCap > 0 && (
+        <div className={styles.infoRow}>
+          <span className={styles.infoLabel}>{labels.marketCap}:</span>
+          <span className={styles.infoValue}>{formatMarketCap(profile.marketCap)}</span>
+        </div>
+      )}
+      {profile.website && (
+        <div className={styles.infoRow}>
+          <span className={styles.infoLabel}>{labels.website}:</span>
+          <a
+            href={profile.website}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles.infoLink}
+          >
+            {profile.website.replace(/^https?:\/\//, '').replace(/\/$/, '')}
+          </a>
+        </div>
+      )}
+    </div>
+  );
+}
+
 export function StockDetail({ symbol, onClose, locale = "en", activeFormula, labels, aiAnalysisLabels }: StockDetailProps) {
   const [detail, setDetail] = useState<StockDetailResponse | null>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -177,56 +225,24 @@ export function StockDetail({ symbol, onClose, locale = "en", activeFormula, lab
 
       {/* Growth metrics - always visible */}
       <div className={styles.metricsRow} dir="ltr">
-        <div className={styles.metricCard}>
-          <span
-            className={styles.metricValue}
-            data-positive={(growth1d ?? 0) >= 0}
-            data-negative={(growth1d ?? 0) < 0}
-          >
-            {formatGrowth(growth1d ?? 0)}
-          </span>
-          <span className={styles.metricLabel}>{labels.growth1d}</span>
-        </div>
-        <div className={styles.metricCard}>
-          <span
-            className={styles.metricValue}
-            data-positive={(growth5d ?? 0) >= 0}
-            data-negative={(growth5d ?? 0) < 0}
-          >
-            {formatGrowth(growth5d ?? 0)}
-          </span>
-          <span className={styles.metricLabel}>{labels.growth5d}</span>
-        </div>
-        <div className={styles.metricCard}>
-          <span
-            className={styles.metricValue}
-            data-positive={growth1m >= 0}
-            data-negative={growth1m < 0}
-          >
-            {formatGrowth(growth1m)}
-          </span>
-          <span className={styles.metricLabel}>{labels.growth1m}</span>
-        </div>
-        <div className={styles.metricCard}>
-          <span
-            className={styles.metricValue}
-            data-positive={growth6m >= 0}
-            data-negative={growth6m < 0}
-          >
-            {formatGrowth(growth6m)}
-          </span>
-          <span className={styles.metricLabel}>{labels.growth6m}</span>
-        </div>
-        <div className={styles.metricCard}>
-          <span
-            className={styles.metricValue}
-            data-positive={growth12m >= 0}
-            data-negative={growth12m < 0}
-          >
-            {formatGrowth(growth12m)}
-          </span>
-          <span className={styles.metricLabel}>{labels.growth12m}</span>
-        </div>
+        {([
+          { value: growth1d ?? 0, label: labels.growth1d },
+          { value: growth5d ?? 0, label: labels.growth5d },
+          { value: growth1m, label: labels.growth1m },
+          { value: growth6m, label: labels.growth6m },
+          { value: growth12m, label: labels.growth12m },
+        ] as const).map(({ value, label }) => (
+          <div key={label} className={styles.metricCard}>
+            <span
+              className={styles.metricValue}
+              data-positive={value >= 0}
+              data-negative={value < 0}
+            >
+              {formatGrowth(value)}
+            </span>
+            <span className={styles.metricLabel}>{label}</span>
+          </div>
+        ))}
       </div>
 
       {/* Chart - always visible */}
@@ -245,41 +261,7 @@ export function StockDetail({ symbol, onClose, locale = "en", activeFormula, lab
       {hasCompanyInfo && (
         <div className={styles.mobileCollapsible}>
           <CollapsibleSection title="Company Info" defaultExpanded={false}>
-            {(profile.sector || profile.industry || profile.marketCap || profile.website) && (
-              <div className={styles.companyInfoInner}>
-                {profile.sector && (
-                  <div className={styles.infoRow}>
-                    <span className={styles.infoLabel}>{labels.sector}:</span>
-                    <span className={styles.infoValue}>{profile.sector}</span>
-                  </div>
-                )}
-                {profile.industry && (
-                  <div className={styles.infoRow}>
-                    <span className={styles.infoLabel}>{labels.industry}:</span>
-                    <span className={styles.infoValue}>{profile.industry}</span>
-                  </div>
-                )}
-                {profile.marketCap > 0 && (
-                  <div className={styles.infoRow}>
-                    <span className={styles.infoLabel}>{labels.marketCap}:</span>
-                    <span className={styles.infoValue}>{formatMarketCap(profile.marketCap)}</span>
-                  </div>
-                )}
-                {profile.website && (
-                  <div className={styles.infoRow}>
-                    <span className={styles.infoLabel}>{labels.website}:</span>
-                    <a
-                      href={profile.website}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={styles.infoLink}
-                    >
-                      {profile.website.replace(/^https?:\/\//, '').replace(/\/$/, '')}
-                    </a>
-                  </div>
-                )}
-              </div>
-            )}
+            <CompanyMeta profile={profile} labels={labels} wrapperClassName={styles.companyInfoInner} />
             {(profile.description || profile.descriptionHebrew) && (
               <p className={styles.overviewText}>
                 {locale === "he" && profile.descriptionHebrew
@@ -295,41 +277,7 @@ export function StockDetail({ symbol, onClose, locale = "en", activeFormula, lab
       {hasCompanyInfo && (
         <div className={styles.desktopAlwaysVisible}>
           <div className={styles.companyPanel}>
-            {(profile.sector || profile.industry || profile.marketCap || profile.website) && (
-              <div className={styles.companyMeta}>
-                {profile.sector && (
-                  <div className={styles.infoRow}>
-                    <span className={styles.infoLabel}>{labels.sector}:</span>
-                    <span className={styles.infoValue}>{profile.sector}</span>
-                  </div>
-                )}
-                {profile.industry && (
-                  <div className={styles.infoRow}>
-                    <span className={styles.infoLabel}>{labels.industry}:</span>
-                    <span className={styles.infoValue}>{profile.industry}</span>
-                  </div>
-                )}
-                {profile.marketCap > 0 && (
-                  <div className={styles.infoRow}>
-                    <span className={styles.infoLabel}>{labels.marketCap}:</span>
-                    <span className={styles.infoValue}>{formatMarketCap(profile.marketCap)}</span>
-                  </div>
-                )}
-                {profile.website && (
-                  <div className={styles.infoRow}>
-                    <span className={styles.infoLabel}>{labels.website}:</span>
-                    <a
-                      href={profile.website}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={styles.infoLink}
-                    >
-                      {profile.website.replace(/^https?:\/\//, '').replace(/\/$/, '')}
-                    </a>
-                  </div>
-                )}
-              </div>
-            )}
+            <CompanyMeta profile={profile} labels={labels} wrapperClassName={styles.companyMeta} />
             {(profile.description || profile.descriptionHebrew) && (
               <div className={styles.companyDescription}>
                 <h3 className={styles.overviewTitle}>{labels.companyOverview}</h3>
