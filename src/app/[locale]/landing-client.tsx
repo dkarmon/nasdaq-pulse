@@ -7,7 +7,6 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { LogIn, TrendingUp, Zap, Target } from "lucide-react";
 import { HeroVideoPlayer } from "@/components/remotion/HeroVideoPlayer";
-import { LocaleSwitcher } from "@/components/locale-switcher";
 import { BrandLogo } from "@/components/brand-logo";
 import type { Locale } from "@/lib/i18n";
 
@@ -111,28 +110,23 @@ export function LandingClient({ locale, dict, rtl }: LandingClientProps) {
             <BrandLogo />
           </motion.div>
 
-          <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-            <LocaleSwitcher locale={locale} />
+          <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.98 }}>
+              <Link
+                href={`/${locale === "en" ? "he" : "en"}`}
+                className="landing-icon-btn"
+                aria-label="Switch language"
+              >
+                {locale === "en" ? "HE" : "EN"}
+              </Link>
+            </motion.div>
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.98 }}>
               <Link
                 href={`/${locale}/signin`}
-                className="nav-signin"
-                style={{
-                  padding: "10px 16px",
-                  borderRadius: "10px",
-                  fontWeight: 600,
-                  fontSize: "0.95rem",
-                  color: "white",
-                  background: "rgba(255, 255, 255, 0.1)",
-                  border: "1px solid rgba(255, 255, 255, 0.1)",
-                  transition: "all 200ms",
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "8px",
-                }}
+                className="landing-icon-btn"
+                aria-label="Sign in"
               >
-                <span className="nav-signin-text">{dict.nav?.signIn || "Sign In"}</span>
-                <LogIn className="nav-signin-icon" size={20} style={{ display: "none" }} />
+                <LogIn size={20} />
               </Link>
             </motion.div>
           </div>
@@ -600,6 +594,26 @@ export function LandingClient({ locale, dict, rtl }: LandingClientProps) {
             opacity: 0.5;
           }
         }
+        .landing-icon-btn {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          width: 40px;
+          height: 40px;
+          border-radius: 10px;
+          background: rgba(255, 255, 255, 0.1);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          color: rgba(255, 255, 255, 0.8);
+          font-size: 0.85rem;
+          font-weight: 600;
+          text-decoration: none;
+          transition: all 200ms;
+        }
+        .landing-icon-btn:hover {
+          background: rgba(255, 255, 255, 0.15);
+          border-color: rgba(255, 255, 255, 0.2);
+          color: white;
+        }
         @media (max-width: 480px) {
           .landing-page .hero-content h1 {
             font-size: 2rem !important;
@@ -611,15 +625,6 @@ export function LandingClient({ locale, dict, rtl }: LandingClientProps) {
           .landing-page .cta-buttons a {
             width: 100%;
             justify-content: center;
-          }
-          .nav-signin-text {
-            display: none !important;
-          }
-          .nav-signin-icon {
-            display: block !important;
-          }
-          .nav-signin {
-            padding: 10px 12px !important;
           }
         }
       `}</style>

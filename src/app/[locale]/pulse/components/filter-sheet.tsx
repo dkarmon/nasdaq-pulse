@@ -4,19 +4,17 @@
 "use client";
 
 import { useEffect } from "react";
-import type { SortPeriod, Exchange } from "@/lib/market-data/types";
+import type { SortPeriod } from "@/lib/market-data/types";
 import type { RecommendationFormulaSummary } from "@/lib/recommendations/types";
-import { SORT_OPTIONS, LIMIT_OPTIONS, EXCHANGE_OPTIONS } from "./controls-bar";
+import { SORT_OPTIONS, LIMIT_OPTIONS } from "./controls-bar";
 import styles from "./filter-sheet.module.css";
 
 type FilterSheetProps = {
   isOpen: boolean;
   onClose: () => void;
-  exchange: Exchange;
   sortBy: SortPeriod;
   limit: number;
   controlsDisabled?: boolean;
-  onExchangeChange: (exchange: Exchange) => void;
   onSortChange: (sort: SortPeriod) => void;
   onLimitChange: (limit: number) => void;
   isAdmin?: boolean;
@@ -26,9 +24,6 @@ type FilterSheetProps = {
   labels: {
     sortBy: string;
     show: string;
-    exchange: string;
-    nasdaq: string;
-    tlv: string;
     formula?: string;
     apply: string;
   };
@@ -37,11 +32,9 @@ type FilterSheetProps = {
 export function FilterSheet({
   isOpen,
   onClose,
-  exchange,
   sortBy,
   limit,
   controlsDisabled = false,
-  onExchangeChange,
   onSortChange,
   onLimitChange,
   isAdmin = false,
@@ -65,11 +58,6 @@ export function FilterSheet({
     };
   }, [isOpen]);
 
-  const exchangeLabels: Record<Exchange, string> = {
-    nasdaq: labels.nasdaq,
-    tlv: labels.tlv,
-  };
-
   if (!isOpen) {
     return null;
   }
@@ -83,23 +71,6 @@ export function FilterSheet({
       />
       <div className={styles.sheet}>
         <div className={styles.handle} />
-
-        <div className={styles.section}>
-          <span className={styles.label}>{labels.exchange}</span>
-          <div className={styles.pillGroup}>
-            {EXCHANGE_OPTIONS.map((option) => (
-              <button
-                key={option}
-                className={styles.pill}
-                data-active={exchange === option}
-                onClick={() => onExchangeChange(option)}
-                aria-pressed={exchange === option}
-              >
-                {exchangeLabels[option]}
-              </button>
-            ))}
-          </div>
-        </div>
 
         <div className={styles.section}>
           <span className={styles.label}>{labels.sortBy}</span>
