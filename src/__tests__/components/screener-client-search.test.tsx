@@ -161,6 +161,52 @@ describe("ScreenerClient search", () => {
     );
   });
 
+  it("filters by ticker symbol only, not company name", async () => {
+    const user = userEvent.setup();
+
+    // The mock data has stocks like TOP1, TOP2, etc. with names like "TOP1 Inc"
+    // We'll search for "Inc" which appears in all names but no tickers
+    render(
+      <ScreenerClient
+        initialData={mockInitialData}
+        dict={mockDict}
+        onSelectStock={vi.fn()}
+        selectedSymbol={null}
+        activeFormula={null}
+        onFormulaChange={vi.fn()}
+        isAdmin={false}
+        navContent={<div>Nav</div>}
+      />
+    );
+
+    // Wait for initial render - TOP1 should be visible (appears in both table and card)
+    await waitFor(() => {
+      expect(screen.getAllByText("TOP1").length).toBeGreaterThan(0);
+    });
+
+    const searchInputs = screen.getAllByPlaceholderText(/search/i);
+    const searchInput = searchInputs[searchInputs.length - 1];
+
+    // Search by ticker prefix - should find TOP1, TOP10, etc.
+    await user.type(searchInput, "TOP1");
+    await waitFor(() => {
+      expect(screen.getAllByText("TOP1").length).toBeGreaterThan(0);
+    });
+
+    // Clear and search by company name fragment - should NOT find anything
+    // All stocks have "Inc" in their name (e.g., "TOP1 Inc") but not in ticker
+    await user.clear(searchInput);
+    await user.type(searchInput, "Inc");
+
+    // Wait for the filter to apply - no stocks should match "Inc" in ticker
+    await waitFor(() => {
+      expect(screen.queryAllByText("TOP1")).toHaveLength(0);
+    });
+
+    // The "no stocks" message should appear (appears in both table and card)
+    expect(screen.getAllByText("No stocks").length).toBeGreaterThan(0);
+  });
+
   it("reverts to normal limit when search is cleared", async () => {
     const user = userEvent.setup();
 

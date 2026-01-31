@@ -156,14 +156,11 @@ export function ScreenerClient({
     (stock) => !currentHiddenSymbols.includes(stock.symbol)
   );
 
-  // Client-side search filtering preserves original ranks
+  // Client-side search filtering preserves original ranks (ticker only)
   if (searchQuery) {
     const query = searchQuery.toLowerCase();
-    visibleStocks = visibleStocks.filter(
-      (stock) =>
-        stock.symbol.toLowerCase().includes(query) ||
-        stock.name.toLowerCase().includes(query) ||
-        stock.nameHebrew?.toLowerCase().includes(query)
+    visibleStocks = visibleStocks.filter((stock) =>
+      stock.symbol.toLowerCase().includes(query)
     );
   }
 
