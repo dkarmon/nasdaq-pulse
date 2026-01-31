@@ -3,10 +3,10 @@
 
 "use client";
 
-import { useState, useEffect, useCallback, useMemo } from "react";
+import { useState, useEffect, useCallback, useMemo, ReactNode } from "react";
 import { usePreferences } from "@/hooks/usePreferences";
 import { useLiveQuotes } from "@/hooks/useLiveQuotes";
-import { ControlsBar } from "./controls-bar";
+import { StickyHeader } from "./sticky-header";
 import { StockTable } from "./stock-table";
 import { StockCardList } from "./stock-card";
 import {
@@ -27,6 +27,7 @@ type ScreenerClientProps = {
   activeFormula: RecommendationFormulaSummary | null;
   onFormulaChange: (formula: RecommendationFormulaSummary | null) => void;
   isAdmin: boolean;
+  navContent: ReactNode;
 };
 
 export function ScreenerClient({
@@ -37,6 +38,7 @@ export function ScreenerClient({
   activeFormula,
   onFormulaChange,
   isAdmin,
+  navContent,
 }: ScreenerClientProps) {
   const {
     preferences,
@@ -171,7 +173,8 @@ export function ScreenerClient({
 
   return (
     <div className={styles.screener}>
-      <ControlsBar
+      <StickyHeader
+        navContent={navContent}
         exchange={preferences.exchange}
         sortBy={preferences.sortBy}
         limit={preferences.limit}

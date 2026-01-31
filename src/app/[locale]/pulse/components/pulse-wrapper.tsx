@@ -3,7 +3,7 @@
 
 "use client";
 
-import { useState } from "react";
+import { useState, ReactNode } from "react";
 import { ScreenerClient } from "./screener-client";
 import { StockDetail } from "./stock-detail";
 import type { ScreenerResponse } from "@/lib/market-data/types";
@@ -16,9 +16,10 @@ type PulseWrapperProps = {
   dict: Dictionary;
   locale: string;
   isAdmin: boolean;
+  navContent: ReactNode;
 };
 
-export function PulseWrapper({ initialData, dict, locale, isAdmin }: PulseWrapperProps) {
+export function PulseWrapper({ initialData, dict, locale, isAdmin, navContent }: PulseWrapperProps) {
   const [selectedSymbol, setSelectedSymbol] = useState<string | null>(null);
   const [activeFormula, setActiveFormula] = useState<RecommendationFormulaSummary | null>(
     initialData.recommendation?.activeFormula ?? null
@@ -62,6 +63,7 @@ export function PulseWrapper({ initialData, dict, locale, isAdmin }: PulseWrappe
             activeFormula={activeFormula}
             onFormulaChange={setActiveFormula}
             isAdmin={isAdmin}
+            navContent={navContent}
           />
         </div>
 
