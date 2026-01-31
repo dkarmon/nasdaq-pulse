@@ -256,6 +256,28 @@
   border-color: var(--accent);
 }
 
+.exportButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  padding: 10px 16px;
+  border-radius: 10px;
+  border: 1px solid var(--glass-border);
+  background: var(--glass);
+  color: var(--text);
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: border 150ms ease, background 150ms ease, transform 150ms ease;
+}
+
+.exportButton:hover {
+  border-color: var(--accent);
+  background: var(--glass-hover);
+  transform: translateY(-1px);
+}
+
 .label {
   font-size: 0.9rem;
   font-weight: 600;

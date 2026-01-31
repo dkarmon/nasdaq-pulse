@@ -4,8 +4,10 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import type { SortPeriod, Exchange } from "@/lib/market-data/types";
+import { Download } from "lucide-react";
+import type { Stock, SortPeriod, Exchange } from "@/lib/market-data/types";
 import type { RecommendationFormulaSummary } from "@/lib/recommendations/types";
+import { exportToExcel } from "@/lib/excel-export";
 import { FilterSheet } from "./filter-sheet";
 import styles from "./controls-bar.module.css";
 
@@ -24,6 +26,8 @@ type ControlsBarProps = {
   isAdmin?: boolean;
   activeFormula?: RecommendationFormulaSummary | null;
   onFormulaChange?: (formula: RecommendationFormulaSummary) => void;
+  visibleStocks?: Stock[];
+  rankMap?: Map<string, number>;
   labels: {
     sortBy: string;
     show: string;
@@ -40,10 +44,6 @@ export const SORT_OPTIONS: SortPeriod[] = ["1d", "5d", "1m", "6m", "12m", "az"];
 export const LIMIT_OPTIONS = [25, 50];
 export const EXCHANGE_OPTIONS: Exchange[] = ["nasdaq", "tlv"];
 
-function countActiveFilters(showRecommendedOnly: boolean): number {
-  return showRecommendedOnly ? 1 : 0;
-}
-
 export function ControlsBar({
   exchange,
   sortBy,
@@ -59,6 +59,8 @@ export function ControlsBar({
   isAdmin = false,
   activeFormula,
   onFormulaChange,
+  visibleStocks,
+  rankMap,
   labels,
 }: ControlsBarProps) {
   const [isFilterSheetOpen, setIsFilterSheetOpen] = useState(false);
@@ -90,12 +92,24 @@ export function ControlsBar({
     onFormulaChange(formula);
   };
 
+  const handleExport = () => {
+    if (!visibleStocks || !rankMap) return;
+
+    exportToExcel(visibleStocks, rankMap, {
+      exchange,
+      sortBy,
+      limit,
+      recommendedOnly: showRecommendedOnly,
+      formula: activeFormula ?? null,
+    });
+  };
+
   const exchangeLabels: Record<Exchange, string> = {
     nasdaq: labels.nasdaq,
     tlv: labels.tlv,
   };
 
-  const activeFilterCount = countActiveFilters(showRecommendedOnly);
+  const activeFilterCount = showRecommendedOnly ? 1 : 0;
 
   return (
     <>
@@ -242,6 +256,16 @@ export function ControlsBar({
             </div>
           )}
 
+          {isAdmin && visibleStocks && rankMap && (
+            <button
+              className={styles.exportButton}
+              onClick={handleExport}
+              title="Export to Excel"
+            >
+              <Download size={18} />
+              Export
+            </button>
+          )}
         </div>
       </div>
 
