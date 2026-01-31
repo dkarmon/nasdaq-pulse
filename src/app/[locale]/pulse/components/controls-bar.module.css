@@ -257,25 +257,57 @@
 }
 
 .exportButton {
-  display: inline-flex;
+  display: flex;
   align-items: center;
-  gap: 6px;
-  min-height: 44px;
-  padding: 10px 16px;
-  border-radius: 10px;
+  justify-content: center;
+  width: 48px;
+  min-height: 48px;
+  border-radius: 12px;
   border: 1px solid var(--glass-border);
   background: var(--glass);
   color: var(--text);
-  font-weight: 600;
-  font-size: 0.95rem;
   cursor: pointer;
-  transition: border 150ms ease, background 150ms ease, transform 150ms ease;
+  transition: border 150ms ease, background 150ms ease;
 }
 
 .exportButton:hover {
   border-color: var(--accent);
   background: var(--glass-hover);
-  transform: translateY(-1px);
+}
+
+.refreshButton,
+.mobileRefreshButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  min-height: 48px;
+  border-radius: 12px;
+  border: 1px solid var(--glass-border);
+  background: var(--glass);
+  color: var(--text);
+  cursor: pointer;
+  transition: border 150ms ease, background 150ms ease;
+}
+
+.refreshButton:hover,
+.mobileRefreshButton:hover {
+  border-color: var(--accent);
+  background: var(--glass-hover);
+}
+
+.refreshButton:disabled,
+.mobileRefreshButton:disabled {
+  cursor: wait;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.spinning {
+  animation: spin 1s linear infinite;
 }
 
 .label {
