@@ -128,6 +128,7 @@ describe("ScreenerClient search", () => {
         activeFormula={null}
         onFormulaChange={vi.fn()}
         isAdmin={false}
+        navContent={<div>Nav</div>}
       />
     );
 
@@ -172,6 +173,7 @@ describe("ScreenerClient search", () => {
         activeFormula={null}
         onFormulaChange={vi.fn()}
         isAdmin={false}
+        navContent={<div>Nav</div>}
       />
     );
 
