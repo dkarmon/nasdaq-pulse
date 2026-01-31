@@ -1,7 +1,115 @@
 /* ABOUTME: Styles for the screener controls bar component. */
 /* ABOUTME: Compact mobile bar with filter button; full desktop layout. */
 
-/* Mobile compact controls - only visible on mobile */
+/* Shared icon button base styles */
+.iconButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  min-height: 48px;
+  border-radius: 12px;
+  border: 1px solid var(--glass-border);
+  background: var(--glass);
+  color: var(--text);
+  cursor: pointer;
+  transition: border 150ms ease, background 150ms ease;
+}
+
+.iconButton:hover {
+  border-color: var(--accent);
+  background: var(--glass-hover);
+}
+
+.iconButton:disabled {
+  cursor: wait;
+}
+
+/* Shared search input styles */
+.searchInput {
+  min-height: 48px;
+  padding: 12px 16px;
+  border-radius: 12px;
+  border: 1px solid var(--glass-border);
+  background: var(--glass);
+  color: var(--text);
+  font-weight: 500;
+  font-size: 1rem;
+  transition: border 150ms ease, background 150ms ease;
+}
+
+.searchInput::placeholder {
+  color: var(--muted);
+}
+
+.searchInput:focus {
+  outline: none;
+  border-color: var(--accent);
+  background: rgba(16, 185, 129, 0.08);
+}
+
+/* Shared recommended toggle styles */
+.recommendedToggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  flex-shrink: 0;
+  min-height: 48px;
+  border-radius: 12px;
+  border: 1px solid var(--glass-border);
+  background: var(--glass);
+  color: var(--text);
+  font-size: 1.25rem;
+  cursor: pointer;
+  transition: border 150ms ease, background 150ms ease, color 150ms ease;
+}
+
+.recommendedToggle:hover {
+  border-color: #fbbf24;
+  background: var(--glass-hover);
+}
+
+.recommendedToggle[data-active="true"] {
+  background: rgba(251, 191, 36, 0.15);
+  border-color: rgba(251, 191, 36, 0.5);
+  color: #fcd34d;
+}
+
+/* Shared exchange toggle styles */
+.exchangeToggle {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-radius: 10px;
+  border: 1px solid var(--glass-border);
+  background: var(--glass);
+  overflow: hidden;
+  width: fit-content;
+}
+
+.exchangeOption {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 10px 14px;
+  border: none;
+  background: transparent;
+  color: var(--muted);
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 150ms ease, color 150ms ease;
+}
+
+.exchangeOption[data-active="true"] {
+  background: linear-gradient(90deg, #10b981, #6366f1);
+  border-color: transparent;
+  color: #0b0f1a !important;
+  font-weight: 700;
+  box-shadow: 0 4px 16px rgba(16, 185, 129, 0.3);
+}
+
+/* Mobile compact controls */
 .mobileControls {
   display: none;
   flex-direction: column;
@@ -21,88 +129,24 @@
   gap: 10px;
 }
 
-.mobileSearchInput,
-.searchInput {
-  min-height: 48px;
-  border-radius: 12px;
-  border: 1px solid var(--glass-border);
-  background: var(--glass);
-  color: var(--text);
-  font-weight: 500;
-  font-size: 1rem;
-  transition: border 150ms ease, background 150ms ease;
-}
-
 .mobileSearchInput {
+  composes: searchInput;
   width: 100%;
-  padding: 12px 16px;
-}
-
-.mobileSearchInput::placeholder,
-.searchInput::placeholder {
-  color: var(--muted);
-}
-
-.mobileSearchInput:focus,
-.searchInput:focus {
-  outline: none;
-  border-color: var(--accent);
-  background: rgba(16, 185, 129, 0.08);
-}
-
-.mobileRecommendedToggle,
-.recommendedToggle {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 48px;
-  border-radius: 12px;
-  border: 1px solid var(--glass-border);
-  background: var(--glass);
-  color: var(--text);
-  cursor: pointer;
-  transition: border 150ms ease, background 150ms ease, color 150ms ease;
 }
 
 .mobileRecommendedToggle {
-  width: 48px;
-  flex-shrink: 0;
-  font-size: 1.25rem;
+  composes: recommendedToggle;
 }
 
-.mobileRecommendedToggle:hover,
-.recommendedToggle:hover {
-  border-color: #fbbf24;
-  background: var(--glass-hover);
-}
-
-.mobileRecommendedToggle[data-active="true"],
-.recommendedToggle[data-active="true"] {
-  background: rgba(251, 191, 36, 0.15);
-  border-color: rgba(251, 191, 36, 0.5);
-  color: #fcd34d;
+.mobileRefreshButton {
+  composes: iconButton;
 }
 
 .mobileFilterButton {
+  composes: iconButton;
   position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 48px;
   flex-shrink: 0;
-  min-height: 48px;
-  border-radius: 12px;
-  border: 1px solid var(--glass-border);
-  background: var(--glass);
-  color: var(--text);
-  cursor: pointer;
-  transition: border 150ms ease, background 150ms ease;
   overflow: visible;
-}
-
-.mobileFilterButton:hover {
-  border-color: var(--accent);
-  background: var(--glass-hover);
 }
 
 .mobileFilterButton[data-has-filters="true"] {
@@ -132,56 +176,18 @@
   font-weight: 700;
 }
 
-.mobileExchangeToggle,
-.exchangeToggle {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  border-radius: 10px;
-  border: 1px solid var(--glass-border);
-  background: var(--glass);
-  overflow: hidden;
-  width: fit-content;
-}
-
 .mobileExchangeToggle {
+  composes: exchangeToggle;
   flex: 1;
   min-width: 0;
 }
 
-.mobileExchangeOption,
-.exchangeOption {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 48px;
-  padding: 10px 14px;
-  border: none;
-  background: transparent;
-  color: var(--muted);
-  font-weight: 600;
-  cursor: pointer;
-  transition: background 150ms ease, color 150ms ease;
-}
-
 .mobileExchangeOption {
+  composes: exchangeOption;
   font-size: 0.85rem;
 }
 
-.exchangeOption {
-  font-size: 1rem;
-  padding: 12px 24px;
-}
-
-.mobileExchangeOption[data-active="true"],
-.exchangeOption[data-active="true"] {
-  background: linear-gradient(90deg, #10b981, #6366f1);
-  border-color: transparent;
-  color: #0b0f1a !important;
-  font-weight: 700;
-  box-shadow: 0 4px 16px rgba(16, 185, 129, 0.3);
-}
-
-/* Desktop full controls - hidden on mobile */
+/* Desktop full controls */
 .desktopControls {
   display: flex;
   flex-direction: column;
@@ -204,17 +210,18 @@
   flex-wrap: wrap;
 }
 
-.searchInput {
+.desktopSearchInput {
+  composes: searchInput;
   flex: 0 1 200px;
   min-width: 0;
   max-width: 200px;
   padding: 12px 18px;
 }
 
-.recommendedToggle {
-  width: 48px;
-  flex-shrink: 0;
-  font-size: 1.25rem;
+.desktopExchangeOption {
+  composes: exchangeOption;
+  font-size: 1rem;
+  padding: 12px 24px;
 }
 
 .secondaryRow {
@@ -257,48 +264,11 @@
 }
 
 .exportButton {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 48px;
-  min-height: 48px;
-  border-radius: 12px;
-  border: 1px solid var(--glass-border);
-  background: var(--glass);
-  color: var(--text);
-  cursor: pointer;
-  transition: border 150ms ease, background 150ms ease;
+  composes: iconButton;
 }
 
-.exportButton:hover {
-  border-color: var(--accent);
-  background: var(--glass-hover);
-}
-
-.refreshButton,
-.mobileRefreshButton {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 48px;
-  min-height: 48px;
-  border-radius: 12px;
-  border: 1px solid var(--glass-border);
-  background: var(--glass);
-  color: var(--text);
-  cursor: pointer;
-  transition: border 150ms ease, background 150ms ease;
-}
-
-.refreshButton:hover,
-.mobileRefreshButton:hover {
-  border-color: var(--accent);
-  background: var(--glass-hover);
-}
-
-.refreshButton:disabled,
-.mobileRefreshButton:disabled {
-  cursor: wait;
+.refreshButton {
+  composes: iconButton;
 }
 
 @keyframes spin {

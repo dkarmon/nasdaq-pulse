@@ -186,7 +186,7 @@ export function ControlsBar({
             {EXCHANGE_OPTIONS.map((option) => (
               <button
                 key={option}
-                className={styles.exchangeOption}
+                className={styles.desktopExchangeOption}
                 data-active={exchange === option}
                 onClick={() => onExchangeChange(option)}
                 aria-pressed={exchange === option}
@@ -198,7 +198,7 @@ export function ControlsBar({
 
           <input
             type="text"
-            className={styles.searchInput}
+            className={styles.desktopSearchInput}
             placeholder={labels.search}
             value={searchQuery}
             onChange={(e) => onSearchChange(e.target.value)}
