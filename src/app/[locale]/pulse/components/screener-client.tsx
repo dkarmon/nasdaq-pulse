@@ -68,7 +68,7 @@ export function ScreenerClient({
   // Fetch live quotes for recommended stocks
   const { quotes: liveQuotes } = useLiveQuotes(recommendedSymbols);
 
-  const fetchScreenerData = useCallback(async (search?: string) => {
+  const fetchScreenerData = useCallback(async () => {
     if (!isLoaded) return;
 
     setIsLoading(true);
@@ -84,10 +84,6 @@ export function ScreenerClient({
         includeScores: "true",
       });
 
-      if (search) {
-        params.set("search", search);
-      }
-
       const response = await fetch(`/api/screener?${params}`);
       const data: ScreenerResponse = await response.json();
 
@@ -102,9 +98,9 @@ export function ScreenerClient({
 
   useEffect(() => {
     if (isLoaded) {
-      fetchScreenerData(searchQuery || undefined);
+      fetchScreenerData();
     }
-  }, [isLoaded, fetchScreenerData, searchQuery]);
+  }, [isLoaded, fetchScreenerData]);
 
   const controlLabels = {
     sortBy: dict.screener.sortBy,
@@ -149,6 +145,17 @@ export function ScreenerClient({
   let visibleStocks = scoredStocks.filter(
     (stock) => !currentHiddenSymbols.includes(stock.symbol)
   );
+
+  // Client-side search filtering preserves original ranks
+  if (searchQuery) {
+    const query = searchQuery.toLowerCase();
+    visibleStocks = visibleStocks.filter(
+      (stock) =>
+        stock.symbol.toLowerCase().includes(query) ||
+        stock.name.toLowerCase().includes(query) ||
+        stock.nameHebrew?.toLowerCase().includes(query)
+    );
+  }
 
   if (preferences.showRecommendedOnly) {
     visibleStocks = filterAndSortByRecommendation(visibleStocks, activeFormula ?? undefined);

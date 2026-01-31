@@ -88,6 +88,18 @@ button {
   font-family: inherit;
 }
 
+/* Dark theme for native select dropdowns - applies to all selects app-wide */
+select {
+  color-scheme: dark;
+  background-color: var(--bg);
+  color: var(--text);
+}
+
+select option {
+  background-color: var(--bg);
+  color: var(--text);
+}
+
 .brand-wordmark {
   background: var(--brand-gradient);
   -webkit-background-clip: text;
