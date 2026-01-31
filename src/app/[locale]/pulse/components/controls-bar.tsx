@@ -263,7 +263,6 @@ export function ControlsBar({
               title="Export to Excel"
             >
               <Download size={18} />
-              Export
             </button>
           )}
         </div>
