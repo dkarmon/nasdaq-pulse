@@ -154,11 +154,6 @@
   background: rgba(16, 185, 129, 0.1);
 }
 
-.filterIcon {
-  width: 20px;
-  height: 20px;
-}
-
 .filterBadge {
   position: absolute;
   top: -4px;

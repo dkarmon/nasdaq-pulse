@@ -4,7 +4,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Download, RotateCw } from "lucide-react";
+import { Download, RotateCw, MoreVertical } from "lucide-react";
 import type { Stock, SortPeriod, Exchange } from "@/lib/market-data/types";
 import type { RecommendationFormulaSummary } from "@/lib/recommendations/types";
 import { exportToExcel } from "@/lib/excel-export";
@@ -159,9 +159,7 @@ export function ControlsBar({
             data-has-filters={activeFilterCount > 0}
             aria-label="Open filters"
           >
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={styles.filterIcon}>
-              <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3" />
-            </svg>
+            <MoreVertical size={20} />
             {activeFilterCount > 0 && (
               <span className={styles.filterBadge}>{activeFilterCount}</span>
             )}
@@ -300,11 +298,9 @@ export function ControlsBar({
       <FilterSheet
         isOpen={isFilterSheetOpen}
         onClose={() => setIsFilterSheetOpen(false)}
-        exchange={exchange}
         sortBy={sortBy}
         limit={limit}
         controlsDisabled={controlsDisabled}
-        onExchangeChange={onExchangeChange}
         onSortChange={onSortChange}
         onLimitChange={onLimitChange}
         isAdmin={isAdmin}
@@ -314,9 +310,6 @@ export function ControlsBar({
         labels={{
           sortBy: labels.sortBy,
           show: labels.show,
-          exchange: labels.exchange,
-          nasdaq: labels.nasdaq,
-          tlv: labels.tlv,
           formula: labels.formula || "Formula",
           apply: "Apply Filters",
         }}
