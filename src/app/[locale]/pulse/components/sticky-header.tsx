@@ -3,7 +3,7 @@
 
 "use client";
 
-import { ReactNode } from "react";
+import { ReactNode, useRef, useEffect } from "react";
 import { ControlsBar } from "./controls-bar";
 import type { Stock, SortPeriod, Exchange } from "@/lib/market-data/types";
 import type { RecommendationFormulaSummary } from "@/lib/recommendations/types";
@@ -63,8 +63,27 @@ export function StickyHeader({
   rankMap,
   labels,
 }: StickyHeaderProps) {
+  const headerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const el = headerRef.current;
+    if (!el) return;
+
+    const observer = new ResizeObserver((entries) => {
+      const height =
+        entries[0]?.borderBoxSize?.[0]?.blockSize ?? el.offsetHeight;
+      document.documentElement.style.setProperty(
+        "--sticky-header-height",
+        `${height}px`
+      );
+    });
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <div className={styles.stickyHeader}>
+    <div ref={headerRef} className={styles.stickyHeader}>
       <nav className={styles.nav}>{navContent}</nav>
       <ControlsBar
         exchange={exchange}
