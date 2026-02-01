@@ -21,7 +21,13 @@
 
 @media (max-width: 768px) {
   .stickyHeader {
-    border: none;
-    border-radius: 0;
+    margin: 8px;
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius);
+    padding: 4px;
+  }
+
+  .nav {
+    padding: 8px 12px;
   }
 }
