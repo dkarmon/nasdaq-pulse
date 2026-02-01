@@ -97,6 +97,11 @@ const nasdaqPreferences = () => ({
   currentHiddenSymbols: [],
 });
 
+function getSearchInput(): HTMLInputElement {
+  const inputs = screen.getAllByPlaceholderText(/search/i);
+  return inputs[inputs.length - 1] as HTMLInputElement;
+}
+
 describe("ScreenerClient search", () => {
   beforeEach(() => {
     fetchCalls = [];
@@ -157,10 +162,7 @@ describe("ScreenerClient search", () => {
     // Clear fetch calls to track only search-triggered fetches
     fetchCalls = [];
 
-    // Find and interact with desktop search input
-    const searchInputs = screen.getAllByPlaceholderText(/search/i);
-    const searchInput = searchInputs[searchInputs.length - 1]; // Desktop input is second
-    await user.type(searchInput, "PLTR");
+    await user.type(getSearchInput(), "PLTR");
 
     // Wait for debounced search to trigger fetch with large limit
     await waitFor(
@@ -198,19 +200,15 @@ describe("ScreenerClient search", () => {
       expect(screen.getAllByText("TOP1").length).toBeGreaterThan(0);
     });
 
-    const searchInputs = screen.getAllByPlaceholderText(/search/i);
-    const searchInput = searchInputs[searchInputs.length - 1];
-
     // Search by ticker prefix - should find TOP1, TOP10, etc.
-    await user.type(searchInput, "TOP1");
+    await user.type(getSearchInput(), "TOP1");
     await waitFor(() => {
       expect(screen.getAllByText("TOP1").length).toBeGreaterThan(0);
     });
 
     // Clear and search by company name fragment - should NOT find anything
-    // All stocks have "Inc" in their name (e.g., "TOP1 Inc") but not in ticker
-    await user.clear(searchInput);
-    await user.type(searchInput, "Inc");
+    await user.clear(getSearchInput());
+    await user.type(getSearchInput(), "Inc");
 
     // Wait for the filter to apply - no stocks should match "Inc" in ticker
     await waitFor(() => {
@@ -220,11 +218,6 @@ describe("ScreenerClient search", () => {
     // The "no stocks" message should appear (appears in both table and card)
     expect(screen.getAllByText("No stocks").length).toBeGreaterThan(0);
   });
-
-  // Note: TLV Hebrew name search is tested in screener-filter.test.ts
-  // The component integration test is skipped due to complex async state management
-  // that makes component-level testing unreliable. The filtering logic is verified
-  // in unit tests instead.
 
   it("reverts to normal limit when search is cleared", async () => {
     const user = userEvent.setup();
@@ -249,10 +242,7 @@ describe("ScreenerClient search", () => {
 
     fetchCalls = [];
 
-    // Type search query - use desktop search input
-    const searchInputs = screen.getAllByPlaceholderText(/search/i);
-    const searchInput = searchInputs[searchInputs.length - 1];
-    await user.type(searchInput, "PLTR");
+    await user.type(getSearchInput(), "PLTR");
 
     // Wait for search fetch
     await waitFor(
@@ -264,8 +254,7 @@ describe("ScreenerClient search", () => {
 
     fetchCalls = [];
 
-    // Clear search
-    await user.clear(searchInput);
+    await user.clear(getSearchInput());
 
     // Wait for fetch with normal limit
     await waitFor(

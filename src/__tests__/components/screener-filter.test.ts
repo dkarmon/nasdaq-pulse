@@ -82,8 +82,7 @@ describe("screener search filtering", () => {
       expect(result[0].symbol).toBe("ARYT.TA");
     });
 
-    it("is case insensitive for Hebrew", () => {
-      // Hebrew doesn't have case, but test the lowercase behavior
+    it("matches Hebrew search terms", () => {
       const result = filterBySearch(tlvStocks, "טבע");
       expect(result).toHaveLength(1);
       expect(result[0].symbol).toBe("TEVA.TA");
