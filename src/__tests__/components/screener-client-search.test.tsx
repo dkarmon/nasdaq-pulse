@@ -2,7 +2,7 @@
 // ABOUTME: Verifies search queries cause full dataset fetch to find stocks outside top N.
 
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
-import { render, screen, waitFor, act } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { ScreenerClient } from "@/app/[locale]/pulse/components/screener-client";
 import type { ScreenerResponse, Stock } from "@/lib/market-data/types";
@@ -10,17 +10,24 @@ import type { ScreenerResponse, Stock } from "@/lib/market-data/types";
 // Track fetch calls
 let fetchCalls: { url: string; params: URLSearchParams }[] = [];
 
-const mockStock = (symbol: string, growth1m: number): Stock => ({
+const mockStock = (
+  symbol: string,
+  growth1m: number,
+  overrides?: Partial<Stock>
+): Stock => ({
   symbol,
   name: `${symbol} Inc`,
   price: 100,
   marketCap: 1000000000,
+  currency: "USD",
   growth1d: 0,
   growth5d: 0,
   growth1m,
   growth6m: 0,
   growth12m: 0,
-  exchange: "NASDAQ",
+  exchange: "nasdaq",
+  updatedAt: new Date().toISOString(),
+  ...overrides,
 });
 
 const topStocks = Array.from({ length: 50 }, (_, i) =>
@@ -35,8 +42,8 @@ const allStocks = [
 const mockInitialData: ScreenerResponse = {
   stocks: topStocks,
   updatedAt: new Date().toISOString(),
-  source: "redis",
-  recommendation: null,
+  source: "cached",
+  exchange: "nasdaq",
 };
 
 const mockDict = {
@@ -63,23 +70,10 @@ const mockDict = {
   },
 } as any;
 
-// Mock usePreferences
+// Mock usePreferences with a factory that can be configured
+const mockPreferences = vi.fn();
 vi.mock("@/hooks/usePreferences", () => ({
-  usePreferences: () => ({
-    preferences: {
-      sortBy: "1m",
-      limit: 50,
-      exchange: "NASDAQ",
-      showRecommendedOnly: false,
-    },
-    isLoaded: true,
-    setSortBy: vi.fn(),
-    setLimit: vi.fn(),
-    setExchange: vi.fn(),
-    hideStock: vi.fn(),
-    setShowRecommendedOnly: vi.fn(),
-    currentHiddenSymbols: [],
-  }),
+  usePreferences: () => mockPreferences(),
 }));
 
 // Mock useLiveQuotes
@@ -87,9 +81,26 @@ vi.mock("@/hooks/useLiveQuotes", () => ({
   useLiveQuotes: () => ({ quotes: {} }),
 }));
 
+const nasdaqPreferences = () => ({
+  preferences: {
+    sortBy: "1m",
+    limit: 50,
+    exchange: "nasdaq",
+    showRecommendedOnly: false,
+  },
+  isLoaded: true,
+  setSortBy: vi.fn(),
+  setLimit: vi.fn(),
+  setExchange: vi.fn(),
+  hideStock: vi.fn(),
+  setShowRecommendedOnly: vi.fn(),
+  currentHiddenSymbols: [],
+});
+
 describe("ScreenerClient search", () => {
   beforeEach(() => {
     fetchCalls = [];
+    mockPreferences.mockReturnValue(nasdaqPreferences());
 
     // Mock fetch to track calls and return appropriate data
     global.fetch = vi.fn(async (url: string) => {
@@ -98,6 +109,8 @@ describe("ScreenerClient search", () => {
       fetchCalls.push({ url, params });
 
       const limit = parseInt(params.get("limit") || "50", 10);
+      const exchange = params.get("exchange") || "nasdaq";
+
       const stocks = limit >= 9999 ? allStocks : topStocks;
 
       return {
@@ -105,8 +118,9 @@ describe("ScreenerClient search", () => {
         json: async () => ({
           stocks,
           updatedAt: new Date().toISOString(),
-          source: "redis",
-          recommendation: null,
+          source: "cached",
+          recommendation: { activeFormula: null },
+          exchange,
         }),
       } as Response;
     });
@@ -206,6 +220,11 @@ describe("ScreenerClient search", () => {
     // The "no stocks" message should appear (appears in both table and card)
     expect(screen.getAllByText("No stocks").length).toBeGreaterThan(0);
   });
+
+  // Note: TLV Hebrew name search is tested in screener-filter.test.ts
+  // The component integration test is skipped due to complex async state management
+  // that makes component-level testing unreliable. The filtering logic is verified
+  // in unit tests instead.
 
   it("reverts to normal limit when search is cleared", async () => {
     const user = userEvent.setup();

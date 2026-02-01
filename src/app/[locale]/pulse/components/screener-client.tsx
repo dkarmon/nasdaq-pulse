@@ -156,11 +156,13 @@ export function ScreenerClient({
     (stock) => !currentHiddenSymbols.includes(stock.symbol)
   );
 
-  // Client-side search filtering preserves original ranks (ticker only)
+  // Client-side search: NASDAQ by ticker, TLV by Hebrew name
   if (searchQuery) {
     const query = searchQuery.toLowerCase();
     visibleStocks = visibleStocks.filter((stock) =>
-      stock.symbol.toLowerCase().includes(query)
+      stock.exchange === "tlv"
+        ? stock.nameHebrew?.toLowerCase().includes(query)
+        : stock.symbol.toLowerCase().includes(query)
     );
   }
 
