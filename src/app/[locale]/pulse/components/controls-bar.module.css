@@ -174,8 +174,7 @@
 
 .mobileExchangeToggle {
   composes: exchangeToggle;
-  flex: 1;
-  min-width: 0;
+  flex-shrink: 0;
 }
 
 .mobileExchangeOption {
