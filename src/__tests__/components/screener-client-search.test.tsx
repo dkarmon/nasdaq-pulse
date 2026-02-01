@@ -2,7 +2,7 @@
 // ABOUTME: Verifies search queries cause full dataset fetch to find stocks outside top N.
 
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
-import { render, screen, waitFor, act } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { ScreenerClient } from "@/app/[locale]/pulse/components/screener-client";
 import type { ScreenerResponse, Stock } from "@/lib/market-data/types";
@@ -10,17 +10,24 @@ import type { ScreenerResponse, Stock } from "@/lib/market-data/types";
 // Track fetch calls
 let fetchCalls: { url: string; params: URLSearchParams }[] = [];
 
-const mockStock = (symbol: string, growth1m: number): Stock => ({
+const mockStock = (
+  symbol: string,
+  growth1m: number,
+  overrides?: Partial<Stock>
+): Stock => ({
   symbol,
   name: `${symbol} Inc`,
   price: 100,
   marketCap: 1000000000,
+  currency: "USD",
   growth1d: 0,
   growth5d: 0,
   growth1m,
   growth6m: 0,
   growth12m: 0,
-  exchange: "NASDAQ",
+  exchange: "nasdaq",
+  updatedAt: new Date().toISOString(),
+  ...overrides,
 });
 
 const topStocks = Array.from({ length: 50 }, (_, i) =>
@@ -35,8 +42,8 @@ const allStocks = [
 const mockInitialData: ScreenerResponse = {
   stocks: topStocks,
   updatedAt: new Date().toISOString(),
-  source: "redis",
-  recommendation: null,
+  source: "cached",
+  exchange: "nasdaq",
 };
 
 const mockDict = {
@@ -63,23 +70,10 @@ const mockDict = {
   },
 } as any;
 
-// Mock usePreferences
+// Mock usePreferences with a factory that can be configured
+const mockPreferences = vi.fn();
 vi.mock("@/hooks/usePreferences", () => ({
-  usePreferences: () => ({
-    preferences: {
-      sortBy: "1m",
-      limit: 50,
-      exchange: "NASDAQ",
-      showRecommendedOnly: false,
-    },
-    isLoaded: true,
-    setSortBy: vi.fn(),
-    setLimit: vi.fn(),
-    setExchange: vi.fn(),
-    hideStock: vi.fn(),
-    setShowRecommendedOnly: vi.fn(),
-    currentHiddenSymbols: [],
-  }),
+  usePreferences: () => mockPreferences(),
 }));
 
 // Mock useLiveQuotes
@@ -87,9 +81,31 @@ vi.mock("@/hooks/useLiveQuotes", () => ({
   useLiveQuotes: () => ({ quotes: {} }),
 }));
 
+const nasdaqPreferences = () => ({
+  preferences: {
+    sortBy: "1m",
+    limit: 50,
+    exchange: "nasdaq",
+    showRecommendedOnly: false,
+  },
+  isLoaded: true,
+  setSortBy: vi.fn(),
+  setLimit: vi.fn(),
+  setExchange: vi.fn(),
+  hideStock: vi.fn(),
+  setShowRecommendedOnly: vi.fn(),
+  currentHiddenSymbols: [],
+});
+
+function getSearchInput(): HTMLInputElement {
+  const inputs = screen.getAllByPlaceholderText(/search/i);
+  return inputs[inputs.length - 1] as HTMLInputElement;
+}
+
 describe("ScreenerClient search", () => {
   beforeEach(() => {
     fetchCalls = [];
+    mockPreferences.mockReturnValue(nasdaqPreferences());
 
     // Mock fetch to track calls and return appropriate data
     global.fetch = vi.fn(async (url: string) => {
@@ -98,6 +114,8 @@ describe("ScreenerClient search", () => {
       fetchCalls.push({ url, params });
 
       const limit = parseInt(params.get("limit") || "50", 10);
+      const exchange = params.get("exchange") || "nasdaq";
+
       const stocks = limit >= 9999 ? allStocks : topStocks;
 
       return {
@@ -105,8 +123,9 @@ describe("ScreenerClient search", () => {
         json: async () => ({
           stocks,
           updatedAt: new Date().toISOString(),
-          source: "redis",
-          recommendation: null,
+          source: "cached",
+          recommendation: { activeFormula: null },
+          exchange,
         }),
       } as Response;
     });
@@ -143,10 +162,7 @@ describe("ScreenerClient search", () => {
     // Clear fetch calls to track only search-triggered fetches
     fetchCalls = [];
 
-    // Find and interact with desktop search input
-    const searchInputs = screen.getAllByPlaceholderText(/search/i);
-    const searchInput = searchInputs[searchInputs.length - 1]; // Desktop input is second
-    await user.type(searchInput, "PLTR");
+    await user.type(getSearchInput(), "PLTR");
 
     // Wait for debounced search to trigger fetch with large limit
     await waitFor(
@@ -184,19 +200,15 @@ describe("ScreenerClient search", () => {
       expect(screen.getAllByText("TOP1").length).toBeGreaterThan(0);
     });
 
-    const searchInputs = screen.getAllByPlaceholderText(/search/i);
-    const searchInput = searchInputs[searchInputs.length - 1];
-
     // Search by ticker prefix - should find TOP1, TOP10, etc.
-    await user.type(searchInput, "TOP1");
+    await user.type(getSearchInput(), "TOP1");
     await waitFor(() => {
       expect(screen.getAllByText("TOP1").length).toBeGreaterThan(0);
     });
 
     // Clear and search by company name fragment - should NOT find anything
-    // All stocks have "Inc" in their name (e.g., "TOP1 Inc") but not in ticker
-    await user.clear(searchInput);
-    await user.type(searchInput, "Inc");
+    await user.clear(getSearchInput());
+    await user.type(getSearchInput(), "Inc");
 
     // Wait for the filter to apply - no stocks should match "Inc" in ticker
     await waitFor(() => {
@@ -230,10 +242,7 @@ describe("ScreenerClient search", () => {
 
     fetchCalls = [];
 
-    // Type search query - use desktop search input
-    const searchInputs = screen.getAllByPlaceholderText(/search/i);
-    const searchInput = searchInputs[searchInputs.length - 1];
-    await user.type(searchInput, "PLTR");
+    await user.type(getSearchInput(), "PLTR");
 
     // Wait for search fetch
     await waitFor(
@@ -245,8 +254,7 @@ describe("ScreenerClient search", () => {
 
     fetchCalls = [];
 
-    // Clear search
-    await user.clear(searchInput);
+    await user.clear(getSearchInput());
 
     // Wait for fetch with normal limit
     await waitFor(
