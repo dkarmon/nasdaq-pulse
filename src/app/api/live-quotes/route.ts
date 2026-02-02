@@ -1,5 +1,5 @@
 // ABOUTME: API endpoint for fetching live stock quotes with intraday change.
-// ABOUTME: Returns current price, previous close, and change percentage for each symbol.
+// ABOUTME: Returns current price, open price, and intraday change percentage for each symbol.
 
 import { NextRequest, NextResponse } from "next/server";
 import { getBatchQuotes } from "@/lib/market-data/yahoo";
@@ -7,7 +7,7 @@ import { getBatchQuotes } from "@/lib/market-data/yahoo";
 export type LiveQuote = {
   symbol: string;
   price: number;
-  previousClose: number;
+  open: number;
   change: number;
   changePercent: number;
 };
@@ -49,16 +49,17 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
   for (const symbol of symbols) {
     const quote = quotesMap.get(symbol);
     if (quote) {
-      const change = quote.price - quote.previousClose;
+      // Intraday change: from today's open to current price
+      const change = quote.price - quote.open;
       const changePercent =
-        quote.previousClose > 0 ? (change / quote.previousClose) * 100 : 0;
+        quote.open > 0 ? (change / quote.open) * 100 : 0;
 
       // Use the input symbol (not quote.symbol) to ensure format matches client expectations
       // Yahoo may return TLV symbols without .TA suffix in sparkData.symbol
       quotes.push({
         symbol,
         price: quote.price,
-        previousClose: quote.previousClose,
+        open: quote.open,
         change,
         changePercent,
       });

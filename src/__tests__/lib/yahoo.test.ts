@@ -21,7 +21,7 @@ describe("getBatchQuotes", () => {
   });
 
   function createSparkResponse(
-    symbols: { symbol: string; price: number; previousClose: number }[]
+    symbols: { symbol: string; price: number; previousClose: number; open?: number }[]
   ) {
     const result: Record<string, unknown> = {};
     for (const s of symbols) {
@@ -29,6 +29,7 @@ describe("getBatchQuotes", () => {
         symbol: s.symbol,
         chartPreviousClose: s.previousClose,
         close: [s.price],
+        open: [s.open ?? s.price],
         timestamp: [Date.now() / 1000],
       };
     }
@@ -59,16 +60,19 @@ describe("getBatchQuotes", () => {
       symbol: "AAPL",
       price: 150.0,
       previousClose: 145.0,
+      open: 150.0,
     });
     expect(result.get("GOOGL")).toEqual({
       symbol: "GOOGL",
       price: 180.0,
       previousClose: 175.0,
+      open: 180.0,
     });
     expect(result.get("MSFT")).toEqual({
       symbol: "MSFT",
       price: 400.0,
       previousClose: 395.0,
+      open: 400.0,
     });
   });
 
@@ -343,7 +347,7 @@ describe("getBatchQuotes - partial failures", () => {
   });
 
   function createSparkResponse(
-    symbols: { symbol: string; price: number; previousClose: number }[]
+    symbols: { symbol: string; price: number; previousClose: number; open?: number }[]
   ) {
     const result: Record<string, unknown> = {};
     for (const s of symbols) {
@@ -351,6 +355,7 @@ describe("getBatchQuotes - partial failures", () => {
         symbol: s.symbol,
         chartPreviousClose: s.previousClose,
         close: [s.price],
+        open: [s.open ?? s.price],
         timestamp: [Date.now() / 1000],
       };
     }
