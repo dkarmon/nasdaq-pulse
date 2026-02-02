@@ -369,7 +369,8 @@ async function fetchSparkBatchWithRetry(
 ): Promise<Map<string, BatchQuote>> {
   for (let attempt = 1; attempt <= maxRetries; attempt++) {
     try {
-      const url = `${BASE_URL}/v8/finance/spark?symbols=${symbols.join(",")}&interval=1d&range=1d`;
+      const encodedSymbols = symbols.map(s => encodeURIComponent(s)).join(",");
+      const url = `${BASE_URL}/v8/finance/spark?symbols=${encodedSymbols}&interval=1d&range=1d`;
       const response = await fetch(url, {
         headers: {
           "User-Agent":
