@@ -11,6 +11,7 @@ type YahooChartResult = {
       meta: {
         symbol: string;
         regularMarketPrice: number;
+        regularMarketOpen?: number;
         previousClose?: number;
         chartPreviousClose?: number;
         currency: string;
@@ -275,6 +276,7 @@ export async function getQuoteAndGrowth(symbol: string): Promise<{
       symbol: result.meta.symbol,
       price: result.meta.regularMarketPrice,
       previousClose,
+      open: result.meta.regularMarketOpen ?? result.meta.regularMarketPrice,
       name: result.meta.longName || result.meta.shortName || symbol,
       exchange: result.meta.exchangeName,
     },
