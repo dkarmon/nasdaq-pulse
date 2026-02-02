@@ -265,13 +265,9 @@ export async function getQuoteAndGrowth(symbol: string): Promise<{
     result.meta.chartPreviousClose ??
     0;
 
-  // Try metadata-based calculation first, fall back to historical if it produces NaN
-  const metadataGrowth1d = previousClose
-    ? ((result.meta.regularMarketPrice - previousClose) / previousClose) * 100
-    : NaN;
-  const growth1d = Number.isFinite(metadataGrowth1d)
-    ? metadataGrowth1d
-    : calculateGrowthByDays(closePrices, validTimestamps, 1);
+  // Always use historical close-to-close calculation for 1D growth
+  // (metadata-based calculation gives the same value as live intraday change)
+  const growth1d = calculateGrowthByDays(closePrices, validTimestamps, 1);
 
   return {
     quote: {
