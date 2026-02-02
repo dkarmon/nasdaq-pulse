@@ -89,12 +89,19 @@ export function StockTable({
                     return (
                       <>
                         <div className={styles.symbolRow}>
-                          {isRecommended && (
-                            <span className={styles.starIcon} title={labels.recommended}>
-                              ★
-                            </span>
-                          )}
-                          <span className={styles.symbol}>{primaryText}</span>
+                          <span className={styles.symbolGroup}>
+                            {isRecommended && (
+                              <span className={styles.starIcon} title={labels.recommended}>
+                                ★
+                              </span>
+                            )}
+                            <span className={styles.symbol}>{primaryText}</span>
+                            {stock.hasSplitWarning && (
+                              <span className={styles.splitWarning} title="Recent stock split - growth data may be inaccurate">
+                                ⚠️
+                              </span>
+                            )}
+                          </span>
                           {isRecommended && liveQuote && (
                             <span
                               className={styles.liveGrowth}
@@ -102,11 +109,6 @@ export function StockTable({
                               data-negative={liveQuote.changePercent < 0}
                             >
                               ({formatGrowth(liveQuote.changePercent)})
-                            </span>
-                          )}
-                          {stock.hasSplitWarning && (
-                            <span className={styles.splitWarning} title="Recent stock split - growth data may be inaccurate">
-                              ⚠️
                             </span>
                           )}
                           <button
