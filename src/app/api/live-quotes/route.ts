@@ -2,7 +2,7 @@
 // ABOUTME: Returns current price, previous close, and change percentage for each symbol.
 
 import { NextRequest, NextResponse } from "next/server";
-import { getBatchQuotes, getLastFetchDebug } from "@/lib/market-data/yahoo";
+import { getBatchQuotes } from "@/lib/market-data/yahoo";
 
 export type LiveQuote = {
   symbol: string;
@@ -65,14 +65,9 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
     }
   }
 
-  const response: LiveQuotesResponse & { debug?: unknown } = {
+  const response: LiveQuotesResponse = {
     quotes,
     fetchedAt: new Date().toISOString(),
-    debug: {
-      inputSymbols: symbols,
-      mapKeys: Array.from(quotesMap.keys()),
-      fetchDebug: getLastFetchDebug(),
-    },
   };
 
   return NextResponse.json(response);
