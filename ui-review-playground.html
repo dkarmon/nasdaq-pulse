@@ -1,0 +1,1065 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>nasdaq-pulse UI Review Playground</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0f172a;
+      --bg-dark: #0a0a0f;
+      --card: #101828;
+      --text: #e5e7eb;
+      --muted: #94a3b8;
+      --accent: #10b981;
+      --accent-2: #6366f1;
+      --warn: #f59e0b;
+      --danger: #f43f5e;
+      --glass-border: rgba(255,255,255,0.08);
+      --radius: 14px;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: var(--bg-dark);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      min-height: 100vh;
+    }
+
+    /* Controls Panel */
+    .controls {
+      background: var(--card);
+      border-right: 1px solid var(--glass-border);
+      padding: 20px;
+      overflow-y: auto;
+      max-height: 100vh;
+    }
+
+    .controls h1 {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: var(--accent);
+    }
+
+    .controls .subtitle {
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 20px;
+    }
+
+    .section {
+      margin-bottom: 24px;
+    }
+
+    .section-title {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .section-title::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--glass-border);
+    }
+
+    .control-group {
+      margin-bottom: 16px;
+    }
+
+    .control-label {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13px;
+      margin-bottom: 6px;
+    }
+
+    .control-value {
+      font-family: monospace;
+      color: var(--accent);
+      font-size: 12px;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      height: 6px;
+      background: var(--bg);
+      border-radius: 3px;
+      outline: none;
+      -webkit-appearance: none;
+    }
+
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 16px;
+      height: 16px;
+      background: var(--accent);
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
+    /* Toggle */
+    .toggle-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--glass-border);
+    }
+
+    .toggle-row:last-child {
+      border-bottom: none;
+    }
+
+    .toggle-label {
+      font-size: 13px;
+    }
+
+    .toggle {
+      position: relative;
+      width: 44px;
+      height: 24px;
+      background: var(--bg);
+      border-radius: 12px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .toggle.active {
+      background: linear-gradient(135deg, var(--accent-2), var(--accent));
+    }
+
+    .toggle::after {
+      content: '';
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      width: 20px;
+      height: 20px;
+      background: white;
+      border-radius: 50%;
+      transition: transform 0.2s;
+    }
+
+    .toggle.active::after {
+      transform: translateX(20px);
+    }
+
+    /* Viewport Toggle */
+    .viewport-toggle {
+      display: flex;
+      background: var(--bg);
+      border-radius: 8px;
+      padding: 4px;
+      margin-bottom: 16px;
+    }
+
+    .viewport-btn {
+      flex: 1;
+      padding: 8px 12px;
+      border: none;
+      background: transparent;
+      color: var(--muted);
+      font-size: 12px;
+      cursor: pointer;
+      border-radius: 6px;
+      transition: all 0.2s;
+    }
+
+    .viewport-btn.active {
+      background: var(--accent);
+      color: var(--bg-dark);
+      font-weight: 600;
+    }
+
+    /* Presets */
+    .presets {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+
+    .preset-btn {
+      padding: 6px 12px;
+      border: 1px solid var(--glass-border);
+      background: transparent;
+      color: var(--text);
+      font-size: 11px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .preset-btn:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    /* Preview Area */
+    .preview-area {
+      display: flex;
+      flex-direction: column;
+      background: var(--bg);
+    }
+
+    .preview-header {
+      padding: 12px 20px;
+      background: var(--card);
+      border-bottom: 1px solid var(--glass-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .preview-title {
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .viewport-size {
+      font-family: monospace;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .preview-container {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 24px;
+      overflow: auto;
+    }
+
+    .preview-frame {
+      background: var(--bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 12px;
+      overflow: hidden;
+      transition: width 0.3s ease;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+    }
+
+    .preview-content {
+      padding: 20px;
+      min-height: 500px;
+    }
+
+    /* Mock Components */
+    .mock-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--glass-border);
+      margin-bottom: 16px;
+    }
+
+    .mock-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .mock-logo-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, var(--accent-2), var(--accent));
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 16px;
+    }
+
+    .mock-logo-text {
+      font-weight: 600;
+      font-size: 16px;
+    }
+
+    .mock-nav-btns {
+      display: flex;
+      gap: 8px;
+    }
+
+    .mock-icon-btn {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+      border: 1px solid var(--glass-border);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--muted);
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .mock-icon-btn:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .mock-controls-bar {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+
+    .mock-pill {
+      padding: 10px 16px;
+      background: linear-gradient(135deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+      border: 1px solid var(--glass-border);
+      border-radius: 22px;
+      font-size: 13px;
+      color: var(--text);
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .mock-pill.active {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .mock-toggle-switch {
+      width: 44px;
+      height: 24px;
+      background: linear-gradient(135deg, var(--accent-2), var(--accent));
+      border-radius: 12px;
+      position: relative;
+    }
+
+    .mock-toggle-switch::after {
+      content: '';
+      position: absolute;
+      top: 2px;
+      right: 2px;
+      width: 20px;
+      height: 20px;
+      background: white;
+      border-radius: 50%;
+    }
+
+    .mock-stock-card {
+      background: linear-gradient(135deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius);
+      padding: 16px;
+      margin-bottom: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: all 0.15s;
+    }
+
+    .mock-stock-card:hover {
+      background: linear-gradient(135deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
+    }
+
+    .stock-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .stock-symbol {
+      font-family: monospace;
+      font-weight: 600;
+      font-size: 15px;
+    }
+
+    .stock-name {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .stock-metrics {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+    }
+
+    .stock-price {
+      font-family: monospace;
+      font-size: 14px;
+    }
+
+    .stock-change {
+      font-family: monospace;
+      font-size: 13px;
+      padding: 4px 8px;
+      border-radius: 6px;
+    }
+
+    .stock-change.positive {
+      background: rgba(16, 185, 129, 0.15);
+      color: var(--accent);
+    }
+
+    .stock-change.negative {
+      background: rgba(244, 63, 94, 0.15);
+      color: var(--danger);
+    }
+
+    .stock-actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    .stock-action-btn {
+      width: 32px;
+      height: 32px;
+      background: transparent;
+      border: 1px solid var(--glass-border);
+      border-radius: 8px;
+      color: var(--muted);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      transition: all 0.15s;
+    }
+
+    .stock-action-btn.hide:hover {
+      border-color: var(--danger);
+      color: var(--danger);
+    }
+
+    .mock-btn {
+      padding: 12px 20px;
+      background: linear-gradient(135deg, var(--accent-2), var(--accent));
+      border: none;
+      border-radius: 10px;
+      color: white;
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    /* Prompt Output */
+    .prompt-area {
+      background: var(--card);
+      border-top: 1px solid var(--glass-border);
+      padding: 16px 20px;
+    }
+
+    .prompt-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .prompt-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+    }
+
+    .copy-btn {
+      padding: 6px 12px;
+      background: var(--accent);
+      border: none;
+      border-radius: 6px;
+      color: var(--bg-dark);
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .copy-btn:hover {
+      filter: brightness(1.1);
+    }
+
+    .copy-btn.copied {
+      background: var(--accent-2);
+    }
+
+    .prompt-output {
+      font-family: monospace;
+      font-size: 13px;
+      line-height: 1.6;
+      color: var(--text);
+      background: var(--bg);
+      padding: 12px;
+      border-radius: 8px;
+      white-space: pre-wrap;
+      max-height: 200px;
+      overflow-y: auto;
+    }
+
+    /* Element highlight for deletion */
+    .deletable {
+      position: relative;
+    }
+
+    .deletable.marked-delete {
+      opacity: 0.4;
+      text-decoration: line-through;
+    }
+
+    .deletable.marked-delete::after {
+      content: 'DELETE';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: var(--danger);
+      color: white;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 10px;
+      font-weight: bold;
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+      .controls {
+        max-height: none;
+        border-right: none;
+        border-bottom: 1px solid var(--glass-border);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="layout">
+    <div class="controls">
+      <h1>nasdaq-pulse UI Review</h1>
+      <p class="subtitle">Adjust components, toggle visibility, switch viewports</p>
+
+      <div class="section">
+        <div class="section-title">Viewport</div>
+        <div class="viewport-toggle">
+          <button class="viewport-btn active" data-viewport="mobile">Mobile (375px)</button>
+          <button class="viewport-btn" data-viewport="tablet">Tablet (768px)</button>
+          <button class="viewport-btn" data-viewport="desktop">Desktop (1200px)</button>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Presets</div>
+        <div class="presets">
+          <button class="preset-btn" data-preset="current">Current Design</button>
+          <button class="preset-btn" data-preset="compact">Compact</button>
+          <button class="preset-btn" data-preset="spacious">Spacious</button>
+          <button class="preset-btn" data-preset="minimal">Minimal</button>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Button Sizing</div>
+        <div class="control-group">
+          <div class="control-label">
+            <span>Primary Button Height</span>
+            <span class="control-value" id="btnHeightValue">48px</span>
+          </div>
+          <input type="range" id="btnHeight" min="36" max="56" value="48">
+        </div>
+        <div class="control-group">
+          <div class="control-label">
+            <span>Primary Button Padding (H)</span>
+            <span class="control-value" id="btnPaddingValue">20px</span>
+          </div>
+          <input type="range" id="btnPadding" min="12" max="32" value="20">
+        </div>
+        <div class="control-group">
+          <div class="control-label">
+            <span>Icon Button Size</span>
+            <span class="control-value" id="iconBtnSizeValue">40px</span>
+          </div>
+          <input type="range" id="iconBtnSize" min="32" max="48" value="40">
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Toggle & Pills</div>
+        <div class="control-group">
+          <div class="control-label">
+            <span>Toggle Switch Width</span>
+            <span class="control-value" id="toggleWidthValue">44px</span>
+          </div>
+          <input type="range" id="toggleWidth" min="36" max="56" value="44">
+        </div>
+        <div class="control-group">
+          <div class="control-label">
+            <span>Pill Height</span>
+            <span class="control-value" id="pillHeightValue">44px</span>
+          </div>
+          <input type="range" id="pillHeight" min="32" max="52" value="44">
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Card Styling</div>
+        <div class="control-group">
+          <div class="control-label">
+            <span>Card Padding</span>
+            <span class="control-value" id="cardPaddingValue">16px</span>
+          </div>
+          <input type="range" id="cardPadding" min="8" max="24" value="16">
+        </div>
+        <div class="control-group">
+          <div class="control-label">
+            <span>Card Border Radius</span>
+            <span class="control-value" id="cardRadiusValue">14px</span>
+          </div>
+          <input type="range" id="cardRadius" min="8" max="24" value="14">
+        </div>
+        <div class="control-group">
+          <div class="control-label">
+            <span>Card Gap</span>
+            <span class="control-value" id="cardGapValue">12px</span>
+          </div>
+          <input type="range" id="cardGap" min="4" max="20" value="12">
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Typography</div>
+        <div class="control-group">
+          <div class="control-label">
+            <span>Base Font Size</span>
+            <span class="control-value" id="fontSizeValue">14px</span>
+          </div>
+          <input type="range" id="fontSize" min="12" max="18" value="14">
+        </div>
+        <div class="control-group">
+          <div class="control-label">
+            <span>Symbol Font Size</span>
+            <span class="control-value" id="symbolSizeValue">15px</span>
+          </div>
+          <input type="range" id="symbolSize" min="13" max="18" value="15">
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Element Visibility</div>
+        <div class="toggle-row">
+          <span class="toggle-label">Header Logo Text</span>
+          <div class="toggle active" data-toggle="logoText"></div>
+        </div>
+        <div class="toggle-row">
+          <span class="toggle-label">Locale Switcher</span>
+          <div class="toggle active" data-toggle="localeSwitcher"></div>
+        </div>
+        <div class="toggle-row">
+          <span class="toggle-label">Filter Pills</span>
+          <div class="toggle active" data-toggle="filterPills"></div>
+        </div>
+        <div class="toggle-row">
+          <span class="toggle-label">Stock Change Badge</span>
+          <div class="toggle active" data-toggle="changeBadge"></div>
+        </div>
+        <div class="toggle-row">
+          <span class="toggle-label">Hide Button (Card)</span>
+          <div class="toggle active" data-toggle="hideButton"></div>
+        </div>
+        <div class="toggle-row">
+          <span class="toggle-label">Copy Button (Card)</span>
+          <div class="toggle active" data-toggle="copyButton"></div>
+        </div>
+        <div class="toggle-row">
+          <span class="toggle-label">Stock Name (show symbol only)</span>
+          <div class="toggle active" data-toggle="stockName"></div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Mobile-Specific</div>
+        <div class="toggle-row">
+          <span class="toggle-label">Bottom Sheet Filter</span>
+          <div class="toggle active" data-toggle="bottomSheet"></div>
+        </div>
+        <div class="toggle-row">
+          <span class="toggle-label">Swipe to Hide</span>
+          <div class="toggle active" data-toggle="swipeHide"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="preview-area">
+      <div class="preview-header">
+        <span class="preview-title">Live Preview</span>
+        <span class="viewport-size" id="viewportSize">375 x 667</span>
+      </div>
+
+      <div class="preview-container">
+        <div class="preview-frame" id="previewFrame" style="width: 375px;">
+          <div class="preview-content" id="previewContent">
+            <!-- Mock UI will be rendered here -->
+          </div>
+        </div>
+      </div>
+
+      <div class="prompt-area">
+        <div class="prompt-header">
+          <span class="prompt-label">Generated Prompt</span>
+          <button class="copy-btn" id="copyBtn">Copy Prompt</button>
+        </div>
+        <div class="prompt-output" id="promptOutput">
+          Adjust the controls to generate UI change recommendations...
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const DEFAULTS = {
+      viewport: 'mobile',
+      btnHeight: 48,
+      btnPadding: 20,
+      iconBtnSize: 40,
+      toggleWidth: 44,
+      pillHeight: 44,
+      cardPadding: 16,
+      cardRadius: 14,
+      cardGap: 12,
+      fontSize: 14,
+      symbolSize: 15,
+      logoText: true,
+      localeSwitcher: true,
+      filterPills: true,
+      changeBadge: true,
+      hideButton: true,
+      copyButton: true,
+      stockName: true,
+      bottomSheet: true,
+      swipeHide: true
+    };
+
+    const PRESETS = {
+      current: { ...DEFAULTS },
+      compact: {
+        ...DEFAULTS,
+        btnHeight: 40,
+        btnPadding: 14,
+        iconBtnSize: 36,
+        toggleWidth: 40,
+        pillHeight: 36,
+        cardPadding: 12,
+        cardRadius: 10,
+        cardGap: 8,
+        fontSize: 13,
+        symbolSize: 14
+      },
+      spacious: {
+        ...DEFAULTS,
+        btnHeight: 52,
+        btnPadding: 24,
+        iconBtnSize: 44,
+        toggleWidth: 48,
+        pillHeight: 48,
+        cardPadding: 20,
+        cardRadius: 18,
+        cardGap: 16,
+        fontSize: 15,
+        symbolSize: 16
+      },
+      minimal: {
+        ...DEFAULTS,
+        logoText: false,
+        localeSwitcher: false,
+        filterPills: false,
+        hideButton: false,
+        copyButton: false,
+        stockName: false,
+        cardPadding: 12,
+        cardGap: 8
+      }
+    };
+
+    const VIEWPORTS = {
+      mobile: { width: 375, height: 667 },
+      tablet: { width: 768, height: 1024 },
+      desktop: { width: 1200, height: 800 }
+    };
+
+    const state = { ...DEFAULTS };
+
+    function updateAll() {
+      renderPreview();
+      updatePrompt();
+      updateControlDisplays();
+    }
+
+    function updateControlDisplays() {
+      document.getElementById('btnHeightValue').textContent = state.btnHeight + 'px';
+      document.getElementById('btnPaddingValue').textContent = state.btnPadding + 'px';
+      document.getElementById('iconBtnSizeValue').textContent = state.iconBtnSize + 'px';
+      document.getElementById('toggleWidthValue').textContent = state.toggleWidth + 'px';
+      document.getElementById('pillHeightValue').textContent = state.pillHeight + 'px';
+      document.getElementById('cardPaddingValue').textContent = state.cardPadding + 'px';
+      document.getElementById('cardRadiusValue').textContent = state.cardRadius + 'px';
+      document.getElementById('cardGapValue').textContent = state.cardGap + 'px';
+      document.getElementById('fontSizeValue').textContent = state.fontSize + 'px';
+      document.getElementById('symbolSizeValue').textContent = state.symbolSize + 'px';
+
+      // Update slider positions
+      document.getElementById('btnHeight').value = state.btnHeight;
+      document.getElementById('btnPadding').value = state.btnPadding;
+      document.getElementById('iconBtnSize').value = state.iconBtnSize;
+      document.getElementById('toggleWidth').value = state.toggleWidth;
+      document.getElementById('pillHeight').value = state.pillHeight;
+      document.getElementById('cardPadding').value = state.cardPadding;
+      document.getElementById('cardRadius').value = state.cardRadius;
+      document.getElementById('cardGap').value = state.cardGap;
+      document.getElementById('fontSize').value = state.fontSize;
+      document.getElementById('symbolSize').value = state.symbolSize;
+
+      // Update toggle states
+      document.querySelectorAll('.toggle').forEach(toggle => {
+        const key = toggle.dataset.toggle;
+        toggle.classList.toggle('active', state[key]);
+      });
+
+      // Update viewport buttons
+      document.querySelectorAll('.viewport-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.viewport === state.viewport);
+      });
+
+      // Update viewport size display
+      const vp = VIEWPORTS[state.viewport];
+      document.getElementById('viewportSize').textContent = `${vp.width} x ${vp.height}`;
+      document.getElementById('previewFrame').style.width = vp.width + 'px';
+    }
+
+    function renderPreview() {
+      const isMobile = state.viewport === 'mobile';
+      const isDesktop = state.viewport === 'desktop';
+
+      const preview = document.getElementById('previewContent');
+      preview.style.fontSize = state.fontSize + 'px';
+
+      preview.innerHTML = `
+        <div class="mock-header">
+          <div class="mock-logo">
+            <div class="mock-logo-icon" style="width: ${state.iconBtnSize}px; height: ${state.iconBtnSize}px; border-radius: ${state.cardRadius * 0.6}px;">N</div>
+            ${state.logoText ? '<span class="mock-logo-text">nasdaq-pulse</span>' : ''}
+          </div>
+          <div class="mock-nav-btns">
+            ${state.localeSwitcher ? `<div class="mock-icon-btn" style="width: ${state.iconBtnSize}px; height: ${state.iconBtnSize}px; border-radius: ${state.cardRadius * 0.7}px;">EN</div>` : ''}
+            <div class="mock-icon-btn" style="width: ${state.iconBtnSize}px; height: ${state.iconBtnSize}px; border-radius: ${state.cardRadius * 0.7}px;">?</div>
+          </div>
+        </div>
+
+        ${state.filterPills ? `
+        <div class="mock-controls-bar">
+          <div class="mock-pill active" style="height: ${state.pillHeight}px; line-height: ${state.pillHeight - 20}px;">All Stocks</div>
+          <div class="mock-pill" style="height: ${state.pillHeight}px; line-height: ${state.pillHeight - 20}px;">Recommended</div>
+          <div class="mock-toggle-switch" style="width: ${state.toggleWidth}px; height: ${state.toggleWidth * 0.55}px; border-radius: ${state.toggleWidth * 0.27}px;"></div>
+        </div>
+        ` : ''}
+
+        <div style="display: flex; flex-direction: column; gap: ${state.cardGap}px;">
+          ${renderStockCard('AAPL', 'Apple Inc.', '$178.52', '+2.34%', true)}
+          ${renderStockCard('MSFT', 'Microsoft Corp.', '$425.80', '+1.12%', true)}
+          ${renderStockCard('NVDA', 'NVIDIA Corp.', '$875.25', '-0.85%', false)}
+        </div>
+
+        ${isMobile && state.bottomSheet ? `
+        <div style="margin-top: 20px; padding: 16px; background: var(--card); border-radius: ${state.cardRadius}px; border: 1px solid var(--glass-border);">
+          <div style="width: 40px; height: 4px; background: var(--muted); border-radius: 2px; margin: 0 auto 12px;"></div>
+          <div style="font-size: 12px; color: var(--muted); margin-bottom: 8px;">Bottom Sheet Filter</div>
+          <button class="mock-btn" style="width: 100%; height: ${state.btnHeight}px; padding: 0 ${state.btnPadding}px; border-radius: ${state.cardRadius * 0.7}px;">Apply Filters</button>
+        </div>
+        ` : ''}
+
+        ${isMobile && state.swipeHide ? `
+        <div style="margin-top: 12px; font-size: 11px; color: var(--muted); text-align: center;">
+          ← Swipe cards to hide →
+        </div>
+        ` : ''}
+      `;
+    }
+
+    function renderStockCard(symbol, name, price, change, positive) {
+      const isMobile = state.viewport === 'mobile';
+
+      return `
+        <div class="mock-stock-card" style="padding: ${state.cardPadding}px; border-radius: ${state.cardRadius}px;">
+          <div class="stock-info">
+            <div>
+              <div class="stock-symbol" style="font-size: ${state.symbolSize}px;">${symbol}</div>
+              ${state.stockName ? `<div class="stock-name" style="font-size: ${state.fontSize - 1}px;">${name}</div>` : ''}
+            </div>
+          </div>
+          <div class="stock-metrics">
+            <div class="stock-price" style="font-size: ${state.fontSize}px;">${price}</div>
+            ${state.changeBadge ? `
+            <div class="stock-change ${positive ? 'positive' : 'negative'}" style="font-size: ${state.fontSize - 1}px; border-radius: ${state.cardRadius * 0.4}px;">
+              ${change}
+            </div>
+            ` : ''}
+            <div class="stock-actions">
+              ${state.copyButton && !isMobile ? `<button class="stock-action-btn" style="width: ${state.iconBtnSize * 0.8}px; height: ${state.iconBtnSize * 0.8}px; border-radius: ${state.cardRadius * 0.5}px;">⧉</button>` : ''}
+              ${state.hideButton && !isMobile ? `<button class="stock-action-btn hide" style="width: ${state.iconBtnSize * 0.8}px; height: ${state.iconBtnSize * 0.8}px; border-radius: ${state.cardRadius * 0.5}px;">✕</button>` : ''}
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function updatePrompt() {
+      const parts = [];
+      const deletions = [];
+      const additions = [];
+
+      // Size changes
+      if (state.btnHeight !== DEFAULTS.btnHeight) {
+        parts.push(`primary button height to ${state.btnHeight}px`);
+      }
+      if (state.btnPadding !== DEFAULTS.btnPadding) {
+        parts.push(`button horizontal padding to ${state.btnPadding}px`);
+      }
+      if (state.iconBtnSize !== DEFAULTS.iconBtnSize) {
+        parts.push(`icon button size to ${state.iconBtnSize}px`);
+      }
+      if (state.toggleWidth !== DEFAULTS.toggleWidth) {
+        parts.push(`toggle switch width to ${state.toggleWidth}px`);
+      }
+      if (state.pillHeight !== DEFAULTS.pillHeight) {
+        parts.push(`filter pill height to ${state.pillHeight}px`);
+      }
+      if (state.cardPadding !== DEFAULTS.cardPadding) {
+        parts.push(`card padding to ${state.cardPadding}px`);
+      }
+      if (state.cardRadius !== DEFAULTS.cardRadius) {
+        parts.push(`card border-radius to ${state.cardRadius}px`);
+      }
+      if (state.cardGap !== DEFAULTS.cardGap) {
+        parts.push(`spacing between cards to ${state.cardGap}px`);
+      }
+      if (state.fontSize !== DEFAULTS.fontSize) {
+        parts.push(`base font size to ${state.fontSize}px`);
+      }
+      if (state.symbolSize !== DEFAULTS.symbolSize) {
+        parts.push(`stock symbol font size to ${state.symbolSize}px`);
+      }
+
+      // Deletions
+      if (!state.logoText) deletions.push('the logo wordmark (keep icon only)');
+      if (!state.localeSwitcher) deletions.push('the locale/language switcher button');
+      if (!state.filterPills) deletions.push('the filter pill controls');
+      if (!state.changeBadge) deletions.push('the stock price change badge');
+      if (!state.hideButton) deletions.push('the hide button on stock cards');
+      if (!state.copyButton) deletions.push('the copy button on stock cards');
+      if (!state.stockName) deletions.push('the stock company name (show symbol only)');
+      if (!state.bottomSheet) deletions.push('the bottom sheet filter on mobile');
+      if (!state.swipeHide) deletions.push('the swipe-to-hide gesture on mobile');
+
+      let prompt = '';
+
+      if (parts.length === 0 && deletions.length === 0) {
+        prompt = 'No changes from current design. Adjust the controls above to generate recommendations.';
+      } else {
+        prompt = 'UI changes for nasdaq-pulse:\n\n';
+
+        if (parts.length > 0) {
+          prompt += '**Size/Spacing Adjustments:**\n';
+          prompt += parts.map(p => `- Change ${p}`).join('\n');
+          prompt += '\n\n';
+        }
+
+        if (deletions.length > 0) {
+          prompt += '**Elements to Remove:**\n';
+          prompt += deletions.map(d => `- Remove ${d}`).join('\n');
+          prompt += '\n\n';
+        }
+
+        prompt += `**Viewport context:** Optimized for ${state.viewport} (${VIEWPORTS[state.viewport].width}px width)`;
+
+        // Add Tailwind suggestions if relevant
+        if (state.cardPadding !== DEFAULTS.cardPadding || state.cardRadius !== DEFAULTS.cardRadius) {
+          prompt += '\n\n**Tailwind classes to update:**\n';
+          if (state.cardPadding !== DEFAULTS.cardPadding) {
+            const twPadding = Math.round(state.cardPadding / 4);
+            prompt += `- Card padding: p-${twPadding}\n`;
+          }
+          if (state.cardRadius !== DEFAULTS.cardRadius) {
+            const twRadius = state.cardRadius <= 8 ? 'rounded-lg' : state.cardRadius <= 12 ? 'rounded-xl' : state.cardRadius <= 16 ? 'rounded-2xl' : 'rounded-3xl';
+            prompt += `- Card radius: ${twRadius}\n`;
+          }
+        }
+      }
+
+      document.getElementById('promptOutput').textContent = prompt;
+    }
+
+    // Event listeners
+    document.querySelectorAll('input[type="range"]').forEach(input => {
+      input.addEventListener('input', (e) => {
+        state[e.target.id] = parseInt(e.target.value);
+        updateAll();
+      });
+    });
+
+    document.querySelectorAll('.toggle').forEach(toggle => {
+      toggle.addEventListener('click', () => {
+        const key = toggle.dataset.toggle;
+        state[key] = !state[key];
+        updateAll();
+      });
+    });
+
+    document.querySelectorAll('.viewport-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        state.viewport = btn.dataset.viewport;
+        updateAll();
+      });
+    });
+
+    document.querySelectorAll('.preset-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const preset = PRESETS[btn.dataset.preset];
+        Object.assign(state, preset);
+        updateAll();
+      });
+    });
+
+    document.getElementById('copyBtn').addEventListener('click', () => {
+      const text = document.getElementById('promptOutput').textContent;
+      navigator.clipboard.writeText(text).then(() => {
+        const btn = document.getElementById('copyBtn');
+        btn.textContent = 'Copied!';
+        btn.classList.add('copied');
+        setTimeout(() => {
+          btn.textContent = 'Copy Prompt';
+          btn.classList.remove('copied');
+        }, 2000);
+      });
+    });
+
+    // Initial render
+    updateAll();
+  </script>
+</body>
+</html>

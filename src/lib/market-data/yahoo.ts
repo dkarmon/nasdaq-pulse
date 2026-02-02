@@ -363,6 +363,19 @@ function parseSparkResponse(data: SparkResponse): Map<string, BatchQuote> {
   return results;
 }
 
+type FetchDebugInfo = {
+  url: string;
+  status?: number;
+  error?: string;
+  responseKeys?: string[];
+};
+
+let lastFetchDebug: FetchDebugInfo | null = null;
+
+export function getLastFetchDebug(): FetchDebugInfo | null {
+  return lastFetchDebug;
+}
+
 async function fetchSparkBatchWithRetry(
   symbols: string[],
   maxRetries = 3
@@ -371,6 +384,8 @@ async function fetchSparkBatchWithRetry(
     try {
       const encodedSymbols = symbols.map(s => encodeURIComponent(s)).join(",");
       const url = `${BASE_URL}/v8/finance/spark?symbols=${encodedSymbols}&interval=1d&range=1d`;
+      lastFetchDebug = { url };
+
       const response = await fetch(url, {
         headers: {
           "User-Agent":
@@ -378,13 +393,17 @@ async function fetchSparkBatchWithRetry(
         },
       });
 
+      lastFetchDebug.status = response.status;
+
       if (!response.ok) {
         throw new Error(`HTTP ${response.status}`);
       }
 
       const data: SparkResponse = await response.json();
+      lastFetchDebug.responseKeys = Object.keys(data);
       return parseSparkResponse(data);
     } catch (error) {
+      lastFetchDebug = { ...lastFetchDebug, error: String(error) };
       if (attempt === maxRetries) {
         console.error(
           `Batch failed after ${maxRetries} retries:`,

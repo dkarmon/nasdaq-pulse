@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mobile Controls Row - Galaxy S21 Fix</title>
+  <style>
+    :root {
+      --bg-dark: #0b0f1a;
+      --glass: rgba(30, 41, 59, 0.5);
+      --glass-border: rgba(148, 163, 184, 0.1);
+      --glass-hover: rgba(30, 41, 59, 0.8);
+      --text: #f1f5f9;
+      --muted: #64748b;
+      --accent: #10b981;
+      --radius: 16px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: #1a1a2e;
+      color: var(--text);
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    h1 {
+      font-size: 1.25rem;
+      margin-bottom: 8px;
+      color: var(--accent);
+    }
+
+    .description {
+      color: var(--muted);
+      font-size: 0.875rem;
+      margin-bottom: 24px;
+    }
+
+    .playground {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-bottom: 24px;
+    }
+
+    @media (max-width: 900px) {
+      .playground {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .demo-container {
+      background: var(--bg-dark);
+      border-radius: var(--radius);
+      padding: 16px;
+      border: 1px solid var(--glass-border);
+    }
+
+    .demo-title {
+      font-size: 0.875rem;
+      font-weight: 600;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .badge {
+      font-size: 0.7rem;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-weight: 700;
+    }
+
+    .badge.bug {
+      background: #ef4444;
+      color: white;
+    }
+
+    .badge.fix {
+      background: var(--accent);
+      color: #0b0f1a;
+    }
+
+    /* Phone frame simulation */
+    .phone-frame {
+      width: 360px;
+      max-width: 100%;
+      margin: 0 auto;
+      background: #0b0f1a;
+      border-radius: 24px;
+      border: 3px solid #333;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .phone-notch {
+      width: 100px;
+      height: 20px;
+      background: #333;
+      border-radius: 0 0 12px 12px;
+      margin: 0 auto;
+    }
+
+    .phone-content {
+      padding: 8px;
+    }
+
+    /* Sticky header simulation */
+    .sticky-header {
+      background: var(--bg-dark);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius);
+      padding: 4px;
+      margin: 8px;
+    }
+
+    /* Nav bar */
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 12px;
+      border-bottom: 1px solid var(--glass-border);
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .logo-icon {
+      width: 36px;
+      height: 36px;
+      background: linear-gradient(135deg, var(--accent), #6366f1);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 1.1rem;
+    }
+
+    .logo-text {
+      font-size: 0.9rem;
+      line-height: 1.2;
+    }
+
+    .logo-text span {
+      color: var(--accent);
+    }
+
+    .nav-right {
+      display: flex;
+      gap: 6px;
+    }
+
+    .nav-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      border: 1px solid var(--glass-border);
+      background: var(--glass);
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      cursor: pointer;
+    }
+
+    /* Mobile controls - THE KEY AREA */
+    .mobile-controls {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding: 8px;
+    }
+
+    .mobile-controls-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .mobile-controls-row.with-wrap {
+      flex-wrap: wrap;
+    }
+
+    /* Icon button base */
+    .icon-button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 48px;
+      min-height: 48px;
+      border-radius: 12px;
+      border: 1px solid var(--glass-border);
+      background: var(--glass);
+      color: var(--text);
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    /* Exchange toggle */
+    .exchange-toggle {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border-radius: 10px;
+      border: 1px solid var(--glass-border);
+      background: var(--glass);
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .exchange-option {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      padding: 10px 14px;
+      border: none;
+      background: transparent;
+      color: var(--muted);
+      font-weight: 600;
+      font-size: 0.85rem;
+      cursor: pointer;
+    }
+
+    .exchange-option.active {
+      background: linear-gradient(90deg, #10b981, #6366f1);
+      color: #0b0f1a !important;
+      font-weight: 700;
+    }
+
+    /* Recommended toggle */
+    .recommended-toggle {
+      composes: icon-button;
+      font-size: 1.25rem;
+    }
+
+    .recommended-toggle.active {
+      background: rgba(251, 191, 36, 0.15);
+      border-color: rgba(251, 191, 36, 0.5);
+    }
+
+    /* Filter button - three dots */
+    .filter-button {
+      position: relative;
+      overflow: visible;
+    }
+
+    .filter-badge {
+      position: absolute;
+      top: -4px;
+      right: -4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 18px;
+      height: 18px;
+      padding: 0 4px;
+      border-radius: 9px;
+      background: var(--accent);
+      color: #0b0f1a;
+      font-size: 0.7rem;
+      font-weight: 700;
+    }
+
+    /* Search input */
+    .search-input {
+      width: 100%;
+      min-height: 48px;
+      padding: 12px 16px;
+      border-radius: 12px;
+      border: 1px solid var(--glass-border);
+      background: var(--glass);
+      color: var(--text);
+      font-size: 1rem;
+    }
+
+    .search-input::placeholder {
+      color: var(--muted);
+    }
+
+    /* Overflow indicator */
+    .overflow-indicator {
+      position: absolute;
+      right: -20px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: #ef4444;
+      color: white;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 0.7rem;
+      font-weight: bold;
+      white-space: nowrap;
+    }
+
+    /* Controls panel */
+    .controls-panel {
+      background: var(--bg-dark);
+      border-radius: var(--radius);
+      padding: 16px;
+      border: 1px solid var(--glass-border);
+      margin-top: 24px;
+    }
+
+    .control-group {
+      margin-bottom: 16px;
+    }
+
+    .control-label {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .toggle-btn {
+      padding: 8px 16px;
+      border-radius: 8px;
+      border: 1px solid var(--glass-border);
+      background: var(--glass);
+      color: var(--text);
+      cursor: pointer;
+      font-size: 0.875rem;
+    }
+
+    .toggle-btn.active {
+      background: var(--accent);
+      color: #0b0f1a;
+      border-color: var(--accent);
+    }
+
+    /* Comparison summary */
+    .comparison {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 24px;
+    }
+
+    .comparison-item {
+      background: var(--glass);
+      border-radius: 12px;
+      padding: 16px;
+      border: 1px solid var(--glass-border);
+    }
+
+    .comparison-item h3 {
+      font-size: 0.9rem;
+      margin-bottom: 8px;
+    }
+
+    .comparison-item.bug h3 {
+      color: #ef4444;
+    }
+
+    .comparison-item.fix h3 {
+      color: var(--accent);
+    }
+
+    .comparison-item code {
+      font-family: monospace;
+      font-size: 0.75rem;
+      background: rgba(0,0,0,0.3);
+      padding: 8px;
+      border-radius: 6px;
+      display: block;
+      white-space: pre;
+    }
+
+    /* Prompt output */
+    .prompt-output {
+      background: #111827;
+      border-radius: 12px;
+      padding: 16px;
+      margin-top: 24px;
+      border: 1px solid var(--glass-border);
+    }
+
+    .prompt-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .prompt-header h3 {
+      font-size: 0.875rem;
+      color: var(--muted);
+    }
+
+    .copy-btn {
+      padding: 6px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--glass-border);
+      background: var(--glass);
+      color: var(--text);
+      cursor: pointer;
+      font-size: 0.75rem;
+    }
+
+    .copy-btn:hover {
+      background: var(--glass-hover);
+    }
+
+    .prompt-text {
+      font-family: monospace;
+      font-size: 0.8rem;
+      line-height: 1.5;
+      color: var(--text);
+      white-space: pre-wrap;
+    }
+
+    .highlight {
+      color: var(--accent);
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+  <h1>Galaxy S21 Three Dots Button Fix</h1>
+  <p class="description">The three dots filter button overflows outside the container on 360px viewports. Adding <code>flex-wrap: wrap</code> fixes it.</p>
+
+  <div class="playground">
+    <!-- Bug demo -->
+    <div class="demo-container">
+      <div class="demo-title">
+        <span class="badge bug">BUG</span>
+        Current behavior (no flex-wrap)
+      </div>
+      <div class="phone-frame">
+        <div class="phone-notch"></div>
+        <div class="phone-content">
+          <div class="sticky-header" style="overflow: visible;">
+            <div class="nav">
+              <div class="nav-left">
+                <div class="logo-icon">N</div>
+                <div class="logo-text">Nasdaq<br><span>Pulse</span></div>
+              </div>
+              <div class="nav-right">
+                <button class="nav-btn">&#9881;</button>
+                <button class="nav-btn">HE</button>
+                <button class="nav-btn">&#8594;</button>
+              </div>
+            </div>
+            <div class="mobile-controls">
+              <div class="mobile-controls-row" id="bugRow" style="position: relative; overflow: visible;">
+                <div class="exchange-toggle">
+                  <button class="exchange-option">NASDAQ</button>
+                  <button class="exchange-option active">TLV</button>
+                </div>
+                <button class="icon-button recommended-toggle active">&#9733;</button>
+                <button class="icon-button">&#8635;</button>
+                <button class="icon-button filter-button" style="position: absolute; right: -20px;">
+                  &#8942;
+                  <span class="filter-badge">2</span>
+                </button>
+              </div>
+              <input type="text" class="search-input" placeholder="Search...">
+            </div>
+          </div>
+        </div>
+      </div>
+      <p style="margin-top: 12px; font-size: 0.75rem; color: #ef4444; text-align: center;">
+        &#9888; Three dots button pushed outside container
+      </p>
+    </div>
+
+    <!-- Fix demo -->
+    <div class="demo-container">
+      <div class="demo-title">
+        <span class="badge fix">FIX</span>
+        With flex-wrap: wrap
+      </div>
+      <div class="phone-frame">
+        <div class="phone-notch"></div>
+        <div class="phone-content">
+          <div class="sticky-header">
+            <div class="nav">
+              <div class="nav-left">
+                <div class="logo-icon">N</div>
+                <div class="logo-text">Nasdaq<br><span>Pulse</span></div>
+              </div>
+              <div class="nav-right">
+                <button class="nav-btn">&#9881;</button>
+                <button class="nav-btn">HE</button>
+                <button class="nav-btn">&#8594;</button>
+              </div>
+            </div>
+            <div class="mobile-controls">
+              <div class="mobile-controls-row with-wrap">
+                <div class="exchange-toggle">
+                  <button class="exchange-option">NASDAQ</button>
+                  <button class="exchange-option active">TLV</button>
+                </div>
+                <button class="icon-button recommended-toggle active">&#9733;</button>
+                <button class="icon-button">&#8635;</button>
+                <button class="icon-button filter-button">
+                  &#8942;
+                  <span class="filter-badge">2</span>
+                </button>
+              </div>
+              <input type="text" class="search-input" placeholder="Search...">
+            </div>
+          </div>
+        </div>
+      </div>
+      <p style="margin-top: 12px; font-size: 0.75rem; color: var(--accent); text-align: center;">
+        &#10003; All controls accessible within container
+      </p>
+    </div>
+  </div>
+
+  <div class="comparison">
+    <div class="comparison-item bug">
+      <h3>Before (Bug)</h3>
+      <code>.mobileControlsRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}</code>
+    </div>
+    <div class="comparison-item fix">
+      <h3>After (Fix)</h3>
+      <code>.mobileControlsRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;  /* NEW */
+}</code>
+    </div>
+  </div>
+
+  <div class="prompt-output">
+    <div class="prompt-header">
+      <h3>CSS Change to Apply</h3>
+      <button class="copy-btn" onclick="copyPrompt()">Copy</button>
+    </div>
+    <pre class="prompt-text">In <span class="highlight">src/app/[locale]/pulse/components/controls-bar.module.css</span>
+
+Add <span class="highlight">flex-wrap: wrap;</span> to the <span class="highlight">.mobileControlsRow</span> class (around line 127-131).
+
+This allows the controls row to wrap gracefully on narrow viewports (like Galaxy S21 at 360px) instead of overflowing the container.</pre>
+  </div>
+
+  <script>
+    function copyPrompt() {
+      const text = `In src/app/[locale]/pulse/components/controls-bar.module.css
+
+Add flex-wrap: wrap; to the .mobileControlsRow class (around line 127-131).
+
+This allows the controls row to wrap gracefully on narrow viewports (like Galaxy S21 at 360px) instead of overflowing the container.`;
+
+      navigator.clipboard.writeText(text).then(() => {
+        const btn = document.querySelector('.copy-btn');
+        btn.textContent = 'Copied!';
+        setTimeout(() => btn.textContent = 'Copy', 1500);
+      });
+    }
+  </script>
+</body>
+</html>
