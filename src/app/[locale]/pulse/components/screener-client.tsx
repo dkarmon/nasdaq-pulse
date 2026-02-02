@@ -11,7 +11,6 @@ import { StockTable } from "./stock-table";
 import { StockCardList } from "./stock-card";
 import {
   filterAndSortByRecommendation,
-  isStockRecommended,
   scoreStocksWithFormula,
 } from "@/lib/market-data/recommendation";
 import type { Stock, ScreenerResponse } from "@/lib/market-data/types";
@@ -70,9 +69,9 @@ export function ScreenerClient({
 
   const recommendedSymbols = useMemo(() => {
     return scoredStocks
-      .filter((stock) => isStockRecommended(stock, activeFormula ?? undefined))
+      .filter((stock) => (stock.recommendationScore ?? 0) > 0)
       .map((s) => s.symbol);
-  }, [scoredStocks, activeFormula]);
+  }, [scoredStocks]);
 
   // Fetch live quotes for recommended stocks
   const { quotes: liveQuotes } = useLiveQuotes(recommendedSymbols);
