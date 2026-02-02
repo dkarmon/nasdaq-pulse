@@ -364,7 +364,7 @@ function parseSparkResponse(data: SparkResponse): Map<string, BatchQuote> {
 }
 
 type FetchDebugInfo = {
-  url: string;
+  url?: string;
   status?: number;
   error?: string;
   responseKeys?: string[];
