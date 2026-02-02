@@ -128,14 +128,29 @@ export function calculateGrowthByCalendarMonths(
 export function calculateGrowthByDays(
   prices: number[],
   timestamps: number[],
-  daysAgo: number
+  daysAgo: number,
+  endOffset: number = 0
 ): number {
   if (prices.length === 0) return 0;
 
-  const currentPrice = prices[prices.length - 1];
+  // endOffset shifts the comparison window back by N data points.
+  // endOffset=0: compare latest price to N days ago from today (default)
+  // endOffset=1: compare second-to-last price to N days before that (for 1D)
+  const endIndex = prices.length - 1 - endOffset;
+  if (endIndex < 0 || endIndex >= prices.length) return 0;
 
-  // Calculate target date (days ago)
-  const targetDate = new Date();
+  const currentPrice = prices[endIndex];
+
+  // For shifted comparisons (endOffset > 0), base the date on the data point timestamp.
+  // For default (endOffset=0), use current time so "5D" means "5 days ago from today".
+  let targetDate: Date;
+  if (endOffset > 0) {
+    const endTimestamp = timestamps[endIndex];
+    if (!endTimestamp) return 0;
+    targetDate = new Date(endTimestamp * 1000);
+  } else {
+    targetDate = new Date();
+  }
   targetDate.setDate(targetDate.getDate() - daysAgo);
   const targetTime = targetDate.getTime();
 
@@ -143,7 +158,7 @@ export function calculateGrowthByDays(
   // This gives us the full growth period (e.g., if 5 days ago was Saturday,
   // use Friday's close, not Monday's, to capture the full 5-day growth).
   let targetIdx = 0;
-  for (let i = 0; i < prices.length; i++) {
+  for (let i = 0; i < endIndex; i++) {
     if (timestamps[i] * 1000 <= targetTime && prices[i] !== undefined) {
       targetIdx = i;
     } else if (timestamps[i] * 1000 > targetTime) {
@@ -268,8 +283,9 @@ export async function getQuoteAndGrowth(symbol: string): Promise<{
     result.meta.chartPreviousClose ??
     0;
 
-  // 1D growth: current price vs yesterday's close (like Google Finance)
-  const growth1d = calculateGrowthByDays(closePrices, validTimestamps, 1);
+  // 1D growth shows yesterday's performance (yesterday vs day-before-yesterday)
+  // This is distinct from intraday change (today vs yesterday) shown in brackets
+  const growth1d = calculateGrowthByDays(closePrices, validTimestamps, 1, 1);
 
   return {
     quote: {
@@ -341,7 +357,6 @@ export type BatchQuote = {
   symbol: string;
   price: number;
   previousClose: number;
-  open: number;
 };
 
 function sleep(ms: number): Promise<void> {
@@ -354,13 +369,10 @@ function parseSparkResponse(data: SparkResponse): Map<string, BatchQuote> {
   for (const [symbol, sparkData] of Object.entries(data)) {
     if (sparkData && sparkData.close && sparkData.close.length > 0) {
       const price = sparkData.close[sparkData.close.length - 1];
-      // Use open price if available, otherwise fall back to first close or current price
-      const open = sparkData.open?.[0] ?? sparkData.close[0] ?? price;
       results.set(symbol, {
         symbol: sparkData.symbol,
         price,
         previousClose: sparkData.chartPreviousClose,
-        open,
       });
     }
   }
@@ -451,7 +463,6 @@ export async function getBatchQuotes(
           symbol: quote.symbol,
           price: quote.price,
           previousClose: quote.previousClose,
-          open: quote.open,
         });
       }
     }

@@ -48,8 +48,8 @@ describe("GET /api/live-quotes", () => {
   it("returns quotes for valid symbols", async () => {
     mockGetBatchQuotes.mockResolvedValueOnce(
       createQuotesMap([
-        { symbol: "AAPL", price: 150.0, previousClose: 145.0, open: 148.0 },
-        { symbol: "MSFT", price: 300.0, previousClose: 295.0, open: 298.0 },
+        { symbol: "AAPL", price: 150.0, previousClose: 145.0 },
+        { symbol: "MSFT", price: 300.0, previousClose: 295.0 },
       ])
     );
 
@@ -59,27 +59,27 @@ describe("GET /api/live-quotes", () => {
 
     expect(response.status).toBe(200);
     expect(data.quotes).toHaveLength(2);
-    // Intraday change is from open (148) to current (150) = +2 = 1.35%
+    // Intraday change is from previousClose (145) to current (150) = +5 = 3.45%
     expect(data.quotes[0]).toEqual({
       symbol: "AAPL",
       price: 150.0,
-      open: 148.0,
-      change: 2.0,
-      changePercent: expect.closeTo(1.35, 1),
+      previousClose: 145.0,
+      change: 5.0,
+      changePercent: expect.closeTo(3.45, 1),
     });
-    // Intraday change is from open (298) to current (300) = +2 = 0.67%
+    // Intraday change is from previousClose (295) to current (300) = +5 = 1.69%
     expect(data.quotes[1]).toEqual({
       symbol: "MSFT",
       price: 300.0,
-      open: 298.0,
-      change: 2.0,
-      changePercent: expect.closeTo(0.67, 1),
+      previousClose: 295.0,
+      change: 5.0,
+      changePercent: expect.closeTo(1.69, 1),
     });
   });
 
   it("handles TLV symbols with .TA suffix", async () => {
     mockGetBatchQuotes.mockResolvedValueOnce(
-      createQuotesMap([{ symbol: "AZRG.TA", price: 100.0, previousClose: 98.0, open: 99.0 }])
+      createQuotesMap([{ symbol: "AZRG.TA", price: 100.0, previousClose: 98.0 }])
     );
 
     const request = createRequest({ symbols: "AZRG.TA" });
@@ -89,14 +89,14 @@ describe("GET /api/live-quotes", () => {
     expect(response.status).toBe(200);
     expect(data.quotes).toHaveLength(1);
     expect(data.quotes[0].symbol).toBe("AZRG.TA");
-    // Intraday change is from open (99) to current (100) = +1 = 1.01%
-    expect(data.quotes[0].changePercent).toBeCloseTo(1.01, 1);
+    // Intraday change is from previousClose (98) to current (100) = +2 = 2.04%
+    expect(data.quotes[0].changePercent).toBeCloseTo(2.04, 1);
   });
 
   it("excludes symbols that fail to fetch", async () => {
     // Only AAPL is in the map, INVALID is not
     mockGetBatchQuotes.mockResolvedValueOnce(
-      createQuotesMap([{ symbol: "AAPL", price: 150.0, previousClose: 145.0, open: 148.0 }])
+      createQuotesMap([{ symbol: "AAPL", price: 150.0, previousClose: 145.0 }])
     );
 
     const request = createRequest({ symbols: "AAPL,INVALID" });
@@ -121,7 +121,7 @@ describe("GET /api/live-quotes", () => {
 
   it("trims and uppercases symbols", async () => {
     mockGetBatchQuotes.mockResolvedValueOnce(
-      createQuotesMap([{ symbol: "AAPL", price: 150.0, previousClose: 145.0, open: 148.0 }])
+      createQuotesMap([{ symbol: "AAPL", price: 150.0, previousClose: 145.0 }])
     );
 
     const request = createRequest({ symbols: " aapl " });
@@ -145,7 +145,7 @@ describe("GET /api/live-quotes", () => {
 
   it("includes fetchedAt timestamp", async () => {
     mockGetBatchQuotes.mockResolvedValueOnce(
-      createQuotesMap([{ symbol: "AAPL", price: 150.0, previousClose: 145.0, open: 148.0 }])
+      createQuotesMap([{ symbol: "AAPL", price: 150.0, previousClose: 145.0 }])
     );
 
     const request = createRequest({ symbols: "AAPL" });
