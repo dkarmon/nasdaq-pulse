@@ -53,8 +53,10 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
       const changePercent =
         quote.previousClose > 0 ? (change / quote.previousClose) * 100 : 0;
 
+      // Use the input symbol (not quote.symbol) to ensure format matches client expectations
+      // Yahoo may return TLV symbols without .TA suffix in sparkData.symbol
       quotes.push({
-        symbol: quote.symbol,
+        symbol,
         price: quote.price,
         previousClose: quote.previousClose,
         change,
