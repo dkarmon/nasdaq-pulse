@@ -368,6 +368,7 @@ type FetchDebugInfo = {
   status?: number;
   error?: string;
   responseKeys?: string[];
+  firstSymbolData?: unknown;
 };
 
 let lastFetchDebug: FetchDebugInfo | null = null;
@@ -401,6 +402,10 @@ async function fetchSparkBatchWithRetry(
 
       const data: SparkResponse = await response.json();
       lastFetchDebug.responseKeys = Object.keys(data);
+      const firstKey = Object.keys(data)[0];
+      if (firstKey) {
+        lastFetchDebug.firstSymbolData = data[firstKey];
+      }
       return parseSparkResponse(data);
     } catch (error) {
       lastFetchDebug = { ...lastFetchDebug, error: String(error) };
