@@ -65,9 +65,13 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
     }
   }
 
-  const response: LiveQuotesResponse = {
+  const response: LiveQuotesResponse & { debug?: { inputSymbols: string[], mapKeys: string[] } } = {
     quotes,
     fetchedAt: new Date().toISOString(),
+    debug: {
+      inputSymbols: symbols,
+      mapKeys: Array.from(quotesMap.keys()),
+    },
   };
 
   return NextResponse.json(response);
