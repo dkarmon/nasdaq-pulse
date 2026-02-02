@@ -108,19 +108,19 @@ export function StockCard({
                 <span className={styles.starIcon} title={recommendedLabel}>★</span>
               )}
               {primaryText}
-              {isRecommended && liveQuote && (
-                <span
-                  className={styles.liveGrowth}
-                  data-positive={liveQuote.changePercent >= 0}
-                  data-negative={liveQuote.changePercent < 0}
-                >
-                  ({formatGrowth(liveQuote.changePercent)})
-                </span>
-              )}
               {stock.hasSplitWarning && (
                 <span className={styles.splitWarning} title="Recent stock split - growth data may be inaccurate"> ⚠️</span>
               )}
             </span>
+            {isRecommended && liveQuote && (
+              <span
+                className={styles.liveGrowth}
+                data-positive={liveQuote.changePercent >= 0}
+                data-negative={liveQuote.changePercent < 0}
+              >
+                ({formatGrowth(liveQuote.changePercent)})
+              </span>
+            )}
           </div>
           <div className={styles.headerRight}>
             <span className={styles.price}>{formatPrice(liveQuote?.price ?? stock.price, stock.currency)}</span>
