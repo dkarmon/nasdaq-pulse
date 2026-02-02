@@ -452,5 +452,27 @@ export async function getBatchQuotes(
     }
   }
 
+  // Fall back to individual chart calls for symbols missing from spark
+  // (spark endpoint may not return data for some regional markets like TLV)
+  const missingSymbols = symbols.filter((s) => !results.has(s));
+  if (missingSymbols.length > 0) {
+    const fallbackQuotes = await Promise.all(
+      missingSymbols.map(async (symbol) => {
+        const quote = await getQuote(symbol);
+        return { symbol, quote };
+      })
+    );
+
+    for (const { symbol, quote } of fallbackQuotes) {
+      if (quote) {
+        results.set(symbol, {
+          symbol: quote.symbol,
+          price: quote.price,
+          previousClose: quote.previousClose,
+        });
+      }
+    }
+  }
+
   return results;
 }
