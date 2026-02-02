@@ -37,7 +37,7 @@ function parseLimit(value: string | null): number {
 }
 
 function parseExchange(value: string | null): Exchange {
-  if (value === "tlv") {
+  if (value?.toLowerCase() === "tlv") {
     return "tlv";
   }
   return "nasdaq";
