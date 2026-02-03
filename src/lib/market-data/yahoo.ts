@@ -331,7 +331,6 @@ export type BatchQuote = {
   symbol: string;
   price: number;
   previousClose: number;
-  open: number;
 };
 
 function sleep(ms: number): Promise<void> {
@@ -344,13 +343,10 @@ function parseSparkResponse(data: SparkResponse): Map<string, BatchQuote> {
   for (const [symbol, sparkData] of Object.entries(data)) {
     if (sparkData && sparkData.close && sparkData.close.length > 0) {
       const price = sparkData.close[sparkData.close.length - 1];
-      // Use open price if available, otherwise fall back to first close or current price
-      const open = sparkData.open?.[0] ?? sparkData.close[0] ?? price;
       results.set(symbol, {
         symbol: sparkData.symbol,
         price,
         previousClose: sparkData.chartPreviousClose,
-        open,
       });
     }
   }
@@ -441,7 +437,6 @@ export async function getBatchQuotes(
           symbol: quote.symbol,
           price: quote.price,
           previousClose: quote.previousClose,
-          open: quote.open,
         });
       }
     }
