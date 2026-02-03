@@ -93,6 +93,24 @@ export async function getQuote(symbol: string): Promise<YahooQuote | null> {
   };
 }
 
+export function calculateGrowthByTradingDays(
+  prices: number[],
+  currentPrice: number,
+  tradingDaysAgo: number
+): number {
+  if (prices.length === 0) return 0;
+
+  // prices array ends with yesterday's close
+  // 1 trading day back = prices[length-1] (yesterday)
+  // 5 trading days back = prices[length-5]
+  const targetIdx = Math.max(0, prices.length - tradingDaysAgo);
+  const pastPrice = prices[targetIdx];
+
+  if (!pastPrice || pastPrice === 0) return 0;
+
+  return ((currentPrice - pastPrice) / pastPrice) * 100;
+}
+
 export function calculateGrowthByCalendarMonths(
   prices: number[],
   timestamps: number[],
@@ -111,54 +129,6 @@ export function calculateGrowthByCalendarMonths(
   // This gives us the full growth period.
   let targetIdx = 0;
   for (let i = 0; i < timestamps.length; i++) {
-    if (timestamps[i] * 1000 <= targetTime && prices[i] !== undefined) {
-      targetIdx = i;
-    } else if (timestamps[i] * 1000 > targetTime) {
-      // Once we pass the target time, stop looking
-      break;
-    }
-  }
-
-  const pastPrice = prices[targetIdx];
-  if (!pastPrice || pastPrice === 0) return 0;
-
-  return ((currentPrice - pastPrice) / pastPrice) * 100;
-}
-
-export function calculateGrowthByDays(
-  prices: number[],
-  timestamps: number[],
-  daysAgo: number,
-  endOffset: number = 0
-): number {
-  if (prices.length === 0) return 0;
-
-  // endOffset shifts the comparison window back by N data points.
-  // endOffset=0: compare latest price to N days ago from today (default)
-  // endOffset=1: compare second-to-last price to N days before that (for 1D)
-  const endIndex = prices.length - 1 - endOffset;
-  if (endIndex < 0 || endIndex >= prices.length) return 0;
-
-  const currentPrice = prices[endIndex];
-
-  // For shifted comparisons (endOffset > 0), base the date on the data point timestamp.
-  // For default (endOffset=0), use current time so "5D" means "5 days ago from today".
-  let targetDate: Date;
-  if (endOffset > 0) {
-    const endTimestamp = timestamps[endIndex];
-    if (!endTimestamp) return 0;
-    targetDate = new Date(endTimestamp * 1000);
-  } else {
-    targetDate = new Date();
-  }
-  targetDate.setDate(targetDate.getDate() - daysAgo);
-  const targetTime = targetDate.getTime();
-
-  // Find the price at the last trading day on or BEFORE target date.
-  // This gives us the full growth period (e.g., if 5 days ago was Saturday,
-  // use Friday's close, not Monday's, to capture the full 5-day growth).
-  let targetIdx = 0;
-  for (let i = 0; i < endIndex; i++) {
     if (timestamps[i] * 1000 <= targetTime && prices[i] !== undefined) {
       targetIdx = i;
     } else if (timestamps[i] * 1000 > targetTime) {
@@ -215,11 +185,15 @@ export async function getGrowthData(symbol: string): Promise<YahooGrowth | null>
     return null;
   }
 
+  // Use regularMarketPrice if valid, otherwise fall back to last close price
+  const rawPrice = result.meta.regularMarketPrice;
+  const currentPrice = Number.isFinite(rawPrice) ? rawPrice : closePrices[closePrices.length - 1];
+
   return {
     symbol: result.meta.symbol,
-    currentPrice: result.meta.regularMarketPrice,
-    growth1d: calculateGrowthByDays(closePrices, validTimestamps, 1),
-    growth5d: calculateGrowthByDays(closePrices, validTimestamps, 5),
+    currentPrice,
+    growth1d: calculateGrowthByTradingDays(closePrices, currentPrice, 1),
+    growth5d: calculateGrowthByTradingDays(closePrices, currentPrice, 5),
     growth1m: calculateGrowthByCalendarMonths(closePrices, validTimestamps, 1),
     growth6m: calculateGrowthByCalendarMonths(closePrices, validTimestamps, 6),
     growth12m: calculateGrowthByCalendarMonths(closePrices, validTimestamps, 12),
@@ -283,24 +257,24 @@ export async function getQuoteAndGrowth(symbol: string): Promise<{
     result.meta.chartPreviousClose ??
     0;
 
-  // 1D growth shows yesterday's performance (yesterday vs day-before-yesterday)
-  // This is distinct from intraday change (today vs yesterday) shown in brackets
-  const growth1d = calculateGrowthByDays(closePrices, validTimestamps, 1, 1);
+  // Use regularMarketPrice if valid, otherwise fall back to last close price
+  const rawPrice = result.meta.regularMarketPrice;
+  const currentPrice = Number.isFinite(rawPrice) ? rawPrice : closePrices[closePrices.length - 1];
 
   return {
     quote: {
       symbol: result.meta.symbol,
-      price: result.meta.regularMarketPrice,
+      price: currentPrice,
       previousClose,
-      open: result.meta.regularMarketOpen ?? result.meta.regularMarketPrice,
+      open: result.meta.regularMarketOpen ?? currentPrice,
       name: result.meta.longName || result.meta.shortName || symbol,
       exchange: result.meta.exchangeName,
     },
     growth: {
       symbol: result.meta.symbol,
-      currentPrice: result.meta.regularMarketPrice,
-      growth1d,
-      growth5d: calculateGrowthByDays(closePrices, validTimestamps, 5),
+      currentPrice,
+      growth1d: calculateGrowthByTradingDays(closePrices, currentPrice, 1),
+      growth5d: calculateGrowthByTradingDays(closePrices, currentPrice, 5),
       growth1m: calculateGrowthByCalendarMonths(closePrices, validTimestamps, 1),
       growth6m: calculateGrowthByCalendarMonths(closePrices, validTimestamps, 6),
       growth12m: calculateGrowthByCalendarMonths(closePrices, validTimestamps, 12),
