@@ -1,228 +1,99 @@
-// ABOUTME: Diagnostic tests for calculateGrowthByDays function.
-// ABOUTME: Tests the date lookup logic with controlled timestamps.
+// ABOUTME: Tests for growth calculation functions.
+// ABOUTME: Validates trading-day based growth calculations against live prices.
 
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
-import { calculateGrowthByDays, calculateGrowthByCalendarMonths } from "@/lib/market-data/yahoo";
+import { calculateGrowthByTradingDays, calculateGrowthByCalendarMonths } from "@/lib/market-data/yahoo";
 
-describe("calculateGrowthByDays", () => {
-  beforeEach(() => {
-    vi.useFakeTimers();
+describe("calculateGrowthByTradingDays", () => {
+  it("calculates 1D growth: live price vs yesterday's close", () => {
+    // prices array contains historical close prices (most recent = yesterday)
+    const prices = [100, 101, 102, 103, 104]; // yesterday's close = 104
+    const currentPrice = 106; // live price
+
+    // 1 trading day back = prices[length - 1] = 104 (yesterday)
+    const growth = calculateGrowthByTradingDays(prices, currentPrice, 1);
+
+    // (106 - 104) / 104 * 100 = 1.92%
+    expect(growth).toBeCloseTo(1.92, 2);
   });
 
-  afterEach(() => {
-    vi.useRealTimers();
+  it("calculates 5D growth: live price vs 5 trading days ago", () => {
+    // prices array: [5d ago, 4d ago, 3d ago, 2d ago, yesterday]
+    const prices = [100, 102, 104, 106, 108];
+    const currentPrice = 110;
+
+    // 5 trading days back = prices[length - 5] = prices[0] = 100
+    const growth = calculateGrowthByTradingDays(prices, currentPrice, 5);
+
+    // (110 - 100) / 100 * 100 = 10%
+    expect(growth).toBeCloseTo(10, 2);
   });
 
-  // Helper to create timestamps in seconds (Yahoo format)
-  function createTimestamps(startDate: Date, days: number): number[] {
-    const timestamps: number[] = [];
-    const current = new Date(startDate);
-    for (let i = 0; i < days; i++) {
-      // Skip weekends (simple approximation)
-      const dayOfWeek = current.getDay();
-      if (dayOfWeek !== 0 && dayOfWeek !== 6) {
-        // Set to 4pm ET (market close) - 21:00 UTC
-        current.setUTCHours(21, 0, 0, 0);
-        timestamps.push(Math.floor(current.getTime() / 1000));
-      }
-      current.setDate(current.getDate() + 1);
-    }
-    return timestamps;
-  }
+  it("uses oldest available when not enough trading days exist", () => {
+    // Only 3 days of data
+    const prices = [100, 105, 110];
+    const currentPrice = 115;
 
-  // Helper to create linear prices
-  function createPrices(count: number, startPrice: number, increment: number): number[] {
-    return Array.from({ length: count }, (_, i) => startPrice + i * increment);
-  }
+    // 5 trading days back requested, but only 3 exist
+    // Should use prices[0] = 100 (oldest available)
+    const growth = calculateGrowthByTradingDays(prices, currentPrice, 5);
 
-  it("calculates 5D growth correctly with 10 trading days of data", () => {
-    // Set "now" to Wed Jan 22, 2026 at 2pm UTC
-    const now = new Date("2026-01-22T14:00:00Z");
-    vi.setSystemTime(now);
-
-    // Create 10 trading days of data ending yesterday (Jan 21)
-    // Start from Jan 8, 2026 (Wednesday)
-    const timestamps = createTimestamps(new Date("2026-01-08T00:00:00Z"), 14);
-    // Should give us ~10 trading days: Jan 8, 9, 12, 13, 14, 15, 16, 17, 20, 21
-
-    // Prices: 100, 101, 102, 103, 104, 105, 106, 107, 108, 109
-    const prices = createPrices(timestamps.length, 100, 1);
-
-    // 5 days ago from Jan 22 = Jan 17 at 2pm UTC
-    // Jan 17 is a Friday, so its timestamp (Jan 17 4pm ET = 21:00 UTC) should be found
-    // That should be index 7 (Jan 8=0, 9=1, 12=2, 13=3, 14=4, 15=5, 16=6, 17=7)
-    const growth5d = calculateGrowthByDays(prices, timestamps, 5);
-
-    // Current price is prices[last] = 100 + (timestamps.length - 1)
-    // Past price should be from ~5 days ago (not yesterday)
-    // If it equals 1D growth, that's the bug!
-    const currentPrice = prices[prices.length - 1];
-    const yesterdayPrice = prices[prices.length - 2];
-    const growth1d = ((currentPrice - yesterdayPrice) / yesterdayPrice) * 100;
-
-    console.log("Timestamps:", timestamps.map(t => new Date(t * 1000).toISOString()));
-    console.log("Prices:", prices);
-    console.log("5D growth:", growth5d);
-    console.log("1D growth:", growth1d);
-    console.log("Current price:", currentPrice);
-    console.log("Yesterday price:", yesterdayPrice);
-
-    // 5D growth should NOT equal 1D growth (this is the bug we're looking for)
-    expect(growth5d).not.toBe(growth1d);
+    // (115 - 100) / 100 * 100 = 15%
+    expect(growth).toBeCloseTo(15, 2);
   });
 
-  it("returns correct past price index for 5 days ago", () => {
-    // Set "now" to Wed Jan 22, 2026 at 11pm UTC (after market close)
-    const now = new Date("2026-01-22T23:00:00Z");
-    vi.setSystemTime(now);
-
-    // Create timestamps for Jan 15, 16, 17, 20, 21 (5 trading days)
-    // Market close is 4pm ET = 21:00 UTC
-    const timestamps = [
-      Math.floor(new Date("2026-01-15T21:00:00Z").getTime() / 1000), // Wed
-      Math.floor(new Date("2026-01-16T21:00:00Z").getTime() / 1000), // Thu
-      Math.floor(new Date("2026-01-17T21:00:00Z").getTime() / 1000), // Fri
-      Math.floor(new Date("2026-01-20T21:00:00Z").getTime() / 1000), // Mon (skip weekend)
-      Math.floor(new Date("2026-01-21T21:00:00Z").getTime() / 1000), // Tue
-    ];
-    const prices = [100, 101, 102, 103, 104]; // Each day +1
-
-    // 5 days ago from Jan 22 11pm = Jan 17 11pm
-    // Last timestamp <= Jan 17 11pm is Jan 17 21:00 (index 2)
-    const growth5d = calculateGrowthByDays(prices, timestamps, 5);
-
-    // Expected: (104 - 102) / 102 * 100 = 1.96%
-    const expected5dGrowth = ((104 - 102) / 102) * 100;
-
-    console.log("Expected 5D growth:", expected5dGrowth);
-    console.log("Actual 5D growth:", growth5d);
-
-    expect(growth5d).toBeCloseTo(expected5dGrowth, 2);
-  });
-
-  it("handles limited data (only 3 days) by using oldest available", () => {
-    const now = new Date("2026-01-22T14:00:00Z");
-    vi.setSystemTime(now);
-
-    // Only 3 days of data: Jan 19, 20, 21
-    const timestamps = [
-      Math.floor(new Date("2026-01-19T21:00:00Z").getTime() / 1000),
-      Math.floor(new Date("2026-01-20T21:00:00Z").getTime() / 1000),
-      Math.floor(new Date("2026-01-21T21:00:00Z").getTime() / 1000),
-    ];
-    const prices = [100, 102, 104];
-
-    // 5 days ago from Jan 22 = Jan 17, but we have no data that old
-    // Should use the oldest available (Jan 19)
-    const growth5d = calculateGrowthByDays(prices, timestamps, 5);
-
-    // Expected: (104 - 100) / 100 * 100 = 4% (using oldest available)
-    expect(growth5d).toBeCloseTo(4, 2);
-  });
-
-  it("handles weekend gap by using last price BEFORE target date", () => {
-    const now = new Date("2026-01-22T14:00:00Z");
-    vi.setSystemTime(now);
-
-    // 4 days ago from Jan 22 (Wed) = Jan 18 (Saturday)
-    // For growth calculation, we want the price from BEFORE the target (Friday's close)
-    // not AFTER (Monday's open), because we want to measure the full period
-    const timestamps = [
-      Math.floor(new Date("2026-01-15T21:00:00Z").getTime() / 1000), // Wed
-      Math.floor(new Date("2026-01-16T21:00:00Z").getTime() / 1000), // Thu
-      Math.floor(new Date("2026-01-17T21:00:00Z").getTime() / 1000), // Fri
-      Math.floor(new Date("2026-01-20T21:00:00Z").getTime() / 1000), // Mon
-      Math.floor(new Date("2026-01-21T21:00:00Z").getTime() / 1000), // Tue
-    ];
-    const prices = [100, 101, 102, 103, 104];
-
-    // 4 days ago = Saturday Jan 18
-    // Should use Friday Jan 17 (last trading day on or BEFORE target)
-    // NOT Monday Jan 20 (first trading day AFTER target)
-    const growth4d = calculateGrowthByDays(prices, timestamps, 4);
-
-    // Using Jan 17 (price 102): (104 - 102) / 102 * 100 = 1.96%
-    const expectedGrowth = ((104 - 102) / 102) * 100;
-    console.log("4D growth (weekend gap):", growth4d);
-    console.log("Expected:", expectedGrowth);
-
-    expect(growth4d).toBeCloseTo(expectedGrowth, 2);
-  });
-
-  it("uses correct past price when target date data is missing", () => {
-    const now = new Date("2026-01-22T14:00:00Z");
-    vi.setSystemTime(now);
-
-    // Data is missing for Jan 17 (Friday) - simulates holiday or data gap
-    const timestamps = [
-      Math.floor(new Date("2026-01-15T21:00:00Z").getTime() / 1000), // Wed
-      Math.floor(new Date("2026-01-16T21:00:00Z").getTime() / 1000), // Thu
-      // Jan 17 is missing
-      Math.floor(new Date("2026-01-20T21:00:00Z").getTime() / 1000), // Mon
-      Math.floor(new Date("2026-01-21T21:00:00Z").getTime() / 1000), // Tue
-    ];
-    const prices = [100, 101, 103, 104];
-
-    // 5 days ago = Fri Jan 17 at 2pm
-    // Jan 17 is missing, so we should use Jan 16 (last available BEFORE target)
-    // NOT Jan 20 (first available AFTER target)
-    const growth5d = calculateGrowthByDays(prices, timestamps, 5);
-
-    // Using Jan 16 (price 101): (104 - 101) / 101 * 100 = 2.97%
-    const expectedGrowth = ((104 - 101) / 101) * 100;
-    console.log("5D growth (missing data):", growth5d);
-    console.log("Expected:", expectedGrowth);
-
-    expect(growth5d).toBeCloseTo(expectedGrowth, 2);
-  });
-
-  it("5D growth must differ from 1D growth (regression test)", () => {
-    const now = new Date("2026-01-22T14:00:00Z");
-    vi.setSystemTime(now);
-
-    // Create realistic data: 15 trading days with small daily changes
-    const timestamps = [
-      Math.floor(new Date("2026-01-02T21:00:00Z").getTime() / 1000),
-      Math.floor(new Date("2026-01-03T21:00:00Z").getTime() / 1000),
-      Math.floor(new Date("2026-01-06T21:00:00Z").getTime() / 1000),
-      Math.floor(new Date("2026-01-07T21:00:00Z").getTime() / 1000),
-      Math.floor(new Date("2026-01-08T21:00:00Z").getTime() / 1000),
-      Math.floor(new Date("2026-01-09T21:00:00Z").getTime() / 1000),
-      Math.floor(new Date("2026-01-10T21:00:00Z").getTime() / 1000),
-      Math.floor(new Date("2026-01-13T21:00:00Z").getTime() / 1000),
-      Math.floor(new Date("2026-01-14T21:00:00Z").getTime() / 1000),
-      Math.floor(new Date("2026-01-15T21:00:00Z").getTime() / 1000),
-      Math.floor(new Date("2026-01-16T21:00:00Z").getTime() / 1000),
-      Math.floor(new Date("2026-01-17T21:00:00Z").getTime() / 1000),
-      Math.floor(new Date("2026-01-20T21:00:00Z").getTime() / 1000),
-      Math.floor(new Date("2026-01-21T21:00:00Z").getTime() / 1000),
-    ];
-    // Prices go from 100 to 113
-    const prices = timestamps.map((_, i) => 100 + i);
-
-    const growth5d = calculateGrowthByDays(prices, timestamps, 5);
-    const growth1d = calculateGrowthByDays(prices, timestamps, 1);
-
-    console.log("5D growth:", growth5d);
-    console.log("1D growth:", growth1d);
-
-    // These should be different values
-    expect(growth5d).not.toBeCloseTo(growth1d, 2);
-  });
-
-  it("returns 0 for empty arrays", () => {
-    vi.setSystemTime(new Date("2026-01-22T14:00:00Z"));
-    expect(calculateGrowthByDays([], [], 5)).toBe(0);
+  it("returns 0 for empty prices array", () => {
+    expect(calculateGrowthByTradingDays([], 100, 1)).toBe(0);
   });
 
   it("returns 0 when past price is 0", () => {
-    vi.setSystemTime(new Date("2026-01-22T14:00:00Z"));
-    const timestamps = [
-      Math.floor(new Date("2026-01-17T21:00:00Z").getTime() / 1000),
-      Math.floor(new Date("2026-01-21T21:00:00Z").getTime() / 1000),
-    ];
-    const prices = [0, 100]; // Past price is 0
-    expect(calculateGrowthByDays(prices, timestamps, 5)).toBe(0);
+    const prices = [0, 50, 100];
+    const currentPrice = 110;
+
+    // 5 trading days back = prices[0] = 0
+    const growth = calculateGrowthByTradingDays(prices, currentPrice, 5);
+    expect(growth).toBe(0);
+  });
+
+  it("handles single price entry", () => {
+    const prices = [100];
+    const currentPrice = 110;
+
+    // 1 trading day back = prices[0] = 100
+    const growth = calculateGrowthByTradingDays(prices, currentPrice, 1);
+
+    // (110 - 100) / 100 * 100 = 10%
+    expect(growth).toBeCloseTo(10, 2);
+  });
+
+  it("WDC regression: 5D should show positive growth not negative", () => {
+    // Based on actual WDC data from plan:
+    // Yesterday (Feb 02) close: $270.23 (end of prices array)
+    // Jan 30 close: $250.23
+    // Jan 29 close: $278.41
+    // Jan 28 close: $279.70
+    // Jan 27 close: $252.66 (5 trading days back)
+    const prices = [252.66, 279.70, 278.41, 250.23, 270.23];
+    const currentPrice = 270.23;
+
+    // 5 trading days back = prices[0] = 252.66
+    const growth5d = calculateGrowthByTradingDays(prices, currentPrice, 5);
+
+    // (270.23 - 252.66) / 252.66 * 100 = 6.95%
+    expect(growth5d).toBeCloseTo(6.95, 1);
+    expect(growth5d).toBeGreaterThan(0); // Critical: should be positive, not -3.4%
+  });
+
+  it("WDC regression: 1D should show near-zero when price unchanged", () => {
+    // Live price equals yesterday's close
+    const prices = [252.66, 279.70, 278.41, 250.23, 270.23];
+    const currentPrice = 270.23;
+
+    // 1 trading day back = prices[4] = 270.23 (yesterday)
+    const growth1d = calculateGrowthByTradingDays(prices, currentPrice, 1);
+
+    // (270.23 - 270.23) / 270.23 * 100 = 0%
+    expect(growth1d).toBeCloseTo(0, 2);
   });
 });
 

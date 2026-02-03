@@ -93,6 +93,24 @@ export async function getQuote(symbol: string): Promise<YahooQuote | null> {
   };
 }
 
+export function calculateGrowthByTradingDays(
+  prices: number[],
+  currentPrice: number,
+  tradingDaysAgo: number
+): number {
+  if (prices.length === 0) return 0;
+
+  // prices array ends with yesterday's close
+  // 1 trading day back = prices[length-1] (yesterday)
+  // 5 trading days back = prices[length-5]
+  const targetIdx = Math.max(0, prices.length - tradingDaysAgo);
+  const pastPrice = prices[targetIdx];
+
+  if (!pastPrice || pastPrice === 0) return 0;
+
+  return ((currentPrice - pastPrice) / pastPrice) * 100;
+}
+
 export function calculateGrowthByCalendarMonths(
   prices: number[],
   timestamps: number[],
@@ -111,39 +129,6 @@ export function calculateGrowthByCalendarMonths(
   // This gives us the full growth period.
   let targetIdx = 0;
   for (let i = 0; i < timestamps.length; i++) {
-    if (timestamps[i] * 1000 <= targetTime && prices[i] !== undefined) {
-      targetIdx = i;
-    } else if (timestamps[i] * 1000 > targetTime) {
-      // Once we pass the target time, stop looking
-      break;
-    }
-  }
-
-  const pastPrice = prices[targetIdx];
-  if (!pastPrice || pastPrice === 0) return 0;
-
-  return ((currentPrice - pastPrice) / pastPrice) * 100;
-}
-
-export function calculateGrowthByDays(
-  prices: number[],
-  timestamps: number[],
-  daysAgo: number
-): number {
-  if (prices.length === 0) return 0;
-
-  const currentPrice = prices[prices.length - 1];
-
-  // Calculate target date (days ago)
-  const targetDate = new Date();
-  targetDate.setDate(targetDate.getDate() - daysAgo);
-  const targetTime = targetDate.getTime();
-
-  // Find the price at the last trading day on or BEFORE target date.
-  // This gives us the full growth period (e.g., if 5 days ago was Saturday,
-  // use Friday's close, not Monday's, to capture the full 5-day growth).
-  let targetIdx = 0;
-  for (let i = 0; i < prices.length; i++) {
     if (timestamps[i] * 1000 <= targetTime && prices[i] !== undefined) {
       targetIdx = i;
     } else if (timestamps[i] * 1000 > targetTime) {
@@ -200,11 +185,15 @@ export async function getGrowthData(symbol: string): Promise<YahooGrowth | null>
     return null;
   }
 
+  // Use regularMarketPrice if valid, otherwise fall back to last close price
+  const rawPrice = result.meta.regularMarketPrice;
+  const currentPrice = Number.isFinite(rawPrice) ? rawPrice : closePrices[closePrices.length - 1];
+
   return {
     symbol: result.meta.symbol,
-    currentPrice: result.meta.regularMarketPrice,
-    growth1d: calculateGrowthByDays(closePrices, validTimestamps, 1),
-    growth5d: calculateGrowthByDays(closePrices, validTimestamps, 5),
+    currentPrice,
+    growth1d: calculateGrowthByTradingDays(closePrices, currentPrice, 1),
+    growth5d: calculateGrowthByTradingDays(closePrices, currentPrice, 5),
     growth1m: calculateGrowthByCalendarMonths(closePrices, validTimestamps, 1),
     growth6m: calculateGrowthByCalendarMonths(closePrices, validTimestamps, 6),
     growth12m: calculateGrowthByCalendarMonths(closePrices, validTimestamps, 12),
@@ -268,23 +257,24 @@ export async function getQuoteAndGrowth(symbol: string): Promise<{
     result.meta.chartPreviousClose ??
     0;
 
-  // 1D growth: current price vs yesterday's close (like Google Finance)
-  const growth1d = calculateGrowthByDays(closePrices, validTimestamps, 1);
+  // Use regularMarketPrice if valid, otherwise fall back to last close price
+  const rawPrice = result.meta.regularMarketPrice;
+  const currentPrice = Number.isFinite(rawPrice) ? rawPrice : closePrices[closePrices.length - 1];
 
   return {
     quote: {
       symbol: result.meta.symbol,
-      price: result.meta.regularMarketPrice,
+      price: currentPrice,
       previousClose,
-      open: result.meta.regularMarketOpen ?? result.meta.regularMarketPrice,
+      open: result.meta.regularMarketOpen ?? currentPrice,
       name: result.meta.longName || result.meta.shortName || symbol,
       exchange: result.meta.exchangeName,
     },
     growth: {
       symbol: result.meta.symbol,
-      currentPrice: result.meta.regularMarketPrice,
-      growth1d,
-      growth5d: calculateGrowthByDays(closePrices, validTimestamps, 5),
+      currentPrice,
+      growth1d: calculateGrowthByTradingDays(closePrices, currentPrice, 1),
+      growth5d: calculateGrowthByTradingDays(closePrices, currentPrice, 5),
       growth1m: calculateGrowthByCalendarMonths(closePrices, validTimestamps, 1),
       growth6m: calculateGrowthByCalendarMonths(closePrices, validTimestamps, 6),
       growth12m: calculateGrowthByCalendarMonths(closePrices, validTimestamps, 12),
