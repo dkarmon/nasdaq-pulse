@@ -125,15 +125,13 @@ export function calculateGrowthByCalendarMonths(
   targetDate.setMonth(targetDate.getMonth() - monthsAgo);
   const targetTime = targetDate.getTime();
 
-  // Find the price at the last trading day on or BEFORE target date.
-  // This gives us the full growth period.
-  let targetIdx = 0;
+  // Find the price at the first trading day ON OR AFTER target date.
+  // This matches Google Finance's methodology.
+  let targetIdx = prices.length - 1; // fallback to most recent
   for (let i = 0; i < timestamps.length; i++) {
-    if (timestamps[i] * 1000 <= targetTime && prices[i] !== undefined) {
+    if (timestamps[i] * 1000 >= targetTime && prices[i] !== undefined) {
       targetIdx = i;
-    } else if (timestamps[i] * 1000 > targetTime) {
-      // Once we pass the target time, stop looking
-      break;
+      break; // Stop at FIRST match (on or after)
     }
   }
 
