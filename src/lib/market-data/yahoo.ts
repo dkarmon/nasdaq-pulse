@@ -194,7 +194,8 @@ export async function getGrowthData(symbol: string): Promise<YahooGrowth | null>
   return {
     symbol: result.meta.symbol,
     currentPrice,
-    growth1d: calculateGrowthByTradingDays(closePrices, currentPrice, 1),
+    // 1D uses index length-2 to skip today's partial data and use yesterday's actual close
+    growth1d: calculateGrowthByTradingDays(closePrices, currentPrice, 2),
     growth5d: calculateGrowthByTradingDays(openPrices, currentPrice, 5),
     growth1m: calculateGrowthByCalendarMonths(closePrices, validTimestamps, 1),
     growth6m: calculateGrowthByCalendarMonths(closePrices, validTimestamps, 6),
@@ -277,7 +278,8 @@ export async function getQuoteAndGrowth(symbol: string): Promise<{
     growth: {
       symbol: result.meta.symbol,
       currentPrice,
-      growth1d: calculateGrowthByTradingDays(closePrices, currentPrice, 1),
+      // 1D uses index length-2 to skip today's partial data and use yesterday's actual close
+      growth1d: calculateGrowthByTradingDays(closePrices, currentPrice, 2),
       growth5d: calculateGrowthByTradingDays(openPrices, currentPrice, 5),
       growth1m: calculateGrowthByCalendarMonths(closePrices, validTimestamps, 1),
       growth6m: calculateGrowthByCalendarMonths(closePrices, validTimestamps, 6),

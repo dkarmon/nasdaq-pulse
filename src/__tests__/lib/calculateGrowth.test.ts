@@ -84,16 +84,18 @@ describe("calculateGrowthByTradingDays", () => {
     expect(growth5d).toBeGreaterThan(0); // Critical: should be positive, not -3.4%
   });
 
-  it("WDC regression: 1D should show near-zero when price unchanged", () => {
-    // Live price equals yesterday's close
-    const prices = [252.66, 279.70, 278.41, 250.23, 270.23];
+  it("1D uses yesterday's close (index -2) to skip today's partial data", () => {
+    // During market hours, Yahoo returns today's partial data as the last element
+    // prices = [... 3d ago, 2d ago, yesterday close, today partial]
+    const prices = [252.66, 279.70, 250.23, 270.23]; // 270.23 is today's partial
     const currentPrice = 270.23;
 
-    // 1 trading day back = prices[4] = 270.23 (yesterday)
-    const growth1d = calculateGrowthByTradingDays(prices, currentPrice, 1);
+    // 1D growth uses tradingDaysAgo=2 to skip today's partial data
+    // prices[length - 2] = prices[2] = 250.23 (yesterday's close)
+    const growth1d = calculateGrowthByTradingDays(prices, currentPrice, 2);
 
-    // (270.23 - 270.23) / 270.23 * 100 = 0%
-    expect(growth1d).toBeCloseTo(0, 2);
+    // (270.23 - 250.23) / 250.23 * 100 = 7.99%
+    expect(growth1d).toBeCloseTo(7.99, 1);
   });
 
   it("5D uses OPEN prices to match Google Finance", () => {
