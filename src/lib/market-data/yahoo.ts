@@ -173,10 +173,12 @@ export async function getGrowthData(symbol: string): Promise<YahooGrowth | null>
 
   // Build aligned arrays of prices and timestamps (excluding null prices)
   const closePrices: number[] = [];
+  const openPrices: number[] = [];
   const validTimestamps: number[] = [];
   for (let i = 0; i < quotes.close.length; i++) {
-    if (quotes.close[i] !== null) {
+    if (quotes.close[i] !== null && quotes.open[i] !== null) {
       closePrices.push(quotes.close[i]);
+      openPrices.push(quotes.open[i]);
       validTimestamps.push(result.timestamp[i]);
     }
   }
@@ -193,7 +195,7 @@ export async function getGrowthData(symbol: string): Promise<YahooGrowth | null>
     symbol: result.meta.symbol,
     currentPrice,
     growth1d: calculateGrowthByTradingDays(closePrices, currentPrice, 1),
-    growth5d: calculateGrowthByTradingDays(closePrices, currentPrice, 5),
+    growth5d: calculateGrowthByTradingDays(openPrices, currentPrice, 5),
     growth1m: calculateGrowthByCalendarMonths(closePrices, validTimestamps, 1),
     growth6m: calculateGrowthByCalendarMonths(closePrices, validTimestamps, 6),
     growth12m: calculateGrowthByCalendarMonths(closePrices, validTimestamps, 12),
@@ -224,12 +226,14 @@ export async function getQuoteAndGrowth(symbol: string): Promise<{
 
   // Build aligned arrays of prices and timestamps (excluding null prices)
   const closePrices: number[] = [];
+  const openPrices: number[] = [];
   const validTimestamps: number[] = [];
   const history: HistoricalDataPoint[] = [];
 
   for (let i = 0; i < result.timestamp.length; i++) {
-    if (quotes.close[i] !== null) {
+    if (quotes.close[i] !== null && quotes.open[i] !== null) {
       closePrices.push(quotes.close[i]);
+      openPrices.push(quotes.open[i]);
       validTimestamps.push(result.timestamp[i]);
       history.push({
         date: new Date(result.timestamp[i] * 1000).toISOString().split("T")[0],
@@ -274,7 +278,7 @@ export async function getQuoteAndGrowth(symbol: string): Promise<{
       symbol: result.meta.symbol,
       currentPrice,
       growth1d: calculateGrowthByTradingDays(closePrices, currentPrice, 1),
-      growth5d: calculateGrowthByTradingDays(closePrices, currentPrice, 5),
+      growth5d: calculateGrowthByTradingDays(openPrices, currentPrice, 5),
       growth1m: calculateGrowthByCalendarMonths(closePrices, validTimestamps, 1),
       growth6m: calculateGrowthByCalendarMonths(closePrices, validTimestamps, 6),
       growth12m: calculateGrowthByCalendarMonths(closePrices, validTimestamps, 12),

@@ -95,6 +95,23 @@ describe("calculateGrowthByTradingDays", () => {
     // (270.23 - 270.23) / 270.23 * 100 = 0%
     expect(growth1d).toBeCloseTo(0, 2);
   });
+
+  it("5D uses OPEN prices to match Google Finance", () => {
+    // WDC actual data: using OPEN from 5 trading days back matches Google better
+    // Jan 28 open: $263.45 (5 trading days back)
+    // Current price: $287.41
+    // Google shows: +10.99%, our open-based: +9.09%
+    const openPrices = [244.09, 263.45, 285.00, 278.24, 243.76, 279.90];
+    // Index:          Jan27   Jan28   Jan29   Jan30   Feb02   Feb03
+    const currentPrice = 287.41;
+
+    // 5 trading days back from Feb 3 = Jan 28 = openPrices[1] = 263.45
+    // Using index: length(6) - 5 = 1
+    const growth5d = calculateGrowthByTradingDays(openPrices, currentPrice, 5);
+
+    // (287.41 - 263.45) / 263.45 * 100 = 9.09%
+    expect(growth5d).toBeCloseTo(9.09, 1);
+  });
 });
 
 describe("calculateGrowthByCalendarMonths", () => {
