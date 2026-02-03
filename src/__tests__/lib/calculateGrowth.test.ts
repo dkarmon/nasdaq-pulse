@@ -125,27 +125,75 @@ describe("calculateGrowthByCalendarMonths", () => {
     vi.useRealTimers();
   });
 
-  it("calculates 1 month growth correctly", () => {
-    // Use 11pm UTC (after market close) so that the target day's close is included
-    const now = new Date("2026-01-22T23:00:00Z");
+  it("uses first trading day ON OR AFTER target date (Google Finance methodology)", () => {
+    // Today is Feb 3, 2026 (Monday)
+    // 6 months ago = Aug 3, 2025 (Sunday - not a trading day)
+    // Google Finance uses Aug 4 (Monday), NOT Aug 1 (Friday)
+    const now = new Date("2026-02-03T20:00:00Z");
     vi.setSystemTime(now);
 
-    // 1 month ago = Dec 22 at 11pm
+    // Timestamps around Aug 3, 2025 (Sunday)
     const timestamps = [
-      Math.floor(new Date("2025-12-20T21:00:00Z").getTime() / 1000),
-      Math.floor(new Date("2025-12-21T21:00:00Z").getTime() / 1000),
-      Math.floor(new Date("2025-12-22T21:00:00Z").getTime() / 1000), // 1 month ago
-      Math.floor(new Date("2025-12-23T21:00:00Z").getTime() / 1000),
-      Math.floor(new Date("2026-01-20T21:00:00Z").getTime() / 1000),
-      Math.floor(new Date("2026-01-21T21:00:00Z").getTime() / 1000),
+      Math.floor(new Date("2025-08-01T20:00:00Z").getTime() / 1000), // Friday before
+      Math.floor(new Date("2025-08-04T20:00:00Z").getTime() / 1000), // Monday after (first trading day ON OR AFTER)
+      Math.floor(new Date("2025-08-05T20:00:00Z").getTime() / 1000),
+      // ... more trading days
+      Math.floor(new Date("2026-02-03T20:00:00Z").getTime() / 1000), // today
     ];
-    const prices = [95, 96, 100, 101, 108, 110];
+    // JFB example: Friday price = $6.99, Monday price = $8.20
+    // Using Friday (our old behavior): growth = (27.20 - 6.99) / 6.99 = 289%
+    // Using Monday (Google behavior): growth = (27.20 - 8.20) / 8.20 = 232%
+    const prices = [6.99, 8.20, 8.50, 27.20];
+
+    const growth6m = calculateGrowthByCalendarMonths(prices, timestamps, 6);
+
+    // Should use Monday (Aug 4) price of $8.20, NOT Friday (Aug 1) price of $6.99
+    // Growth = (27.20 - 8.20) / 8.20 * 100 = 231.7%
+    expect(growth6m).toBeCloseTo(231.7, 0);
+  });
+
+  it("uses exact target date when it is a trading day", () => {
+    // Today is Feb 3, 2026 (Monday)
+    // 1 month ago = Jan 3, 2026 - let's assume this is a Friday (trading day)
+    const now = new Date("2026-02-03T20:00:00Z");
+    vi.setSystemTime(now);
+
+    const timestamps = [
+      Math.floor(new Date("2026-01-02T20:00:00Z").getTime() / 1000), // Thu Jan 2
+      Math.floor(new Date("2026-01-03T20:00:00Z").getTime() / 1000), // Fri Jan 3 (target date)
+      Math.floor(new Date("2026-01-06T20:00:00Z").getTime() / 1000), // Mon Jan 6
+      Math.floor(new Date("2026-02-03T20:00:00Z").getTime() / 1000), // today
+    ];
+    const prices = [100, 105, 108, 115];
 
     const growth1m = calculateGrowthByCalendarMonths(prices, timestamps, 1);
 
-    // Last timestamp <= Dec 22 11pm is Dec 22 21:00 (price 100)
-    // Current price is 110
-    // Growth = (110 - 100) / 100 * 100 = 10%
-    expect(growth1m).toBeCloseTo(10, 2);
+    // Should use Jan 3 (price 105) since it's on the target date
+    // Growth = (115 - 105) / 105 * 100 = 9.52%
+    expect(growth1m).toBeCloseTo(9.52, 0);
+  });
+
+  it("returns 0 for empty prices array", () => {
+    vi.setSystemTime(new Date("2026-02-03T20:00:00Z"));
+    expect(calculateGrowthByCalendarMonths([], [], 1)).toBe(0);
+  });
+
+  it("uses most recent price as fallback when no prices after target date", () => {
+    // Edge case: all timestamps are before target date
+    const now = new Date("2026-02-03T20:00:00Z");
+    vi.setSystemTime(now);
+
+    // Only old data available (all before 6 months ago)
+    const timestamps = [
+      Math.floor(new Date("2025-07-01T20:00:00Z").getTime() / 1000),
+      Math.floor(new Date("2025-07-02T20:00:00Z").getTime() / 1000),
+    ];
+    const prices = [100, 105];
+
+    const growth6m = calculateGrowthByCalendarMonths(prices, timestamps, 6);
+
+    // Falls back to most recent price (105)
+    // Growth = (105 - 105) / 105 * 100 = 0%
+    expect(growth6m).toBe(0);
   });
 });
