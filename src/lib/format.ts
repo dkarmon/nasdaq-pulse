@@ -3,22 +3,24 @@
 
 /**
  * Formats a growth percentage with sign prefix.
- * Always shows one decimal place.
+ * Shows one decimal place by default, or no decimals in compact mode.
  */
-export function formatGrowth(value: number): string {
+export function formatGrowth(value: number, compact?: boolean): string {
   const sign = value >= 0 ? "+" : "";
-  return `${sign}${value.toFixed(1)}%`;
+  const decimals = compact ? 0 : 1;
+  return `${sign}${value.toFixed(decimals)}%`;
 }
 
 /**
  * Formats a price with currency symbol.
- * Shows two decimal places with thousands separators.
+ * Shows two decimal places by default, or no decimals in compact mode.
  */
-export function formatPrice(value: number, currency: string = "USD"): string {
+export function formatPrice(value: number, currency: string = "USD", compact?: boolean): string {
   const symbol = currency === "ILS" ? "₪" : "$";
+  const decimals = compact ? 0 : 2;
   return `${symbol}${value.toLocaleString(undefined, {
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
+    minimumFractionDigits: decimals,
+    maximumFractionDigits: decimals,
   })}`;
 }
 

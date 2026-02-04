@@ -53,9 +53,9 @@ describe("StockCard live price display", () => {
       />
     );
 
-    // Should display the live price, not the static price
-    expect(screen.getByText("$175.50")).toBeInTheDocument();
-    expect(screen.queryByText("$150.00")).not.toBeInTheDocument();
+    // Should display the live price (compact format), not the static price
+    expect(screen.getByText("$176")).toBeInTheDocument();
+    expect(screen.queryByText("$150")).not.toBeInTheDocument();
   });
 
   it("displays static price when liveQuote is undefined", () => {
@@ -69,8 +69,8 @@ describe("StockCard live price display", () => {
       />
     );
 
-    // Should display the static price
-    expect(screen.getByText("$150.00")).toBeInTheDocument();
+    // Should display the static price (compact format)
+    expect(screen.getByText("$150")).toBeInTheDocument();
   });
 
   it("displays ILS live price with correct currency symbol", () => {
@@ -95,8 +95,8 @@ describe("StockCard live price display", () => {
       />
     );
 
-    // Should display the live price with ILS symbol
-    expect(screen.getByText("₪48.75")).toBeInTheDocument();
-    expect(screen.queryByText("₪45.00")).not.toBeInTheDocument();
+    // Should display the live price with ILS symbol (compact format)
+    expect(screen.getByText("₪49")).toBeInTheDocument();
+    expect(screen.queryByText("₪45")).not.toBeInTheDocument();
   });
 });
