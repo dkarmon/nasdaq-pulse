@@ -118,12 +118,12 @@ export function StockCard({
                 data-positive={liveQuote.changePercent >= 0}
                 data-negative={liveQuote.changePercent < 0}
               >
-                ({formatGrowth(liveQuote.changePercent)})
+                ({formatGrowth(liveQuote.changePercent, true)})
               </span>
             )}
           </div>
           <div className={styles.headerRight}>
-            <span className={styles.price}>{formatPrice(liveQuote?.price ?? stock.price, stock.currency)}</span>
+            <span className={styles.price}>{formatPrice(liveQuote?.price ?? stock.price, stock.currency, true)}</span>
             <button
               className={styles.hideButton}
               onClick={(e) => {
@@ -151,7 +151,7 @@ export function StockCard({
                 data-positive={value >= 0}
                 data-negative={value < 0}
               >
-                {formatGrowth(value)}
+                {formatGrowth(value, true)}
               </span>
               <span className={styles.growthLabel}>{period.toUpperCase()}</span>
             </div>

@@ -21,6 +21,22 @@ describe("formatGrowth", () => {
     expect(formatGrowth(12.345)).toBe("+12.3%");
     expect(formatGrowth(12.351)).toBe("+12.4%");
   });
+
+  describe("compact mode", () => {
+    it("formats positive values with no decimals", () => {
+      expect(formatGrowth(23.5, true)).toBe("+24%");
+    });
+
+    it("formats negative values with no decimals", () => {
+      expect(formatGrowth(-12.3, true)).toBe("-12%");
+    });
+
+    it("rounds correctly", () => {
+      expect(formatGrowth(12.4, true)).toBe("+12%");
+      expect(formatGrowth(12.5, true)).toBe("+13%");
+      expect(formatGrowth(-12.5, true)).toBe("-13%");
+    });
+  });
 });
 
 describe("formatPrice", () => {
@@ -38,6 +54,21 @@ describe("formatPrice", () => {
 
   it("includes thousands separators for large values", () => {
     expect(formatPrice(1234.56, "USD")).toBe("$1,234.56");
+  });
+
+  describe("compact mode", () => {
+    it("formats USD prices with no decimals", () => {
+      expect(formatPrice(178.5, "USD", true)).toBe("$179");
+    });
+
+    it("formats ILS prices with no decimals", () => {
+      expect(formatPrice(1234.56, "ILS", true)).toBe("₪1,235");
+    });
+
+    it("rounds correctly", () => {
+      expect(formatPrice(178.4, "USD", true)).toBe("$178");
+      expect(formatPrice(178.5, "USD", true)).toBe("$179");
+    });
   });
 });
 
