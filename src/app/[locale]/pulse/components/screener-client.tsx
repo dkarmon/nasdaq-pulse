@@ -187,6 +187,9 @@ export function ScreenerClient({
   const controlLabels = {
     sortBy: dict.screener.sortBy,
     show: dict.screener.show,
+    score: dict.screener.score,
+    intraday: dict.screener.intraday,
+    direction: dict.screener.direction,
     search: dict.screener.search,
     recommendedOnly: dict.screener.recommendedOnly,
     exchange: dict.screener.exchange,

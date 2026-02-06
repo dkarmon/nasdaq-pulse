@@ -68,6 +68,9 @@ export type Dictionary = {
   screener: {
     sortBy: string;
     show: string;
+    score: string;
+    intraday: string;
+    direction: string;
     search: string;
     stock: string;
     price: string;
@@ -307,6 +310,9 @@ export const dictionaries: Record<Locale, Dictionary> = {
     screener: {
       sortBy: "Sort by",
       show: "Show",
+      score: "Score",
+      intraday: "Intraday",
+      direction: "Direction",
       search: "Search...",
       stock: "Stock",
       price: "Price",
@@ -539,6 +545,9 @@ export const dictionaries: Record<Locale, Dictionary> = {
     screener: {
       sortBy: "מיון לפי",
       show: "הצג",
+      score: "ציון",
+      intraday: "יומי",
+      direction: "כיוון",
       search: "...חיפוש",
       stock: "מניה",
       price: "מחיר",

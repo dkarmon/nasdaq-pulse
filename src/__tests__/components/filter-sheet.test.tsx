@@ -22,6 +22,9 @@ describe("FilterSheet", () => {
     labels: {
       sortBy: "Sort by",
       show: "Show",
+      score: "Score",
+      intraday: "Intraday",
+      direction: "Direction",
       apply: "Apply Filters",
     },
   };

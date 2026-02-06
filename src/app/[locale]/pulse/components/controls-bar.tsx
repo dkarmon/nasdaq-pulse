@@ -35,6 +35,9 @@ type ControlsBarProps = {
   labels: {
     sortBy: string;
     show: string;
+    score: string;
+    intraday: string;
+    direction: string;
     search: string;
     recommendedOnly: string;
     exchange: string;
@@ -57,14 +60,17 @@ export const RECOMMENDED_SORT_OPTIONS: SortPeriod[] = [
 export const LIMIT_OPTIONS = [25, 50];
 export const EXCHANGE_OPTIONS: Exchange[] = ["nasdaq", "tlv"];
 
-export function formatSortLabel(option: SortPeriod): string {
+export function formatSortLabel(
+  option: SortPeriod,
+  labels: { score: string; intraday: string }
+): string {
   switch (option) {
     case "az":
       return "A-Z";
     case "score":
-      return "Score";
+      return labels.score;
     case "intraday":
-      return "Intraday";
+      return labels.intraday;
     default:
       return option.toUpperCase();
   }
@@ -279,12 +285,12 @@ export function ControlsBar({
                   onClick={() => onSortChange(option)}
                   aria-pressed={sortBy === option}
                 >
-                  {formatSortLabel(option)}
+                  {formatSortLabel(option, labels)}
                 </button>
               ))}
             </div>
             {showRecommendedOnly && (
-              <div className={styles.directionToggle} role="group" aria-label="Sort direction">
+              <div className={styles.directionToggle} role="group" aria-label={labels.direction}>
                 <button
                   className={styles.directionPill}
                   data-active={sortDirection === "asc"}
@@ -363,6 +369,9 @@ export function ControlsBar({
         labels={{
           sortBy: labels.sortBy,
           show: labels.show,
+          score: labels.score,
+          intraday: labels.intraday,
+          direction: labels.direction,
           formula: labels.formula || "Formula",
           apply: "Apply Filters",
         }}

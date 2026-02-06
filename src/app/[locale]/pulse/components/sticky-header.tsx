@@ -34,6 +34,9 @@ type StickyHeaderProps = {
   labels: {
     sortBy: string;
     show: string;
+    score: string;
+    intraday: string;
+    direction: string;
     search: string;
     recommendedOnly: string;
     exchange: string;

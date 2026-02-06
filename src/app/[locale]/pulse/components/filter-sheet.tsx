@@ -28,6 +28,9 @@ type FilterSheetProps = {
   labels: {
     sortBy: string;
     show: string;
+    score: string;
+    intraday: string;
+    direction: string;
     formula?: string;
     apply: string;
   };
@@ -95,7 +98,7 @@ export function FilterSheet({
                 onClick={() => onSortChange(option)}
                 aria-pressed={sortBy === option}
               >
-                {formatSortLabel(option)}
+                {formatSortLabel(option, labels)}
               </button>
             ))}
           </div>
@@ -103,7 +106,7 @@ export function FilterSheet({
 
         {showRecommendedOnly && (
           <div className={styles.section}>
-            <span className={styles.label}>Direction</span>
+            <span className={styles.label}>{labels.direction}</span>
             <div className={styles.pillGroup}>
               <button
                 className={styles.directionPill}
