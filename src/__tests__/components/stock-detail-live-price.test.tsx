@@ -193,8 +193,8 @@ describe("StockDetail live price display", () => {
     );
 
     await waitFor(() => {
-      // Should display the intraday change percentage (formatted to 1 decimal)
-      expect(screen.getByText(/\+3\.2%/)).toBeInTheDocument();
+      // Should display the intraday change percentage (formatted to 2 decimals)
+      expect(screen.getByText(/\+3\.24%/)).toBeInTheDocument();
     });
   });
 });

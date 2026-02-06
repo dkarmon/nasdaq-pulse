@@ -462,6 +462,9 @@ function sortStocks(stocks: Stock[], sortBy: string): Stock[] {
   const sorted = [...stocks];
   sorted.sort((a, b) => {
     switch (sortBy) {
+      case "score":
+      case "intraday":
+        return b.growth1m - a.growth1m;
       case "1d":
         return (b.growth1d ?? 0) - (a.growth1d ?? 0);
       case "5d":
@@ -472,6 +475,11 @@ function sortStocks(stocks: Stock[], sortBy: string): Stock[] {
         return b.growth6m - a.growth6m;
       case "12m":
         return b.growth12m - a.growth12m;
+      case "az": {
+        const aName = a.symbol.endsWith(".TA") ? (a.nameHebrew || a.name) : a.name;
+        const bName = b.symbol.endsWith(".TA") ? (b.nameHebrew || b.name) : b.name;
+        return (aName || a.symbol).localeCompare(bName || b.symbol, undefined, { sensitivity: "base" });
+      }
       default:
         return b.growth1m - a.growth1m;
     }

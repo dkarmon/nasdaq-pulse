@@ -5,7 +5,7 @@
 
 import { useState, useEffect } from "react";
 import { Download, RotateCw, MoreVertical } from "lucide-react";
-import type { Stock, SortPeriod, Exchange } from "@/lib/market-data/types";
+import type { Stock, SortPeriod, SortDirection, Exchange } from "@/lib/market-data/types";
 import type { RecommendationFormulaSummary } from "@/lib/recommendations/types";
 import { exportToExcel } from "@/lib/excel-export";
 import { FilterSheet } from "./filter-sheet";
@@ -14,12 +14,14 @@ import styles from "./controls-bar.module.css";
 type ControlsBarProps = {
   exchange: Exchange;
   sortBy: SortPeriod;
+  sortDirection: SortDirection;
   limit: number;
   searchQuery: string;
   showRecommendedOnly: boolean;
   controlsDisabled?: boolean;
   onExchangeChange: (exchange: Exchange) => void;
   onSortChange: (sort: SortPeriod) => void;
+  onSortDirectionChange: (direction: SortDirection) => void;
   onLimitChange: (limit: number) => void;
   onSearchChange: (query: string) => void;
   onShowRecommendedOnlyChange: (show: boolean) => void;
@@ -42,19 +44,43 @@ type ControlsBarProps = {
   };
 };
 
-export const SORT_OPTIONS: SortPeriod[] = ["1d", "5d", "1m", "6m", "12m", "az"];
+export const DEFAULT_SORT_OPTIONS: SortPeriod[] = ["1d", "5d", "1m", "6m", "12m", "az"];
+export const RECOMMENDED_SORT_OPTIONS: SortPeriod[] = [
+  "score",
+  "intraday",
+  "1d",
+  "5d",
+  "1m",
+  "6m",
+  "12m",
+];
 export const LIMIT_OPTIONS = [25, 50];
 export const EXCHANGE_OPTIONS: Exchange[] = ["nasdaq", "tlv"];
+
+export function formatSortLabel(option: SortPeriod): string {
+  switch (option) {
+    case "az":
+      return "A-Z";
+    case "score":
+      return "Score";
+    case "intraday":
+      return "Intraday";
+    default:
+      return option.toUpperCase();
+  }
+}
 
 export function ControlsBar({
   exchange,
   sortBy,
+  sortDirection,
   limit,
   searchQuery,
   showRecommendedOnly,
   controlsDisabled = false,
   onExchangeChange,
   onSortChange,
+  onSortDirectionChange,
   onLimitChange,
   onSearchChange,
   onShowRecommendedOnlyChange,
@@ -102,6 +128,7 @@ export function ControlsBar({
     exportToExcel(visibleStocks, rankMap, {
       exchange,
       sortBy,
+      sortDirection,
       limit,
       recommendedOnly: showRecommendedOnly,
       formula: activeFormula ?? null,
@@ -114,6 +141,8 @@ export function ControlsBar({
   };
 
   const activeFilterCount = showRecommendedOnly ? 1 : 0;
+  const sortOptions = showRecommendedOnly ? RECOMMENDED_SORT_OPTIONS : DEFAULT_SORT_OPTIONS;
+  const sortDisabled = controlsDisabled && !showRecommendedOnly;
 
   return (
     <>
@@ -240,20 +269,40 @@ export function ControlsBar({
           <div className={styles.sortGroup}>
             <span className={styles.label}>{labels.sortBy}:</span>
             <div className={styles.pillGroup}>
-              {SORT_OPTIONS.map((option) => (
+              {sortOptions.map((option) => (
                 <button
                   key={option}
                   className={styles.pill}
                   data-active={sortBy === option}
-                  data-disabled={controlsDisabled}
-                  disabled={controlsDisabled}
+                  data-disabled={sortDisabled}
+                  disabled={sortDisabled}
                   onClick={() => onSortChange(option)}
                   aria-pressed={sortBy === option}
                 >
-                  {option === "az" ? "A-Z" : option.toUpperCase()}
+                  {formatSortLabel(option)}
                 </button>
               ))}
             </div>
+            {showRecommendedOnly && (
+              <div className={styles.directionToggle} role="group" aria-label="Sort direction">
+                <button
+                  className={styles.directionPill}
+                  data-active={sortDirection === "asc"}
+                  onClick={() => onSortDirectionChange("asc")}
+                  aria-pressed={sortDirection === "asc"}
+                >
+                  ↑
+                </button>
+                <button
+                  className={styles.directionPill}
+                  data-active={sortDirection === "desc"}
+                  onClick={() => onSortDirectionChange("desc")}
+                  aria-pressed={sortDirection === "desc"}
+                >
+                  ↓
+                </button>
+              </div>
+            )}
           </div>
 
           <div className={styles.limitGroup}>
@@ -299,9 +348,13 @@ export function ControlsBar({
         isOpen={isFilterSheetOpen}
         onClose={() => setIsFilterSheetOpen(false)}
         sortBy={sortBy}
+        sortDirection={sortDirection}
         limit={limit}
+        sortOptions={sortOptions}
+        showRecommendedOnly={showRecommendedOnly}
         controlsDisabled={controlsDisabled}
         onSortChange={onSortChange}
+        onSortDirectionChange={onSortDirectionChange}
         onLimitChange={onLimitChange}
         isAdmin={isAdmin}
         formulas={formulas}

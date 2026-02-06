@@ -4,18 +4,22 @@
 "use client";
 
 import { useEffect } from "react";
-import type { SortPeriod } from "@/lib/market-data/types";
+import type { SortPeriod, SortDirection } from "@/lib/market-data/types";
 import type { RecommendationFormulaSummary } from "@/lib/recommendations/types";
-import { SORT_OPTIONS, LIMIT_OPTIONS } from "./controls-bar";
+import { LIMIT_OPTIONS, formatSortLabel } from "./controls-bar";
 import styles from "./filter-sheet.module.css";
 
 type FilterSheetProps = {
   isOpen: boolean;
   onClose: () => void;
   sortBy: SortPeriod;
+  sortDirection: SortDirection;
   limit: number;
+  sortOptions: SortPeriod[];
+  showRecommendedOnly: boolean;
   controlsDisabled?: boolean;
   onSortChange: (sort: SortPeriod) => void;
+  onSortDirectionChange: (direction: SortDirection) => void;
   onLimitChange: (limit: number) => void;
   isAdmin?: boolean;
   formulas?: RecommendationFormulaSummary[];
@@ -33,9 +37,13 @@ export function FilterSheet({
   isOpen,
   onClose,
   sortBy,
+  sortDirection,
   limit,
+  sortOptions,
+  showRecommendedOnly,
   controlsDisabled = false,
   onSortChange,
+  onSortDirectionChange,
   onLimitChange,
   isAdmin = false,
   formulas = [],
@@ -43,6 +51,8 @@ export function FilterSheet({
   onFormulaChange,
   labels,
 }: FilterSheetProps) {
+  const sortDisabled = controlsDisabled && !showRecommendedOnly;
+
   // Lock body scroll when sheet is open
   useEffect(() => {
     if (isOpen) {
@@ -75,21 +85,45 @@ export function FilterSheet({
         <div className={styles.section}>
           <span className={styles.label}>{labels.sortBy}</span>
           <div className={styles.pillGroup}>
-            {SORT_OPTIONS.map((option) => (
+            {sortOptions.map((option) => (
               <button
                 key={option}
                 className={styles.pill}
                 data-active={sortBy === option}
-                data-disabled={controlsDisabled}
-                disabled={controlsDisabled}
+                data-disabled={sortDisabled}
+                disabled={sortDisabled}
                 onClick={() => onSortChange(option)}
                 aria-pressed={sortBy === option}
               >
-                {option === "az" ? "A-Z" : option.toUpperCase()}
+                {formatSortLabel(option)}
               </button>
             ))}
           </div>
         </div>
+
+        {showRecommendedOnly && (
+          <div className={styles.section}>
+            <span className={styles.label}>Direction</span>
+            <div className={styles.pillGroup}>
+              <button
+                className={styles.directionPill}
+                data-active={sortDirection === "asc"}
+                onClick={() => onSortDirectionChange("asc")}
+                aria-pressed={sortDirection === "asc"}
+              >
+                ↑
+              </button>
+              <button
+                className={styles.directionPill}
+                data-active={sortDirection === "desc"}
+                onClick={() => onSortDirectionChange("desc")}
+                aria-pressed={sortDirection === "desc"}
+              >
+                ↓
+              </button>
+            </div>
+          </div>
+        )}
 
         <div className={styles.section}>
           <span className={styles.label}>{labels.show}</span>

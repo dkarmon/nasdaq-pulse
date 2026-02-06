@@ -84,12 +84,14 @@ vi.mock("@/hooks/useLiveQuotes", () => ({
 const nasdaqPreferences = () => ({
   preferences: {
     sortBy: "1m",
+    sortDirection: "desc",
     limit: 50,
     exchange: "nasdaq",
     showRecommendedOnly: false,
   },
   isLoaded: true,
   setSortBy: vi.fn(),
+  setSortDirection: vi.fn(),
   setLimit: vi.fn(),
   setExchange: vi.fn(),
   hideStock: vi.fn(),

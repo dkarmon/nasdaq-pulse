@@ -5,7 +5,7 @@
 
 import { ReactNode, useRef, useEffect } from "react";
 import { ControlsBar } from "./controls-bar";
-import type { Stock, SortPeriod, Exchange } from "@/lib/market-data/types";
+import type { Stock, SortPeriod, SortDirection, Exchange } from "@/lib/market-data/types";
 import type { RecommendationFormulaSummary } from "@/lib/recommendations/types";
 import styles from "./sticky-header.module.css";
 
@@ -13,12 +13,14 @@ type StickyHeaderProps = {
   navContent: ReactNode;
   exchange: Exchange;
   sortBy: SortPeriod;
+  sortDirection: SortDirection;
   limit: number;
   searchQuery: string;
   showRecommendedOnly: boolean;
   controlsDisabled?: boolean;
   onExchangeChange: (exchange: Exchange) => void;
   onSortChange: (sort: SortPeriod) => void;
+  onSortDirectionChange: (direction: SortDirection) => void;
   onLimitChange: (limit: number) => void;
   onSearchChange: (query: string) => void;
   onShowRecommendedOnlyChange: (show: boolean) => void;
@@ -45,12 +47,14 @@ export function StickyHeader({
   navContent,
   exchange,
   sortBy,
+  sortDirection,
   limit,
   searchQuery,
   showRecommendedOnly,
   controlsDisabled = false,
   onExchangeChange,
   onSortChange,
+  onSortDirectionChange,
   onLimitChange,
   onSearchChange,
   onShowRecommendedOnlyChange,
@@ -88,12 +92,14 @@ export function StickyHeader({
       <ControlsBar
         exchange={exchange}
         sortBy={sortBy}
+        sortDirection={sortDirection}
         limit={limit}
         searchQuery={searchQuery}
         showRecommendedOnly={showRecommendedOnly}
         controlsDisabled={controlsDisabled}
         onExchangeChange={onExchangeChange}
         onSortChange={onSortChange}
+        onSortDirectionChange={onSortDirectionChange}
         onLimitChange={onLimitChange}
         onSearchChange={onSearchChange}
         onShowRecommendedOnlyChange={onShowRecommendedOnlyChange}

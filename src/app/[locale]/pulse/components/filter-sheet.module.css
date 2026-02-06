@@ -100,6 +100,12 @@
   transition: border 150ms ease, background 150ms ease;
 }
 
+.directionPill {
+  composes: pill;
+  min-width: 44px;
+  padding: 10px 14px;
+}
+
 .pill:hover {
   border-color: var(--accent);
   background: var(--glass-hover);

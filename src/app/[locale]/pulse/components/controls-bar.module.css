@@ -288,6 +288,12 @@
   gap: 6px;
 }
 
+.directionToggle {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
 .pill {
   display: inline-flex;
   align-items: center;
@@ -303,6 +309,12 @@
   font-size: 0.95rem;
   cursor: pointer;
   transition: border 150ms ease, transform 150ms ease, background 150ms ease;
+}
+
+.directionPill {
+  composes: pill;
+  min-width: 40px;
+  padding: 8px 12px;
 }
 
 .pill:hover {
@@ -334,4 +346,3 @@
     min-height: 44px;
   }
 }
-

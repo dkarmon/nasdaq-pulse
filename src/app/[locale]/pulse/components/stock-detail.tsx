@@ -10,7 +10,7 @@ import { StockAnalysis } from "./stock-analysis";
 import { useLiveQuotes } from "@/hooks/useLiveQuotes";
 import { isStockRecommended } from "@/lib/market-data/recommendation";
 import type { StockDetailResponse, Stock } from "@/lib/market-data/types";
-import { formatGrowth, formatPrice, formatMarketCap } from "@/lib/format";
+import { formatGrowth, formatIntraday, formatPrice, formatMarketCap } from "@/lib/format";
 import styles from "./stock-detail.module.css";
 import type { RecommendationFormulaSummary } from "@/lib/recommendations/types";
 
@@ -215,7 +215,7 @@ export function StockDetail({ symbol, onClose, locale = "en", activeFormula, lab
                 data-positive={liveQuote.changePercent >= 0}
                 data-negative={liveQuote.changePercent < 0}
               >
-                {" "}({formatGrowth(liveQuote.changePercent)})
+                {" "}({formatIntraday(liveQuote.changePercent)})
               </span>
             )}
           </span>

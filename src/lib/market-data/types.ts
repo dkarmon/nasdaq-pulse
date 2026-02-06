@@ -3,7 +3,9 @@
 
 export type Exchange = "nasdaq" | "tlv";
 
-export type SortPeriod = "1d" | "5d" | "1m" | "6m" | "12m" | "az";
+export type SortPeriod = "score" | "intraday" | "1d" | "5d" | "1m" | "6m" | "12m" | "az";
+
+export type SortDirection = "asc" | "desc";
 
 export type Stock = {
   symbol: string;

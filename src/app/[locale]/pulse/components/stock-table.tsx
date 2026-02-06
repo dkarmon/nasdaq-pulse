@@ -5,7 +5,7 @@
 
 import type { Stock, SortPeriod } from "@/lib/market-data/types";
 import { isStockRecommended } from "@/lib/market-data/recommendation";
-import { formatGrowth, formatPrice } from "@/lib/format";
+import { formatGrowth, formatIntraday, formatPrice } from "@/lib/format";
 import type { QuotesMap } from "@/hooks/useLiveQuotes";
 import styles from "./stock-table.module.css";
 
@@ -108,7 +108,7 @@ export function StockTable({
                               data-positive={liveQuote.changePercent >= 0}
                               data-negative={liveQuote.changePercent < 0}
                             >
-                              ({formatGrowth(liveQuote.changePercent)})
+                              ({formatIntraday(liveQuote.changePercent)})
                             </span>
                           )}
                           <button

@@ -2,12 +2,13 @@
 // ABOUTME: Creates workbook with stock data (Screener) and configuration (Settings).
 
 import * as XLSX from "xlsx";
-import type { Stock, Exchange, SortPeriod } from "@/lib/market-data/types";
+import type { Stock, Exchange, SortDirection, SortPeriod } from "@/lib/market-data/types";
 import type { RecommendationFormulaSummary } from "@/lib/recommendations/types";
 
 export type ExportSettings = {
   exchange: Exchange;
   sortBy: SortPeriod;
+  sortDirection: SortDirection;
   limit: number;
   recommendedOnly: boolean;
   formula: RecommendationFormulaSummary | null;
@@ -52,6 +53,7 @@ export function exportToExcel(
   const settingsData: SettingsRow[] = [
     { Setting: "Exchange", Value: settings.exchange.toUpperCase() },
     { Setting: "Sort By", Value: settings.sortBy.toUpperCase() },
+    { Setting: "Sort Direction", Value: settings.sortDirection.toUpperCase() },
     { Setting: "Limit", Value: settings.limit.toString() },
     { Setting: "Recommended Only", Value: settings.recommendedOnly ? "Yes" : "No" },
     { Setting: "Formula", Value: settings.formula?.name ?? "None" },

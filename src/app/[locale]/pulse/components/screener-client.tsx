@@ -5,18 +5,85 @@
 
 import { useState, useEffect, useCallback, useMemo, ReactNode } from "react";
 import { usePreferences } from "@/hooks/usePreferences";
-import { useLiveQuotes } from "@/hooks/useLiveQuotes";
+import { useLiveQuotes, type QuotesMap } from "@/hooks/useLiveQuotes";
 import { StickyHeader } from "./sticky-header";
 import { StockTable } from "./stock-table";
 import { StockCardList } from "./stock-card";
-import {
-  filterAndSortByRecommendation,
-  scoreStocksWithFormula,
-} from "@/lib/market-data/recommendation";
-import type { Stock, ScreenerResponse } from "@/lib/market-data/types";
+import { scoreStocksWithFormula } from "@/lib/market-data/recommendation";
+import type { Stock, ScreenerResponse, SortDirection, SortPeriod } from "@/lib/market-data/types";
 import type { Dictionary } from "@/lib/i18n";
 import styles from "./screener-client.module.css";
 import type { RecommendationFormulaSummary } from "@/lib/recommendations/types";
+
+const RECOMMENDED_SORT_OPTIONS: SortPeriod[] = [
+  "score",
+  "intraday",
+  "1d",
+  "5d",
+  "1m",
+  "6m",
+  "12m",
+];
+
+function sortRecommendedStocks(
+  stocks: Stock[],
+  sortBy: SortPeriod,
+  sortDirection: SortDirection,
+  liveQuotes: QuotesMap
+): Stock[] {
+  const direction = sortDirection === "asc" ? 1 : -1;
+  const sorted = [...stocks];
+
+  sorted.sort((a, b) => {
+    switch (sortBy) {
+      case "intraday": {
+        const aQuote = liveQuotes[a.symbol];
+        const bQuote = liveQuotes[b.symbol];
+        const aValue =
+          typeof aQuote?.changePercent === "number" && Number.isFinite(aQuote.changePercent)
+            ? aQuote.changePercent
+            : null;
+        const bValue =
+          typeof bQuote?.changePercent === "number" && Number.isFinite(bQuote.changePercent)
+            ? bQuote.changePercent
+            : null;
+
+        const aMissing = aValue === null;
+        const bMissing = bValue === null;
+
+        if (aMissing && bMissing) return 0;
+        if (aMissing) return 1;
+        if (bMissing) return -1;
+
+        return (aValue - bValue) * direction;
+      }
+      case "1d": {
+        const aValue = a.growth1d ?? 0;
+        const bValue = b.growth1d ?? 0;
+        return (aValue - bValue) * direction;
+      }
+      case "5d": {
+        const aValue = a.growth5d ?? 0;
+        const bValue = b.growth5d ?? 0;
+        return (aValue - bValue) * direction;
+      }
+      case "6m":
+        return (a.growth6m - b.growth6m) * direction;
+      case "12m":
+        return (a.growth12m - b.growth12m) * direction;
+      case "score": {
+        const aValue = a.recommendationScore ?? 0;
+        const bValue = b.recommendationScore ?? 0;
+        return (aValue - bValue) * direction;
+      }
+      case "1m":
+      default:
+        return (a.growth1m - b.growth1m) * direction;
+    }
+  });
+
+  return sorted;
+}
 
 type ScreenerClientProps = {
   initialData: ScreenerResponse;
@@ -43,6 +110,7 @@ export function ScreenerClient({
     preferences,
     isLoaded,
     setSortBy,
+    setSortDirection,
     setLimit,
     setExchange,
     hideStock,
@@ -84,9 +152,14 @@ export function ScreenerClient({
       // When searching or in recommended mode, fetch all stocks to ensure search can find anything
       const needsAllStocks = preferences.showRecommendedOnly || debouncedSearch;
       const limit = needsAllStocks ? 9999 : preferences.limit;
+      const apiSortBy =
+        preferences.showRecommendedOnly &&
+        (preferences.sortBy === "score" || preferences.sortBy === "intraday")
+          ? "1m"
+          : preferences.sortBy;
 
       const params = new URLSearchParams({
-        sortBy: preferences.sortBy,
+        sortBy: apiSortBy,
         limit: limit.toString(),
         exchange: preferences.exchange,
         recommendedOnly: preferences.showRecommendedOnly ? "true" : "false",
@@ -166,7 +239,21 @@ export function ScreenerClient({
   }
 
   if (preferences.showRecommendedOnly) {
-    visibleStocks = filterAndSortByRecommendation(visibleStocks, activeFormula ?? undefined);
+    const recommendedOnly = visibleStocks.filter((stock) =>
+      typeof stock.recommendationScore === "number" &&
+      Number.isFinite(stock.recommendationScore) &&
+      (stock.recommendationScore ?? 0) > 0
+    );
+
+    const effectiveSort =
+      RECOMMENDED_SORT_OPTIONS.includes(preferences.sortBy) ? preferences.sortBy : "score";
+
+    visibleStocks = sortRecommendedStocks(
+      recommendedOnly,
+      effectiveSort,
+      preferences.sortDirection,
+      liveQuotes
+    );
   }
 
   return (
@@ -175,12 +262,14 @@ export function ScreenerClient({
         navContent={navContent}
         exchange={preferences.exchange}
         sortBy={preferences.sortBy}
+        sortDirection={preferences.sortDirection}
         limit={preferences.limit}
         searchQuery={searchQuery}
         showRecommendedOnly={preferences.showRecommendedOnly}
         controlsDisabled={preferences.showRecommendedOnly}
         onExchangeChange={setExchange}
         onSortChange={setSortBy}
+        onSortDirectionChange={setSortDirection}
         onLimitChange={setLimit}
         onSearchChange={setSearchQuery}
         onShowRecommendedOnlyChange={setShowRecommendedOnly}

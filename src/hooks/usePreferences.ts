@@ -4,17 +4,19 @@
 "use client";
 
 import { useState, useCallback, useEffect, useRef } from "react";
-import type { SortPeriod, Exchange } from "@/lib/market-data/types";
+import type { SortPeriod, SortDirection, Exchange } from "@/lib/market-data/types";
 
 export type HiddenSymbols = Record<Exchange, string[]>;
 
 export type PreRecommendedState = {
   sortBy: SortPeriod;
+  sortDirection: SortDirection;
   limit: number;
 };
 
 export type ScreenerPreferences = {
   sortBy: SortPeriod;
+  sortDirection: SortDirection;
   limit: number;
   exchange: Exchange;
   hiddenSymbols: HiddenSymbols;
@@ -23,9 +25,19 @@ export type ScreenerPreferences = {
 };
 
 const STORAGE_KEY = "nasdaq-pulse-prefs";
+const RECOMMENDED_SORT_OPTIONS: SortPeriod[] = [
+  "score",
+  "intraday",
+  "1d",
+  "5d",
+  "1m",
+  "6m",
+  "12m",
+];
 
 const defaultPreferences: ScreenerPreferences = {
   sortBy: "1m",
+  sortDirection: "desc",
   limit: 50,
   exchange: "nasdaq",
   hiddenSymbols: {
@@ -38,12 +50,13 @@ const defaultPreferences: ScreenerPreferences = {
 
 type LegacyPreferences = {
   sortBy?: SortPeriod;
+  sortDirection?: SortDirection;
   limit?: number;
   filters?: unknown;
   hiddenSymbols?: string[] | HiddenSymbols;
   showRecommendedOnly?: boolean;
   exchange?: Exchange;
-  preRecommendedState?: PreRecommendedState | null;
+  preRecommendedState?: Partial<PreRecommendedState> | null;
 };
 
 function migrateHiddenSymbols(hiddenSymbols: string[] | HiddenSymbols | undefined): HiddenSymbols {
@@ -80,13 +93,28 @@ function loadPreferences(): ScreenerPreferences {
 
     const parsed: LegacyPreferences = JSON.parse(stored);
 
+    const preRecommendedState = parsed.preRecommendedState
+      ? {
+        sortBy: parsed.preRecommendedState.sortBy ?? defaultPreferences.sortBy,
+        sortDirection: parsed.preRecommendedState.sortDirection ?? defaultPreferences.sortDirection,
+        limit: parsed.preRecommendedState.limit ?? defaultPreferences.limit,
+      }
+      : defaultPreferences.preRecommendedState;
+
+    const normalizedSortBy = parsed.showRecommendedOnly &&
+      parsed.sortBy &&
+      !RECOMMENDED_SORT_OPTIONS.includes(parsed.sortBy)
+      ? "score"
+      : parsed.sortBy;
+
     return {
-      sortBy: parsed.sortBy ?? defaultPreferences.sortBy,
+      sortBy: normalizedSortBy ?? defaultPreferences.sortBy,
+      sortDirection: parsed.sortDirection ?? defaultPreferences.sortDirection,
       limit: parsed.limit ?? defaultPreferences.limit,
       exchange: parsed.exchange ?? defaultPreferences.exchange,
       hiddenSymbols: migrateHiddenSymbols(parsed.hiddenSymbols),
       showRecommendedOnly: parsed.showRecommendedOnly ?? defaultPreferences.showRecommendedOnly,
-      preRecommendedState: parsed.preRecommendedState ?? defaultPreferences.preRecommendedState,
+      preRecommendedState,
     };
   } catch {
     return defaultPreferences;
@@ -204,6 +232,10 @@ export function usePreferences() {
     updatePreferences({ sortBy });
   }, [updatePreferences]);
 
+  const setSortDirection = useCallback((sortDirection: SortDirection) => {
+    updatePreferences({ sortDirection });
+  }, [updatePreferences]);
+
   const setLimit = useCallback((limit: number) => {
     updatePreferences({ limit });
   }, [updatePreferences]);
@@ -267,8 +299,11 @@ export function usePreferences() {
           showRecommendedOnly: true,
           preRecommendedState: {
             sortBy: prev.sortBy,
+            sortDirection: prev.sortDirection,
             limit: prev.limit,
           },
+          sortBy: "score",
+          sortDirection: "desc",
         };
       } else {
         // Disabling: restore sort/limit
@@ -279,6 +314,7 @@ export function usePreferences() {
           preRecommendedState: null,
           ...(restored && {
             sortBy: restored.sortBy,
+            sortDirection: restored.sortDirection,
             limit: restored.limit,
           }),
         };
@@ -297,6 +333,7 @@ export function usePreferences() {
     preferences,
     isLoaded,
     setSortBy,
+    setSortDirection,
     setLimit,
     setExchange,
     hideStock,

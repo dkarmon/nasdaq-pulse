@@ -6,7 +6,7 @@
 import { useState, useRef } from "react";
 import type { Stock, SortPeriod } from "@/lib/market-data/types";
 import { isStockRecommended } from "@/lib/market-data/recommendation";
-import { formatGrowth, formatPrice } from "@/lib/format";
+import { formatGrowth, formatIntraday, formatPrice } from "@/lib/format";
 import type { QuotesMap, LiveQuote } from "@/hooks/useLiveQuotes";
 import styles from "./stock-card.module.css";
 
@@ -118,7 +118,7 @@ export function StockCard({
                 data-positive={liveQuote.changePercent >= 0}
                 data-negative={liveQuote.changePercent < 0}
               >
-                ({formatGrowth(liveQuote.changePercent, true)})
+                ({formatIntraday(liveQuote.changePercent)})
               </span>
             )}
           </div>

@@ -48,10 +48,12 @@ describe("usePreferences", () => {
       // Set initial state
       act(() => {
         result.current.setSortBy("6m");
+        result.current.setSortDirection("asc");
         result.current.setLimit(25);
       });
 
       expect(result.current.preferences.sortBy).toBe("6m");
+      expect(result.current.preferences.sortDirection).toBe("asc");
       expect(result.current.preferences.limit).toBe(25);
 
       // Enable recommended only (saves sort/limit to preRecommendedState)
@@ -60,6 +62,8 @@ describe("usePreferences", () => {
       });
 
       expect(result.current.preferences.showRecommendedOnly).toBe(true);
+      expect(result.current.preferences.sortBy).toBe("score");
+      expect(result.current.preferences.sortDirection).toBe("desc");
 
       // Disable recommended only
       act(() => {
@@ -68,6 +72,7 @@ describe("usePreferences", () => {
 
       // Sort and limit should be restored
       expect(result.current.preferences.sortBy).toBe("6m");
+      expect(result.current.preferences.sortDirection).toBe("asc");
       expect(result.current.preferences.limit).toBe(25);
     });
   });

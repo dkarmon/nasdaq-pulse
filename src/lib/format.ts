@@ -12,6 +12,14 @@ export function formatGrowth(value: number, compact?: boolean): string {
 }
 
 /**
+ * Formats an intraday change percentage with exactly two decimals.
+ */
+export function formatIntraday(value: number): string {
+  const sign = value >= 0 ? "+" : "";
+  return `${sign}${value.toFixed(2)}%`;
+}
+
+/**
  * Formats a price with currency symbol.
  * Shows two decimal places by default, or no decimals in compact mode.
  */
