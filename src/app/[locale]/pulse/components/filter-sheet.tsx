@@ -31,6 +31,8 @@ type FilterSheetProps = {
     score: string;
     intraday: string;
     direction: string;
+    recommendedOnly: string;
+    recommendedMode: string;
     formula?: string;
     apply: string;
   };
@@ -84,6 +86,12 @@ export function FilterSheet({
       />
       <div className={styles.sheet}>
         <div className={styles.handle} />
+
+        {showRecommendedOnly && (
+          <div className={styles.modeRow}>
+            <span className={styles.modePill}>{labels.recommendedMode}</span>
+          </div>
+        )}
 
         <div className={styles.section}>
           <span className={styles.label}>{labels.sortBy}</span>
@@ -147,7 +155,7 @@ export function FilterSheet({
           </div>
         </div>
 
-        {isAdmin && formulas.length > 0 && onFormulaChange && (
+        {showRecommendedOnly && isAdmin && formulas.length > 0 && onFormulaChange && (
           <div className={styles.section}>
             <span className={styles.label}>{labels.formula || "Formula"}</span>
             <select

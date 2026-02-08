@@ -62,6 +62,25 @@
   margin: 0 auto 20px;
 }
 
+.modeRow {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.modePill {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(16, 185, 129, 0.5);
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.22), rgba(16, 185, 129, 0.08));
+  color: #a7f3d0;
+  font-weight: 700;
+  font-size: 0.8rem;
+  letter-spacing: 0.02em;
+}
+
 .section {
   display: flex;
   flex-direction: column;

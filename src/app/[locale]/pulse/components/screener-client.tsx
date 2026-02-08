@@ -192,6 +192,7 @@ export function ScreenerClient({
     direction: dict.screener.direction,
     search: dict.screener.search,
     recommendedOnly: dict.screener.recommendedOnly,
+    recommendedMode: dict.screener.recommendedMode,
     exchange: dict.screener.exchange,
     nasdaq: dict.screener.nasdaq,
     tlv: dict.screener.tlv,

@@ -96,6 +96,7 @@ export type Dictionary = {
     hide: string;
     recommended: string;
     recommendedOnly: string;
+    recommendedMode: string;
     exchange: string;
     nasdaq: string;
     tlv: string;
@@ -338,6 +339,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
       hide: "Hide",
       recommended: "Recommended",
       recommendedOnly: "Recommended only",
+      recommendedMode: "Recommended mode",
       exchange: "Exchange",
       nasdaq: "NASDAQ",
       tlv: "Tel Aviv",
@@ -573,6 +575,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
       hide: "הסתר",
       recommended: "מומלץ",
       recommendedOnly: "מומלצים בלבד",
+      recommendedMode: "מצב מומלצים",
       exchange: "בורסה",
       nasdaq: "נאסד״ק",
       tlv: "תל אביב",
