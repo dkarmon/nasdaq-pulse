@@ -39,6 +39,7 @@ type StickyHeaderProps = {
     direction: string;
     search: string;
     recommendedOnly: string;
+    recommendedMode: string;
     exchange: string;
     nasdaq: string;
     tlv: string;
