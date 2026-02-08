@@ -40,6 +40,7 @@ type ControlsBarProps = {
     direction: string;
     search: string;
     recommendedOnly: string;
+    recommendedMode: string;
     exchange: string;
     nasdaq: string;
     tlv: string;
@@ -330,7 +331,7 @@ export function ControlsBar({
             </div>
           </div>
 
-          {isAdmin && formulas.length > 0 && (
+          {showRecommendedOnly && isAdmin && formulas.length > 0 && (
             <div className={styles.formulaGroup}>
               <span className={styles.label}>{labels.formula || "Formula"}:</span>
               <select
@@ -372,6 +373,8 @@ export function ControlsBar({
           score: labels.score,
           intraday: labels.intraday,
           direction: labels.direction,
+          recommendedOnly: labels.recommendedOnly,
+          recommendedMode: labels.recommendedMode,
           formula: labels.formula || "Formula",
           apply: "Apply Filters",
         }}
