@@ -3,7 +3,8 @@
 
 "use client";
 
-import { useEffect, useRef, useState, useCallback } from "react";
+import { useEffect, useRef, useState, useCallback, useMemo } from "react";
+import { usePreferences } from "@/hooks/usePreferences";
 import { validateFormulaExpression } from "@/lib/recommendations/engine";
 import { filterAndSortByRecommendation } from "@/lib/market-data/recommendation";
 import type { Stock } from "@/lib/market-data/types";
@@ -38,9 +39,11 @@ export function FormulaEditorModal({
     warnings: [],
   });
   const [loading, setLoading] = useState(false);
+  const [previewLoading, setPreviewLoading] = useState(false);
   const [previewStocks, setPreviewStocks] = useState<Stock[]>([]);
   const [previewScores, setPreviewScores] = useState<Stock[]>([]);
   const [previewExchange, setPreviewExchange] = useState<Stock["exchange"]>("nasdaq");
+  const { preferences, isLoaded } = usePreferences();
 
   const expressionRef = useRef<HTMLTextAreaElement | null>(null);
   const selectionRef = useRef<{ start: number; end: number }>({ start: 0, end: 0 });
@@ -96,46 +99,70 @@ export function FormulaEditorModal({
     });
   };
 
-  const fetchPreview = useCallback(async () => {
-    if (!form.expression.trim()) {
-      setPreviewStocks([]);
-      setPreviewScores([]);
-      return;
-    }
+  const hiddenSymbols = useMemo(() => {
+    if (!isLoaded) return [];
+    return preferences.hiddenSymbols?.[previewExchange] ?? [];
+  }, [isLoaded, preferences.hiddenSymbols, previewExchange]);
+
+  const filteredPreviewStocks = useMemo(() => {
+    if (hiddenSymbols.length === 0) return previewStocks;
+    return previewStocks.filter((stock) => !hiddenSymbols.includes(stock.symbol));
+  }, [previewStocks, hiddenSymbols]);
+
+  const previewSampleCount = filteredPreviewStocks.length;
+  const previewSampleTitle = previewLoading
+    ? "Loading preview stocks..."
+    : `${previewSampleCount} stocks evaluated`;
+
+  const fetchPreviewStocks = useCallback(async () => {
+    setPreviewLoading(true);
+    setPreviewStocks([]);
 
     try {
-      const res = await fetch(`/api/screener?limit=50&includeScores=true&exchange=${previewExchange}`);
+      const res = await fetch(`/api/screener?limit=9999&exchange=${previewExchange}`);
       if (res.ok) {
         const data = await res.json();
         const stocks: Stock[] = data.stocks ?? [];
         setPreviewStocks(stocks);
-        const formulaInput = { expression: form.expression } as RecommendationFormula;
-        const scored = filterAndSortByRecommendation(stocks, formulaInput).slice(0, 15);
-        setPreviewScores(scored);
       } else {
         setPreviewStocks([]);
-        setPreviewScores([]);
       }
     } catch {
       setPreviewStocks([]);
-      setPreviewScores([]);
+    } finally {
+      setPreviewLoading(false);
     }
-  }, [form.expression, previewExchange]);
+  }, [previewExchange]);
+
+  const computePreviewScores = useCallback(() => {
+    if (!form.expression.trim()) {
+      setPreviewScores([]);
+      return;
+    }
+
+    const formulaInput = { expression: form.expression } as RecommendationFormula;
+    const scored = filterAndSortByRecommendation(filteredPreviewStocks, formulaInput).slice(0, 15);
+    setPreviewScores(scored);
+  }, [form.expression, filteredPreviewStocks]);
+
+  useEffect(() => {
+    fetchPreviewStocks();
+  }, [fetchPreviewStocks]);
 
   useEffect(() => {
     if (previewTimeoutRef.current) {
       clearTimeout(previewTimeoutRef.current);
     }
     previewTimeoutRef.current = setTimeout(() => {
-      fetchPreview();
-    }, 500);
+      computePreviewScores();
+    }, 300);
 
     return () => {
       if (previewTimeoutRef.current) {
         clearTimeout(previewTimeoutRef.current);
       }
     };
-  }, [form.expression, previewExchange, fetchPreview]);
+  }, [computePreviewScores]);
 
   const handleSubmit = async () => {
     const result = validateFormulaExpression(form.expression);
@@ -260,7 +287,7 @@ export function FormulaEditorModal({
                   </button>
                 ))}
               </div>
-              <span className={styles.previewSampleInfo} title={`${previewStocks.length} stocks sampled`}>
+              <span className={styles.previewSampleInfo} title={previewSampleTitle}>
                 ⓘ
               </span>
             </div>
