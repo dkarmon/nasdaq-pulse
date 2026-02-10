@@ -6,6 +6,15 @@ import { createClient } from "@/lib/supabase/server";
 import { getStockDetail } from "@/lib/market-data";
 import { generateStockAnalysis, type StockMetrics } from "@/lib/ai/gemini";
 import type { StockAnalysis, NewsSource } from "@/lib/ai/types";
+import type { Exchange } from "@/lib/market-data/types";
+
+function getExchangeFromSymbol(symbol: string): Exchange {
+  return symbol.toUpperCase().endsWith(".TA") ? "tlv" : "nasdaq";
+}
+
+function utcRunDateString(now = new Date()): string {
+  return now.toISOString().slice(0, 10);
+}
 
 type RouteParams = {
   params: Promise<{ symbol: string }>;
@@ -42,12 +51,48 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
     return NextResponse.json({ error: "Symbol is required" }, { status: 400 });
   }
 
+  const upperSymbol = symbol.toUpperCase();
+  const exchange = getExchangeFromSymbol(upperSymbol);
+  const runDate = utcRunDateString();
+
   const supabase = await createClient();
+
+  // Prefer today's daily badge analysis if present (top-20 membership).
+  const { data: run } = await supabase
+    .from("daily_ai_runs")
+    .select("id")
+    .eq("exchange", exchange)
+    .eq("run_date", runDate)
+    .maybeSingle();
+
+  if (run?.id) {
+    const { data: badge } = await supabase
+      .from("daily_ai_badges")
+      .select("analysis_id")
+      .eq("run_id", run.id)
+      .eq("symbol", upperSymbol)
+      .maybeSingle();
+
+    if (badge?.analysis_id) {
+      const { data: dailyRow } = await supabase
+        .from("stock_analyses")
+        .select("*")
+        .eq("id", badge.analysis_id)
+        .single();
+
+      if (dailyRow) {
+        return NextResponse.json({
+          analysis: mapDbToAnalysis(dailyRow),
+          meta: { source: "daily", runDate },
+        });
+      }
+    }
+  }
 
   const { data, error } = await supabase
     .from("stock_analyses")
     .select("*")
-    .eq("symbol", symbol.toUpperCase())
+    .eq("symbol", upperSymbol)
     .order("generated_at", { ascending: false })
     .limit(1)
     .single();
@@ -57,10 +102,10 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
   }
 
   if (!data) {
-    return NextResponse.json({ analysis: null });
+    return NextResponse.json({ analysis: null, meta: { source: "none", runDate } });
   }
 
-  return NextResponse.json({ analysis: mapDbToAnalysis(data) });
+  return NextResponse.json({ analysis: mapDbToAnalysis(data), meta: { source: "latest", runDate } });
 }
 
 export async function POST(request: NextRequest, { params }: RouteParams) {

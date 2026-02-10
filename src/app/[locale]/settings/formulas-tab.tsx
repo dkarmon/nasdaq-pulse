@@ -85,6 +85,17 @@ export function FormulasTab({ dict }: FormulasTabProps) {
       setActiveFormulaId(id);
       setMessage(dict.settings.activeSaved);
       setTimeout(() => setMessage(null), 3000);
+
+      // Trigger immediate daily badge delta refresh (new top-20 minus old top-20).
+      fetch("/api/admin/daily-ai/refresh-delta", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          previousFormulaId: data?.previousActiveFormulaId ?? activeFormulaId ?? null,
+          newFormulaId: id,
+          exchanges: ["nasdaq", "tlv"],
+        }),
+      }).catch(() => {});
     }
     setLoading(false);
   };

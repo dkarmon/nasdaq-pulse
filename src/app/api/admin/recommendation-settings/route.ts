@@ -7,6 +7,7 @@ import {
   setActiveFormula,
   summarizeFormula,
 } from "@/lib/recommendations/server";
+import { createAdminClient } from "@/lib/supabase/server";
 
 export async function GET() {
   const supabase = await createClient();
@@ -36,8 +37,20 @@ export async function PATCH(request: Request) {
   }
 
   try {
+    const admin = createAdminClient();
+    const { data: before } = await admin
+      .from("recommendation_settings")
+      .select("active_formula_id")
+      .eq("id", true)
+      .maybeSingle();
+
+    const previousActiveFormulaId = (before?.active_formula_id as string | null) ?? null;
+
     const result = await setActiveFormula(activeFormulaId, user.id);
-    return NextResponse.json(result);
+    return NextResponse.json({
+      ...result,
+      previousActiveFormulaId,
+    });
   } catch (error) {
     return NextResponse.json({ error: (error as Error).message }, { status: 400 });
   }

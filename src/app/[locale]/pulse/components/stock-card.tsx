@@ -9,6 +9,8 @@ import { isStockRecommended } from "@/lib/market-data/recommendation";
 import { formatGrowth, formatIntraday, formatPrice } from "@/lib/format";
 import type { QuotesMap, LiveQuote } from "@/hooks/useLiveQuotes";
 import styles from "./stock-card.module.css";
+import type { Recommendation } from "@/lib/ai/types";
+import { AiRecommendationBadge } from "./ai-recommendation-badge";
 
 const SWIPE_THRESHOLD = 100;
 
@@ -22,6 +24,8 @@ type StockCardProps = {
   recommendedLabel: string;
   liveQuote?: LiveQuote;
   rank?: number;
+  aiBadge?: { recommendation: Recommendation; generatedAt: string };
+  aiLabels?: { buy: string; hold: string; sell: string };
 };
 
 export function StockCard({
@@ -34,6 +38,8 @@ export function StockCard({
   recommendedLabel,
   liveQuote,
   rank,
+  aiBadge,
+  aiLabels,
 }: StockCardProps) {
   const isRecommended = isStockRecommended(stock);
   const [swipeOffset, setSwipeOffset] = useState(0);
@@ -121,6 +127,13 @@ export function StockCard({
                 ({formatIntraday(liveQuote.changePercent)})
               </span>
             )}
+            {aiBadge && aiLabels && (
+              <AiRecommendationBadge
+                recommendation={aiBadge.recommendation}
+                labels={aiLabels}
+                title={`AI (${aiBadge.generatedAt})`}
+              />
+            )}
           </div>
           <div className={styles.headerRight}>
             <span className={styles.price}>{formatPrice(liveQuote?.price ?? stock.price, stock.currency, true)}</span>
@@ -175,6 +188,8 @@ type StockCardListProps = {
   onHideStock: (symbol: string) => void;
   liveQuotes?: QuotesMap;
   rankMap?: Map<string, number>;
+  aiBadges?: Record<string, { recommendation: Recommendation; generatedAt: string }>;
+  aiLabels?: { buy: string; hold: string; sell: string };
   labels: {
     noStocks: string;
     hide: string;
@@ -190,6 +205,8 @@ export function StockCardList({
   onHideStock,
   liveQuotes = {},
   rankMap,
+  aiBadges,
+  aiLabels,
   labels,
 }: StockCardListProps) {
   if (stocks.length === 0) {
@@ -214,6 +231,8 @@ export function StockCardList({
           recommendedLabel={labels.recommended}
           liveQuote={liveQuotes[stock.symbol]}
           rank={rankMap?.get(stock.symbol)}
+          aiBadge={aiBadges?.[stock.symbol.toUpperCase()]}
+          aiLabels={aiLabels}
         />
       ))}
     </div>

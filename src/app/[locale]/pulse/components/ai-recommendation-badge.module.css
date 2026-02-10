@@ -1,0 +1,36 @@
+/* ABOUTME: Compact badge styling for screener buy/hold/sell pills. */
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2px 10px;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border: 1px solid transparent;
+  line-height: 1.4;
+  direction: ltr;
+  unicode-bidi: embed;
+}
+
+.badge[data-recommendation="buy"] {
+  background: rgba(34, 197, 94, 0.18);
+  color: #86efac;
+  border-color: rgba(34, 197, 94, 0.28);
+}
+
+.badge[data-recommendation="hold"] {
+  background: rgba(234, 179, 8, 0.18);
+  color: #fde047;
+  border-color: rgba(234, 179, 8, 0.28);
+}
+
+.badge[data-recommendation="sell"] {
+  background: rgba(239, 68, 68, 0.18);
+  color: #fca5a5;
+  border-color: rgba(239, 68, 68, 0.28);
+}
+
