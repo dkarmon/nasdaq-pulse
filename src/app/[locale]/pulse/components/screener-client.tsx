@@ -14,6 +14,7 @@ import type { Stock, ScreenerResponse, SortDirection, SortPeriod } from "@/lib/m
 import type { Dictionary } from "@/lib/i18n";
 import styles from "./screener-client.module.css";
 import type { RecommendationFormulaSummary } from "@/lib/recommendations/types";
+import type { Recommendation } from "@/lib/ai/types";
 
 const RECOMMENDED_SORT_OPTIONS: SortPeriod[] = [
   "score",
@@ -122,6 +123,7 @@ export function ScreenerClient({
   const [isLoading, setIsLoading] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [debouncedSearch, setDebouncedSearch] = useState("");
+  const [dailyAiBadges, setDailyAiBadges] = useState<Record<string, { recommendation: Recommendation; generatedAt: string }>>({});
 
   // Debounce search to avoid excessive API calls
   useEffect(() => {
@@ -143,6 +145,31 @@ export function ScreenerClient({
 
   // Fetch live quotes for recommended stocks
   const { quotes: liveQuotes } = useLiveQuotes(recommendedSymbols);
+
+  // Fetch today's daily AI badge membership for the current exchange.
+  useEffect(() => {
+    if (!isLoaded) return;
+
+    const exchange = preferences.exchange;
+    fetch(`/api/daily-ai-badges?exchange=${exchange}`)
+      .then((res) => res.ok ? res.json() : null)
+      .then((data) => {
+        const badges = data?.badges ?? {};
+        const map: Record<string, { recommendation: Recommendation; generatedAt: string }> = {};
+        for (const [symbol, value] of Object.entries(badges)) {
+          const v = value as any;
+          if (!v?.recommendation || !v?.generatedAt) continue;
+          map[String(symbol).toUpperCase()] = {
+            recommendation: v.recommendation as Recommendation,
+            generatedAt: v.generatedAt as string,
+          };
+        }
+        setDailyAiBadges(map);
+      })
+      .catch(() => {
+        setDailyAiBadges({});
+      });
+  }, [isLoaded, preferences.exchange, activeFormula?.id]);
 
   const fetchScreenerData = useCallback(async () => {
     if (!isLoaded) return;
@@ -217,6 +244,12 @@ export function ScreenerClient({
     noStocks: dict.screener.noStocks,
     hide: dict.screener.hide,
     recommended: dict.screener.recommended,
+  };
+
+  const aiLabels = {
+    buy: dict.aiAnalysis?.buy ?? "Buy",
+    hold: dict.aiAnalysis?.hold ?? "Hold",
+    sell: dict.aiAnalysis?.sell ?? "Sell",
   };
 
   // Compute ranks before filtering - stocks are already sorted by the API
@@ -296,6 +329,8 @@ export function ScreenerClient({
           onHideStock={hideStock}
           liveQuotes={liveQuotes}
           rankMap={rankMap}
+          aiBadges={dailyAiBadges}
+          aiLabels={aiLabels}
           labels={tableLabels}
         />
 
@@ -307,6 +342,8 @@ export function ScreenerClient({
           onHideStock={hideStock}
           liveQuotes={liveQuotes}
           rankMap={rankMap}
+          aiBadges={dailyAiBadges}
+          aiLabels={aiLabels}
           labels={cardLabels}
         />
       </div>

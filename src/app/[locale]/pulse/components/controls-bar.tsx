@@ -120,11 +120,25 @@ export function ControlsBar({
     const formula = formulas.find((f) => f.id === formulaId);
     if (!formula || !onFormulaChange) return;
 
-    await fetch("/api/admin/recommendation-settings", {
+    const res = await fetch("/api/admin/recommendation-settings", {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ activeFormulaId: formulaId }),
     });
+
+    const data = await res.json().catch(() => null);
+    if (res.ok) {
+      // Trigger immediate delta refresh so today's top-20 badge set matches the new formula.
+      fetch("/api/admin/daily-ai/refresh-delta", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          previousFormulaId: data?.previousActiveFormulaId ?? activeFormula?.id ?? null,
+          newFormulaId: formulaId,
+          exchanges: ["nasdaq", "tlv"],
+        }),
+      }).catch(() => {});
+    }
 
     onFormulaChange(formula);
   };

@@ -29,6 +29,7 @@ type StockAnalysisProps = {
 
 type ApiResponse = {
   analysis: StockAnalysisType | null;
+  meta?: { source?: "daily" | "latest" | "none"; runDate?: string };
   error?: string;
   code?: string;
 };

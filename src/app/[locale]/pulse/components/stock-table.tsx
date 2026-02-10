@@ -8,6 +8,8 @@ import { isStockRecommended } from "@/lib/market-data/recommendation";
 import { formatGrowth, formatIntraday, formatPrice } from "@/lib/format";
 import type { QuotesMap } from "@/hooks/useLiveQuotes";
 import styles from "./stock-table.module.css";
+import type { Recommendation } from "@/lib/ai/types";
+import { AiRecommendationBadge } from "./ai-recommendation-badge";
 
 type StockTableProps = {
   stocks: Stock[];
@@ -17,6 +19,8 @@ type StockTableProps = {
   onHideStock: (symbol: string) => void;
   liveQuotes?: QuotesMap;
   rankMap?: Map<string, number>;
+  aiBadges?: Record<string, { recommendation: Recommendation; generatedAt: string }>;
+  aiLabels?: { buy: string; hold: string; sell: string };
   labels: {
     stock: string;
     price: string;
@@ -41,6 +45,8 @@ export function StockTable({
   onHideStock,
   liveQuotes = {},
   rankMap,
+  aiBadges,
+  aiLabels,
   labels,
 }: StockTableProps) {
   if (stocks.length === 0) {
@@ -72,6 +78,7 @@ export function StockTable({
             const liveQuote = liveQuotes[stock.symbol];
             const isRecommended = isStockRecommended(stock);
             const rank = rankMap?.get(stock.symbol);
+            const aiBadge = aiBadges?.[stock.symbol.toUpperCase()];
 
             return (
               <tr
@@ -109,6 +116,15 @@ export function StockTable({
                               data-negative={liveQuote.changePercent < 0}
                             >
                               ({formatIntraday(liveQuote.changePercent)})
+                            </span>
+                          )}
+                          {aiBadge && aiLabels && (
+                            <span className={styles.aiBadge}>
+                              <AiRecommendationBadge
+                                recommendation={aiBadge.recommendation}
+                                labels={aiLabels}
+                                title={`AI (${aiBadge.generatedAt})`}
+                              />
                             </span>
                           )}
                           <button

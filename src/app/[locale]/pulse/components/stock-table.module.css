@@ -164,6 +164,12 @@
   unicode-bidi: embed;
 }
 
+.aiBadge {
+  display: inline-flex;
+  align-items: center;
+  margin-left: 2px;
+}
+
 .liveGrowth[data-positive="true"],
 .growthCell[data-positive="true"] {
   color: #86efac;
