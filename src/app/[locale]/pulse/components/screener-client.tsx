@@ -27,6 +27,32 @@ const RECOMMENDED_SORT_OPTIONS: SortPeriod[] = [
   "12m",
 ];
 
+type BadgePayload = {
+  recommendation: Recommendation;
+  generatedAt: string;
+};
+
+function isRecommendation(value: unknown): value is Recommendation {
+  return value === "buy" || value === "hold" || value === "sell";
+}
+
+function parseBadgeMap(input: unknown): Record<string, BadgePayload> {
+  const map: Record<string, BadgePayload> = {};
+  if (!input || typeof input !== "object") return map;
+
+  for (const [symbol, value] of Object.entries(input as Record<string, unknown>)) {
+    if (!value || typeof value !== "object") continue;
+
+    const recommendation = (value as { recommendation?: unknown }).recommendation;
+    const generatedAt = (value as { generatedAt?: unknown }).generatedAt;
+    if (!isRecommendation(recommendation) || typeof generatedAt !== "string") continue;
+
+    map[String(symbol).toUpperCase()] = { recommendation, generatedAt };
+  }
+
+  return map;
+}
+
 function sortRecommendedStocks(
   stocks: Stock[],
   sortBy: SortPeriod,
@@ -127,6 +153,7 @@ export function ScreenerClient({
   const [searchQuery, setSearchQuery] = useState("");
   const [debouncedSearch, setDebouncedSearch] = useState("");
   const [dailyAiBadges, setDailyAiBadges] = useState<Record<string, { recommendation: Recommendation; generatedAt: string }>>({});
+  const [fallbackAiBadges, setFallbackAiBadges] = useState<Record<string, { recommendation: Recommendation; generatedAt: string }>>({});
 
   // Debounce search to avoid excessive API calls
   useEffect(() => {
@@ -155,19 +182,13 @@ export function ScreenerClient({
 
     const exchange = preferences.exchange;
     fetch(`/api/daily-ai-badges?exchange=${exchange}`)
-      .then((res) => res.ok ? res.json() : null)
-      .then((data) => {
-        const badges = data?.badges ?? {};
-        const map: Record<string, { recommendation: Recommendation; generatedAt: string }> = {};
-        for (const [symbol, value] of Object.entries(badges)) {
-          const v = value as any;
-          if (!v?.recommendation || !v?.generatedAt) continue;
-          map[String(symbol).toUpperCase()] = {
-            recommendation: v.recommendation as Recommendation,
-            generatedAt: v.generatedAt as string,
-          };
-        }
-        setDailyAiBadges(map);
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data: unknown) => {
+        const badges =
+          data && typeof data === "object"
+            ? (data as { badges?: unknown }).badges
+            : undefined;
+        setDailyAiBadges(parseBadgeMap(badges));
       })
       .catch(() => {
         setDailyAiBadges({});
@@ -265,37 +286,107 @@ export function ScreenerClient({
     return map;
   }, [scoredStocks]);
 
-  let visibleStocks = scoredStocks.filter(
-    (stock) => !currentHiddenSymbols.includes(stock.symbol)
+  const visibleStocks = useMemo(() => {
+    let next = scoredStocks.filter(
+      (stock) => !currentHiddenSymbols.includes(stock.symbol)
+    );
+
+    // Client-side search: NASDAQ by ticker, TLV by Hebrew name
+    if (searchQuery) {
+      const query = searchQuery.toLowerCase();
+      next = next.filter((stock) =>
+        stock.exchange === "tlv"
+          ? stock.nameHebrew?.toLowerCase().includes(query)
+          : stock.symbol.toLowerCase().includes(query)
+      );
+    }
+
+    if (preferences.showRecommendedOnly) {
+      const recommendedOnly = next.filter((stock) =>
+        typeof stock.recommendationScore === "number" &&
+        Number.isFinite(stock.recommendationScore) &&
+        (stock.recommendationScore ?? 0) > 0
+      );
+
+      const effectiveSort =
+        RECOMMENDED_SORT_OPTIONS.includes(preferences.sortBy) ? preferences.sortBy : "score";
+
+      next = sortRecommendedStocks(
+        recommendedOnly,
+        effectiveSort,
+        preferences.sortDirection,
+        liveQuotes
+      );
+    }
+
+    return next;
+  }, [
+    scoredStocks,
+    currentHiddenSymbols,
+    searchQuery,
+    preferences.showRecommendedOnly,
+    preferences.sortBy,
+    preferences.sortDirection,
+    liveQuotes,
+  ]);
+
+  const missingVisibleTop20Symbols = useMemo(() => {
+    return visibleStocks
+      .slice(0, 20)
+      .map((stock) => stock.symbol.toUpperCase())
+      .filter((symbol) => !dailyAiBadges[symbol]);
+  }, [visibleStocks, dailyAiBadges]);
+
+  const missingVisibleTop20Key = useMemo(
+    () => missingVisibleTop20Symbols.join(","),
+    [missingVisibleTop20Symbols]
   );
 
-  // Client-side search: NASDAQ by ticker, TLV by Hebrew name
-  if (searchQuery) {
-    const query = searchQuery.toLowerCase();
-    visibleStocks = visibleStocks.filter((stock) =>
-      stock.exchange === "tlv"
-        ? stock.nameHebrew?.toLowerCase().includes(query)
-        : stock.symbol.toLowerCase().includes(query)
-    );
-  }
+  useEffect(() => {
+    if (!isLoaded) return;
+    if (!missingVisibleTop20Key) {
+      setFallbackAiBadges((prev) => (Object.keys(prev).length === 0 ? prev : {}));
+      return;
+    }
 
-  if (preferences.showRecommendedOnly) {
-    const recommendedOnly = visibleStocks.filter((stock) =>
-      typeof stock.recommendationScore === "number" &&
-      Number.isFinite(stock.recommendationScore) &&
-      (stock.recommendationScore ?? 0) > 0
-    );
+    const abortController = new AbortController();
+    const params = new URLSearchParams({ symbols: missingVisibleTop20Key });
 
-    const effectiveSort =
-      RECOMMENDED_SORT_OPTIONS.includes(preferences.sortBy) ? preferences.sortBy : "score";
+    fetch(`/api/analysis/badges?${params.toString()}`, { signal: abortController.signal })
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data: unknown) => {
+        const badges =
+          data && typeof data === "object"
+            ? (data as { badges?: unknown }).badges
+            : undefined;
+        const map = parseBadgeMap(badges);
+        setFallbackAiBadges((prev) => {
+          const prevKeys = Object.keys(prev);
+          const nextKeys = Object.keys(map);
+          if (prevKeys.length !== nextKeys.length) return map;
+          for (const key of nextKeys) {
+            if (
+              prev[key]?.recommendation !== map[key]?.recommendation ||
+              prev[key]?.generatedAt !== map[key]?.generatedAt
+            ) {
+              return map;
+            }
+          }
+          return prev;
+        });
+      })
+      .catch((error: unknown) => {
+        if (error instanceof Error && error.name === "AbortError") return;
+        setFallbackAiBadges((prev) => (Object.keys(prev).length === 0 ? prev : {}));
+      });
 
-    visibleStocks = sortRecommendedStocks(
-      recommendedOnly,
-      effectiveSort,
-      preferences.sortDirection,
-      liveQuotes
-    );
-  }
+    return () => abortController.abort();
+  }, [isLoaded, preferences.exchange, missingVisibleTop20Key]);
+
+  const mergedAiBadges = useMemo(
+    () => ({ ...fallbackAiBadges, ...dailyAiBadges }),
+    [fallbackAiBadges, dailyAiBadges]
+  );
 
   return (
     <div className={styles.screener}>
@@ -333,7 +424,7 @@ export function ScreenerClient({
           onHideStock={hideStock}
           liveQuotes={liveQuotes}
           rankMap={rankMap}
-          aiBadges={dailyAiBadges}
+          aiBadges={mergedAiBadges}
           aiLabels={aiLabels}
           labels={tableLabels}
         />
@@ -346,7 +437,7 @@ export function ScreenerClient({
           onHideStock={hideStock}
           liveQuotes={liveQuotes}
           rankMap={rankMap}
-          aiBadges={dailyAiBadges}
+          aiBadges={mergedAiBadges}
           aiLabels={aiLabels}
           labels={cardLabels}
         />

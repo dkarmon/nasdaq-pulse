@@ -6,6 +6,7 @@ import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { ScreenerClient } from "@/app/[locale]/pulse/components/screener-client";
 import type { ScreenerResponse, Stock } from "@/lib/market-data/types";
+import type { Dictionary } from "@/lib/i18n";
 
 // Track fetch calls
 let fetchCalls: { url: string; params: URLSearchParams }[] = [];
@@ -70,7 +71,7 @@ const mockDict = {
     hide: "Hide",
     recommended: "Recommended",
   },
-} as any;
+} as unknown as Dictionary;
 
 // Mock usePreferences with a factory that can be configured
 const mockPreferences = vi.fn();
@@ -160,8 +161,9 @@ describe("ScreenerClient search", () => {
       expect(fetchCalls.length).toBeGreaterThan(0);
     });
 
-    const initialFetch = fetchCalls[fetchCalls.length - 1];
-    expect(parseInt(initialFetch.params.get("limit") || "0", 10)).toBe(50);
+    const initialFetch = fetchCalls.find((call) => call.url.includes("/api/screener?"));
+    expect(initialFetch).toBeDefined();
+    expect(parseInt(initialFetch!.params.get("limit") || "0", 10)).toBe(50);
 
     // Clear fetch calls to track only search-triggered fetches
     fetchCalls = [];

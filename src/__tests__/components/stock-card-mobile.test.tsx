@@ -68,6 +68,14 @@ describe("StockCard mobile layout", () => {
     expect(screen.getByText("12M")).toBeInTheDocument();
   });
 
+  it("shows rank without hash prefix", () => {
+    const stock = createMockStock();
+    render(<StockCard stock={stock} rank={7} {...defaultProps} />);
+
+    expect(screen.getByText("7")).toBeInTheDocument();
+    expect(screen.queryByText("#7")).not.toBeInTheDocument();
+  });
+
   it("calls onHide when swipe action is triggered", () => {
     const onHide = vi.fn();
     const stock = createMockStock();

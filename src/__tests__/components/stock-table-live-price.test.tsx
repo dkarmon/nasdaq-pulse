@@ -5,7 +5,7 @@ import { describe, it, expect, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
 import { StockTable } from "@/app/[locale]/pulse/components/stock-table";
 import type { Stock } from "@/lib/market-data/types";
-import type { LiveQuote, QuotesMap } from "@/hooks/useLiveQuotes";
+import type { QuotesMap } from "@/hooks/useLiveQuotes";
 
 // Mock the recommendation check
 vi.mock("@/lib/market-data/recommendation", () => ({
@@ -168,5 +168,24 @@ describe("StockTable live price display", () => {
     // Should display the live price with ILS symbol
     expect(screen.getByText("₪48.75")).toBeInTheDocument();
     expect(screen.queryByText("₪45.00")).not.toBeInTheDocument();
+  });
+
+  it("renders rank column header without hash symbol", () => {
+    const stock = createMockStock({ price: 150.0 });
+
+    render(
+      <StockTable
+        stocks={[stock]}
+        sortBy="1m"
+        selectedSymbol={null}
+        onSelectStock={vi.fn()}
+        onHideStock={vi.fn()}
+        liveQuotes={{}}
+        labels={defaultLabels}
+      />
+    );
+
+    expect(screen.getByRole("columnheader", { name: "Rank" })).toBeInTheDocument();
+    expect(screen.queryByRole("columnheader", { name: "#" })).not.toBeInTheDocument();
   });
 });

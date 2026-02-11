@@ -108,7 +108,7 @@ export function StockCard({
           <div className={styles.symbolSection}>
             <span className={styles.symbol}>
               {rank !== undefined && (
-                <span className={styles.rankBadge}>#{rank}</span>
+                <span className={styles.rankBadge}>{rank}</span>
               )}
               {isRecommended && (
                 <span className={styles.starIcon} title={recommendedLabel}>★</span>
@@ -124,7 +124,7 @@ export function StockCard({
                 data-positive={liveQuote.changePercent >= 0}
                 data-negative={liveQuote.changePercent < 0}
               >
-                ({formatIntraday(liveQuote.changePercent)})
+                {formatIntraday(liveQuote.changePercent)}
               </span>
             )}
             {aiBadge && aiLabels && (
