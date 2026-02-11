@@ -7,6 +7,7 @@ import { useState, useEffect } from "react";
 import { Download, RotateCw, MoreVertical } from "lucide-react";
 import type { Stock, SortPeriod, SortDirection, Exchange } from "@/lib/market-data/types";
 import type { RecommendationFormulaSummary } from "@/lib/recommendations/types";
+import { formatFormulaSelectLabel } from "@/lib/recommendations/display";
 import { exportToExcel } from "@/lib/excel-export";
 import { FilterSheet } from "./filter-sheet";
 import styles from "./controls-bar.module.css";
@@ -354,7 +355,7 @@ export function ControlsBar({
               >
                 {formulas.map((formula) => (
                   <option key={formula.id} value={formula.id}>
-                    {formula.name}
+                    {formatFormulaSelectLabel(formula.name, formula.description)}
                   </option>
                 ))}
               </select>
