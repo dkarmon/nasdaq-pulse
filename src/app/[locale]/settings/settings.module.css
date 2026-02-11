@@ -271,21 +271,12 @@
   min-width: 0;
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 4px;
 }
 
 .radioName {
   font-weight: 700;
-  font-size: 0.94rem;
-  line-height: 1.25;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.radioSubtitle {
-  color: var(--muted);
-  font-size: 0.82rem;
+  font-size: 1.02rem;
   line-height: 1.2;
   white-space: nowrap;
   overflow: hidden;

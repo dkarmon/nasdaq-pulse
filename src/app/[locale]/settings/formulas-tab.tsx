@@ -227,8 +227,9 @@ export function FormulasTab({ dict }: FormulasTabProps) {
                   className={`${styles.radioIndicator} ${isActive ? styles.radioIndicatorActive : ""}`}
                 />
                 <div className={styles.radioContent}>
-                  <div className={styles.radioName} title={title}>{title}</div>
-                  {subtitle && <div className={styles.radioSubtitle}>{subtitle}</div>}
+                  <div className={styles.radioName} title={subtitle ? `${title} - ${subtitle}` : title}>
+                    {subtitle ? `${title} - ${subtitle}` : title}
+                  </div>
                   <div className={styles.radioMeta}>v{formula.version}</div>
                 </div>
                 <div className={styles.radioActions} onClick={(e) => e.stopPropagation()}>
