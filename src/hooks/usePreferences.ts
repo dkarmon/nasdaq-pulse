@@ -31,6 +31,7 @@ const RECOMMENDED_SORT_OPTIONS: SortPeriod[] = [
   "1d",
   "5d",
   "1m",
+  "3m",
   "6m",
   "12m",
 ];

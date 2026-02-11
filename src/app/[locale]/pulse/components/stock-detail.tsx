@@ -25,6 +25,7 @@ type StockDetailProps = {
     growth1d: string;
     growth5d: string;
     growth1m: string;
+    growth3m: string;
     growth6m: string;
     growth12m: string;
     pe: string;
@@ -115,6 +116,7 @@ export function StockDetail({ symbol, onClose, locale = "en", activeFormula, lab
     const stockForCheck = {
       growth5d: detail.growth5d,
       growth1m: detail.growth1m,
+      growth3m: detail.growth3m,
       growth6m: detail.growth6m,
       growth12m: detail.growth12m,
     } as Stock;
@@ -172,13 +174,13 @@ export function StockDetail({ symbol, onClose, locale = "en", activeFormula, lab
     );
   }
 
-  const { profile, quote, history, growth1d, growth5d, growth1m, growth6m, growth12m, nameHebrew } = detail;
+  const { profile, quote, history, growth1d, growth5d, growth1m, growth3m, growth6m, growth12m, nameHebrew } = detail;
 
   const isTLV = symbol.endsWith(".TA");
   const currency = isTLV ? "ILS" : "USD";
   const primaryText = isTLV && nameHebrew ? nameHebrew : profile.symbol;
   const secondaryText = isTLV ? null : (nameHebrew || profile.name);
-  const stockForCheck = { growth5d, growth1m, growth6m, growth12m } as Stock;
+  const stockForCheck = { growth5d, growth1m, growth3m, growth6m, growth12m } as Stock;
   const isRecommended = isStockRecommended(stockForCheck, activeFormula ?? undefined);
 
   const hasCompanyInfo = profile.sector || profile.industry || profile.marketCap || profile.website || profile.description || profile.descriptionHebrew;
@@ -229,6 +231,7 @@ export function StockDetail({ symbol, onClose, locale = "en", activeFormula, lab
           { value: growth1d ?? 0, label: labels.growth1d },
           { value: growth5d ?? 0, label: labels.growth5d },
           { value: growth1m, label: labels.growth1m },
+          { value: growth3m, label: labels.growth3m },
           { value: growth6m, label: labels.growth6m },
           { value: growth12m, label: labels.growth12m },
         ] as const).map(({ value, label }) => (

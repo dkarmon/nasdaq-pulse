@@ -53,6 +53,7 @@ export function FormulaEditorModal({
     growth1d: "1D",
     growth5d: dict.screener.growth5d,
     growth1m: dict.screener.growth1m,
+    growth3m: dict.screener.growth3m,
     growth6m: dict.screener.growth6m,
     growth12m: dict.screener.growth12m,
     stock: dict.screener.stock,
@@ -197,10 +198,10 @@ export function FormulaEditorModal({
             onKeyUp={handleSelectionChange}
             className={styles.recoTextarea}
             rows={5}
-            placeholder="(3*(g1m-g5d)/25 + 2*(g6m-g1m)/150 + (g12m-g6m)/182) * avg(g5d,g1m,g6m,g12m)"
+            placeholder="(3*(g1m-g5d)/25 + 2*(g3m-g1m)/60 + 2*(g6m-g3m)/90 + (g12m-g6m)/182) * avg(g5d,g1m,g3m,g6m,g12m)"
           />
           <div className={styles.tokenRow}>
-            {["g1d", "g5d", "g1m", "g6m", "g12m", "price", "marketCap"].map((token) => (
+            {["g1d", "g5d", "g1m", "g3m", "g6m", "g12m", "price", "marketCap"].map((token) => (
               <button
                 key={token}
                 type="button"
@@ -277,6 +278,7 @@ export function FormulaEditorModal({
                   <span role="columnheader">{screenerLabels.growth1d}</span>
                   <span role="columnheader">{screenerLabels.growth5d}</span>
                   <span role="columnheader">{screenerLabels.growth1m}</span>
+                  <span role="columnheader">{screenerLabels.growth3m}</span>
                   <span role="columnheader">{screenerLabels.growth6m}</span>
                   <span role="columnheader">{screenerLabels.growth12m}</span>
                 </div>
@@ -293,6 +295,7 @@ export function FormulaEditorModal({
                     <span role="cell">{formatGrowth(stock.growth1d)}</span>
                     <span role="cell">{formatGrowth(stock.growth5d)}</span>
                     <span role="cell">{formatGrowth(stock.growth1m)}</span>
+                    <span role="cell">{formatGrowth(stock.growth3m)}</span>
                     <span role="cell">{formatGrowth(stock.growth6m)}</span>
                     <span role="cell">{formatGrowth(stock.growth12m)}</span>
                   </div>
@@ -317,6 +320,7 @@ export function FormulaEditorModal({
                         <span>1D:{formatGrowth(stock.growth1d)}</span>
                         <span>5D:{formatGrowth(stock.growth5d)}</span>
                         <span>1M:{formatGrowth(stock.growth1m)}</span>
+                        <span>3M:{formatGrowth(stock.growth3m)}</span>
                         <span>6M:{formatGrowth(stock.growth6m)}</span>
                         <span>12M:{formatGrowth(stock.growth12m)}</span>
                       </div>

@@ -22,6 +22,7 @@ const RECOMMENDED_SORT_OPTIONS: SortPeriod[] = [
   "1d",
   "5d",
   "1m",
+  "3m",
   "6m",
   "12m",
 ];
@@ -70,6 +71,8 @@ function sortRecommendedStocks(
       }
       case "6m":
         return (a.growth6m - b.growth6m) * direction;
+      case "3m":
+        return (a.growth3m - b.growth3m) * direction;
       case "12m":
         return (a.growth12m - b.growth12m) * direction;
       case "score": {
@@ -231,6 +234,7 @@ export function ScreenerClient({
     growth1d: dict.screener.growth1d,
     growth5d: dict.screener.growth5d,
     growth1m: dict.screener.growth1m,
+    growth3m: dict.screener.growth3m,
     growth6m: dict.screener.growth6m,
     growth12m: dict.screener.growth12m,
     view: dict.screener.view,

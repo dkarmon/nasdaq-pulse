@@ -137,6 +137,8 @@ type EvaluationContext = {
   growth5d?: number;
   g1m: number;
   growth1m: number;
+  g3m: number;
+  growth3m: number;
   g6m: number;
   growth6m: number;
   g12m: number;
@@ -146,7 +148,12 @@ type EvaluationContext = {
 };
 
 function buildContext(stock: Stock): EvaluationContext | null {
-  if (stock.growth1m === undefined || stock.growth6m === undefined || stock.growth12m === undefined) {
+  if (
+    stock.growth1m === undefined ||
+    stock.growth3m === undefined ||
+    stock.growth6m === undefined ||
+    stock.growth12m === undefined
+  ) {
     return null;
   }
 
@@ -157,6 +164,8 @@ function buildContext(stock: Stock): EvaluationContext | null {
     growth5d: stock.growth5d,
     g1m: stock.growth1m,
     growth1m: stock.growth1m,
+    g3m: stock.growth3m,
+    growth3m: stock.growth3m,
     g6m: stock.growth6m,
     growth6m: stock.growth6m,
     g12m: stock.growth12m,

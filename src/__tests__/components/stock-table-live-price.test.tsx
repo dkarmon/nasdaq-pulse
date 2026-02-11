@@ -19,9 +19,12 @@ const createMockStock = (overrides: Partial<Stock> = {}): Stock => ({
   currency: "USD",
   growth5d: 1.5,
   growth1m: 3.2,
+  growth3m: 6.4,
   growth6m: 10.5,
   growth12m: 25.0,
-  recommendationDate: "2024-01-15",
+  exchange: "nasdaq",
+  marketCap: 1_000_000_000,
+  updatedAt: new Date().toISOString(),
   ...overrides,
 });
 
@@ -32,6 +35,7 @@ const defaultLabels = {
   growth1d: "1D",
   growth5d: "5D",
   growth1m: "1M",
+  growth3m: "3M",
   growth6m: "6M",
   growth12m: "12M",
   view: "View",

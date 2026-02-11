@@ -22,6 +22,7 @@ type ScreenerRow = {
   "1D%": number | string;
   "5D%": number | string;
   "1M%": number;
+  "3M%": number;
   "6M%": number;
   "12M%": number;
   Score: number | string;
@@ -45,6 +46,7 @@ export function exportToExcel(
     "1D%": stock.growth1d ?? "-",
     "5D%": stock.growth5d ?? "-",
     "1M%": stock.growth1m,
+    "3M%": stock.growth3m,
     "6M%": stock.growth6m,
     "12M%": stock.growth12m,
     Score: stock.recommendationScore ?? "-",
