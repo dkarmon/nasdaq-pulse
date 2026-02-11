@@ -62,7 +62,7 @@ export function StockTable({
       <table className={styles.table}>
         <thead>
           <tr>
-            <th className={styles.rankCol}>#</th>
+            <th className={styles.rankCol} aria-label="Rank" />
             <th className={styles.stockCol}>{labels.stock}</th>
             <th className={styles.priceCol}>{labels.price}</th>
             <th className={styles.growthCol} data-active={sortBy === "1d"}>{labels.growth1d}</th>

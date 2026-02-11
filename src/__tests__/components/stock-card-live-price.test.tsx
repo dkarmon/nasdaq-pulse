@@ -99,4 +99,26 @@ describe("StockCard live price display", () => {
     expect(screen.getByText("₪49")).toBeInTheDocument();
     expect(screen.queryByText("₪45")).not.toBeInTheDocument();
   });
+
+  it("shows intraday change without parentheses on mobile card", () => {
+    const stock = createMockStock({ price: 150.0 });
+    const liveQuote: LiveQuote = {
+      symbol: "AAPL",
+      price: 175.5,
+      previousClose: 170.0,
+      change: 5.5,
+      changePercent: 3.24,
+    };
+
+    render(
+      <StockCard
+        stock={stock}
+        liveQuote={liveQuote}
+        {...defaultProps}
+      />
+    );
+
+    expect(screen.getByText("+3.24%")).toBeInTheDocument();
+    expect(screen.queryByText("(+3.24%)")).not.toBeInTheDocument();
+  });
 });
