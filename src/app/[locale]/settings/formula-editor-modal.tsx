@@ -15,6 +15,7 @@ import styles from "./settings.module.css";
 type FormulaFormState = {
   id?: string;
   name: string;
+  description: string;
   expression: string;
 };
 
@@ -32,7 +33,7 @@ export function FormulaEditorModal({
   onClose,
 }: FormulaEditorModalProps) {
   const [form, setForm] = useState<FormulaFormState>(
-    initialData ?? { name: "", expression: "" }
+    initialData ?? { name: "", description: "", expression: "" }
   );
   const [validation, setValidation] = useState<{ errors: string[]; warnings: string[] }>({
     errors: [],
@@ -215,6 +216,17 @@ export function FormulaEditorModal({
         </div>
 
         <div className={styles.recoField}>
+          <label>{dict.settings.recommendationsDescription}</label>
+          <input
+            type="text"
+            value={form.description}
+            onChange={(e) => setForm({ ...form, description: e.target.value })}
+            className={styles.recoInput}
+            placeholder="10/25/4.5/2/0.2/0.15"
+          />
+        </div>
+
+        <div className={styles.recoField}>
           <label>{dict.settings.recommendationsExpression}</label>
           <textarea
             ref={expressionRef}
@@ -366,7 +378,7 @@ export function FormulaEditorModal({
           <button
             className={styles.primaryButton}
             onClick={handleSubmit}
-            disabled={loading || !form.name || !form.expression}
+            disabled={loading || !form.name.trim() || !form.expression.trim()}
           >
             {dict.settings.saveFormula}
           </button>
