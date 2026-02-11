@@ -712,7 +712,7 @@
 .previewHead,
 .previewRow {
   display: grid;
-  grid-template-columns: 1.2fr repeat(6, 1fr);
+  grid-template-columns: 1.2fr repeat(7, 1fr);
   gap: 6px;
   padding: 8px;
   border: 1px solid rgba(255, 255, 255, 0.08);

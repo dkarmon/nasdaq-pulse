@@ -14,6 +14,8 @@ function getStockFieldValue(stock: Stock, field: OmitRule["field"]): number | un
       return stock.growth5d;
     case "growth1m":
       return stock.growth1m;
+    case "growth3m":
+      return stock.growth3m;
     case "growth6m":
       return stock.growth6m;
     case "growth12m":
@@ -38,4 +40,3 @@ export function applyOmitRules(stocks: Stock[], rules: OmitRulesConfig | null, e
     return true;
   });
 }
-

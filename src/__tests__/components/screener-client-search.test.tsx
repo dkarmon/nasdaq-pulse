@@ -23,6 +23,7 @@ const mockStock = (
   growth1d: 0,
   growth5d: 0,
   growth1m,
+  growth3m: growth1m / 2,
   growth6m: 0,
   growth12m: 0,
   exchange: "nasdaq",
@@ -61,6 +62,7 @@ const mockDict = {
     growth1d: "1D",
     growth5d: "5D",
     growth1m: "1M",
+    growth3m: "3M",
     growth6m: "6M",
     growth12m: "12M",
     view: "View",
@@ -110,10 +112,10 @@ describe("ScreenerClient search", () => {
     mockPreferences.mockReturnValue(nasdaqPreferences());
 
     // Mock fetch to track calls and return appropriate data
-    global.fetch = vi.fn(async (url: string) => {
-      const urlObj = new URL(url, "http://localhost:3000");
+    global.fetch = vi.fn(async (url: string | URL | Request) => {
+      const urlObj = new URL(url.toString(), "http://localhost:3000");
       const params = urlObj.searchParams;
-      fetchCalls.push({ url, params });
+      fetchCalls.push({ url: urlObj.toString(), params });
 
       const limit = parseInt(params.get("limit") || "50", 10);
       const exchange = params.get("exchange") || "nasdaq";

@@ -99,12 +99,12 @@ graph LR
 ### Recommendation filtering inside `/api/screener`
 1) Load stocks from Redis (or mock fallback).  
 2) Apply search and omit rules (user-specific or admin defaults).  
-3) Score with active formula (defaults to `growth1m * 0.6 + growth6m * 0.3 + growth12m * 0.1`).  
+3) Score with active formula (defaults to acceleration weighting across `g5d/g1m/g6m/g12m`; formulas can also use `g3m`).  
 4) If `recommendedOnly=true`, keep positive scores; else attach scores for UI badges.  
 5) Slice by requested limit and return updatedAt/source metadata.
 
 ## Data Contracts (simplified)
-- **Stock row (cached)**: `symbol`, `name`, `price`, `growth{1d,5d,1m,6m,12m}`, `exchange`, `marketCap?`, `nameHebrew?`, `hasSplitWarning?`.  
+- **Stock row (cached)**: `symbol`, `name`, `price`, `growth{1d,5d,1m,3m,6m,12m}`, `exchange`, `marketCap?`, `nameHebrew?`, `hasSplitWarning?`.  
 - **ScreenerResponse**: `stocks[]`, `updatedAt`, `exchange`, `source`, `recommendation.activeFormula`.  
 - **Preferences** (local + Supabase): `sortBy`, `limit`, `exchange`, `hiddenSymbols` keyed by exchange, `showRecommendedOnly`, `preRecommendedState`.
 

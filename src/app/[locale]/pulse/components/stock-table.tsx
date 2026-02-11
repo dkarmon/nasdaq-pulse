@@ -1,5 +1,5 @@
 // ABOUTME: Desktop stock table showing stocks with growth metrics.
-// ABOUTME: Displays symbol/name, price, and 5D/1M/6M/12M growth percentages with recommendation stars.
+// ABOUTME: Displays symbol/name, price, and 1D/5D/1M/3M/6M/12M growth percentages with recommendation stars.
 
 "use client";
 
@@ -28,6 +28,7 @@ type StockTableProps = {
     growth1d: string;
     growth5d: string;
     growth1m: string;
+    growth3m: string;
     growth6m: string;
     growth12m: string;
     view: string;
@@ -68,6 +69,7 @@ export function StockTable({
             <th className={styles.growthCol} data-active={sortBy === "1d"}>{labels.growth1d}</th>
             <th className={styles.growthCol} data-active={sortBy === "5d"}>{labels.growth5d}</th>
             <th className={styles.growthCol} data-active={sortBy === "1m"}>{labels.growth1m}</th>
+            <th className={styles.growthCol} data-active={sortBy === "3m"}>{labels.growth3m}</th>
             <th className={styles.growthCol} data-active={sortBy === "6m"}>{labels.growth6m}</th>
             <th className={styles.growthCol} data-active={sortBy === "12m"}>{labels.growth12m}</th>
           </tr>
@@ -179,6 +181,14 @@ export function StockTable({
                   data-active={sortBy === "1m"}
                 >
                   {formatGrowth(stock.growth1m)}
+                </td>
+                <td
+                  className={styles.growthCell}
+                  data-positive={stock.growth3m >= 0}
+                  data-negative={stock.growth3m < 0}
+                  data-active={sortBy === "3m"}
+                >
+                  {formatGrowth(stock.growth3m)}
                 </td>
                 <td
                   className={styles.growthCell}

@@ -12,6 +12,7 @@ import type { RecommendationFormula } from "@/lib/recommendations/types";
 import { getStockDetail } from "@/lib/market-data";
 import { generateStockAnalysis, type StockMetrics } from "@/lib/ai/gemini";
 import type { Recommendation } from "@/lib/ai/types";
+import type { Stock } from "@/lib/market-data/types";
 
 export type DailyAiTrigger = "cron" | "formula_change" | "manual";
 
@@ -47,6 +48,17 @@ function normalizeSymbol(symbol: string): string {
   return symbol.trim().toUpperCase();
 }
 
+function normalizeGrowth3m(stock: Stock): Stock {
+  if (typeof stock.growth3m === "number" && Number.isFinite(stock.growth3m)) {
+    return stock;
+  }
+
+  return {
+    ...stock,
+    growth3m: (stock.growth1m + stock.growth6m) / 2,
+  };
+}
+
 async function fetchFormulaById(formulaId: string | null): Promise<RecommendationFormula> {
   if (!formulaId || formulaId === DEFAULT_FORMULA_ID) {
     return defaultRecommendationFormula;
@@ -79,7 +91,7 @@ export async function computeTopRecommendedSymbols(options: {
   if (!stocks || stocks.length === 0) return [];
 
   const omitRules = await fetchEffectiveOmitRules(null);
-  const filtered = applyOmitRules(stocks, omitRules, exchange);
+  const filtered = applyOmitRules(stocks.map(normalizeGrowth3m), omitRules, exchange);
 
   const scored = scoreStocksWithFormula(filtered, options.formula);
   const recommended = scored
@@ -107,6 +119,7 @@ async function buildMetricsForSymbol(symbol: string): Promise<{ metrics: StockMe
     growth1d: stockDetail.growth1d,
     growth5d: stockDetail.growth5d,
     growth1m: stockDetail.growth1m,
+    growth3m: stockDetail.growth3m,
     growth6m: stockDetail.growth6m,
     growth12m: stockDetail.growth12m,
     description: stockDetail.profile.description,
