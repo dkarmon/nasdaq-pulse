@@ -39,6 +39,7 @@ type StickyHeaderProps = {
     direction: string;
     search: string;
     recommendedOnly: string;
+    recommendedMode: string;
     exchange: string;
     nasdaq: string;
     tlv: string;
@@ -76,17 +77,24 @@ export function StickyHeader({
     const el = headerRef.current;
     if (!el) return;
 
-    const observer = new ResizeObserver((entries) => {
-      const height =
-        entries[0]?.borderBoxSize?.[0]?.blockSize ?? el.offsetHeight;
+    const updateHeight = () => {
+      const height = Math.ceil(el.getBoundingClientRect().height);
       document.documentElement.style.setProperty(
         "--sticky-header-height",
         `${height}px`
       );
-    });
+    };
 
+    updateHeight();
+
+    const observer = new ResizeObserver(updateHeight);
     observer.observe(el);
-    return () => observer.disconnect();
+    window.addEventListener("resize", updateHeight);
+
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("resize", updateHeight);
+    };
   }, []);
 
   return (

@@ -86,6 +86,7 @@ export type Dictionary = {
     growth1d: string;
     growth5d: string;
     growth1m: string;
+    growth3m: string;
     growth6m: string;
     growth12m: string;
     pe: string;
@@ -96,6 +97,7 @@ export type Dictionary = {
     hide: string;
     recommended: string;
     recommendedOnly: string;
+    recommendedMode: string;
     exchange: string;
     nasdaq: string;
     tlv: string;
@@ -276,7 +278,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
       liveMarketData: "Live Market Data",
       heroTitle1: "Spot the winners",
       heroTitle2: "before the crowd",
-      heroSubtitle: "Track NASDAQ's fastest-growing stocks in real-time. Sort by 1-month, 6-month, or yearly growth. Simple, fast, no fluff.",
+      heroSubtitle: "Track NASDAQ's fastest-growing stocks in real-time. Sort by 1-month, 3-month, 6-month, or yearly growth. Simple, fast, no fluff.",
       startTracking: "Start Tracking",
       learnMore: "Learn More",
       stocksTracked: "Stocks tracked",
@@ -286,7 +288,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
       nothingYouDont: "Nothing you don't.",
       featuresSubtitle: "No complicated charts. No paid tiers. Just the data that matters.",
       growthRankings: "Growth Rankings",
-      growthRankingsDesc: "See which stocks are actually growing. Sort by 1-month, 6-month, or 12-month performance instantly.",
+      growthRankingsDesc: "See which stocks are actually growing. Sort by 1-month, 3-month, 6-month, or 12-month performance instantly.",
       realTimeUpdates: "Real-Time Updates",
       realTimeUpdatesDesc: "Fresh data every 60 seconds. Know what's moving right now, not what moved yesterday.",
       zeroNoise: "Zero Noise",
@@ -328,6 +330,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
       growth1d: "1D",
       growth5d: "5D",
       growth1m: "1M",
+      growth3m: "3M",
       growth6m: "6M",
       growth12m: "12M",
       pe: "P/E",
@@ -338,6 +341,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
       hide: "Hide",
       recommended: "Recommended",
       recommendedOnly: "Recommended only",
+      recommendedMode: "Recommended mode",
       exchange: "Exchange",
       nasdaq: "NASDAQ",
       tlv: "Tel Aviv",
@@ -371,7 +375,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
       recommendationsActive: "Active formula",
       recommendationsSubtitle: "Select, validate, and publish the expression that powers recommendations.",
       recommendationsName: "Name",
-      recommendationsDescription: "Description",
+      recommendationsDescription: "Subtitle",
       recommendationsExpression: "Expression",
       status: "Status",
       draft: "Draft",
@@ -511,7 +515,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
       liveMarketData: "נתוני שוק בזמן אמת",
       heroTitle1: "מצא את המנצחות",
       heroTitle2: "לפני כולם",
-      heroSubtitle: "עקוב אחר המניות עם הצמיחה המהירה ביותר בנאסד״ק. מיין לפי צמיחה חודשית, חצי שנתית או שנתית. פשוט, מהיר, בלי מילים מיותרות.",
+      heroSubtitle: "עקוב אחר המניות עם הצמיחה המהירה ביותר בנאסד״ק. מיין לפי צמיחה חודשית, תלת-חודשית, חצי שנתית או שנתית. פשוט, מהיר, בלי מילים מיותרות.",
       startTracking: "התחל לעקוב",
       learnMore: "למד עוד",
       stocksTracked: "מניות במעקב",
@@ -521,7 +525,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
       nothingYouDont: "בלי מה שלא.",
       featuresSubtitle: "בלי גרפים מסובכים. בלי מסלולים בתשלום. רק הנתונים שחשובים.",
       growthRankings: "דירוג צמיחה",
-      growthRankingsDesc: "ראה אילו מניות באמת צומחות. מיין לפי ביצועים של חודש, 6 חודשים או שנה.",
+      growthRankingsDesc: "ראה אילו מניות באמת צומחות. מיין לפי ביצועים של חודש, 3 חודשים, 6 חודשים או שנה.",
       realTimeUpdates: "עדכונים בזמן אמת",
       realTimeUpdatesDesc: "נתונים רעננים כל 60 שניות. דע מה זז עכשיו, לא מה זז אתמול.",
       zeroNoise: "אפס רעש",
@@ -563,6 +567,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
       growth1d: "1D",
       growth5d: "5D",
       growth1m: "1M",
+      growth3m: "3M",
       growth6m: "6M",
       growth12m: "12M",
       pe: "P/E",
@@ -573,6 +578,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
       hide: "הסתר",
       recommended: "מומלץ",
       recommendedOnly: "מומלצים בלבד",
+      recommendedMode: "מצב מומלצים",
       exchange: "בורסה",
       nasdaq: "נאסד״ק",
       tlv: "תל אביב",
@@ -606,7 +612,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
       recommendationsActive: "נוסחה פעילה",
       recommendationsSubtitle: "בחרו, ערכו ופרסמו את נוסחת הדירוג לסינון.",
       recommendationsName: "שם",
-      recommendationsDescription: "תיאור",
+      recommendationsDescription: "כותרת משנה",
       recommendationsExpression: "ביטוי",
       status: "סטטוס",
       draft: "טיוטה",

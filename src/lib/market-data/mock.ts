@@ -16,7 +16,7 @@ import { defaultRecommendationFormula } from "@/lib/recommendations/config";
 import { filterAndSortByRecommendation, scoreStocksWithFormula } from "./recommendation";
 import type { RecommendationFormulaSummary } from "@/lib/recommendations/types";
 
-const rawMockStocks: Array<Stock & { growth1d?: number }> = [
+const rawMockStocks: Array<Omit<Stock, "growth3m"> & { growth3m?: number; growth1d?: number }> = [
   {
     symbol: "NVDA",
     name: "NVIDIA Corporation",
@@ -346,6 +346,7 @@ const rawMockStocks: Array<Stock & { growth1d?: number }> = [
 
 const mockStocks: Stock[] = rawMockStocks.map((stock) => ({
   ...stock,
+  growth3m: stock.growth3m ?? ((stock.growth1m + stock.growth6m) / 2),
   growth1d: stock.growth1d ?? (stock.growth5d ?? 0) / 5,
 }));
 
@@ -471,6 +472,8 @@ function sortStocks(stocks: Stock[], sortBy: string): Stock[] {
         return (b.growth5d ?? 0) - (a.growth5d ?? 0);
       case "1m":
         return b.growth1m - a.growth1m;
+      case "3m":
+        return b.growth3m - a.growth3m;
       case "6m":
         return b.growth6m - a.growth6m;
       case "12m":
@@ -555,6 +558,7 @@ export function getStockDetail(symbol: string): StockDetailResponse | null {
     growth1d: stock.growth1d,
     growth5d: stock.growth5d,
     growth1m: stock.growth1m,
+    growth3m: stock.growth3m,
     growth6m: stock.growth6m,
     growth12m: stock.growth12m,
     updatedAt: new Date().toISOString(),

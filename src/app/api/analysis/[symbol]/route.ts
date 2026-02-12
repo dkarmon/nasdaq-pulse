@@ -178,6 +178,7 @@ export async function POST(request: NextRequest, { params }: RouteParams) {
     growth1d: stockDetail.growth1d,
     growth5d: stockDetail.growth5d,
     growth1m: stockDetail.growth1m,
+    growth3m: stockDetail.growth3m,
     growth6m: stockDetail.growth6m,
     growth12m: stockDetail.growth12m,
     description: stockDetail.profile.description,

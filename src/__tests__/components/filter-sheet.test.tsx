@@ -25,6 +25,8 @@ describe("FilterSheet", () => {
       score: "Score",
       intraday: "Intraday",
       direction: "Direction",
+      recommendedOnly: "Recommended only",
+      recommendedMode: "Recommended mode",
       apply: "Apply Filters",
     },
   };
@@ -71,8 +73,8 @@ describe("FilterSheet", () => {
   });
 
   it("shows active state for current sort option", () => {
-    render(<FilterSheet {...defaultProps} sortBy="1m" />);
-    const sortButton = screen.getByText("1M");
+    render(<FilterSheet {...defaultProps} sortBy="3m" />);
+    const sortButton = screen.getByText("3M");
     expect(sortButton).toHaveAttribute("data-active", "true");
   });
 
@@ -80,5 +82,36 @@ describe("FilterSheet", () => {
     render(<FilterSheet {...defaultProps} limit={25} />);
     const limitButton = screen.getByText("25");
     expect(limitButton).toHaveAttribute("data-active", "true");
+  });
+
+  it("shows recommended mode indicator when enabled", () => {
+    render(<FilterSheet {...defaultProps} showRecommendedOnly />);
+    expect(screen.getByText("Recommended mode")).toBeInTheDocument();
+  });
+
+  it("hides formula select when recommended-only is disabled", () => {
+    render(
+      <FilterSheet
+        {...defaultProps}
+        isAdmin
+        formulas={[{ id: "f1", name: "Formula 1" }]}
+        onFormulaChange={vi.fn()}
+        showRecommendedOnly={false}
+      />
+    );
+    expect(screen.queryByRole("combobox")).not.toBeInTheDocument();
+  });
+
+  it("shows formula select when recommended-only is enabled", () => {
+    render(
+      <FilterSheet
+        {...defaultProps}
+        isAdmin
+        formulas={[{ id: "f1", name: "Formula 1" }]}
+        onFormulaChange={vi.fn()}
+        showRecommendedOnly
+      />
+    );
+    expect(screen.getByRole("combobox")).toBeInTheDocument();
   });
 });

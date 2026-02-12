@@ -46,6 +46,7 @@ async function refreshVSME() {
     price: quote.price,
     growth1d: growth.growth1d,
     growth1m: growth.growth1m,
+    growth3m: growth.growth3m,
     growth6m: growth.growth6m,
     growth12m: growth.growth12m,
   };

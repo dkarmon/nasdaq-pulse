@@ -47,12 +47,12 @@ describe("usePreferences", () => {
 
       // Set initial state
       act(() => {
-        result.current.setSortBy("6m");
+        result.current.setSortBy("3m");
         result.current.setSortDirection("asc");
         result.current.setLimit(25);
       });
 
-      expect(result.current.preferences.sortBy).toBe("6m");
+      expect(result.current.preferences.sortBy).toBe("3m");
       expect(result.current.preferences.sortDirection).toBe("asc");
       expect(result.current.preferences.limit).toBe(25);
 
@@ -71,7 +71,7 @@ describe("usePreferences", () => {
       });
 
       // Sort and limit should be restored
-      expect(result.current.preferences.sortBy).toBe("6m");
+      expect(result.current.preferences.sortBy).toBe("3m");
       expect(result.current.preferences.sortDirection).toBe("asc");
       expect(result.current.preferences.limit).toBe(25);
     });

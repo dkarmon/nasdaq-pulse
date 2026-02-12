@@ -135,6 +135,7 @@ export async function getStockDetail(
     growth1d: yahooData.growth.growth1d,
     growth5d: yahooData.growth.growth5d,
     growth1m: yahooData.growth.growth1m,
+    growth3m: yahooData.growth.growth3m,
     growth6m: yahooData.growth.growth6m,
     growth12m: yahooData.growth.growth12m,
     updatedAt: new Date().toISOString(),

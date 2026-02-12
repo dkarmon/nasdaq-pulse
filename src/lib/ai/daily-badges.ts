@@ -1,5 +1,5 @@
 // ABOUTME: Server-side helpers for computing and refreshing the daily top-20 AI recommendation badges.
-// ABOUTME: Daily badges define which symbols show a buy/hold/sell pill in the screener (reset daily).
+// ABOUTME: Daily badges define which symbols show a buy/hold/sell pill in the screener.
 
 import { createAdminClient } from "@/lib/supabase/server";
 import type { Exchange } from "@/lib/market-data/types";
@@ -12,6 +12,7 @@ import type { RecommendationFormula } from "@/lib/recommendations/types";
 import { getStockDetail } from "@/lib/market-data";
 import { generateStockAnalysis, type StockMetrics } from "@/lib/ai/gemini";
 import type { Recommendation } from "@/lib/ai/types";
+import type { Stock } from "@/lib/market-data/types";
 
 export type DailyAiTrigger = "cron" | "formula_change" | "manual";
 
@@ -47,6 +48,17 @@ function normalizeSymbol(symbol: string): string {
   return symbol.trim().toUpperCase();
 }
 
+function normalizeGrowth3m(stock: Stock): Stock {
+  if (typeof stock.growth3m === "number" && Number.isFinite(stock.growth3m)) {
+    return stock;
+  }
+
+  return {
+    ...stock,
+    growth3m: (stock.growth1m + stock.growth6m) / 2,
+  };
+}
+
 async function fetchFormulaById(formulaId: string | null): Promise<RecommendationFormula> {
   if (!formulaId || formulaId === DEFAULT_FORMULA_ID) {
     return defaultRecommendationFormula;
@@ -79,7 +91,7 @@ export async function computeTopRecommendedSymbols(options: {
   if (!stocks || stocks.length === 0) return [];
 
   const omitRules = await fetchEffectiveOmitRules(null);
-  const filtered = applyOmitRules(stocks, omitRules, exchange);
+  const filtered = applyOmitRules(stocks.map(normalizeGrowth3m), omitRules, exchange);
 
   const scored = scoreStocksWithFormula(filtered, options.formula);
   const recommended = scored
@@ -107,6 +119,7 @@ async function buildMetricsForSymbol(symbol: string): Promise<{ metrics: StockMe
     growth1d: stockDetail.growth1d,
     growth5d: stockDetail.growth5d,
     growth1m: stockDetail.growth1m,
+    growth3m: stockDetail.growth3m,
     growth6m: stockDetail.growth6m,
     growth12m: stockDetail.growth12m,
     description: stockDetail.profile.description,
@@ -196,7 +209,7 @@ async function listExistingBadges(options: {
     .eq("run_id", options.runId);
 
   if (error || !data) return [];
-  return (data as any[]).map((r) => normalizeSymbol(r.symbol as string));
+  return (data as { symbol: string }[]).map((r) => normalizeSymbol(r.symbol));
 }
 
 async function deleteBadgesForSymbols(options: {
@@ -214,18 +227,6 @@ async function deleteBadgesForSymbols(options: {
   if (error) {
     throw new Error(error.message);
   }
-}
-
-async function resetBadges(options: {
-  supabase: ReturnType<typeof createAdminClient>;
-  runId: string;
-}): Promise<void> {
-  const { error } = await options.supabase
-    .from("daily_ai_badges")
-    .delete()
-    .eq("run_id", options.runId);
-
-  if (error) throw new Error(error.message);
 }
 
 async function upsertBadge(options: {
@@ -351,8 +352,15 @@ export async function refreshDailyAiBadges(options: {
   };
 
   try {
-    // Reset membership daily (kicked-off symbols lose badge).
-    await resetBadges({ supabase, runId: run.id });
+    const newSet = new Set(symbols);
+    const existing = await listExistingBadges({ supabase, runId: run.id });
+    const existingSet = new Set(existing);
+    const toRemove = existing.filter((symbol) => !newSet.has(symbol));
+
+    // Remove kicked-out symbols only; keep still-valid rows to avoid partial wipeouts.
+    await deleteBadgesForSymbols({ supabase, runId: run.id, symbols: toRemove });
+    result.removed.push(...toRemove);
+    toRemove.forEach((symbol) => existingSet.delete(symbol));
 
     const deadline = options.timeBudgetMs ? Date.now() + options.timeBudgetMs : null;
 
@@ -368,6 +376,12 @@ export async function refreshDailyAiBadges(options: {
 
         const symbol = symbols[idx++];
         try {
+          // Keep existing row for this run when the symbol remains in top-20.
+          if (existingSet.has(symbol)) {
+            result.skipped.push(symbol);
+            continue;
+          }
+
           const existingToday = await findLatestAnalysisForSymbol({
             supabase,
             symbol,
@@ -387,16 +401,40 @@ export async function refreshDailyAiBadges(options: {
             continue;
           }
 
-          const generated = await generateAndInsertAnalysis({ supabase, symbol });
-          await upsertBadge({
+          try {
+            const generated = await generateAndInsertAnalysis({ supabase, symbol });
+            await upsertBadge({
+              supabase,
+              runId: run.id,
+              symbol,
+              recommendation: generated.recommendation,
+              analysisId: generated.id,
+              generatedAt: generated.generatedAt,
+            });
+            result.added.push(symbol);
+            continue;
+          } catch {
+            // Fall back to latest historical analysis to avoid empty top-20 badges.
+          }
+
+          const reuseLatest = await findLatestAnalysisForSymbol({
             supabase,
-            runId: run.id,
             symbol,
-            recommendation: generated.recommendation,
-            analysisId: generated.id,
-            generatedAt: generated.generatedAt,
           });
-          result.added.push(symbol);
+          if (reuseLatest) {
+            await upsertBadge({
+              supabase,
+              runId: run.id,
+              symbol,
+              recommendation: reuseLatest.recommendation,
+              analysisId: reuseLatest.id,
+              generatedAt: reuseLatest.generated_at,
+            });
+            result.skipped.push(symbol);
+            continue;
+          }
+
+          result.failed.push({ symbol, error: "No analysis available (generate + fallback failed)" });
         } catch (err) {
           result.failed.push({ symbol, error: err instanceof Error ? err.message : String(err) });
         }
@@ -435,7 +473,7 @@ export async function refreshDailyAiBadgesOnFormulaChange(options: {
   const prevFormula = await fetchFormulaById(options.previousFormulaId);
   const nextFormula = await fetchFormulaById(options.newFormulaId);
 
-  const results: Record<Exchange, RefreshBadgesResult> = {} as any;
+  const results = {} as Record<Exchange, RefreshBadgesResult>;
 
   for (const exchange of options.exchanges) {
     const run = await ensureDailyRun({

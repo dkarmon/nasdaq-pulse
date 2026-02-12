@@ -6,6 +6,7 @@ import { render, screen, waitFor, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { ScreenerClient } from "@/app/[locale]/pulse/components/screener-client";
 import type { ScreenerResponse, Stock } from "@/lib/market-data/types";
+import type { Dictionary } from "@/lib/i18n";
 
 // Track fetch calls
 let fetchCalls: { url: string; params: URLSearchParams }[] = [];
@@ -23,6 +24,7 @@ const mockStock = (
   growth1d: 0,
   growth5d: 0,
   growth1m,
+  growth3m: growth1m / 2,
   growth6m: 0,
   growth12m: 0,
   exchange: "nasdaq",
@@ -61,6 +63,7 @@ const mockDict = {
     growth1d: "1D",
     growth5d: "5D",
     growth1m: "1M",
+    growth3m: "3M",
     growth6m: "6M",
     growth12m: "12M",
     view: "View",
@@ -68,7 +71,7 @@ const mockDict = {
     hide: "Hide",
     recommended: "Recommended",
   },
-} as any;
+} as unknown as Dictionary;
 
 // Mock usePreferences with a factory that can be configured
 const mockPreferences = vi.fn();
@@ -110,10 +113,10 @@ describe("ScreenerClient search", () => {
     mockPreferences.mockReturnValue(nasdaqPreferences());
 
     // Mock fetch to track calls and return appropriate data
-    global.fetch = vi.fn(async (url: string) => {
-      const urlObj = new URL(url, "http://localhost:3000");
+    global.fetch = vi.fn(async (url: string | URL | Request) => {
+      const urlObj = new URL(url.toString(), "http://localhost:3000");
       const params = urlObj.searchParams;
-      fetchCalls.push({ url, params });
+      fetchCalls.push({ url: urlObj.toString(), params });
 
       const limit = parseInt(params.get("limit") || "50", 10);
       const exchange = params.get("exchange") || "nasdaq";
@@ -158,8 +161,9 @@ describe("ScreenerClient search", () => {
       expect(fetchCalls.length).toBeGreaterThan(0);
     });
 
-    const initialFetch = fetchCalls[fetchCalls.length - 1];
-    expect(parseInt(initialFetch.params.get("limit") || "0", 10)).toBe(50);
+    const initialFetch = fetchCalls.find((call) => call.url.includes("/api/screener?"));
+    expect(initialFetch).toBeDefined();
+    expect(parseInt(initialFetch!.params.get("limit") || "0", 10)).toBe(50);
 
     // Clear fetch calls to track only search-triggered fetches
     fetchCalls = [];

@@ -6,6 +6,7 @@
 import { useEffect } from "react";
 import type { SortPeriod, SortDirection } from "@/lib/market-data/types";
 import type { RecommendationFormulaSummary } from "@/lib/recommendations/types";
+import { formatFormulaSelectLabel } from "@/lib/recommendations/display";
 import { LIMIT_OPTIONS, formatSortLabel } from "./controls-bar";
 import styles from "./filter-sheet.module.css";
 
@@ -31,6 +32,8 @@ type FilterSheetProps = {
     score: string;
     intraday: string;
     direction: string;
+    recommendedOnly: string;
+    recommendedMode: string;
     formula?: string;
     apply: string;
   };
@@ -84,6 +87,12 @@ export function FilterSheet({
       />
       <div className={styles.sheet}>
         <div className={styles.handle} />
+
+        {showRecommendedOnly && (
+          <div className={styles.modeRow}>
+            <span className={styles.modePill}>{labels.recommendedMode}</span>
+          </div>
+        )}
 
         <div className={styles.section}>
           <span className={styles.label}>{labels.sortBy}</span>
@@ -147,7 +156,7 @@ export function FilterSheet({
           </div>
         </div>
 
-        {isAdmin && formulas.length > 0 && onFormulaChange && (
+        {showRecommendedOnly && isAdmin && formulas.length > 0 && onFormulaChange && (
           <div className={styles.section}>
             <span className={styles.label}>{labels.formula || "Formula"}</span>
             <select
@@ -157,7 +166,7 @@ export function FilterSheet({
             >
               {formulas.map((formula) => (
                 <option key={formula.id} value={formula.id}>
-                  {formula.name}
+                  {formatFormulaSelectLabel(formula.name, formula.description)}
                 </option>
               ))}
             </select>

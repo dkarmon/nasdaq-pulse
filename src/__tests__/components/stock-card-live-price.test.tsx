@@ -19,9 +19,12 @@ const createMockStock = (overrides: Partial<Stock> = {}): Stock => ({
   currency: "USD",
   growth5d: 1.5,
   growth1m: 3.2,
+  growth3m: 6.8,
   growth6m: 10.5,
   growth12m: 25.0,
-  recommendationDate: "2024-01-15",
+  exchange: "nasdaq",
+  marketCap: 1_000_000_000,
+  updatedAt: new Date().toISOString(),
   ...overrides,
 });
 
@@ -98,5 +101,27 @@ describe("StockCard live price display", () => {
     // Should display the live price with ILS symbol (compact format)
     expect(screen.getByText("₪49")).toBeInTheDocument();
     expect(screen.queryByText("₪45")).not.toBeInTheDocument();
+  });
+
+  it("shows intraday change without parentheses on mobile card", () => {
+    const stock = createMockStock({ price: 150.0 });
+    const liveQuote: LiveQuote = {
+      symbol: "AAPL",
+      price: 175.5,
+      previousClose: 170.0,
+      change: 5.5,
+      changePercent: 3.24,
+    };
+
+    render(
+      <StockCard
+        stock={stock}
+        liveQuote={liveQuote}
+        {...defaultProps}
+      />
+    );
+
+    expect(screen.getByText("+3.24%")).toBeInTheDocument();
+    expect(screen.queryByText("(+3.24%)")).not.toBeInTheDocument();
   });
 });

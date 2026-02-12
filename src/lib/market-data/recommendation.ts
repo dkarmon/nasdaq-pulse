@@ -15,6 +15,7 @@ type FormulaInput = RecommendationFormula | RecommendationFormulaSummary | null 
 function hasRequiredFields(stock: Stock): boolean {
   return (
     stock.growth1m !== undefined &&
+    stock.growth3m !== undefined &&
     stock.growth6m !== undefined &&
     stock.growth12m !== undefined &&
     typeof stock.price === "number" &&

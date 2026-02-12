@@ -173,6 +173,23 @@ describe("calculateGrowthByCalendarMonths", () => {
     expect(growth1m).toBeCloseTo(9.52, 0);
   });
 
+  it("supports 3M growth using the same calendar-month logic", () => {
+    const now = new Date("2026-02-03T20:00:00Z");
+    vi.setSystemTime(now);
+
+    const timestamps = [
+      Math.floor(new Date("2025-10-31T20:00:00Z").getTime() / 1000),
+      Math.floor(new Date("2025-11-03T20:00:00Z").getTime() / 1000), // 3 months target date
+      Math.floor(new Date("2026-02-03T20:00:00Z").getTime() / 1000),
+    ];
+    const prices = [100, 110, 132];
+
+    const growth3m = calculateGrowthByCalendarMonths(prices, timestamps, 3);
+
+    // (132 - 110) / 110 * 100 = 20%
+    expect(growth3m).toBeCloseTo(20, 2);
+  });
+
   it("returns 0 for empty prices array", () => {
     vi.setSystemTime(new Date("2026-02-03T20:00:00Z"));
     expect(calculateGrowthByCalendarMonths([], [], 1)).toBe(0);

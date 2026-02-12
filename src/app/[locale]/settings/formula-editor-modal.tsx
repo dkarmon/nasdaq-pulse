@@ -3,7 +3,8 @@
 
 "use client";
 
-import { useEffect, useRef, useState, useCallback } from "react";
+import { useEffect, useRef, useState, useCallback, useMemo } from "react";
+import { usePreferences } from "@/hooks/usePreferences";
 import { validateFormulaExpression } from "@/lib/recommendations/engine";
 import { filterAndSortByRecommendation } from "@/lib/market-data/recommendation";
 import type { Stock } from "@/lib/market-data/types";
@@ -14,6 +15,7 @@ import styles from "./settings.module.css";
 type FormulaFormState = {
   id?: string;
   name: string;
+  description: string;
   expression: string;
 };
 
@@ -31,16 +33,18 @@ export function FormulaEditorModal({
   onClose,
 }: FormulaEditorModalProps) {
   const [form, setForm] = useState<FormulaFormState>(
-    initialData ?? { name: "", expression: "" }
+    initialData ?? { name: "", description: "", expression: "" }
   );
   const [validation, setValidation] = useState<{ errors: string[]; warnings: string[] }>({
     errors: [],
     warnings: [],
   });
   const [loading, setLoading] = useState(false);
+  const [previewLoading, setPreviewLoading] = useState(false);
   const [previewStocks, setPreviewStocks] = useState<Stock[]>([]);
   const [previewScores, setPreviewScores] = useState<Stock[]>([]);
   const [previewExchange, setPreviewExchange] = useState<Stock["exchange"]>("nasdaq");
+  const { preferences, isLoaded } = usePreferences();
 
   const expressionRef = useRef<HTMLTextAreaElement | null>(null);
   const selectionRef = useRef<{ start: number; end: number }>({ start: 0, end: 0 });
@@ -53,6 +57,7 @@ export function FormulaEditorModal({
     growth1d: "1D",
     growth5d: dict.screener.growth5d,
     growth1m: dict.screener.growth1m,
+    growth3m: dict.screener.growth3m,
     growth6m: dict.screener.growth6m,
     growth12m: dict.screener.growth12m,
     stock: dict.screener.stock,
@@ -96,46 +101,70 @@ export function FormulaEditorModal({
     });
   };
 
-  const fetchPreview = useCallback(async () => {
-    if (!form.expression.trim()) {
-      setPreviewStocks([]);
-      setPreviewScores([]);
-      return;
-    }
+  const hiddenSymbols = useMemo(() => {
+    if (!isLoaded) return [];
+    return preferences.hiddenSymbols?.[previewExchange] ?? [];
+  }, [isLoaded, preferences.hiddenSymbols, previewExchange]);
+
+  const filteredPreviewStocks = useMemo(() => {
+    if (hiddenSymbols.length === 0) return previewStocks;
+    return previewStocks.filter((stock) => !hiddenSymbols.includes(stock.symbol));
+  }, [previewStocks, hiddenSymbols]);
+
+  const previewSampleCount = filteredPreviewStocks.length;
+  const previewSampleTitle = previewLoading
+    ? "Loading preview stocks..."
+    : `${previewSampleCount} stocks evaluated`;
+
+  const fetchPreviewStocks = useCallback(async () => {
+    setPreviewLoading(true);
+    setPreviewStocks([]);
 
     try {
-      const res = await fetch(`/api/screener?limit=50&includeScores=true&exchange=${previewExchange}`);
+      const res = await fetch(`/api/screener?limit=9999&exchange=${previewExchange}`);
       if (res.ok) {
         const data = await res.json();
         const stocks: Stock[] = data.stocks ?? [];
         setPreviewStocks(stocks);
-        const formulaInput = { expression: form.expression } as RecommendationFormula;
-        const scored = filterAndSortByRecommendation(stocks, formulaInput).slice(0, 15);
-        setPreviewScores(scored);
       } else {
         setPreviewStocks([]);
-        setPreviewScores([]);
       }
     } catch {
       setPreviewStocks([]);
-      setPreviewScores([]);
+    } finally {
+      setPreviewLoading(false);
     }
-  }, [form.expression, previewExchange]);
+  }, [previewExchange]);
+
+  const computePreviewScores = useCallback(() => {
+    if (!form.expression.trim()) {
+      setPreviewScores([]);
+      return;
+    }
+
+    const formulaInput = { expression: form.expression } as RecommendationFormula;
+    const scored = filterAndSortByRecommendation(filteredPreviewStocks, formulaInput).slice(0, 15);
+    setPreviewScores(scored);
+  }, [form.expression, filteredPreviewStocks]);
+
+  useEffect(() => {
+    fetchPreviewStocks();
+  }, [fetchPreviewStocks]);
 
   useEffect(() => {
     if (previewTimeoutRef.current) {
       clearTimeout(previewTimeoutRef.current);
     }
     previewTimeoutRef.current = setTimeout(() => {
-      fetchPreview();
-    }, 500);
+      computePreviewScores();
+    }, 300);
 
     return () => {
       if (previewTimeoutRef.current) {
         clearTimeout(previewTimeoutRef.current);
       }
     };
-  }, [form.expression, previewExchange, fetchPreview]);
+  }, [computePreviewScores]);
 
   const handleSubmit = async () => {
     const result = validateFormulaExpression(form.expression);
@@ -187,6 +216,17 @@ export function FormulaEditorModal({
         </div>
 
         <div className={styles.recoField}>
+          <label>{dict.settings.recommendationsDescription}</label>
+          <input
+            type="text"
+            value={form.description}
+            onChange={(e) => setForm({ ...form, description: e.target.value })}
+            className={styles.recoInput}
+            placeholder="10/25/4.5/2/0.2/0.15"
+          />
+        </div>
+
+        <div className={styles.recoField}>
           <label>{dict.settings.recommendationsExpression}</label>
           <textarea
             ref={expressionRef}
@@ -197,10 +237,10 @@ export function FormulaEditorModal({
             onKeyUp={handleSelectionChange}
             className={styles.recoTextarea}
             rows={5}
-            placeholder="(3*(g1m-g5d)/25 + 2*(g6m-g1m)/150 + (g12m-g6m)/182) * avg(g5d,g1m,g6m,g12m)"
+            placeholder="(3*(g1m-g5d)/25 + 2*(g3m-g1m)/60 + 2*(g6m-g3m)/90 + (g12m-g6m)/182) * avg(g5d,g1m,g3m,g6m,g12m)"
           />
           <div className={styles.tokenRow}>
-            {["g1d", "g5d", "g1m", "g6m", "g12m", "price", "marketCap"].map((token) => (
+            {["g1d", "g5d", "g1m", "g3m", "g6m", "g12m", "price", "marketCap"].map((token) => (
               <button
                 key={token}
                 type="button"
@@ -260,7 +300,7 @@ export function FormulaEditorModal({
                   </button>
                 ))}
               </div>
-              <span className={styles.previewSampleInfo} title={`${previewStocks.length} stocks sampled`}>
+              <span className={styles.previewSampleInfo} title={previewSampleTitle}>
                 ⓘ
               </span>
             </div>
@@ -277,6 +317,7 @@ export function FormulaEditorModal({
                   <span role="columnheader">{screenerLabels.growth1d}</span>
                   <span role="columnheader">{screenerLabels.growth5d}</span>
                   <span role="columnheader">{screenerLabels.growth1m}</span>
+                  <span role="columnheader">{screenerLabels.growth3m}</span>
                   <span role="columnheader">{screenerLabels.growth6m}</span>
                   <span role="columnheader">{screenerLabels.growth12m}</span>
                 </div>
@@ -293,6 +334,7 @@ export function FormulaEditorModal({
                     <span role="cell">{formatGrowth(stock.growth1d)}</span>
                     <span role="cell">{formatGrowth(stock.growth5d)}</span>
                     <span role="cell">{formatGrowth(stock.growth1m)}</span>
+                    <span role="cell">{formatGrowth(stock.growth3m)}</span>
                     <span role="cell">{formatGrowth(stock.growth6m)}</span>
                     <span role="cell">{formatGrowth(stock.growth12m)}</span>
                   </div>
@@ -317,6 +359,7 @@ export function FormulaEditorModal({
                         <span>1D:{formatGrowth(stock.growth1d)}</span>
                         <span>5D:{formatGrowth(stock.growth5d)}</span>
                         <span>1M:{formatGrowth(stock.growth1m)}</span>
+                        <span>3M:{formatGrowth(stock.growth3m)}</span>
                         <span>6M:{formatGrowth(stock.growth6m)}</span>
                         <span>12M:{formatGrowth(stock.growth12m)}</span>
                       </div>
@@ -335,7 +378,7 @@ export function FormulaEditorModal({
           <button
             className={styles.primaryButton}
             onClick={handleSubmit}
-            disabled={loading || !form.name || !form.expression}
+            disabled={loading || !form.name.trim() || !form.expression.trim()}
           >
             {dict.settings.saveFormula}
           </button>
