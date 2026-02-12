@@ -2,7 +2,7 @@
 // ABOUTME: Verifies search queries cause full dataset fetch to find stocks outside top N.
 
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
-import { render, screen, waitFor } from "@testing-library/react";
+import { render, screen, waitFor, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { ScreenerClient } from "@/app/[locale]/pulse/components/screener-client";
 import type { ScreenerResponse, Stock } from "@/lib/market-data/types";
@@ -273,5 +273,51 @@ describe("ScreenerClient search", () => {
       },
       { timeout: 1000 }
     );
+  });
+
+  it("reindexes table ranks after hiding a stock", () => {
+    const rankStocks = [
+      mockStock("TOP1", 40),
+      mockStock("TOP2", 30),
+      mockStock("TOP3", 20),
+      mockStock("TOP4", 10),
+    ];
+
+    mockPreferences.mockReturnValue({
+      ...nasdaqPreferences(),
+      isLoaded: false,
+      currentHiddenSymbols: ["TOP2"],
+    });
+
+    render(
+      <ScreenerClient
+        initialData={{
+          ...mockInitialData,
+          stocks: rankStocks,
+        }}
+        dict={mockDict}
+        onSelectStock={vi.fn()}
+        selectedSymbol={null}
+        activeFormula={null}
+        onFormulaChange={vi.fn()}
+        isAdmin={false}
+        navContent={<div>Nav</div>}
+      />
+    );
+
+    expect(screen.queryByText("TOP2")).not.toBeInTheDocument();
+
+    const tableRows = screen.getAllByRole("row").slice(1);
+    const ranks = tableRows.map((row) => {
+      const cells = within(row).getAllByRole("cell");
+      return cells[0].textContent?.trim();
+    });
+
+    expect(ranks).toEqual(["1", "2", "3"]);
+    const symbolsInOrder = tableRows.map((row) => {
+      const cells = within(row).getAllByRole("cell");
+      return cells[1].textContent ?? "";
+    });
+    expect(symbolsInOrder[2]).toContain("TOP4");
   });
 });
