@@ -251,15 +251,6 @@ export function ScreenerClient({
     sell: dict.aiAnalysis?.sell ?? "Sell",
   };
 
-  // Compute ranks before filtering - stocks are already sorted by the API
-  const rankMap = useMemo(() => {
-    const map = new Map<string, number>();
-    scoredStocks.forEach((stock, index) => {
-      map.set(stock.symbol, index + 1);
-    });
-    return map;
-  }, [scoredStocks]);
-
   let visibleStocks = scoredStocks.filter(
     (stock) => !currentHiddenSymbols.includes(stock.symbol)
   );
@@ -291,6 +282,15 @@ export function ScreenerClient({
       liveQuotes
     );
   }
+
+  // Rank only what is currently visible so hidden stocks do not consume positions.
+  const rankMap = useMemo(() => {
+    const map = new Map<string, number>();
+    visibleStocks.forEach((stock, index) => {
+      map.set(stock.symbol, index + 1);
+    });
+    return map;
+  }, [visibleStocks]);
 
   return (
     <div className={styles.screener}>
