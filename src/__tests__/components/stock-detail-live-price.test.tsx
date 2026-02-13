@@ -67,6 +67,7 @@ const mockLabels = {
   sector: "Sector",
   industry: "Industry",
   marketCap: "Market Cap",
+  companyInfo: "Company Info",
   companyOverview: "Overview",
   website: "Website",
 };

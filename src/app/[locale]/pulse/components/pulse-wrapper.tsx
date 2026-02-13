@@ -45,6 +45,7 @@ export function PulseWrapper({ initialData, dict, locale, isAdmin, navContent }:
     sector: dict.screener.sector,
     industry: dict.screener.industry,
     marketCap: dict.screener.marketCap,
+    companyInfo: dict.screener.companyInfo,
     companyOverview: dict.screener.companyOverview,
     website: dict.screener.website,
   };

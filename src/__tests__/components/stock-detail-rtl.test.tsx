@@ -57,6 +57,7 @@ const mockLabels = {
   sector: "Sector",
   industry: "Industry",
   marketCap: "Market Cap",
+  companyInfo: "Company Info",
   companyOverview: "Overview",
   website: "Website",
 };
@@ -149,5 +150,22 @@ describe("StockDetail RTL", () => {
 
     // The dir="ltr" attribute ensures visual order matches DOM order
     expect(metricsRow).toHaveAttribute("dir", "ltr");
+  });
+
+  it("renders Hebrew company info section title and localized sector", async () => {
+    render(
+      <StockDetail
+        symbol="AAPL"
+        onClose={() => {}}
+        locale="he"
+        labels={{ ...mockLabels, companyInfo: "מידע על החברה" }}
+        aiAnalysisLabels={mockAiAnalysisLabels}
+      />
+    );
+
+    await waitFor(() => {
+      expect(screen.getByText("מידע על החברה")).toBeInTheDocument();
+      expect(screen.getByText("טכנולוגיה")).toBeInTheDocument();
+    });
   });
 });
