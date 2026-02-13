@@ -23,6 +23,23 @@ export type { Stock, Quote, CompanyProfile, HistoricalDataPoint, NewsItem };
 export type { ScreenerResponse, StockDetailResponse, NewsResponse };
 export type { ScreenerParams, SortDirection, SortPeriod } from "./types";
 
+function mergeStaticCompanyInfo(profile: CompanyProfile, symbol: string): CompanyProfile {
+  const companyInfo = getCompanyInfo(symbol);
+  if (!companyInfo) {
+    return profile;
+  }
+
+  return {
+    ...profile,
+    ...(companyInfo.sector && { sector: companyInfo.sector }),
+    ...(companyInfo.industry && { industry: companyInfo.industry }),
+    ...(companyInfo.description && { description: companyInfo.description }),
+    ...(companyInfo.descriptionHebrew && {
+      descriptionHebrew: companyInfo.descriptionHebrew,
+    }),
+  };
+}
+
 export async function getScreener(
   params: ScreenerParams
 ): Promise<ScreenerResponse> {
@@ -57,21 +74,7 @@ export async function getCompanyProfile(
     profile = mockDetail?.profile ?? null;
   }
 
-  // Merge with static company info (sector, descriptions)
-  if (profile) {
-    const companyInfo = getCompanyInfo(symbol);
-    if (companyInfo) {
-      profile = {
-        ...profile,
-        sector: companyInfo.sector,
-        ...(companyInfo.industry && { industry: companyInfo.industry }),
-        description: companyInfo.description,
-        descriptionHebrew: companyInfo.descriptionHebrew,
-      };
-    }
-  }
-
-  return profile;
+  return profile ? mergeStaticCompanyInfo(profile, symbol) : null;
 }
 
 export async function getHistoricalData(
@@ -116,6 +119,7 @@ export async function getStockDetail(
       week52Low: 0,
     };
   }
+  profile = mergeStaticCompanyInfo(profile, symbol);
 
   return {
     profile,

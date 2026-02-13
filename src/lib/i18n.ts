@@ -104,6 +104,7 @@ export type Dictionary = {
     sector: string;
     industry: string;
     marketCap: string;
+    companyInfo: string;
     companyOverview: string;
     website: string;
   };
@@ -348,6 +349,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
       sector: "Sector",
       industry: "Industry",
       marketCap: "Market Cap",
+      companyInfo: "Company Info",
       companyOverview: "Company Overview",
       website: "Website",
     },
@@ -585,6 +587,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
       sector: "סקטור",
       industry: "תעשייה",
       marketCap: "שווי שוק",
+      companyInfo: "מידע על החברה",
       companyOverview: "אודות החברה",
       website: "אתר אינטרנט",
     },

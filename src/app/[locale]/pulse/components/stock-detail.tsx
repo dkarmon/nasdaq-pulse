@@ -9,6 +9,7 @@ import { CollapsibleSection } from "./collapsible-section";
 import { StockAnalysis } from "./stock-analysis";
 import { useLiveQuotes } from "@/hooks/useLiveQuotes";
 import { isStockRecommended } from "@/lib/market-data/recommendation";
+import { localizeSectorName } from "@/lib/market-data/sector-translations";
 import type { StockDetailResponse, Stock } from "@/lib/market-data/types";
 import { formatGrowth, formatIntraday, formatPrice, formatMarketCap } from "@/lib/format";
 import styles from "./stock-detail.module.css";
@@ -40,6 +41,7 @@ type StockDetailProps = {
     sector: string;
     industry: string;
     marketCap: string;
+    companyInfo: string;
     companyOverview: string;
     website: string;
   };
@@ -60,20 +62,23 @@ type StockDetailProps = {
 type CompanyMetaProps = {
   profile: StockDetailResponse["profile"];
   labels: StockDetailProps["labels"];
+  locale: string;
   wrapperClassName?: string;
 };
 
-function CompanyMeta({ profile, labels, wrapperClassName }: CompanyMetaProps): React.ReactNode {
+function CompanyMeta({ profile, labels, locale, wrapperClassName }: CompanyMetaProps): React.ReactNode {
   if (!profile.sector && !profile.industry && !profile.marketCap && !profile.website) {
     return null;
   }
 
+  const localizedSector = localizeSectorName(profile.sector, locale);
+
   return (
     <div className={wrapperClassName}>
-      {profile.sector && (
+      {localizedSector && (
         <div className={styles.infoRow}>
           <span className={styles.infoLabel}>{labels.sector}:</span>
-          <span className={styles.infoValue}>{profile.sector}</span>
+          <span className={styles.infoValue}>{localizedSector}</span>
         </div>
       )}
       {profile.industry && (
@@ -263,8 +268,8 @@ export function StockDetail({ symbol, onClose, locale = "en", activeFormula, lab
       {/* Company Info - collapsible on mobile, collapsed by default */}
       {hasCompanyInfo && (
         <div className={styles.mobileCollapsible}>
-          <CollapsibleSection title="Company Info" defaultExpanded={false}>
-            <CompanyMeta profile={profile} labels={labels} wrapperClassName={styles.companyInfoInner} />
+          <CollapsibleSection title={labels.companyInfo} defaultExpanded={false}>
+            <CompanyMeta profile={profile} labels={labels} locale={locale} wrapperClassName={styles.companyInfoInner} />
             {(profile.description || profile.descriptionHebrew) && (
               <p className={styles.overviewText}>
                 {locale === "he" && profile.descriptionHebrew
@@ -280,7 +285,7 @@ export function StockDetail({ symbol, onClose, locale = "en", activeFormula, lab
       {hasCompanyInfo && (
         <div className={styles.desktopAlwaysVisible}>
           <div className={styles.companyPanel}>
-            <CompanyMeta profile={profile} labels={labels} wrapperClassName={styles.companyMeta} />
+            <CompanyMeta profile={profile} labels={labels} locale={locale} wrapperClassName={styles.companyMeta} />
             {(profile.description || profile.descriptionHebrew) && (
               <div className={styles.companyDescription}>
                 <h3 className={styles.overviewTitle}>{labels.companyOverview}</h3>
