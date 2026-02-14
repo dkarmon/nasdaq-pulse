@@ -10,7 +10,7 @@ import { StickyHeader } from "./sticky-header";
 import { StockTable } from "./stock-table";
 import { StockCardList } from "./stock-card";
 import { scoreStocksWithFormula } from "@/lib/market-data/recommendation";
-import type { Stock, ScreenerResponse, SortDirection, SortPeriod } from "@/lib/market-data/types";
+import type { Exchange, Stock, ScreenerResponse, SortDirection, SortPeriod } from "@/lib/market-data/types";
 import type { Dictionary } from "@/lib/i18n";
 import styles from "./screener-client.module.css";
 import type { RecommendationFormulaSummary } from "@/lib/recommendations/types";
@@ -91,8 +91,8 @@ type ScreenerClientProps = {
   dict: Dictionary;
   onSelectStock: (symbol: string | null) => void;
   selectedSymbol: string | null;
-  activeFormula: RecommendationFormulaSummary | null;
-  onFormulaChange: (formula: RecommendationFormulaSummary | null) => void;
+  activeFormulas: Record<Exchange, RecommendationFormulaSummary | null>;
+  onFormulaChange: (exchange: Exchange, formula: RecommendationFormulaSummary | null) => void;
   isAdmin: boolean;
   navContent: ReactNode;
 };
@@ -102,7 +102,7 @@ export function ScreenerClient({
   dict,
   onSelectStock,
   selectedSymbol,
-  activeFormula,
+  activeFormulas,
   onFormulaChange,
   isAdmin,
   navContent,
@@ -131,6 +131,8 @@ export function ScreenerClient({
     return () => clearTimeout(timer);
   }, [searchQuery]);
 
+  const activeFormula = activeFormulas[preferences.exchange] ?? null;
+
   // Get symbols of recommended stocks for live quotes
   const scoredStocks = useMemo(
     () => scoreStocksWithFormula(stocks, activeFormula ?? undefined),
@@ -157,11 +159,11 @@ export function ScreenerClient({
         const badges = data?.badges ?? {};
         const map: Record<string, { recommendation: Recommendation; generatedAt: string }> = {};
         for (const [symbol, value] of Object.entries(badges)) {
-          const v = value as any;
+          const v = value as { recommendation?: Recommendation; generatedAt?: string } | null;
           if (!v?.recommendation || !v?.generatedAt) continue;
           map[String(symbol).toUpperCase()] = {
-            recommendation: v.recommendation as Recommendation,
-            generatedAt: v.generatedAt as string,
+            recommendation: v.recommendation,
+            generatedAt: v.generatedAt,
           };
         }
         setDailyAiBadges(map);
@@ -197,7 +199,7 @@ export function ScreenerClient({
       const data: ScreenerResponse = await response.json();
 
       setStocks(data.stocks);
-      onFormulaChange(data.recommendation?.activeFormula ?? null);
+      onFormulaChange(preferences.exchange, data.recommendation?.activeFormula ?? null);
     } catch (error) {
       console.error("Failed to fetch screener data:", error);
     } finally {
@@ -223,6 +225,7 @@ export function ScreenerClient({
     exchange: dict.screener.exchange,
     nasdaq: dict.screener.nasdaq,
     tlv: dict.screener.tlv,
+    formula: dict.settings?.recommendationsActive ?? "Formula",
   };
 
   const tableLabels = {
@@ -311,7 +314,7 @@ export function ScreenerClient({
         onSearchChange={setSearchQuery}
         onShowRecommendedOnlyChange={setShowRecommendedOnly}
         isAdmin={isAdmin}
-        activeFormula={activeFormula}
+        activeFormulas={activeFormulas}
         onFormulaChange={onFormulaChange}
         onRefresh={fetchScreenerData}
         isRefreshing={isLoading}

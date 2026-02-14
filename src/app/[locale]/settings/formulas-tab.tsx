@@ -3,7 +3,8 @@
 
 "use client";
 
-import { useEffect, useState, useRef } from "react";
+import { useCallback, useEffect, useState, useRef } from "react";
+import type { Exchange } from "@/lib/market-data/types";
 import type { RecommendationFormulaSummary } from "@/lib/recommendations/types";
 import type { Dictionary } from "@/lib/i18n";
 import { FormulaEditorModal } from "./formula-editor-modal";
@@ -19,9 +20,22 @@ type FormulaFormState = {
   expression: string;
 };
 
+type ActiveFormulaSettingsResponse = {
+  activeFormula?: { id?: string | null } | null;
+  activeFormulaNasdaq?: { id?: string | null } | null;
+  activeFormulaTlv?: { id?: string | null } | null;
+  activeFormulas?: {
+    nasdaq?: { id?: string | null } | null;
+    tlv?: { id?: string | null } | null;
+  } | null;
+};
+
 export function FormulasTab({ dict }: FormulasTabProps) {
   const [formulas, setFormulas] = useState<RecommendationFormulaSummary[]>([]);
-  const [activeFormulaId, setActiveFormulaId] = useState<string | null>(null);
+  const [activeFormulaIds, setActiveFormulaIds] = useState<Record<Exchange, string | null>>({
+    nasdaq: null,
+    tlv: null,
+  });
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState<string | null>(null);
   const [openMenuId, setOpenMenuId] = useState<string | null>(null);
@@ -30,7 +44,23 @@ export function FormulasTab({ dict }: FormulasTabProps) {
 
   const menuRef = useRef<HTMLDivElement>(null);
 
-  async function fetchFormulas() {
+  function parseActiveFormulaIds(data: unknown): Record<Exchange, string | null> {
+    const parsed = (data ?? {}) as ActiveFormulaSettingsResponse;
+    return {
+      nasdaq:
+        parsed.activeFormulas?.nasdaq?.id ??
+        parsed.activeFormulaNasdaq?.id ??
+        parsed.activeFormula?.id ??
+        null,
+      tlv:
+        parsed.activeFormulas?.tlv?.id ??
+        parsed.activeFormulaTlv?.id ??
+        parsed.activeFormula?.id ??
+        null,
+    };
+  }
+
+  const fetchFormulas = useCallback(async () => {
     const [formulasRes, settingsRes] = await Promise.all([
       fetch("/api/admin/recommendation-formulas"),
       fetch("/api/admin/recommendation-settings"),
@@ -45,13 +75,16 @@ export function FormulasTab({ dict }: FormulasTabProps) {
 
     if (settingsRes.ok) {
       const data = await settingsRes.json();
-      setActiveFormulaId(data.activeFormula?.id ?? null);
+      setActiveFormulaIds(parseActiveFormulaIds(data));
     }
-  }
+  }, [dict.settings.fetchError]);
 
   useEffect(() => {
-    fetchFormulas();
-  }, []);
+    const timeoutId = window.setTimeout(() => {
+      void fetchFormulas();
+    }, 0);
+    return () => window.clearTimeout(timeoutId);
+  }, [fetchFormulas]);
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -66,8 +99,8 @@ export function FormulasTab({ dict }: FormulasTabProps) {
     }
   }, [openMenuId]);
 
-  const handleSetActive = async (id: string) => {
-    if (id === activeFormulaId) return;
+  const handleSetActive = async (exchange: Exchange, id: string) => {
+    if (id === activeFormulaIds[exchange]) return;
 
     setLoading(true);
     setMessage(null);
@@ -75,14 +108,14 @@ export function FormulasTab({ dict }: FormulasTabProps) {
     const res = await fetch("/api/admin/recommendation-settings", {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ activeFormulaId: id }),
+      body: JSON.stringify({ exchange, activeFormulaId: id }),
     });
 
     const data = await res.json();
     if (!res.ok) {
       setMessage(data.error || "Error");
     } else {
-      setActiveFormulaId(id);
+      setActiveFormulaIds((prev) => ({ ...prev, [exchange]: id }));
       setMessage(dict.settings.activeSaved);
       setTimeout(() => setMessage(null), 3000);
 
@@ -91,9 +124,9 @@ export function FormulasTab({ dict }: FormulasTabProps) {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          previousFormulaId: data?.previousActiveFormulaId ?? activeFormulaId ?? null,
+          previousFormulaId: data?.previousActiveFormulaId ?? activeFormulaIds[exchange] ?? null,
           newFormulaId: id,
-          exchanges: ["nasdaq", "tlv"],
+          exchanges: [exchange],
         }),
       }).catch(() => {});
     }
@@ -194,24 +227,60 @@ export function FormulasTab({ dict }: FormulasTabProps) {
 
       {message && <p className={styles.message}>{message}</p>}
 
+      {formulas.length > 0 && (
+        <div className={styles.recoField} style={{ marginBottom: "16px" }}>
+          <label>{dict.settings.recommendationsActiveNasdaq || `${dict.screener.nasdaq} ${dict.settings.recommendationsActive}`}</label>
+          <select
+            className={styles.recoInput}
+            value={activeFormulaIds.nasdaq ?? ""}
+            onChange={(e) => handleSetActive("nasdaq", e.target.value)}
+            disabled={loading}
+          >
+            {formulas.map((formula) => (
+              <option key={`nasdaq-${formula.id}`} value={formula.id}>
+                {formula.name}
+              </option>
+            ))}
+          </select>
+          <label style={{ marginTop: "12px" }}>{dict.settings.recommendationsActiveTlv || `${dict.screener.tlv} ${dict.settings.recommendationsActive}`}</label>
+          <select
+            className={styles.recoInput}
+            value={activeFormulaIds.tlv ?? ""}
+            onChange={(e) => handleSetActive("tlv", e.target.value)}
+            disabled={loading}
+          >
+            {formulas.map((formula) => (
+              <option key={`tlv-${formula.id}`} value={formula.id}>
+                {formula.name}
+              </option>
+            ))}
+          </select>
+        </div>
+      )}
+
       <div className={styles.recoList}>
         {formulas.length === 0 ? (
           <p className={styles.empty}>{dict.settings.noFormulas}</p>
         ) : (
           formulas.map((formula) => {
-            const isActive = formula.id === activeFormulaId;
+            const isActiveNasdaq = formula.id === activeFormulaIds.nasdaq;
+            const isActiveTlv = formula.id === activeFormulaIds.tlv;
+            const isActive = isActiveNasdaq || isActiveTlv;
             return (
               <div
                 key={formula.id}
                 className={`${styles.radioRow} ${isActive ? styles.radioRowActive : ""}`}
-                onClick={() => handleSetActive(formula.id)}
               >
                 <div
                   className={`${styles.radioIndicator} ${isActive ? styles.radioIndicatorActive : ""}`}
                 />
                 <div className={styles.radioContent}>
                   <div className={styles.radioName}>{formula.name}</div>
-                  <div className={styles.radioMeta}>v{formula.version}</div>
+                  <div className={styles.radioMeta}>
+                    v{formula.version}
+                    {isActiveNasdaq ? " • NASDAQ" : ""}
+                    {isActiveTlv ? " • TLV" : ""}
+                  </div>
                 </div>
                 <div className={styles.radioActions} onClick={(e) => e.stopPropagation()}>
                   <button

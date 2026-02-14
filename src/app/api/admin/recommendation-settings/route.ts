@@ -8,6 +8,11 @@ import {
   summarizeFormula,
 } from "@/lib/recommendations/server";
 import { createAdminClient } from "@/lib/supabase/server";
+import type { Exchange } from "@/lib/market-data/types";
+
+function parseExchange(value: unknown): Exchange {
+  return String(value).toLowerCase() === "tlv" ? "tlv" : "nasdaq";
+}
 
 export async function GET() {
   const supabase = await createClient();
@@ -16,9 +21,20 @@ export async function GET() {
     return NextResponse.json({ error: "Unauthorized" }, { status: 403 });
   }
 
-  const activeFormula = await fetchActiveFormula({ fallbackToDefault: true });
+  const [activeFormulaNasdaq, activeFormulaTlv] = await Promise.all([
+    fetchActiveFormula("nasdaq", { fallbackToDefault: true }),
+    fetchActiveFormula("tlv", { fallbackToDefault: true }),
+  ]);
+
   return NextResponse.json({
-    activeFormula: summarizeFormula(activeFormula ?? null),
+    // Compatibility alias for older clients that still expect a single activeFormula.
+    activeFormula: summarizeFormula(activeFormulaNasdaq ?? null),
+    activeFormulaNasdaq: summarizeFormula(activeFormulaNasdaq ?? null),
+    activeFormulaTlv: summarizeFormula(activeFormulaTlv ?? null),
+    activeFormulas: {
+      nasdaq: summarizeFormula(activeFormulaNasdaq ?? null),
+      tlv: summarizeFormula(activeFormulaTlv ?? null),
+    },
   });
 }
 
@@ -30,6 +46,7 @@ export async function PATCH(request: Request) {
   }
 
   const body = await request.json();
+  const exchange = parseExchange(body.exchange);
   const activeFormulaId = body.activeFormulaId as string | undefined;
 
   if (!activeFormulaId) {
@@ -40,13 +57,17 @@ export async function PATCH(request: Request) {
     const admin = createAdminClient();
     const { data: before } = await admin
       .from("recommendation_settings")
-      .select("active_formula_id")
+      .select("active_formula_id,active_formula_nasdaq_id,active_formula_tlv_id")
       .eq("id", true)
       .maybeSingle();
 
-    const previousActiveFormulaId = (before?.active_formula_id as string | null) ?? null;
+    const previousActiveFormulaId = (
+      exchange === "tlv"
+        ? before?.active_formula_tlv_id ?? before?.active_formula_id
+        : before?.active_formula_nasdaq_id ?? before?.active_formula_id
+    ) as string | null;
 
-    const result = await setActiveFormula(activeFormulaId, user.id);
+    const result = await setActiveFormula(exchange, activeFormulaId, user.id);
     return NextResponse.json({
       ...result,
       previousActiveFormulaId,

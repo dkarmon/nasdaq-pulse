@@ -84,6 +84,7 @@ export type ScreenerResponse = {
   exchange: Exchange;
   recommendation?: {
     activeFormula?: import("@/lib/recommendations/types").RecommendationFormulaSummary | null;
+    activeFormulaByExchange?: Partial<Record<Exchange, import("@/lib/recommendations/types").RecommendationFormulaSummary | null>>;
   };
 };
 

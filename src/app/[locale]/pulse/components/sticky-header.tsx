@@ -25,8 +25,8 @@ type StickyHeaderProps = {
   onSearchChange: (query: string) => void;
   onShowRecommendedOnlyChange: (show: boolean) => void;
   isAdmin?: boolean;
-  activeFormula?: RecommendationFormulaSummary | null;
-  onFormulaChange?: (formula: RecommendationFormulaSummary) => void;
+  activeFormulas?: Record<Exchange, RecommendationFormulaSummary | null>;
+  onFormulaChange?: (exchange: Exchange, formula: RecommendationFormulaSummary | null) => void;
   onRefresh?: () => void;
   isRefreshing?: boolean;
   visibleStocks?: Stock[];
@@ -63,7 +63,7 @@ export function StickyHeader({
   onSearchChange,
   onShowRecommendedOnlyChange,
   isAdmin = false,
-  activeFormula,
+  activeFormulas,
   onFormulaChange,
   onRefresh,
   isRefreshing = false,
@@ -108,7 +108,7 @@ export function StickyHeader({
         onSearchChange={onSearchChange}
         onShowRecommendedOnlyChange={onShowRecommendedOnlyChange}
         isAdmin={isAdmin}
-        activeFormula={activeFormula}
+        activeFormulas={activeFormulas}
         onFormulaChange={onFormulaChange}
         onRefresh={onRefresh}
         isRefreshing={isRefreshing}

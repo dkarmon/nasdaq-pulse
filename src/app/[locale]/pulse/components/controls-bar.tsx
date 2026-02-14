@@ -26,8 +26,8 @@ type ControlsBarProps = {
   onSearchChange: (query: string) => void;
   onShowRecommendedOnlyChange: (show: boolean) => void;
   isAdmin?: boolean;
-  activeFormula?: RecommendationFormulaSummary | null;
-  onFormulaChange?: (formula: RecommendationFormulaSummary) => void;
+  activeFormulas?: Record<Exchange, RecommendationFormulaSummary | null>;
+  onFormulaChange?: (exchange: Exchange, formula: RecommendationFormulaSummary | null) => void;
   onRefresh?: () => void;
   isRefreshing?: boolean;
   visibleStocks?: Stock[];
@@ -92,7 +92,7 @@ export function ControlsBar({
   onSearchChange,
   onShowRecommendedOnlyChange,
   isAdmin = false,
-  activeFormula,
+  activeFormulas,
   onFormulaChange,
   onRefresh,
   isRefreshing = false,
@@ -102,6 +102,7 @@ export function ControlsBar({
 }: ControlsBarProps) {
   const [isFilterSheetOpen, setIsFilterSheetOpen] = useState(false);
   const [formulas, setFormulas] = useState<RecommendationFormulaSummary[]>([]);
+  const activeFormula = activeFormulas?.[exchange] ?? null;
 
   useEffect(() => {
     if (isAdmin) {
@@ -123,24 +124,24 @@ export function ControlsBar({
     const res = await fetch("/api/admin/recommendation-settings", {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ activeFormulaId: formulaId }),
+      body: JSON.stringify({ exchange, activeFormulaId: formulaId }),
     });
 
     const data = await res.json().catch(() => null);
-    if (res.ok) {
-      // Trigger immediate delta refresh so today's top-20 badge set matches the new formula.
-      fetch("/api/admin/daily-ai/refresh-delta", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          previousFormulaId: data?.previousActiveFormulaId ?? activeFormula?.id ?? null,
-          newFormulaId: formulaId,
-          exchanges: ["nasdaq", "tlv"],
-        }),
-      }).catch(() => {});
-    }
+    if (!res.ok) return;
 
-    onFormulaChange(formula);
+    // Trigger immediate delta refresh so today's top-20 badge set matches the new formula.
+    fetch("/api/admin/daily-ai/refresh-delta", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        previousFormulaId: data?.previousActiveFormulaId ?? activeFormula?.id ?? null,
+        newFormulaId: formulaId,
+        exchanges: [exchange],
+      }),
+    }).catch(() => {});
+
+    onFormulaChange(exchange, formula);
   };
 
   const handleExport = () => {
@@ -347,7 +348,7 @@ export function ControlsBar({
 
           {showRecommendedOnly && isAdmin && formulas.length > 0 && (
             <div className={styles.formulaGroup}>
-              <span className={styles.label}>{labels.formula || "Formula"}:</span>
+              <span className={styles.label}>{labels.formula || "Formula"} ({exchangeLabels[exchange]}):</span>
               <select
                 className={styles.formulaSelect}
                 value={activeFormula?.id || ""}
@@ -389,7 +390,7 @@ export function ControlsBar({
           direction: labels.direction,
           recommendedOnly: labels.recommendedOnly,
           recommendedMode: labels.recommendedMode,
-          formula: labels.formula || "Formula",
+          formula: `${labels.formula || "Formula"} (${exchangeLabels[exchange]})`,
           apply: "Apply Filters",
         }}
       />

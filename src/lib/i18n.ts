@@ -128,6 +128,8 @@ export type Dictionary = {
     adminRole: string;
     recommendations: string;
     recommendationsActive: string;
+    recommendationsActiveNasdaq: string;
+    recommendationsActiveTlv: string;
     recommendationsSubtitle: string;
     recommendationsName: string;
     recommendationsDescription: string;
@@ -371,6 +373,8 @@ export const dictionaries: Record<Locale, Dictionary> = {
       adminRole: "Admin",
       recommendations: "Recommendation formulas",
       recommendationsActive: "Active formula",
+      recommendationsActiveNasdaq: "Active NASDAQ formula",
+      recommendationsActiveTlv: "Active TLV formula",
       recommendationsSubtitle: "Select, validate, and publish the expression that powers recommendations.",
       recommendationsName: "Name",
       recommendationsDescription: "Description",
@@ -607,6 +611,8 @@ export const dictionaries: Record<Locale, Dictionary> = {
       adminRole: "מנהל",
       recommendations: "נוסחאות המלצה",
       recommendationsActive: "נוסחה פעילה",
+      recommendationsActiveNasdaq: "נוסחה פעילה לנאסד\"ק",
+      recommendationsActiveTlv: "נוסחה פעילה ל-TLV",
       recommendationsSubtitle: "בחרו, ערכו ופרסמו את נוסחת הדירוג לסינון.",
       recommendationsName: "שם",
       recommendationsDescription: "תיאור",
