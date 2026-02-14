@@ -420,7 +420,7 @@ export function ScreenerClient({
     document.documentElement.setAttribute("data-printing", "first-page");
     document.body.setAttribute("data-printing", "first-page");
 
-    let fallbackTimeoutId: ReturnType<typeof window.setTimeout> | null = null;
+    let fallbackTimeoutId: number | null = null;
     const onAfterPrint = () => {
       cleanupPrintMode();
       window.removeEventListener("afterprint", onAfterPrint);
