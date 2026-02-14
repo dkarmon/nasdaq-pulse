@@ -22,9 +22,15 @@ const RECOMMENDED_SORT_OPTIONS: SortPeriod[] = [
   "1d",
   "5d",
   "1m",
+  "3m",
   "6m",
   "12m",
 ];
+
+type BadgePayload = {
+  recommendation: Recommendation;
+  generatedAt: string;
+};
 
 function formatOrderingLabel(
   sortBy: SortPeriod,
@@ -40,6 +46,27 @@ function formatOrderingLabel(
     default:
       return sortBy.toUpperCase();
   }
+}
+
+function isRecommendation(value: unknown): value is Recommendation {
+  return value === "buy" || value === "hold" || value === "sell";
+}
+
+function parseBadgeMap(input: unknown): Record<string, BadgePayload> {
+  const map: Record<string, BadgePayload> = {};
+  if (!input || typeof input !== "object") return map;
+
+  for (const [symbol, value] of Object.entries(input as Record<string, unknown>)) {
+    if (!value || typeof value !== "object") continue;
+
+    const recommendation = (value as { recommendation?: unknown }).recommendation;
+    const generatedAt = (value as { generatedAt?: unknown }).generatedAt;
+    if (!isRecommendation(recommendation) || typeof generatedAt !== "string") continue;
+
+    map[String(symbol).toUpperCase()] = { recommendation, generatedAt };
+  }
+
+  return map;
 }
 
 function sortRecommendedStocks(
@@ -86,6 +113,8 @@ function sortRecommendedStocks(
       }
       case "6m":
         return (a.growth6m - b.growth6m) * direction;
+      case "3m":
+        return (a.growth3m - b.growth3m) * direction;
       case "12m":
         return (a.growth12m - b.growth12m) * direction;
       case "score": {
@@ -107,8 +136,8 @@ type ScreenerClientProps = {
   dict: Dictionary;
   onSelectStock: (symbol: string | null) => void;
   selectedSymbol: string | null;
-  activeFormulas: Record<Exchange, RecommendationFormulaSummary | null>;
-  onFormulaChange: (exchange: Exchange, formula: RecommendationFormulaSummary | null) => void;
+  activeFormulas?: Record<Exchange, RecommendationFormulaSummary | null>;
+  onFormulaChange?: (exchange: Exchange, formula: RecommendationFormulaSummary | null) => void;
   isAdmin: boolean;
   navContent: ReactNode;
 };
@@ -139,18 +168,18 @@ export function ScreenerClient({
   const [isLoading, setIsLoading] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [debouncedSearch, setDebouncedSearch] = useState("");
-  const [dailyAiBadges, setDailyAiBadges] = useState<Record<string, { recommendation: Recommendation; generatedAt: string }>>({});
+  const [dailyAiBadges, setDailyAiBadges] = useState<Record<string, BadgePayload>>({});
+  const [fallbackAiBadges, setFallbackAiBadges] = useState<Record<string, BadgePayload>>({});
   const [printTimestamp, setPrintTimestamp] = useState(() => new Date().toISOString());
 
-  // Debounce search to avoid excessive API calls
   useEffect(() => {
     const timer = setTimeout(() => setDebouncedSearch(searchQuery), 300);
     return () => clearTimeout(timer);
   }, [searchQuery]);
 
-  const activeFormula = activeFormulas[preferences.exchange] ?? null;
+  const resolvedActiveFormulas = activeFormulas ?? { nasdaq: null, tlv: null };
+  const activeFormula = resolvedActiveFormulas[preferences.exchange] ?? null;
 
-  // Get symbols of recommended stocks for live quotes
   const scoredStocks = useMemo(
     () => scoreStocksWithFormula(stocks, activeFormula ?? undefined),
     [stocks, activeFormula]
@@ -162,28 +191,20 @@ export function ScreenerClient({
       .map((s) => s.symbol);
   }, [scoredStocks]);
 
-  // Fetch live quotes for recommended stocks
   const { quotes: liveQuotes } = useLiveQuotes(recommendedSymbols);
 
-  // Fetch today's daily AI badge membership for the current exchange.
   useEffect(() => {
     if (!isLoaded) return;
 
     const exchange = preferences.exchange;
     fetch(`/api/daily-ai-badges?exchange=${exchange}`)
-      .then((res) => res.ok ? res.json() : null)
-      .then((data) => {
-        const badges = data?.badges ?? {};
-        const map: Record<string, { recommendation: Recommendation; generatedAt: string }> = {};
-        for (const [symbol, value] of Object.entries(badges)) {
-          const v = value as { recommendation?: Recommendation; generatedAt?: string } | null;
-          if (!v?.recommendation || !v?.generatedAt) continue;
-          map[String(symbol).toUpperCase()] = {
-            recommendation: v.recommendation,
-            generatedAt: v.generatedAt,
-          };
-        }
-        setDailyAiBadges(map);
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data: unknown) => {
+        const badges =
+          data && typeof data === "object"
+            ? (data as { badges?: unknown }).badges
+            : undefined;
+        setDailyAiBadges(parseBadgeMap(badges));
       })
       .catch(() => {
         setDailyAiBadges({});
@@ -195,7 +216,6 @@ export function ScreenerClient({
 
     setIsLoading(true);
     try {
-      // When searching or in recommended mode, fetch all stocks to ensure search can find anything
       const needsAllStocks = preferences.showRecommendedOnly || debouncedSearch;
       const limit = needsAllStocks ? 9999 : preferences.limit;
       const apiSortBy =
@@ -216,7 +236,7 @@ export function ScreenerClient({
       const data: ScreenerResponse = await response.json();
 
       setStocks(data.stocks);
-      onFormulaChange(preferences.exchange, data.recommendation?.activeFormula ?? null);
+      onFormulaChange?.(preferences.exchange, data.recommendation?.activeFormula ?? null);
     } catch (error) {
       console.error("Failed to fetch screener data:", error);
     } finally {
@@ -253,6 +273,7 @@ export function ScreenerClient({
     growth1d: dict.screener.growth1d,
     growth5d: dict.screener.growth5d,
     growth1m: dict.screener.growth1m,
+    growth3m: dict.screener.growth3m,
     growth6m: dict.screener.growth6m,
     growth12m: dict.screener.growth12m,
     view: dict.screener.view,
@@ -272,6 +293,115 @@ export function ScreenerClient({
     hold: dict.aiAnalysis?.hold ?? "Hold",
     sell: dict.aiAnalysis?.sell ?? "Sell",
   };
+
+  const visibleStocks = useMemo(() => {
+    let next = scoredStocks.filter(
+      (stock) => !currentHiddenSymbols.includes(stock.symbol)
+    );
+
+    if (searchQuery) {
+      const query = searchQuery.toLowerCase();
+      next = next.filter((stock) =>
+        stock.exchange === "tlv"
+          ? stock.nameHebrew?.toLowerCase().includes(query)
+          : stock.symbol.toLowerCase().includes(query)
+      );
+    }
+
+    if (preferences.showRecommendedOnly) {
+      const recommendedOnly = next.filter((stock) =>
+        typeof stock.recommendationScore === "number" &&
+        Number.isFinite(stock.recommendationScore) &&
+        (stock.recommendationScore ?? 0) > 0
+      );
+
+      const effectiveSort =
+        RECOMMENDED_SORT_OPTIONS.includes(preferences.sortBy) ? preferences.sortBy : "score";
+
+      next = sortRecommendedStocks(
+        recommendedOnly,
+        effectiveSort,
+        preferences.sortDirection,
+        liveQuotes
+      );
+    }
+
+    return next;
+  }, [
+    scoredStocks,
+    currentHiddenSymbols,
+    searchQuery,
+    preferences.showRecommendedOnly,
+    preferences.sortBy,
+    preferences.sortDirection,
+    liveQuotes,
+  ]);
+
+  const missingVisibleTop20Symbols = useMemo(() => {
+    return visibleStocks
+      .slice(0, 20)
+      .map((stock) => stock.symbol.toUpperCase())
+      .filter((symbol) => !dailyAiBadges[symbol]);
+  }, [visibleStocks, dailyAiBadges]);
+
+  const missingVisibleTop20Key = useMemo(
+    () => missingVisibleTop20Symbols.join(","),
+    [missingVisibleTop20Symbols]
+  );
+
+  const rankMap = useMemo(() => {
+    const map = new Map<string, number>();
+    visibleStocks.forEach((stock, index) => {
+      map.set(stock.symbol, index + 1);
+    });
+    return map;
+  }, [visibleStocks]);
+
+  useEffect(() => {
+    if (!isLoaded) return;
+    if (!missingVisibleTop20Key) {
+      setFallbackAiBadges((prev) => (Object.keys(prev).length === 0 ? prev : {}));
+      return;
+    }
+
+    const abortController = new AbortController();
+    const params = new URLSearchParams({ symbols: missingVisibleTop20Key });
+
+    fetch(`/api/analysis/badges?${params.toString()}`, { signal: abortController.signal })
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data: unknown) => {
+        const badges =
+          data && typeof data === "object"
+            ? (data as { badges?: unknown }).badges
+            : undefined;
+        const map = parseBadgeMap(badges);
+        setFallbackAiBadges((prev) => {
+          const prevKeys = Object.keys(prev);
+          const nextKeys = Object.keys(map);
+          if (prevKeys.length !== nextKeys.length) return map;
+          for (const key of nextKeys) {
+            if (
+              prev[key]?.recommendation !== map[key]?.recommendation ||
+              prev[key]?.generatedAt !== map[key]?.generatedAt
+            ) {
+              return map;
+            }
+          }
+          return prev;
+        });
+      })
+      .catch((error: unknown) => {
+        if (error instanceof Error && error.name === "AbortError") return;
+        setFallbackAiBadges((prev) => (Object.keys(prev).length === 0 ? prev : {}));
+      });
+
+    return () => abortController.abort();
+  }, [isLoaded, preferences.exchange, missingVisibleTop20Key]);
+
+  const mergedAiBadges = useMemo(
+    () => ({ ...fallbackAiBadges, ...dailyAiBadges }),
+    [fallbackAiBadges, dailyAiBadges]
+  );
 
   const cleanupPrintMode = useCallback(() => {
     if (typeof document === "undefined") return;
@@ -356,47 +486,6 @@ export function ScreenerClient({
     dict.screener.intraday,
   ]);
 
-  // Compute ranks before filtering - stocks are already sorted by the API
-  const rankMap = useMemo(() => {
-    const map = new Map<string, number>();
-    scoredStocks.forEach((stock, index) => {
-      map.set(stock.symbol, index + 1);
-    });
-    return map;
-  }, [scoredStocks]);
-
-  let visibleStocks = scoredStocks.filter(
-    (stock) => !currentHiddenSymbols.includes(stock.symbol)
-  );
-
-  // Client-side search: NASDAQ by ticker, TLV by Hebrew name
-  if (searchQuery) {
-    const query = searchQuery.toLowerCase();
-    visibleStocks = visibleStocks.filter((stock) =>
-      stock.exchange === "tlv"
-        ? stock.nameHebrew?.toLowerCase().includes(query)
-        : stock.symbol.toLowerCase().includes(query)
-    );
-  }
-
-  if (preferences.showRecommendedOnly) {
-    const recommendedOnly = visibleStocks.filter((stock) =>
-      typeof stock.recommendationScore === "number" &&
-      Number.isFinite(stock.recommendationScore) &&
-      (stock.recommendationScore ?? 0) > 0
-    );
-
-    const effectiveSort =
-      RECOMMENDED_SORT_OPTIONS.includes(preferences.sortBy) ? preferences.sortBy : "score";
-
-    visibleStocks = sortRecommendedStocks(
-      recommendedOnly,
-      effectiveSort,
-      preferences.sortDirection,
-      liveQuotes
-    );
-  }
-
   return (
     <div className={styles.screener}>
       <StickyHeader
@@ -415,7 +504,7 @@ export function ScreenerClient({
         onSearchChange={setSearchQuery}
         onShowRecommendedOnlyChange={setShowRecommendedOnly}
         isAdmin={isAdmin}
-        activeFormulas={activeFormulas}
+        activeFormulas={resolvedActiveFormulas}
         onFormulaChange={onFormulaChange}
         onRefresh={fetchScreenerData}
         onPrint={handlePrint}
@@ -450,7 +539,7 @@ export function ScreenerClient({
             onHideStock={hideStock}
             liveQuotes={liveQuotes}
             rankMap={rankMap}
-            aiBadges={dailyAiBadges}
+            aiBadges={mergedAiBadges}
             aiLabels={aiLabels}
             labels={tableLabels}
           />
@@ -463,7 +552,7 @@ export function ScreenerClient({
             onHideStock={hideStock}
             liveQuotes={liveQuotes}
             rankMap={rankMap}
-            aiBadges={dailyAiBadges}
+            aiBadges={mergedAiBadges}
             aiLabels={aiLabels}
             labels={cardLabels}
           />

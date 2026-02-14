@@ -70,6 +70,19 @@ describe("GET /api/screener", () => {
     }
   });
 
+  it("sorts by 3m when requested", async () => {
+    const request = createRequest({ sortBy: "3m" });
+    const response = await GET(request);
+    const data = await response.json();
+
+    expect(response.status).toBe(200);
+    for (let i = 0; i < data.stocks.length - 1; i++) {
+      expect(data.stocks[i].growth3m).toBeGreaterThanOrEqual(
+        data.stocks[i + 1].growth3m
+      );
+    }
+  });
+
   it("sorts by 1d when requested", async () => {
     const request = createRequest({ sortBy: "1d" });
     const response = await GET(request);
@@ -129,6 +142,7 @@ describe("GET /api/screener", () => {
     expect(stock.marketCap).toBeDefined();
     expect(stock.growth1d).toBeDefined();
     expect(stock.growth1m).toBeDefined();
+    expect(stock.growth3m).toBeDefined();
     expect(stock.growth6m).toBeDefined();
     expect(stock.growth12m).toBeDefined();
   });

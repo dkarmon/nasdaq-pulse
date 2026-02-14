@@ -43,6 +43,7 @@ export function PulseWrapper({ initialData, dict, locale, isAdmin, navContent }:
     growth1d: dict.screener.growth1d,
     growth5d: dict.screener.growth5d,
     growth1m: dict.screener.growth1m,
+    growth3m: dict.screener.growth3m,
     growth6m: dict.screener.growth6m,
     growth12m: dict.screener.growth12m,
     pe: dict.screener.pe,
@@ -57,6 +58,7 @@ export function PulseWrapper({ initialData, dict, locale, isAdmin, navContent }:
     sector: dict.screener.sector,
     industry: dict.screener.industry,
     marketCap: dict.screener.marketCap,
+    companyInfo: dict.screener.companyInfo,
     companyOverview: dict.screener.companyOverview,
     website: dict.screener.website,
   };

@@ -50,6 +50,7 @@ export type YahooGrowth = {
   growth1d: number;
   growth5d: number;
   growth1m: number;
+  growth3m: number;
   growth6m: number;
   growth12m: number;
 };
@@ -196,6 +197,7 @@ export async function getGrowthData(symbol: string): Promise<YahooGrowth | null>
     growth1d: calculateGrowthByTradingDays(closePrices, currentPrice, 2),
     growth5d: calculateGrowthByTradingDays(openPrices, currentPrice, 5),
     growth1m: calculateGrowthByCalendarMonths(closePrices, validTimestamps, 1),
+    growth3m: calculateGrowthByCalendarMonths(closePrices, validTimestamps, 3),
     growth6m: calculateGrowthByCalendarMonths(closePrices, validTimestamps, 6),
     growth12m: calculateGrowthByCalendarMonths(closePrices, validTimestamps, 12),
   };
@@ -280,6 +282,7 @@ export async function getQuoteAndGrowth(symbol: string): Promise<{
       growth1d: calculateGrowthByTradingDays(closePrices, currentPrice, 2),
       growth5d: calculateGrowthByTradingDays(openPrices, currentPrice, 5),
       growth1m: calculateGrowthByCalendarMonths(closePrices, validTimestamps, 1),
+      growth3m: calculateGrowthByCalendarMonths(closePrices, validTimestamps, 3),
       growth6m: calculateGrowthByCalendarMonths(closePrices, validTimestamps, 6),
       growth12m: calculateGrowthByCalendarMonths(closePrices, validTimestamps, 12),
     },

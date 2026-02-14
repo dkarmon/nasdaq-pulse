@@ -9,6 +9,7 @@ import { CollapsibleSection } from "./collapsible-section";
 import { StockAnalysis } from "./stock-analysis";
 import { useLiveQuotes } from "@/hooks/useLiveQuotes";
 import { isStockRecommended } from "@/lib/market-data/recommendation";
+import { localizeSectorName } from "@/lib/market-data/sector-translations";
 import type { StockDetailResponse, Stock } from "@/lib/market-data/types";
 import { formatGrowth, formatIntraday, formatPrice, formatMarketCap } from "@/lib/format";
 import styles from "./stock-detail.module.css";
@@ -25,6 +26,7 @@ type StockDetailProps = {
     growth1d: string;
     growth5d: string;
     growth1m: string;
+    growth3m: string;
     growth6m: string;
     growth12m: string;
     pe: string;
@@ -39,6 +41,7 @@ type StockDetailProps = {
     sector: string;
     industry: string;
     marketCap: string;
+    companyInfo: string;
     companyOverview: string;
     website: string;
   };
@@ -59,20 +62,23 @@ type StockDetailProps = {
 type CompanyMetaProps = {
   profile: StockDetailResponse["profile"];
   labels: StockDetailProps["labels"];
+  locale: string;
   wrapperClassName?: string;
 };
 
-function CompanyMeta({ profile, labels, wrapperClassName }: CompanyMetaProps): React.ReactNode {
+function CompanyMeta({ profile, labels, locale, wrapperClassName }: CompanyMetaProps): React.ReactNode {
   if (!profile.sector && !profile.industry && !profile.marketCap && !profile.website) {
     return null;
   }
 
+  const localizedSector = localizeSectorName(profile.sector, locale);
+
   return (
     <div className={wrapperClassName}>
-      {profile.sector && (
+      {localizedSector && (
         <div className={styles.infoRow}>
           <span className={styles.infoLabel}>{labels.sector}:</span>
-          <span className={styles.infoValue}>{profile.sector}</span>
+          <span className={styles.infoValue}>{localizedSector}</span>
         </div>
       )}
       {profile.industry && (
@@ -115,6 +121,7 @@ export function StockDetail({ symbol, onClose, locale = "en", activeFormula, lab
     const stockForCheck = {
       growth5d: detail.growth5d,
       growth1m: detail.growth1m,
+      growth3m: detail.growth3m,
       growth6m: detail.growth6m,
       growth12m: detail.growth12m,
     } as Stock;
@@ -172,13 +179,13 @@ export function StockDetail({ symbol, onClose, locale = "en", activeFormula, lab
     );
   }
 
-  const { profile, quote, history, growth1d, growth5d, growth1m, growth6m, growth12m, nameHebrew } = detail;
+  const { profile, quote, history, growth1d, growth5d, growth1m, growth3m, growth6m, growth12m, nameHebrew } = detail;
 
   const isTLV = symbol.endsWith(".TA");
   const currency = isTLV ? "ILS" : "USD";
   const primaryText = isTLV && nameHebrew ? nameHebrew : profile.symbol;
   const secondaryText = isTLV ? null : (nameHebrew || profile.name);
-  const stockForCheck = { growth5d, growth1m, growth6m, growth12m } as Stock;
+  const stockForCheck = { growth5d, growth1m, growth3m, growth6m, growth12m } as Stock;
   const isRecommended = isStockRecommended(stockForCheck, activeFormula ?? undefined);
 
   const hasCompanyInfo = profile.sector || profile.industry || profile.marketCap || profile.website || profile.description || profile.descriptionHebrew;
@@ -229,6 +236,7 @@ export function StockDetail({ symbol, onClose, locale = "en", activeFormula, lab
           { value: growth1d ?? 0, label: labels.growth1d },
           { value: growth5d ?? 0, label: labels.growth5d },
           { value: growth1m, label: labels.growth1m },
+          { value: growth3m, label: labels.growth3m },
           { value: growth6m, label: labels.growth6m },
           { value: growth12m, label: labels.growth12m },
         ] as const).map(({ value, label }) => (
@@ -260,8 +268,8 @@ export function StockDetail({ symbol, onClose, locale = "en", activeFormula, lab
       {/* Company Info - collapsible on mobile, collapsed by default */}
       {hasCompanyInfo && (
         <div className={styles.mobileCollapsible}>
-          <CollapsibleSection title="Company Info" defaultExpanded={false}>
-            <CompanyMeta profile={profile} labels={labels} wrapperClassName={styles.companyInfoInner} />
+          <CollapsibleSection title={labels.companyInfo} defaultExpanded={false}>
+            <CompanyMeta profile={profile} labels={labels} locale={locale} wrapperClassName={styles.companyInfoInner} />
             {(profile.description || profile.descriptionHebrew) && (
               <p className={styles.overviewText}>
                 {locale === "he" && profile.descriptionHebrew
@@ -277,7 +285,7 @@ export function StockDetail({ symbol, onClose, locale = "en", activeFormula, lab
       {hasCompanyInfo && (
         <div className={styles.desktopAlwaysVisible}>
           <div className={styles.companyPanel}>
-            <CompanyMeta profile={profile} labels={labels} wrapperClassName={styles.companyMeta} />
+            <CompanyMeta profile={profile} labels={labels} locale={locale} wrapperClassName={styles.companyMeta} />
             {(profile.description || profile.descriptionHebrew) && (
               <div className={styles.companyDescription}>
                 <h3 className={styles.overviewTitle}>{labels.companyOverview}</h3>

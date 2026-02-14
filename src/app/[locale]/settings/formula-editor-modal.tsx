@@ -15,6 +15,7 @@ import styles from "./settings.module.css";
 type FormulaFormState = {
   id?: string;
   name: string;
+  description: string;
   expression: string;
 };
 
@@ -32,7 +33,7 @@ export function FormulaEditorModal({
   onClose,
 }: FormulaEditorModalProps) {
   const [form, setForm] = useState<FormulaFormState>(
-    initialData ?? { name: "", expression: "" }
+    initialData ?? { name: "", description: "", expression: "" }
   );
   const [validation, setValidation] = useState<{ errors: string[]; warnings: string[] }>({
     errors: [],
@@ -56,6 +57,7 @@ export function FormulaEditorModal({
     growth1d: "1D",
     growth5d: dict.screener.growth5d,
     growth1m: dict.screener.growth1m,
+    growth3m: dict.screener.growth3m,
     growth6m: dict.screener.growth6m,
     growth12m: dict.screener.growth12m,
     stock: dict.screener.stock,
@@ -214,6 +216,17 @@ export function FormulaEditorModal({
         </div>
 
         <div className={styles.recoField}>
+          <label>{dict.settings.recommendationsDescription}</label>
+          <input
+            type="text"
+            value={form.description}
+            onChange={(e) => setForm({ ...form, description: e.target.value })}
+            className={styles.recoInput}
+            placeholder="10/25/4.5/2/0.2/0.15"
+          />
+        </div>
+
+        <div className={styles.recoField}>
           <label>{dict.settings.recommendationsExpression}</label>
           <textarea
             ref={expressionRef}
@@ -224,10 +237,10 @@ export function FormulaEditorModal({
             onKeyUp={handleSelectionChange}
             className={styles.recoTextarea}
             rows={5}
-            placeholder="(3*(g1m-g5d)/25 + 2*(g6m-g1m)/150 + (g12m-g6m)/182) * avg(g5d,g1m,g6m,g12m)"
+            placeholder="(3*(g1m-g5d)/25 + 2*(g3m-g1m)/60 + 2*(g6m-g3m)/90 + (g12m-g6m)/182) * avg(g5d,g1m,g3m,g6m,g12m)"
           />
           <div className={styles.tokenRow}>
-            {["g1d", "g5d", "g1m", "g6m", "g12m", "price", "marketCap"].map((token) => (
+            {["g1d", "g5d", "g1m", "g3m", "g6m", "g12m", "price", "marketCap"].map((token) => (
               <button
                 key={token}
                 type="button"
@@ -304,6 +317,7 @@ export function FormulaEditorModal({
                   <span role="columnheader">{screenerLabels.growth1d}</span>
                   <span role="columnheader">{screenerLabels.growth5d}</span>
                   <span role="columnheader">{screenerLabels.growth1m}</span>
+                  <span role="columnheader">{screenerLabels.growth3m}</span>
                   <span role="columnheader">{screenerLabels.growth6m}</span>
                   <span role="columnheader">{screenerLabels.growth12m}</span>
                 </div>
@@ -320,6 +334,7 @@ export function FormulaEditorModal({
                     <span role="cell">{formatGrowth(stock.growth1d)}</span>
                     <span role="cell">{formatGrowth(stock.growth5d)}</span>
                     <span role="cell">{formatGrowth(stock.growth1m)}</span>
+                    <span role="cell">{formatGrowth(stock.growth3m)}</span>
                     <span role="cell">{formatGrowth(stock.growth6m)}</span>
                     <span role="cell">{formatGrowth(stock.growth12m)}</span>
                   </div>
@@ -344,6 +359,7 @@ export function FormulaEditorModal({
                         <span>1D:{formatGrowth(stock.growth1d)}</span>
                         <span>5D:{formatGrowth(stock.growth5d)}</span>
                         <span>1M:{formatGrowth(stock.growth1m)}</span>
+                        <span>3M:{formatGrowth(stock.growth3m)}</span>
                         <span>6M:{formatGrowth(stock.growth6m)}</span>
                         <span>12M:{formatGrowth(stock.growth12m)}</span>
                       </div>
@@ -362,7 +378,7 @@ export function FormulaEditorModal({
           <button
             className={styles.primaryButton}
             onClick={handleSubmit}
-            disabled={loading || !form.name || !form.expression}
+            disabled={loading || !form.name.trim() || !form.expression.trim()}
           >
             {dict.settings.saveFormula}
           </button>

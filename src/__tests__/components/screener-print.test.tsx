@@ -28,6 +28,7 @@ const mockStock: Stock = {
   growth1d: 1.2,
   growth5d: 2.1,
   growth1m: 5.5,
+  growth3m: 6.9,
   growth6m: 8.3,
   growth12m: 12.8,
   updatedAt: new Date().toISOString(),

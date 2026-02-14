@@ -6,6 +6,7 @@
 import { useEffect } from "react";
 import type { SortPeriod, SortDirection } from "@/lib/market-data/types";
 import type { RecommendationFormulaSummary } from "@/lib/recommendations/types";
+import { formatFormulaSelectLabel } from "@/lib/recommendations/display";
 import { LIMIT_OPTIONS, formatSortLabel } from "./controls-bar";
 import styles from "./filter-sheet.module.css";
 
@@ -165,7 +166,7 @@ export function FilterSheet({
             >
               {formulas.map((formula) => (
                 <option key={formula.id} value={formula.id}>
-                  {formula.name}
+                  {formatFormulaSelectLabel(formula.name, formula.description)}
                 </option>
               ))}
             </select>

@@ -13,6 +13,7 @@ export type StockMetrics = {
   growth1d?: number;
   growth5d?: number;
   growth1m: number;
+  growth3m: number;
   growth6m: number;
   growth12m: number;
   price: number;
@@ -121,4 +122,3 @@ export async function generateStockAnalysis(
     modelVersion: MODEL_VERSION,
   };
 }
-

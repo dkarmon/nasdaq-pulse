@@ -3,7 +3,7 @@
 
 export type Exchange = "nasdaq" | "tlv";
 
-export type SortPeriod = "score" | "intraday" | "1d" | "5d" | "1m" | "6m" | "12m" | "az";
+export type SortPeriod = "score" | "intraday" | "1d" | "5d" | "1m" | "3m" | "6m" | "12m" | "az";
 
 export type SortDirection = "asc" | "desc";
 
@@ -18,6 +18,7 @@ export type Stock = {
   growth1d?: number;
   growth5d?: number;
   growth1m: number;
+  growth3m: number;
   growth6m: number;
   growth12m: number;
   updatedAt: string;
@@ -95,6 +96,7 @@ export type StockDetailResponse = {
   growth1d?: number;
   growth5d?: number;
   growth1m: number;
+  growth3m: number;
   growth6m: number;
   growth12m: number;
   updatedAt: string;
@@ -106,7 +108,7 @@ export type NewsResponse = {
   updatedAt: string;
 };
 
-export type OmitField = "price" | "marketCap" | "growth1d" | "growth5d" | "growth1m" | "growth6m" | "growth12m";
+export type OmitField = "price" | "marketCap" | "growth1d" | "growth5d" | "growth1m" | "growth3m" | "growth6m" | "growth12m";
 
 export type OmitRule = {
   field: OmitField;

@@ -108,7 +108,7 @@ export function StockCard({
           <div className={styles.symbolSection}>
             <span className={styles.symbol}>
               {rank !== undefined && (
-                <span className={styles.rankBadge}>#{rank}</span>
+                <span className={styles.rankBadge}>{rank}</span>
               )}
               {isRecommended && (
                 <span className={styles.starIcon} title={recommendedLabel}>★</span>
@@ -124,7 +124,7 @@ export function StockCard({
                 data-positive={liveQuote.changePercent >= 0}
                 data-negative={liveQuote.changePercent < 0}
               >
-                ({formatIntraday(liveQuote.changePercent)})
+                {formatIntraday(liveQuote.changePercent)}
               </span>
             )}
             {aiBadge && aiLabels && (
@@ -155,6 +155,7 @@ export function StockCard({
             { period: "1d", value: stock.growth1d ?? 0 },
             { period: "5d", value: stock.growth5d ?? 0 },
             { period: "1m", value: stock.growth1m },
+            { period: "3m", value: stock.growth3m },
             { period: "6m", value: stock.growth6m },
             { period: "12m", value: stock.growth12m },
           ] as const).map(({ period, value }) => (

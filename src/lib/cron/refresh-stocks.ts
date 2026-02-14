@@ -204,6 +204,7 @@ async function refreshExchangeStocksInRange(
           growth1d: data.growth.growth1d,
           growth5d: data.growth.growth5d,
           growth1m: data.growth.growth1m,
+          growth3m: data.growth.growth3m,
           growth6m: data.growth.growth6m,
           growth12m: data.growth.growth12m,
           updatedAt: new Date().toISOString(),

@@ -23,6 +23,7 @@ function parseSortPeriod(value: string | null): SortPeriod {
     value === "1d" ||
     value === "5d" ||
     value === "1m" ||
+    value === "3m" ||
     value === "6m" ||
     value === "12m" ||
     value === "az"
@@ -55,6 +56,17 @@ function parseBoolean(value: string | null): boolean {
   return value === "true" || value === "1";
 }
 
+function normalizeGrowth3m(stock: Stock): Stock {
+  if (typeof stock.growth3m === "number" && Number.isFinite(stock.growth3m)) {
+    return stock;
+  }
+
+  return {
+    ...stock,
+    growth3m: (stock.growth1m + stock.growth6m) / 2,
+  };
+}
+
 function sortStocks(stocks: Stock[], sortBy: SortPeriod): Stock[] {
   const sorted = [...stocks];
   sorted.sort((a, b) => {
@@ -65,6 +77,7 @@ function sortStocks(stocks: Stock[], sortBy: SortPeriod): Stock[] {
       case "1d": return (b.growth1d ?? 0) - (a.growth1d ?? 0);
       case "5d": return (b.growth5d ?? 0) - (a.growth5d ?? 0);
       case "1m": return b.growth1m - a.growth1m;
+      case "3m": return b.growth3m - a.growth3m;
       case "6m": return b.growth6m - a.growth6m;
       case "12m": return b.growth12m - a.growth12m;
       case "az": {
@@ -91,7 +104,7 @@ async function fetchScreenerData(params: ScreenerParams, search?: string, userId
   const lastUpdated = await getLastUpdated(exchange);
 
   if (stocks.length > 0) {
-    let filtered = stocks;
+    let filtered = stocks.map(normalizeGrowth3m);
 
     // Apply search filter (matches symbol, name, or Hebrew name)
     if (search && search.length > 0) {
