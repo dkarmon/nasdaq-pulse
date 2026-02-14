@@ -26,7 +26,6 @@ const RECOMMENDED_SORT_OPTIONS: SortPeriod[] = [
   "6m",
   "12m",
 ];
-const PRINT_ROW_LIMIT = 12;
 
 type BadgePayload = {
   recommendation: Recommendation;
@@ -533,19 +532,6 @@ export function ScreenerClient({
     dict.screener.intraday,
   ]);
 
-  const printStocks = useMemo(
-    () => visibleStocks.slice(0, PRINT_ROW_LIMIT),
-    [visibleStocks]
-  );
-
-  const printRankMap = useMemo(() => {
-    const map = new Map<string, number>();
-    printStocks.forEach((stock, index) => {
-      map.set(stock.symbol, index + 1);
-    });
-    return map;
-  }, [printStocks]);
-
   return (
     <div className={styles.screener}>
       <StickyHeader
@@ -616,21 +602,6 @@ export function ScreenerClient({
             </span>
           </p>
         </section>
-
-        <div className={styles.printTableOnly}>
-          <StockTable
-            stocks={printStocks}
-            sortBy={preferences.sortBy}
-            selectedSymbol={null}
-            onSelectStock={() => {}}
-            onHideStock={() => {}}
-            liveQuotes={liveQuotes}
-            rankMap={printRankMap}
-            aiBadges={mergedAiBadges}
-            aiLabels={aiLabels}
-            labels={tableLabels}
-          />
-        </div>
 
         <div className={styles.stockList} data-loading={isLoading} data-testid="screener-stock-list">
           <StockTable

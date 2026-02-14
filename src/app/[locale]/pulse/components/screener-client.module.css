@@ -31,10 +31,6 @@
   min-width: 0;
 }
 
-.printTableOnly {
-  display: none;
-}
-
 .cachedNotice {
   margin-bottom: 16px;
 }
@@ -100,11 +96,10 @@
     max-width: 24ch;
   }
 
-  .printTableOnly {
-    display: block;
-  }
-
   .stockList {
-    display: none !important;
+    display: block !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    transition: none !important;
   }
 }
