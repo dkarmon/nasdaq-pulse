@@ -4,7 +4,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Download, RotateCw, MoreVertical } from "lucide-react";
+import { Download, RotateCw, MoreVertical, Printer } from "lucide-react";
 import type { Stock, SortPeriod, SortDirection, Exchange } from "@/lib/market-data/types";
 import type { RecommendationFormulaSummary } from "@/lib/recommendations/types";
 import { exportToExcel } from "@/lib/excel-export";
@@ -29,6 +29,7 @@ type ControlsBarProps = {
   activeFormula?: RecommendationFormulaSummary | null;
   onFormulaChange?: (formula: RecommendationFormulaSummary) => void;
   onRefresh?: () => void;
+  onPrint?: () => void;
   isRefreshing?: boolean;
   visibleStocks?: Stock[];
   rankMap?: Map<string, number>;
@@ -44,6 +45,7 @@ type ControlsBarProps = {
     nasdaq: string;
     tlv: string;
     formula?: string;
+    print?: string;
   };
 };
 
@@ -94,6 +96,7 @@ export function ControlsBar({
   activeFormula,
   onFormulaChange,
   onRefresh,
+  onPrint,
   isRefreshing = false,
   visibleStocks,
   rankMap,
@@ -280,6 +283,17 @@ export function ControlsBar({
               title="Export to Excel"
             >
               <Download size={18} />
+            </button>
+          )}
+
+          {onPrint && (
+            <button
+              className={styles.printButton}
+              onClick={onPrint}
+              title={labels.print || "Print"}
+              aria-label={labels.print || "Print"}
+            >
+              <Printer size={18} />
             </button>
           )}
         </div>

@@ -6,6 +6,35 @@
   flex-direction: column;
 }
 
+.printPage {
+  display: flex;
+  flex-direction: column;
+}
+
+.printSummary {
+  display: none;
+}
+
+.printTitle {
+  margin: 0 0 8px;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #000;
+}
+
+.printMetaGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px 16px;
+}
+
+.printMetaGrid p {
+  margin: 0;
+  font-size: 0.72rem;
+  line-height: 1.35;
+  color: #000;
+}
+
 .cachedNotice {
   margin-bottom: 16px;
 }
@@ -17,4 +46,32 @@
 .stockList[data-loading="true"] {
   opacity: 0.6;
   pointer-events: none;
+}
+
+@media print {
+  .screener {
+    color: #000 !important;
+    background: #fff !important;
+  }
+
+  .printPage {
+    height: 190mm;
+    overflow: hidden;
+  }
+
+  .printSummary {
+    display: block;
+    margin: 0 0 8px;
+    padding: 6px 8px;
+    border: 1px solid #000;
+    background: #fff !important;
+    break-inside: avoid;
+  }
+
+  .stockList {
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    transition: none !important;
+    overflow: hidden;
+  }
 }
