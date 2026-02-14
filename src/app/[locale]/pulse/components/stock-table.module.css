@@ -220,7 +220,8 @@
     border: 1px solid #111827 !important;
     border-radius: 0;
     background: #fff !important;
-    break-inside: avoid;
+    break-inside: auto;
+    page-break-inside: auto;
   }
 
   .table {
