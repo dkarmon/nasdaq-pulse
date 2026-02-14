@@ -42,6 +42,7 @@ const mockInitialData: ScreenerResponse = {
 };
 
 const mockDict = getDictionary("en");
+const emptyFormulas = { nasdaq: null, tlv: null } as const;
 
 describe("ScreenerClient print", () => {
   beforeEach(() => {
@@ -100,7 +101,7 @@ describe("ScreenerClient print", () => {
         dict={mockDict}
         onSelectStock={vi.fn()}
         selectedSymbol={null}
-        activeFormula={null}
+        activeFormulas={emptyFormulas}
         onFormulaChange={vi.fn()}
         isAdmin={false}
         navContent={<div>Nav</div>}
@@ -125,13 +126,16 @@ describe("ScreenerClient print", () => {
         dict={mockDict}
         onSelectStock={vi.fn()}
         selectedSymbol={null}
-        activeFormula={{
-          id: "f1",
-          name: "Momentum",
-          description: "Growth + intraday",
-          expression: "growth1m",
-          status: "published",
-          version: 1,
+        activeFormulas={{
+          nasdaq: {
+            id: "f1",
+            name: "Momentum",
+            description: "Growth + intraday",
+            expression: "growth1m",
+            status: "published",
+            version: 1,
+          },
+          tlv: null,
         }}
         onFormulaChange={vi.fn()}
         isAdmin={false}
@@ -153,7 +157,7 @@ describe("ScreenerClient print", () => {
         dict={mockDict}
         onSelectStock={vi.fn()}
         selectedSymbol={null}
-        activeFormula={null}
+        activeFormulas={emptyFormulas}
         onFormulaChange={vi.fn()}
         isAdmin={false}
         navContent={<div>Nav</div>}
