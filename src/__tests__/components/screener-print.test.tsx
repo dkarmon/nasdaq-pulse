@@ -2,7 +2,7 @@
 // ABOUTME: Verifies print trigger and print summary metadata rendering.
 
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
-import { render, screen, waitFor } from "@testing-library/react";
+import { act, render, screen, waitFor, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { ScreenerClient } from "@/app/[locale]/pulse/components/screener-client";
 import type { ScreenerResponse, Stock } from "@/lib/market-data/types";
@@ -44,6 +44,14 @@ const mockInitialData: ScreenerResponse = {
 
 const mockDict = getDictionary("en");
 const emptyFormulas = { nasdaq: null, tlv: null } as const;
+
+function makeStock(symbol: string): Stock {
+  return {
+    ...mockStock,
+    symbol,
+    name: `Stock ${symbol}`,
+  };
+}
 
 describe("ScreenerClient print", () => {
   beforeEach(() => {
@@ -170,12 +178,74 @@ describe("ScreenerClient print", () => {
     const printButton = await screen.findByRole("button", { name: "Print" });
     await user.click(printButton);
 
-    expect(window.print).toHaveBeenCalledTimes(1);
+    await waitFor(() => {
+      expect(window.print).toHaveBeenCalledTimes(1);
+    });
     expect(document.body.getAttribute("data-printing")).toBe("first-page");
     expect(document.title).toMatch(/^Nasdaq Pulse \d{4}-\d{2}-\d{2} \d{2}-\d{2}-\d{2}$/);
 
-    window.dispatchEvent(new Event("afterprint"));
+    act(() => {
+      window.dispatchEvent(new Event("afterprint"));
+    });
     expect(document.body.getAttribute("data-printing")).toBeNull();
     expect(document.title).toBe("Nasdaq Pulse");
+  });
+
+  it("prints 50 rows even when on-screen show limit is lower", async () => {
+    const user = userEvent.setup();
+
+    mockPreferences.mockReturnValue({
+      preferences: {
+        sortBy: "1m",
+        sortDirection: "desc",
+        limit: 25,
+        exchange: "nasdaq",
+        showRecommendedOnly: false,
+      },
+      isLoaded: false,
+      setSortBy: vi.fn(),
+      setSortDirection: vi.fn(),
+      setLimit: vi.fn(),
+      setExchange: vi.fn(),
+      hideStock: vi.fn(),
+      setShowRecommendedOnly: vi.fn(),
+      currentHiddenSymbols: [],
+    });
+
+    const manyStocks = Array.from({ length: 60 }, (_, index) =>
+      makeStock(`STK${index + 1}`)
+    );
+
+    render(
+      <ScreenerClient
+        initialData={{ ...mockInitialData, stocks: manyStocks }}
+        dict={mockDict}
+        onSelectStock={vi.fn()}
+        selectedSymbol={null}
+        activeFormulas={emptyFormulas}
+        onFormulaChange={vi.fn()}
+        isAdmin={false}
+        navContent={<div>Nav</div>}
+      />
+    );
+
+    const stockList = screen.getByTestId("screener-stock-list");
+    expect(within(stockList).getAllByRole("row")).toHaveLength(26);
+
+    const printButton = await screen.findByRole("button", { name: "Print" });
+    await user.click(printButton);
+
+    await waitFor(() => {
+      expect(window.print).toHaveBeenCalledTimes(1);
+      expect(within(stockList).getAllByRole("row")).toHaveLength(51);
+    });
+
+    act(() => {
+      window.dispatchEvent(new Event("afterprint"));
+    });
+
+    await waitFor(() => {
+      expect(within(stockList).getAllByRole("row")).toHaveLength(26);
+    });
   });
 });

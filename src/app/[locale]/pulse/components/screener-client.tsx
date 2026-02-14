@@ -26,6 +26,7 @@ const RECOMMENDED_SORT_OPTIONS: SortPeriod[] = [
   "6m",
   "12m",
 ];
+const PRINT_RECORD_COUNT = 50;
 
 type BadgePayload = {
   recommendation: Recommendation;
@@ -185,6 +186,7 @@ export function ScreenerClient({
 
   const [stocks, setStocks] = useState<Stock[]>(initialData.stocks);
   const [isLoading, setIsLoading] = useState(false);
+  const [isPrinting, setIsPrinting] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [debouncedSearch, setDebouncedSearch] = useState("");
   const [dailyAiBadges, setDailyAiBadges] = useState<Record<string, BadgePayload>>({});
@@ -258,7 +260,7 @@ export function ScreenerClient({
     setIsLoading(true);
     try {
       const needsAllStocks = preferences.showRecommendedOnly || debouncedSearch;
-      const limit = needsAllStocks ? 9999 : preferences.limit;
+      const limit = needsAllStocks ? 9999 : Math.max(preferences.limit, PRINT_RECORD_COUNT);
       const apiSortBy =
         preferences.showRecommendedOnly &&
         (preferences.sortBy === "score" || preferences.sortBy === "intraday")
@@ -393,6 +395,23 @@ export function ScreenerClient({
     liveQuotes,
   ]);
 
+  const displayedStocks = useMemo(() => {
+    if (preferences.showRecommendedOnly || searchQuery) {
+      return visibleStocks;
+    }
+    return visibleStocks.slice(0, preferences.limit);
+  }, [
+    visibleStocks,
+    preferences.showRecommendedOnly,
+    preferences.limit,
+    searchQuery,
+  ]);
+
+  const printStocks = useMemo(
+    () => visibleStocks.slice(0, PRINT_RECORD_COUNT),
+    [visibleStocks]
+  );
+
   const missingVisibleTop20Symbols = useMemo(() => {
     return visibleStocks
       .slice(0, 20)
@@ -405,13 +424,24 @@ export function ScreenerClient({
     [missingVisibleTop20Symbols]
   );
 
-  const rankMap = useMemo(() => {
+  const displayedRankMap = useMemo(() => {
     const map = new Map<string, number>();
-    visibleStocks.forEach((stock, index) => {
+    displayedStocks.forEach((stock, index) => {
       map.set(stock.symbol, index + 1);
     });
     return map;
-  }, [visibleStocks]);
+  }, [displayedStocks]);
+
+  const printRankMap = useMemo(() => {
+    const map = new Map<string, number>();
+    printStocks.forEach((stock, index) => {
+      map.set(stock.symbol, index + 1);
+    });
+    return map;
+  }, [printStocks]);
+
+  const activeTableStocks = isPrinting ? printStocks : displayedStocks;
+  const activeRankMap = isPrinting ? printRankMap : displayedRankMap;
 
   useEffect(() => {
     if (!isLoaded) return;
@@ -475,12 +505,14 @@ export function ScreenerClient({
     const printNow = new Date();
     const originalTitle = document.title;
     document.title = `Nasdaq Pulse ${formatPrintTitleTimestamp(printNow)}`;
+    setIsPrinting(true);
     setPrintTimestamp(printNow.toISOString());
     document.documentElement.setAttribute("data-printing", "first-page");
     document.body.setAttribute("data-printing", "first-page");
 
     let fallbackTimeoutId: ReturnType<typeof setTimeout> | null = null;
     const onAfterPrint = () => {
+      setIsPrinting(false);
       document.title = originalTitle;
       cleanupPrintMode();
       window.removeEventListener("afterprint", onAfterPrint);
@@ -489,9 +521,20 @@ export function ScreenerClient({
       }
     };
 
-    window.addEventListener("afterprint", onAfterPrint);
-    fallbackTimeoutId = setTimeout(onAfterPrint, 1500);
-    window.print();
+    const triggerPrint = () => {
+      window.addEventListener("afterprint", onAfterPrint);
+      fallbackTimeoutId = setTimeout(onAfterPrint, 1500);
+      window.print();
+    };
+
+    const scheduleFrame =
+      typeof window.requestAnimationFrame === "function"
+        ? window.requestAnimationFrame.bind(window)
+        : (callback: FrameRequestCallback) => window.setTimeout(callback, 0);
+
+    scheduleFrame(() => {
+      scheduleFrame(triggerPrint);
+    });
   }, [cleanupPrintMode]);
 
   const printMeta = useMemo(() => {
@@ -569,8 +612,8 @@ export function ScreenerClient({
         onRefresh={fetchScreenerData}
         onPrint={handlePrint}
         isRefreshing={isLoading}
-        visibleStocks={visibleStocks}
-        rankMap={rankMap}
+        visibleStocks={displayedStocks}
+        rankMap={displayedRankMap}
         labels={controlLabels}
       />
 
@@ -619,26 +662,26 @@ export function ScreenerClient({
 
         <div className={styles.stockList} data-loading={isLoading} data-testid="screener-stock-list">
           <StockTable
-            stocks={visibleStocks}
+            stocks={activeTableStocks}
             sortBy={preferences.sortBy}
             selectedSymbol={selectedSymbol}
             onSelectStock={onSelectStock}
             onHideStock={hideStock}
             liveQuotes={liveQuotes}
-            rankMap={rankMap}
+            rankMap={activeRankMap}
             aiBadges={mergedAiBadges}
             aiLabels={aiLabels}
             labels={tableLabels}
           />
 
           <StockCardList
-            stocks={visibleStocks}
+            stocks={displayedStocks}
             sortBy={preferences.sortBy}
             selectedSymbol={selectedSymbol}
             onSelectStock={onSelectStock}
             onHideStock={hideStock}
             liveQuotes={liveQuotes}
-            rankMap={rankMap}
+            rankMap={displayedRankMap}
             aiBadges={mergedAiBadges}
             aiLabels={aiLabels}
             labels={cardLabels}

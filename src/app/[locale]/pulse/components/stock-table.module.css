@@ -252,7 +252,7 @@
     height: 6.3mm;
   }
 
-  .table tbody tr:nth-child(n + 13) {
+  .table tbody tr:nth-child(n + 51) {
     display: none;
   }
 
