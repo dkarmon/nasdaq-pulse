@@ -101,6 +101,8 @@ export type Dictionary = {
     tlv: string;
     print: string;
     printedAt: string;
+    printDate: string;
+    printTime: string;
     ordering: string;
     query: string;
     formula: string;
@@ -351,6 +353,8 @@ export const dictionaries: Record<Locale, Dictionary> = {
       tlv: "Tel Aviv",
       print: "Print",
       printedAt: "Printed at",
+      printDate: "Date",
+      printTime: "Time",
       ordering: "Ordering",
       query: "Query",
       formula: "Formula",
@@ -594,6 +598,8 @@ export const dictionaries: Record<Locale, Dictionary> = {
       tlv: "תל אביב",
       print: "הדפסה",
       printedAt: "הודפס בתאריך",
+      printDate: "תאריך",
+      printTime: "שעה",
       ordering: "סידור",
       query: "חיפוש",
       formula: "נוסחה",

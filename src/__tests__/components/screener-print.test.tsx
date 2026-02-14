@@ -114,7 +114,34 @@ describe("ScreenerClient print", () => {
     expect(screen.getByText("Exchange:")).toBeInTheDocument();
     expect(screen.getByText("Recommended only:")).toBeInTheDocument();
     expect(screen.getByText("Query:")).toBeInTheDocument();
-    expect(screen.getByText("Printed at:")).toBeInTheDocument();
+    expect(screen.getByText("Date:")).toBeInTheDocument();
+    expect(screen.getByText("Time:")).toBeInTheDocument();
+  });
+
+  it("shows formula as title - subtitle when both are available", async () => {
+    render(
+      <ScreenerClient
+        initialData={mockInitialData}
+        dict={mockDict}
+        onSelectStock={vi.fn()}
+        selectedSymbol={null}
+        activeFormula={{
+          id: "f1",
+          name: "Momentum",
+          description: "Growth + intraday",
+          expression: "growth1m",
+          status: "published",
+          version: 1,
+        }}
+        onFormulaChange={vi.fn()}
+        isAdmin={false}
+        navContent={<div>Nav</div>}
+      />
+    );
+
+    await waitFor(() => {
+      expect(screen.getByText("Momentum - Growth + intraday")).toBeInTheDocument();
+    });
   });
 
   it("calls window.print from the desktop print button and clears print mode after afterprint", async () => {

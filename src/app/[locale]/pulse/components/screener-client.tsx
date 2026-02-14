@@ -314,11 +314,17 @@ export function ScreenerClient({
     const recommendedLabel = preferences.showRecommendedOnly
       ? dict.screener.printOn
       : dict.screener.printOff;
-    const formulaLabel = activeFormula?.name || dict.screener.printNone;
+    const formulaName = activeFormula?.name?.trim();
+    const formulaSubtitle = activeFormula?.description?.trim();
+    const formulaLabel = formulaName
+      ? [formulaName, formulaSubtitle].filter(Boolean).join(" - ")
+      : dict.screener.printNone;
     const queryLabel = searchQuery.trim() || dict.screener.printNone;
-    const printedAtLabel = new Intl.DateTimeFormat(undefined, {
+    const printDateLabel = new Intl.DateTimeFormat(undefined, {
       dateStyle: "medium",
-      timeStyle: "short",
+    }).format(new Date(printTimestamp));
+    const printTimeLabel = new Intl.DateTimeFormat(undefined, {
+      timeStyle: "medium",
     }).format(new Date(printTimestamp));
 
     return {
@@ -328,7 +334,8 @@ export function ScreenerClient({
       recommendedLabel,
       formulaLabel,
       queryLabel,
-      printedAtLabel,
+      printDateLabel,
+      printTimeLabel,
     };
   }, [
     preferences.exchange,
@@ -336,6 +343,7 @@ export function ScreenerClient({
     preferences.sortDirection,
     preferences.showRecommendedOnly,
     activeFormula?.name,
+    activeFormula?.description,
     searchQuery,
     printTimestamp,
     dict.screener.nasdaq,
@@ -427,7 +435,8 @@ export function ScreenerClient({
             <p><strong>{dict.screener.recommendedOnly}:</strong> {printMeta.recommendedLabel}</p>
             <p><strong>{dict.screener.query}:</strong> {printMeta.queryLabel}</p>
             <p><strong>{dict.screener.formula}:</strong> {printMeta.formulaLabel}</p>
-            <p><strong>{dict.screener.printedAt}:</strong> {printMeta.printedAtLabel}</p>
+            <p><strong>{dict.screener.printDate}:</strong> {printMeta.printDateLabel}</p>
+            <p><strong>{dict.screener.printTime}:</strong> {printMeta.printTimeLabel}</p>
           </div>
         </section>
 
