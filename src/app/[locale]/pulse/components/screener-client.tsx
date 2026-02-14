@@ -57,6 +57,16 @@ function formatOrderingLabel(
   }
 }
 
+function formatPrintTitleTimestamp(date: Date): string {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+  const hours = String(date.getHours()).padStart(2, "0");
+  const minutes = String(date.getMinutes()).padStart(2, "0");
+  const seconds = String(date.getSeconds()).padStart(2, "0");
+  return `${year}-${month}-${day} ${hours}-${minutes}-${seconds}`;
+}
+
 function isRecommendation(value: unknown): value is Recommendation {
   return value === "buy" || value === "hold" || value === "sell";
 }
@@ -462,12 +472,16 @@ export function ScreenerClient({
   const handlePrint = useCallback(() => {
     if (typeof window === "undefined" || typeof document === "undefined") return;
 
-    setPrintTimestamp(new Date().toISOString());
+    const printNow = new Date();
+    const originalTitle = document.title;
+    document.title = `Nasdaq Pulse ${formatPrintTitleTimestamp(printNow)}`;
+    setPrintTimestamp(printNow.toISOString());
     document.documentElement.setAttribute("data-printing", "first-page");
     document.body.setAttribute("data-printing", "first-page");
 
     let fallbackTimeoutId: ReturnType<typeof setTimeout> | null = null;
     const onAfterPrint = () => {
+      document.title = originalTitle;
       cleanupPrintMode();
       window.removeEventListener("afterprint", onAfterPrint);
       if (fallbackTimeoutId) {

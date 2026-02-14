@@ -47,6 +47,8 @@ const emptyFormulas = { nasdaq: null, tlv: null } as const;
 
 describe("ScreenerClient print", () => {
   beforeEach(() => {
+    document.title = "Nasdaq Pulse";
+
     mockPreferences.mockReturnValue({
       preferences: {
         sortBy: "1m",
@@ -170,8 +172,10 @@ describe("ScreenerClient print", () => {
 
     expect(window.print).toHaveBeenCalledTimes(1);
     expect(document.body.getAttribute("data-printing")).toBe("first-page");
+    expect(document.title).toMatch(/^Nasdaq Pulse \d{4}-\d{2}-\d{2} \d{2}-\d{2}-\d{2}$/);
 
     window.dispatchEvent(new Event("afterprint"));
     expect(document.body.getAttribute("data-printing")).toBeNull();
+    expect(document.title).toBe("Nasdaq Pulse");
   });
 });
