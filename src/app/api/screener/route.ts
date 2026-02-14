@@ -112,7 +112,7 @@ async function fetchScreenerData(params: ScreenerParams, search?: string, userId
     filtered = applyOmitRules(filtered, omitRules, exchange);
     filtered = sortStocks(filtered, params.sortBy);
 
-    const activeFormula = await fetchActiveFormula({ fallbackToDefault: true });
+    const activeFormula = await fetchActiveFormula(exchange, { fallbackToDefault: true });
     let recommendationApplied: Stock[] = filtered;
 
     if (recommendedOnly) {
@@ -139,7 +139,7 @@ async function fetchScreenerData(params: ScreenerParams, search?: string, userId
   // Fall back to mock data if Redis is empty (only for NASDAQ)
   if (exchange === "nasdaq") {
     const response = await getMockScreenerData(params);
-    const activeFormula = await fetchActiveFormula({ fallbackToDefault: true });
+    const activeFormula = await fetchActiveFormula(exchange, { fallbackToDefault: true });
     let mockStocks = applyOmitRules(response.stocks, omitRules, exchange);
 
     if (recommendedOnly) {
@@ -164,7 +164,7 @@ async function fetchScreenerData(params: ScreenerParams, search?: string, userId
     source: "cached",
     exchange,
     recommendation: {
-      activeFormula: summarizeFormula(await fetchActiveFormula({ fallbackToDefault: true })),
+      activeFormula: summarizeFormula(await fetchActiveFormula(exchange, { fallbackToDefault: true })),
     },
   };
 }

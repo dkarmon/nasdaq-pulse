@@ -6,6 +6,7 @@ import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { ScreenerClient } from "@/app/[locale]/pulse/components/screener-client";
 import type { ScreenerResponse, Stock } from "@/lib/market-data/types";
+import type { Dictionary } from "@/lib/i18n";
 
 // Track fetch calls
 let fetchCalls: { url: string; params: URLSearchParams }[] = [];
@@ -68,7 +69,7 @@ const mockDict = {
     hide: "Hide",
     recommended: "Recommended",
   },
-} as any;
+} as unknown as Dictionary;
 
 // Mock usePreferences with a factory that can be configured
 const mockPreferences = vi.fn();
@@ -110,7 +111,13 @@ describe("ScreenerClient search", () => {
     mockPreferences.mockReturnValue(nasdaqPreferences());
 
     // Mock fetch to track calls and return appropriate data
-    global.fetch = vi.fn(async (url: string) => {
+    global.fetch = vi.fn(async (input: string | URL | Request) => {
+      const url =
+        typeof input === "string"
+          ? input
+          : input instanceof URL
+            ? input.toString()
+            : input.url;
       const urlObj = new URL(url, "http://localhost:3000");
       const params = urlObj.searchParams;
       fetchCalls.push({ url, params });
@@ -146,7 +153,7 @@ describe("ScreenerClient search", () => {
         dict={mockDict}
         onSelectStock={vi.fn()}
         selectedSymbol={null}
-        activeFormula={null}
+        activeFormulas={{ nasdaq: null, tlv: null }}
         onFormulaChange={vi.fn()}
         isAdmin={false}
         navContent={<div>Nav</div>}
@@ -190,7 +197,7 @@ describe("ScreenerClient search", () => {
         dict={mockDict}
         onSelectStock={vi.fn()}
         selectedSymbol={null}
-        activeFormula={null}
+        activeFormulas={{ nasdaq: null, tlv: null }}
         onFormulaChange={vi.fn()}
         isAdmin={false}
         navContent={<div>Nav</div>}
@@ -230,7 +237,7 @@ describe("ScreenerClient search", () => {
         dict={mockDict}
         onSelectStock={vi.fn()}
         selectedSymbol={null}
-        activeFormula={null}
+        activeFormulas={{ nasdaq: null, tlv: null }}
         onFormulaChange={vi.fn()}
         isAdmin={false}
         navContent={<div>Nav</div>}

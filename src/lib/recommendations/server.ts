@@ -2,6 +2,7 @@
 // ABOUTME: Includes a small in-memory cache for the active formula.
 
 import { createAdminClient, createClient } from "@/lib/supabase/server";
+import type { Exchange, OmitRulesConfig, UserOmitPrefs } from "@/lib/market-data/types";
 import {
   DEFAULT_FORMULA_ID,
   defaultRecommendationFormula,
@@ -15,37 +16,73 @@ import { validateFormulaExpression } from "./engine";
 
 const ACTIVE_CACHE_TTL_MS = 5 * 60 * 1000;
 
-let cachedActiveFormula: RecommendationFormula | null = null;
-let cachedAt = 0;
+type RecommendationSettingsRow = {
+  active_formula_id: string | null;
+  active_formula_nasdaq_id?: string | null;
+  active_formula_tlv_id?: string | null;
+};
 
-function cacheActive(formula: RecommendationFormula | null) {
-  cachedActiveFormula = formula;
-  cachedAt = Date.now();
+const EXCHANGE_ACTIVE_COLUMN: Record<Exchange, "active_formula_nasdaq_id" | "active_formula_tlv_id"> = {
+  nasdaq: "active_formula_nasdaq_id",
+  tlv: "active_formula_tlv_id",
+};
+
+const activeFormulaCache: Record<Exchange, { formula: RecommendationFormula | null; cachedAt: number }> = {
+  nasdaq: { formula: null, cachedAt: 0 },
+  tlv: { formula: null, cachedAt: 0 },
+};
+
+function resolveActiveFormulaId(settings: RecommendationSettingsRow | null | undefined, exchange: Exchange): string | null {
+  if (!settings) return null;
+  if (exchange === "tlv") {
+    return settings.active_formula_tlv_id ?? settings.active_formula_id ?? null;
+  }
+  return settings.active_formula_nasdaq_id ?? settings.active_formula_id ?? null;
 }
 
-function isCacheFresh() {
-  return cachedActiveFormula && Date.now() - cachedAt < ACTIVE_CACHE_TTL_MS;
+function resolveActiveFormulaIds(settings: RecommendationSettingsRow | null | undefined): Record<Exchange, string | null> {
+  return {
+    nasdaq: resolveActiveFormulaId(settings, "nasdaq"),
+    tlv: resolveActiveFormulaId(settings, "tlv"),
+  };
 }
 
-export async function fetchActiveFormula(options?: {
-  skipCache?: boolean;
-  fallbackToDefault?: boolean;
-}): Promise<RecommendationFormula | null> {
-  if (!options?.skipCache && isCacheFresh()) {
-    return cachedActiveFormula;
+function cacheActive(exchange: Exchange, formula: RecommendationFormula | null) {
+  activeFormulaCache[exchange] = {
+    formula,
+    cachedAt: Date.now(),
+  };
+}
+
+function isCacheFresh(exchange: Exchange) {
+  const cache = activeFormulaCache[exchange];
+  return cache.cachedAt > 0 && Date.now() - cache.cachedAt < ACTIVE_CACHE_TTL_MS;
+}
+
+export async function fetchActiveFormula(
+  exchange: Exchange = "nasdaq",
+  options?: {
+    skipCache?: boolean;
+    fallbackToDefault?: boolean;
+  }
+): Promise<RecommendationFormula | null> {
+  if (!options?.skipCache && isCacheFresh(exchange)) {
+    const cached = activeFormulaCache[exchange].formula;
+    if (cached) return cached;
+    return options?.fallbackToDefault ? defaultRecommendationFormula : null;
   }
 
   try {
     const supabase = createAdminClient();
     const { data: settings } = await supabase
       .from("recommendation_settings")
-      .select("active_formula_id")
+      .select("active_formula_id,active_formula_nasdaq_id,active_formula_tlv_id")
       .eq("id", true)
       .maybeSingle();
 
-    const activeId = settings?.active_formula_id;
+    const activeId = resolveActiveFormulaId(settings as RecommendationSettingsRow | null, exchange);
     if (!activeId) {
-      cacheActive(null);
+      cacheActive(exchange, null);
       return options?.fallbackToDefault ? defaultRecommendationFormula : null;
     }
 
@@ -57,13 +94,28 @@ export async function fetchActiveFormula(options?: {
       .maybeSingle();
 
     const resolved = formula ?? null;
-    cacheActive(resolved);
+    cacheActive(exchange, resolved);
     if (!resolved && options?.fallbackToDefault) {
       return defaultRecommendationFormula;
     }
     return resolved;
   } catch {
     return options?.fallbackToDefault ? defaultRecommendationFormula : null;
+  }
+}
+
+export async function fetchActiveFormulaIds(): Promise<Record<Exchange, string | null>> {
+  try {
+    const supabase = createAdminClient();
+    const { data: settings } = await supabase
+      .from("recommendation_settings")
+      .select("active_formula_id,active_formula_nasdaq_id,active_formula_tlv_id")
+      .eq("id", true)
+      .maybeSingle();
+
+    return resolveActiveFormulaIds(settings as RecommendationSettingsRow | null);
+  } catch {
+    return { nasdaq: DEFAULT_FORMULA_ID, tlv: DEFAULT_FORMULA_ID };
   }
 }
 
@@ -168,7 +220,7 @@ export async function updateFormula(
     throw new Error(error.message);
   }
 
-  cacheActive(null); // bust cache in case active formula changed
+  clearActiveFormulaCache();
   return data;
 }
 
@@ -187,34 +239,42 @@ export async function archiveFormula(id: string, userId?: string | null): Promis
     throw new Error(error.message);
   }
 
-  cacheActive(null);
+  clearActiveFormulaCache();
 }
 
 export async function setActiveFormula(
+  exchange: Exchange,
   id: string,
   userId?: string | null
-): Promise<{ activeFormulaId: string | null }> {
+): Promise<{ exchange: Exchange; activeFormulaId: string | null }> {
   const supabase = createAdminClient();
+  const payload: Record<string, unknown> = {
+    id: true,
+    [EXCHANGE_ACTIVE_COLUMN[exchange]]: id,
+    updated_by: userId ?? null,
+    updated_at: new Date().toISOString(),
+  };
+
+  // Keep the legacy global column aligned with NASDAQ for backward compatibility.
+  if (exchange === "nasdaq") {
+    payload.active_formula_id = id;
+  }
 
   const { error } = await supabase
     .from("recommendation_settings")
-    .upsert({
-      id: true,
-      active_formula_id: id,
-      updated_by: userId ?? null,
-      updated_at: new Date().toISOString(),
-    }, { onConflict: "id" });
+    .upsert(payload, { onConflict: "id" });
 
   if (error) {
     throw new Error(error.message);
   }
 
-  cacheActive(null);
-  return { activeFormulaId: id };
+  clearActiveFormulaCache();
+  return { exchange, activeFormulaId: id };
 }
 
 export function summarizeFormula(formula: RecommendationFormula | null): RecommendationFormulaSummary | null {
   if (!formula) return null;
+  const formulaWithSnakeCase = formula as RecommendationFormula & { updated_at?: string };
   return {
     id: formula.id,
     name: formula.name,
@@ -222,19 +282,18 @@ export function summarizeFormula(formula: RecommendationFormula | null): Recomme
     expression: formula.expression,
     status: formula.status,
     version: formula.version,
-    updatedAt: formula.updatedAt ?? (formula as any).updated_at,
+    updatedAt: formula.updatedAt ?? formulaWithSnakeCase.updated_at,
   };
 }
 
 export function clearActiveFormulaCache() {
-  cacheActive(null);
+  activeFormulaCache.nasdaq = { formula: null, cachedAt: 0 };
+  activeFormulaCache.tlv = { formula: null, cachedAt: 0 };
 }
 
 export function getDefaultFormula() {
   return defaultRecommendationFormula;
 }
-
-import type { OmitRulesConfig, UserOmitPrefs } from "@/lib/market-data/types";
 
 export async function fetchEffectiveOmitRules(
   userId: string | null

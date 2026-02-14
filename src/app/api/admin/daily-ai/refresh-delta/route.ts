@@ -26,6 +26,21 @@ function normalizeExchangeArray(value: unknown): Exchange[] {
   return exchanges.length > 0 ? exchanges : ["nasdaq", "tlv"];
 }
 
+function resolveFormulaIdForExchange(
+  settings: {
+    active_formula_id?: string | null;
+    active_formula_nasdaq_id?: string | null;
+    active_formula_tlv_id?: string | null;
+  } | null,
+  exchange: Exchange
+): string | null {
+  if (!settings) return null;
+  if (exchange === "tlv") {
+    return settings.active_formula_tlv_id ?? settings.active_formula_id ?? null;
+  }
+  return settings.active_formula_nasdaq_id ?? settings.active_formula_id ?? null;
+}
+
 export async function POST(request: Request) {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
@@ -44,14 +59,25 @@ export async function POST(request: Request) {
   const exchanges = normalizeExchangeArray(body.exchanges);
 
   if (!newFormulaId) {
-    // Fall back to whatever is currently active.
+    if (exchanges.length !== 1) {
+      return NextResponse.json({ error: "newFormulaId is required when updating multiple exchanges" }, { status: 400 });
+    }
+
+    // Fall back to whichever formula is active for the requested exchange.
     const admin = createAdminClient();
     const { data: settings } = await admin
       .from("recommendation_settings")
-      .select("active_formula_id")
+      .select("active_formula_id,active_formula_nasdaq_id,active_formula_tlv_id")
       .eq("id", true)
       .maybeSingle();
-    newFormulaId = (settings?.active_formula_id as string | null) ?? null;
+    newFormulaId = resolveFormulaIdForExchange(
+      settings as {
+        active_formula_id?: string | null;
+        active_formula_nasdaq_id?: string | null;
+        active_formula_tlv_id?: string | null;
+      } | null,
+      exchanges[0]
+    );
   }
 
   if (!newFormulaId) {
@@ -73,4 +99,3 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: message }, { status: 500 });
   }
 }
-

@@ -6,7 +6,7 @@
 import { useState, ReactNode } from "react";
 import { ScreenerClient } from "./screener-client";
 import { StockDetail } from "./stock-detail";
-import type { ScreenerResponse } from "@/lib/market-data/types";
+import type { Exchange, ScreenerResponse } from "@/lib/market-data/types";
 import type { Dictionary } from "@/lib/i18n";
 import styles from "./pulse-wrapper.module.css";
 import type { RecommendationFormulaSummary } from "@/lib/recommendations/types";
@@ -21,9 +21,21 @@ type PulseWrapperProps = {
 
 export function PulseWrapper({ initialData, dict, locale, isAdmin, navContent }: PulseWrapperProps) {
   const [selectedSymbol, setSelectedSymbol] = useState<string | null>(null);
-  const [activeFormula, setActiveFormula] = useState<RecommendationFormulaSummary | null>(
-    initialData.recommendation?.activeFormula ?? null
-  );
+  const [activeFormulas, setActiveFormulas] = useState<Record<Exchange, RecommendationFormulaSummary | null>>(() => {
+    const fromResponse = initialData.recommendation?.activeFormulaByExchange ?? {};
+    const currentExchangeFormula = initialData.recommendation?.activeFormula ?? null;
+    return {
+      nasdaq: fromResponse.nasdaq ?? (initialData.exchange === "nasdaq" ? currentExchangeFormula : null),
+      tlv: fromResponse.tlv ?? (initialData.exchange === "tlv" ? currentExchangeFormula : null),
+    };
+  });
+
+  const handleFormulaChange = (exchange: Exchange, formula: RecommendationFormulaSummary | null) => {
+    setActiveFormulas((prev) => ({
+      ...prev,
+      [exchange]: formula,
+    }));
+  };
 
   const detailLabels = {
     backToList: dict.screener.backToList,
@@ -60,8 +72,8 @@ export function PulseWrapper({ initialData, dict, locale, isAdmin, navContent }:
             dict={dict}
             selectedSymbol={selectedSymbol}
             onSelectStock={setSelectedSymbol}
-            activeFormula={activeFormula}
-            onFormulaChange={setActiveFormula}
+            activeFormulas={activeFormulas}
+            onFormulaChange={handleFormulaChange}
             isAdmin={isAdmin}
             navContent={navContent}
           />
@@ -73,7 +85,7 @@ export function PulseWrapper({ initialData, dict, locale, isAdmin, navContent }:
               symbol={selectedSymbol}
               onClose={() => setSelectedSymbol(null)}
               locale={locale}
-              activeFormula={activeFormula}
+              activeFormula={selectedSymbol.endsWith(".TA") ? activeFormulas.tlv : activeFormulas.nasdaq}
               labels={detailLabels}
               aiAnalysisLabels={aiAnalysisLabels}
             />

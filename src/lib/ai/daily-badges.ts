@@ -6,7 +6,7 @@ import type { Exchange } from "@/lib/market-data/types";
 import { getStocks } from "@/lib/market-data/storage";
 import { applyOmitRules } from "@/lib/market-data/omit-rules";
 import { scoreStocksWithFormula } from "@/lib/market-data/recommendation";
-import { fetchEffectiveOmitRules } from "@/lib/recommendations/server";
+import { fetchActiveFormula, fetchEffectiveOmitRules } from "@/lib/recommendations/server";
 import { defaultRecommendationFormula, DEFAULT_FORMULA_ID } from "@/lib/recommendations/config";
 import type { RecommendationFormula } from "@/lib/recommendations/types";
 import { getStockDetail } from "@/lib/market-data";
@@ -196,7 +196,7 @@ async function listExistingBadges(options: {
     .eq("run_id", options.runId);
 
   if (error || !data) return [];
-  return (data as any[]).map((r) => normalizeSymbol(r.symbol as string));
+  return (data as Array<{ symbol: string }>).map((row) => normalizeSymbol(row.symbol));
 }
 
 async function deleteBadgesForSymbols(options: {
@@ -316,14 +316,8 @@ export async function refreshDailyAiBadges(options: {
   const supabase = createAdminClient();
   const runDate = utcRunDateString(options.now);
 
-  // Use the active formula in the DB (cron behavior).
-  const { data: settings } = await supabase
-    .from("recommendation_settings")
-    .select("active_formula_id")
-    .eq("id", true)
-    .maybeSingle();
-  const activeFormulaId = (settings?.active_formula_id as string | null) ?? DEFAULT_FORMULA_ID;
-  const activeFormula = await fetchFormulaById(activeFormulaId);
+  // Use the active formula configured for the requested exchange.
+  const activeFormula = await fetchActiveFormula(options.exchange, { fallbackToDefault: true }) ?? defaultRecommendationFormula;
 
   const run = await ensureDailyRun({
     supabase,
@@ -435,7 +429,7 @@ export async function refreshDailyAiBadgesOnFormulaChange(options: {
   const prevFormula = await fetchFormulaById(options.previousFormulaId);
   const nextFormula = await fetchFormulaById(options.newFormulaId);
 
-  const results: Record<Exchange, RefreshBadgesResult> = {} as any;
+  const results: Partial<Record<Exchange, RefreshBadgesResult>> = {};
 
   for (const exchange of options.exchanges) {
     const run = await ensureDailyRun({
@@ -545,7 +539,7 @@ export async function refreshDailyAiBadgesOnFormulaChange(options: {
     results[exchange] = result;
   }
 
-  return results;
+  return results as Record<Exchange, RefreshBadgesResult>;
 }
 
 export function getExchangeForSymbol(symbol: string): Exchange {

@@ -1,7 +1,7 @@
 // ABOUTME: Shared types for recommendation formulas and settings.
 // ABOUTME: Used by both API routes and client components.
 
-import type { Stock } from "@/lib/market-data/types";
+import type { Exchange, Stock } from "@/lib/market-data/types";
 
 export type RecommendationFormulaStatus = "draft" | "published" | "archived";
 
@@ -21,6 +21,9 @@ export type RecommendationFormula = {
 
 export type RecommendationSettings = {
   activeFormulaId: string | null;
+  activeFormulaNasdaqId: string | null;
+  activeFormulaTlvId: string | null;
+  activeFormulaIds: Record<Exchange, string | null>;
   previewFormulaId?: string | null;
   updatedAt?: string;
   updatedBy?: string | null;
