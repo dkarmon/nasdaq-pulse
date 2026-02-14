@@ -26,6 +26,22 @@ const RECOMMENDED_SORT_OPTIONS: SortPeriod[] = [
   "12m",
 ];
 
+function formatOrderingLabel(
+  sortBy: SortPeriod,
+  labels: { score: string; intraday: string }
+): string {
+  switch (sortBy) {
+    case "az":
+      return "A-Z";
+    case "score":
+      return labels.score;
+    case "intraday":
+      return labels.intraday;
+    default:
+      return sortBy.toUpperCase();
+  }
+}
+
 function sortRecommendedStocks(
   stocks: Stock[],
   sortBy: SortPeriod,
@@ -124,6 +140,7 @@ export function ScreenerClient({
   const [searchQuery, setSearchQuery] = useState("");
   const [debouncedSearch, setDebouncedSearch] = useState("");
   const [dailyAiBadges, setDailyAiBadges] = useState<Record<string, { recommendation: Recommendation; generatedAt: string }>>({});
+  const [printTimestamp, setPrintTimestamp] = useState(() => new Date().toISOString());
 
   // Debounce search to avoid excessive API calls
   useEffect(() => {
@@ -157,7 +174,10 @@ export function ScreenerClient({
         const badges = data?.badges ?? {};
         const map: Record<string, { recommendation: Recommendation; generatedAt: string }> = {};
         for (const [symbol, value] of Object.entries(badges)) {
-          const v = value as any;
+          const v = value as {
+            recommendation?: Recommendation;
+            generatedAt?: string;
+          };
           if (!v?.recommendation || !v?.generatedAt) continue;
           map[String(symbol).toUpperCase()] = {
             recommendation: v.recommendation as Recommendation,
@@ -222,6 +242,7 @@ export function ScreenerClient({
     exchange: dict.screener.exchange,
     nasdaq: dict.screener.nasdaq,
     tlv: dict.screener.tlv,
+    print: dict.screener.print,
   };
 
   const tableLabels = {
@@ -250,6 +271,81 @@ export function ScreenerClient({
     hold: dict.aiAnalysis?.hold ?? "Hold",
     sell: dict.aiAnalysis?.sell ?? "Sell",
   };
+
+  const cleanupPrintMode = useCallback(() => {
+    if (typeof document === "undefined") return;
+    document.documentElement.removeAttribute("data-printing");
+    document.body.removeAttribute("data-printing");
+  }, []);
+
+  useEffect(() => {
+    return () => cleanupPrintMode();
+  }, [cleanupPrintMode]);
+
+  const handlePrint = useCallback(() => {
+    if (typeof window === "undefined" || typeof document === "undefined") return;
+
+    setPrintTimestamp(new Date().toISOString());
+    document.documentElement.setAttribute("data-printing", "first-page");
+    document.body.setAttribute("data-printing", "first-page");
+
+    let fallbackTimeoutId: ReturnType<typeof window.setTimeout> | null = null;
+    const onAfterPrint = () => {
+      cleanupPrintMode();
+      window.removeEventListener("afterprint", onAfterPrint);
+      if (fallbackTimeoutId) {
+        window.clearTimeout(fallbackTimeoutId);
+      }
+    };
+
+    window.addEventListener("afterprint", onAfterPrint);
+    fallbackTimeoutId = window.setTimeout(onAfterPrint, 1500);
+    window.print();
+  }, [cleanupPrintMode]);
+
+  const printMeta = useMemo(() => {
+    const exchangeLabel =
+      preferences.exchange === "nasdaq" ? dict.screener.nasdaq : dict.screener.tlv;
+    const orderingLabel = formatOrderingLabel(preferences.sortBy, {
+      score: dict.screener.score,
+      intraday: dict.screener.intraday,
+    });
+    const directionLabel = preferences.sortDirection === "asc" ? "ASC ↑" : "DESC ↓";
+    const recommendedLabel = preferences.showRecommendedOnly
+      ? dict.screener.printOn
+      : dict.screener.printOff;
+    const formulaLabel = activeFormula?.name || dict.screener.printNone;
+    const queryLabel = searchQuery.trim() || dict.screener.printNone;
+    const printedAtLabel = new Intl.DateTimeFormat(undefined, {
+      dateStyle: "medium",
+      timeStyle: "short",
+    }).format(new Date(printTimestamp));
+
+    return {
+      exchangeLabel,
+      orderingLabel,
+      directionLabel,
+      recommendedLabel,
+      formulaLabel,
+      queryLabel,
+      printedAtLabel,
+    };
+  }, [
+    preferences.exchange,
+    preferences.sortBy,
+    preferences.sortDirection,
+    preferences.showRecommendedOnly,
+    activeFormula?.name,
+    searchQuery,
+    printTimestamp,
+    dict.screener.nasdaq,
+    dict.screener.tlv,
+    dict.screener.printOn,
+    dict.screener.printOff,
+    dict.screener.printNone,
+    dict.screener.score,
+    dict.screener.intraday,
+  ]);
 
   // Compute ranks before filtering - stocks are already sorted by the API
   const rankMap = useMemo(() => {
@@ -313,38 +409,55 @@ export function ScreenerClient({
         activeFormula={activeFormula}
         onFormulaChange={onFormulaChange}
         onRefresh={fetchScreenerData}
+        onPrint={handlePrint}
         isRefreshing={isLoading}
         visibleStocks={visibleStocks}
         rankMap={rankMap}
         labels={controlLabels}
       />
 
-      <div className={styles.stockList} data-loading={isLoading}>
-        <StockTable
-          stocks={visibleStocks}
-          sortBy={preferences.sortBy}
-          selectedSymbol={selectedSymbol}
-          onSelectStock={onSelectStock}
-          onHideStock={hideStock}
-          liveQuotes={liveQuotes}
-          rankMap={rankMap}
-          aiBadges={dailyAiBadges}
-          aiLabels={aiLabels}
-          labels={tableLabels}
-        />
+      <div className={styles.printPage}>
+        <section className={styles.printSummary} aria-label={dict.screener.print}>
+          <h2 className={styles.printTitle}>Nasdaq Pulse</h2>
+          <div className={styles.printMetaGrid}>
+            <p><strong>{dict.screener.exchange}:</strong> {printMeta.exchangeLabel}</p>
+            <p><strong>{dict.screener.ordering}:</strong> {printMeta.orderingLabel}</p>
+            <p><strong>{dict.screener.direction}:</strong> {printMeta.directionLabel}</p>
+            <p><strong>{dict.screener.show}:</strong> {preferences.limit}</p>
+            <p><strong>{dict.screener.recommendedOnly}:</strong> {printMeta.recommendedLabel}</p>
+            <p><strong>{dict.screener.query}:</strong> {printMeta.queryLabel}</p>
+            <p><strong>{dict.screener.formula}:</strong> {printMeta.formulaLabel}</p>
+            <p><strong>{dict.screener.printedAt}:</strong> {printMeta.printedAtLabel}</p>
+          </div>
+        </section>
 
-        <StockCardList
-          stocks={visibleStocks}
-          sortBy={preferences.sortBy}
-          selectedSymbol={selectedSymbol}
-          onSelectStock={onSelectStock}
-          onHideStock={hideStock}
-          liveQuotes={liveQuotes}
-          rankMap={rankMap}
-          aiBadges={dailyAiBadges}
-          aiLabels={aiLabels}
-          labels={cardLabels}
-        />
+        <div className={styles.stockList} data-loading={isLoading}>
+          <StockTable
+            stocks={visibleStocks}
+            sortBy={preferences.sortBy}
+            selectedSymbol={selectedSymbol}
+            onSelectStock={onSelectStock}
+            onHideStock={hideStock}
+            liveQuotes={liveQuotes}
+            rankMap={rankMap}
+            aiBadges={dailyAiBadges}
+            aiLabels={aiLabels}
+            labels={tableLabels}
+          />
+
+          <StockCardList
+            stocks={visibleStocks}
+            sortBy={preferences.sortBy}
+            selectedSymbol={selectedSymbol}
+            onSelectStock={onSelectStock}
+            onHideStock={hideStock}
+            liveQuotes={liveQuotes}
+            rankMap={rankMap}
+            aiBadges={dailyAiBadges}
+            aiLabels={aiLabels}
+            labels={cardLabels}
+          />
+        </div>
       </div>
     </div>
   );

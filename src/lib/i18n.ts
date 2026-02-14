@@ -99,6 +99,14 @@ export type Dictionary = {
     exchange: string;
     nasdaq: string;
     tlv: string;
+    print: string;
+    printedAt: string;
+    ordering: string;
+    query: string;
+    formula: string;
+    printOn: string;
+    printOff: string;
+    printNone: string;
     sector: string;
     industry: string;
     marketCap: string;
@@ -341,6 +349,14 @@ export const dictionaries: Record<Locale, Dictionary> = {
       exchange: "Exchange",
       nasdaq: "NASDAQ",
       tlv: "Tel Aviv",
+      print: "Print",
+      printedAt: "Printed at",
+      ordering: "Ordering",
+      query: "Query",
+      formula: "Formula",
+      printOn: "On",
+      printOff: "Off",
+      printNone: "None",
       sector: "Sector",
       industry: "Industry",
       marketCap: "Market Cap",
@@ -576,6 +592,14 @@ export const dictionaries: Record<Locale, Dictionary> = {
       exchange: "בורסה",
       nasdaq: "נאסד״ק",
       tlv: "תל אביב",
+      print: "הדפסה",
+      printedAt: "הודפס בתאריך",
+      ordering: "סידור",
+      query: "חיפוש",
+      formula: "נוסחה",
+      printOn: "פעיל",
+      printOff: "כבוי",
+      printNone: "ללא",
       sector: "סקטור",
       industry: "תעשייה",
       marketCap: "שווי שוק",

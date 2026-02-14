@@ -143,3 +143,13 @@
     font-size: 1.3rem;
   }
 }
+
+@media print {
+  .detailPanel {
+    display: none !important;
+  }
+
+  .content {
+    display: block;
+  }
+}

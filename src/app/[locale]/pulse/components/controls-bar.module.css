@@ -267,6 +267,10 @@
   composes: iconButton;
 }
 
+.printButton {
+  composes: iconButton;
+}
+
 @keyframes spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
@@ -344,5 +348,12 @@
   .mobileRecommendedToggle,
   .mobileFilterButton {
     min-height: 44px;
+  }
+}
+
+@media print {
+  .mobileControls,
+  .desktopControls {
+    display: none !important;
   }
 }
