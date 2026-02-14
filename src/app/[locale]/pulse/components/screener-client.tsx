@@ -3,7 +3,7 @@
 
 "use client";
 
-import { useState, useEffect, useCallback, useMemo, ReactNode } from "react";
+import { useState, useEffect, useCallback, useMemo, ReactNode, useRef } from "react";
 import { usePreferences } from "@/hooks/usePreferences";
 import { useLiveQuotes, type QuotesMap } from "@/hooks/useLiveQuotes";
 import { StickyHeader } from "./sticky-header";
@@ -32,6 +32,15 @@ type BadgePayload = {
   recommendation: Recommendation;
   generatedAt: string;
 };
+
+function formulaSignature(formula: RecommendationFormulaSummary | null | undefined): string {
+  if (!formula) return "null";
+  return [
+    formula.id,
+    formula.version,
+    formula.updatedAt ?? "",
+  ].join("|");
+}
 
 function formatOrderingLabel(
   sortBy: SortPeriod,
@@ -172,11 +181,33 @@ export function ScreenerClient({
   const [dailyAiBadges, setDailyAiBadges] = useState<Record<string, BadgePayload>>({});
   const [fallbackAiBadges, setFallbackAiBadges] = useState<Record<string, BadgePayload>>({});
   const [printTimestamp, setPrintTimestamp] = useState(() => new Date().toISOString());
+  const onFormulaChangeRef = useRef(onFormulaChange);
+  const lastFormulaSignatureRef = useRef<Record<Exchange, string>>({
+    nasdaq: formulaSignature(activeFormulas?.nasdaq),
+    tlv: formulaSignature(activeFormulas?.tlv),
+  });
 
   useEffect(() => {
     const timer = setTimeout(() => setDebouncedSearch(searchQuery), 300);
     return () => clearTimeout(timer);
   }, [searchQuery]);
+
+  useEffect(() => {
+    onFormulaChangeRef.current = onFormulaChange;
+  }, [onFormulaChange]);
+
+  useEffect(() => {
+    const next = {
+      nasdaq: formulaSignature(activeFormulas?.nasdaq),
+      tlv: formulaSignature(activeFormulas?.tlv),
+    };
+    if (
+      lastFormulaSignatureRef.current.nasdaq !== next.nasdaq ||
+      lastFormulaSignatureRef.current.tlv !== next.tlv
+    ) {
+      lastFormulaSignatureRef.current = next;
+    }
+  }, [activeFormulas?.nasdaq, activeFormulas?.tlv]);
 
   const resolvedActiveFormulas = activeFormulas ?? { nasdaq: null, tlv: null };
   const activeFormula = resolvedActiveFormulas[preferences.exchange] ?? null;
@@ -237,13 +268,28 @@ export function ScreenerClient({
       const data: ScreenerResponse = await response.json();
 
       setStocks(data.stocks);
-      onFormulaChange?.(preferences.exchange, data.recommendation?.activeFormula ?? null);
+      const nextFormula = data.recommendation?.activeFormula ?? null;
+      const nextSignature = formulaSignature(nextFormula);
+      if (lastFormulaSignatureRef.current[preferences.exchange] !== nextSignature) {
+        lastFormulaSignatureRef.current = {
+          ...lastFormulaSignatureRef.current,
+          [preferences.exchange]: nextSignature,
+        };
+        onFormulaChangeRef.current?.(preferences.exchange, nextFormula);
+      }
     } catch (error) {
       console.error("Failed to fetch screener data:", error);
     } finally {
       setIsLoading(false);
     }
-  }, [isLoaded, preferences, onFormulaChange, debouncedSearch]);
+  }, [
+    isLoaded,
+    debouncedSearch,
+    preferences.showRecommendedOnly,
+    preferences.limit,
+    preferences.sortBy,
+    preferences.exchange,
+  ]);
 
   useEffect(() => {
     if (isLoaded) {
