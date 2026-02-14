@@ -28,6 +28,7 @@ type StickyHeaderProps = {
   activeFormulas?: Record<Exchange, RecommendationFormulaSummary | null>;
   onFormulaChange?: (exchange: Exchange, formula: RecommendationFormulaSummary | null) => void;
   onRefresh?: () => void;
+  onPrint?: () => void;
   isRefreshing?: boolean;
   visibleStocks?: Stock[];
   rankMap?: Map<string, number>;
@@ -44,6 +45,7 @@ type StickyHeaderProps = {
     nasdaq: string;
     tlv: string;
     formula?: string;
+    print?: string;
   };
 };
 
@@ -66,6 +68,7 @@ export function StickyHeader({
   activeFormulas,
   onFormulaChange,
   onRefresh,
+  onPrint,
   isRefreshing = false,
   visibleStocks,
   rankMap,
@@ -111,6 +114,7 @@ export function StickyHeader({
         activeFormulas={activeFormulas}
         onFormulaChange={onFormulaChange}
         onRefresh={onRefresh}
+        onPrint={onPrint}
         isRefreshing={isRefreshing}
         visibleStocks={visibleStocks}
         rankMap={rankMap}
