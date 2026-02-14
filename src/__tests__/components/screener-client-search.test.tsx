@@ -313,7 +313,8 @@ describe("ScreenerClient search", () => {
 
     expect(screen.queryByText("TOP2")).not.toBeInTheDocument();
 
-    const tableRows = screen.getAllByRole("row").slice(1);
+    const stockList = screen.getByTestId("screener-stock-list");
+    const tableRows = within(stockList).getAllByRole("row").slice(1);
     const ranks = tableRows.map((row) => {
       const cells = within(row).getAllByRole("cell");
       return cells[0].textContent?.trim();

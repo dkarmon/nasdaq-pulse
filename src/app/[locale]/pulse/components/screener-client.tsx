@@ -617,7 +617,7 @@ export function ScreenerClient({
           </p>
         </section>
 
-        <div className={styles.printTableOnly} aria-hidden="true">
+        <div className={styles.printTableOnly}>
           <StockTable
             stocks={printStocks}
             sortBy={preferences.sortBy}
@@ -632,7 +632,7 @@ export function ScreenerClient({
           />
         </div>
 
-        <div className={styles.stockList} data-loading={isLoading}>
+        <div className={styles.stockList} data-loading={isLoading} data-testid="screener-stock-list">
           <StockTable
             stocks={visibleStocks}
             sortBy={preferences.sortBy}
