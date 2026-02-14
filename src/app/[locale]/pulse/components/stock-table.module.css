@@ -216,6 +216,7 @@
 
 @media print {
   .tableWrapper {
+    display: block !important;
     border: 1px solid #111827 !important;
     border-radius: 0;
     background: #fff !important;
