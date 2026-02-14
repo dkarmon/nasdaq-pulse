@@ -56,8 +56,8 @@
 
   .printSummary {
     display: block;
-    margin: 0 0 2mm;
-    padding: 0 0 1.5mm;
+    margin: 0 0 2.5mm;
+    padding: 0 0 2mm;
     border-bottom: 1px solid #000;
     background: #fff !important;
     break-inside: avoid;
@@ -65,13 +65,14 @@
 
   .printSummaryLine {
     display: flex;
-    align-items: center;
-    gap: 4px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    font-size: 0.56rem;
-    line-height: 1.15;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 2px 7px;
+    white-space: normal;
+    overflow: visible;
+    text-overflow: clip;
+    font-size: 0.68rem;
+    line-height: 1.3;
     color: #000;
   }
 
@@ -84,16 +85,11 @@
   }
 
   .printItem {
-    display: inline-block;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    max-width: 18ch;
-  }
-
-  .printItem:last-child,
-  .printItem:nth-last-child(3) {
-    max-width: 24ch;
+    display: inline;
+    overflow: visible;
+    text-overflow: clip;
+    white-space: normal;
+    max-width: none;
   }
 
   .stockList {
