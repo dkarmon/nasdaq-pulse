@@ -26,6 +26,7 @@ const RECOMMENDED_SORT_OPTIONS: SortPeriod[] = [
   "6m",
   "12m",
 ];
+const PRINT_ROW_LIMIT = 12;
 
 type BadgePayload = {
   recommendation: Recommendation;
@@ -420,17 +421,17 @@ export function ScreenerClient({
     document.documentElement.setAttribute("data-printing", "first-page");
     document.body.setAttribute("data-printing", "first-page");
 
-    let fallbackTimeoutId: number | null = null;
+    let fallbackTimeoutId: ReturnType<typeof setTimeout> | null = null;
     const onAfterPrint = () => {
       cleanupPrintMode();
       window.removeEventListener("afterprint", onAfterPrint);
       if (fallbackTimeoutId) {
-        window.clearTimeout(fallbackTimeoutId);
+        clearTimeout(fallbackTimeoutId);
       }
     };
 
     window.addEventListener("afterprint", onAfterPrint);
-    fallbackTimeoutId = window.setTimeout(onAfterPrint, 1500);
+    fallbackTimeoutId = setTimeout(onAfterPrint, 1500);
     window.print();
   }, [cleanupPrintMode]);
 
@@ -486,6 +487,19 @@ export function ScreenerClient({
     dict.screener.intraday,
   ]);
 
+  const printStocks = useMemo(
+    () => visibleStocks.slice(0, PRINT_ROW_LIMIT),
+    [visibleStocks]
+  );
+
+  const printRankMap = useMemo(() => {
+    const map = new Map<string, number>();
+    printStocks.forEach((stock, index) => {
+      map.set(stock.symbol, index + 1);
+    });
+    return map;
+  }, [printStocks]);
+
   return (
     <div className={styles.screener}>
       <StickyHeader
@@ -516,19 +530,61 @@ export function ScreenerClient({
 
       <div className={styles.printPage}>
         <section className={styles.printSummary} aria-label={dict.screener.print}>
-          <h2 className={styles.printTitle}>Nasdaq Pulse</h2>
-          <div className={styles.printMetaGrid}>
-            <p><strong>{dict.screener.exchange}:</strong> {printMeta.exchangeLabel}</p>
-            <p><strong>{dict.screener.ordering}:</strong> {printMeta.orderingLabel}</p>
-            <p><strong>{dict.screener.direction}:</strong> {printMeta.directionLabel}</p>
-            <p><strong>{dict.screener.show}:</strong> {preferences.limit}</p>
-            <p><strong>{dict.screener.recommendedOnly}:</strong> {printMeta.recommendedLabel}</p>
-            <p><strong>{dict.screener.query}:</strong> {printMeta.queryLabel}</p>
-            <p><strong>{dict.screener.formula}:</strong> {printMeta.formulaLabel}</p>
-            <p><strong>{dict.screener.printDate}:</strong> {printMeta.printDateLabel}</p>
-            <p><strong>{dict.screener.printTime}:</strong> {printMeta.printTimeLabel}</p>
-          </div>
+          <p className={styles.printSummaryLine}>
+            <span className={styles.printBrand}>Nasdaq Pulse</span>
+            <span className={styles.printDivider}>|</span>
+            <span className={styles.printItem}>
+              <strong>{dict.screener.exchange}:</strong> {printMeta.exchangeLabel}
+            </span>
+            <span className={styles.printDivider}>|</span>
+            <span className={styles.printItem}>
+              <strong>{dict.screener.ordering}:</strong> {printMeta.orderingLabel}
+            </span>
+            <span className={styles.printDivider}>|</span>
+            <span className={styles.printItem}>
+              <strong>{dict.screener.direction}:</strong> {printMeta.directionLabel}
+            </span>
+            <span className={styles.printDivider}>|</span>
+            <span className={styles.printItem}>
+              <strong>{dict.screener.show}:</strong> {preferences.limit}
+            </span>
+            <span className={styles.printDivider}>|</span>
+            <span className={styles.printItem}>
+              <strong>{dict.screener.recommendedOnly}:</strong> {printMeta.recommendedLabel}
+            </span>
+            <span className={styles.printDivider}>|</span>
+            <span className={styles.printItem}>
+              <strong>{dict.screener.query}:</strong> {printMeta.queryLabel}
+            </span>
+            <span className={styles.printDivider}>|</span>
+            <span className={styles.printItem}>
+              <strong>{dict.screener.formula}:</strong> {printMeta.formulaLabel}
+            </span>
+            <span className={styles.printDivider}>|</span>
+            <span className={styles.printItem}>
+              <strong>{dict.screener.printDate}:</strong> {printMeta.printDateLabel}
+            </span>
+            <span className={styles.printDivider}>|</span>
+            <span className={styles.printItem}>
+              <strong>{dict.screener.printTime}:</strong> {printMeta.printTimeLabel}
+            </span>
+          </p>
         </section>
+
+        <div className={styles.printTableOnly} aria-hidden="true">
+          <StockTable
+            stocks={printStocks}
+            sortBy={preferences.sortBy}
+            selectedSymbol={null}
+            onSelectStock={() => {}}
+            onHideStock={() => {}}
+            liveQuotes={liveQuotes}
+            rankMap={printRankMap}
+            aiBadges={mergedAiBadges}
+            aiLabels={aiLabels}
+            labels={tableLabels}
+          />
+        </div>
 
         <div className={styles.stockList} data-loading={isLoading}>
           <StockTable

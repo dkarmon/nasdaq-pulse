@@ -1,5 +1,5 @@
 /* ABOUTME: Styles for the main screener client component. */
-/* ABOUTME: Handles loading states and cached data notices. */
+/* ABOUTME: Handles loading states and print-specific summary/table surfaces. */
 
 .screener {
   display: flex;
@@ -15,24 +15,24 @@
   display: none;
 }
 
-.printTitle {
-  margin: 0 0 8px;
-  font-size: 1rem;
-  font-weight: 700;
-  color: #000;
-}
-
-.printMetaGrid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 4px 16px;
-}
-
-.printMetaGrid p {
+.printSummaryLine {
   margin: 0;
-  font-size: 0.72rem;
-  line-height: 1.35;
-  color: #000;
+}
+
+.printBrand {
+  font-weight: 700;
+}
+
+.printDivider {
+  color: #4b5563;
+}
+
+.printItem {
+  min-width: 0;
+}
+
+.printTableOnly {
+  display: none;
 }
 
 .cachedNotice {
@@ -55,23 +55,56 @@
   }
 
   .printPage {
-    height: 190mm;
-    overflow: hidden;
+    display: block;
   }
 
   .printSummary {
     display: block;
-    margin: 0 0 8px;
-    padding: 6px 8px;
-    border: 1px solid #000;
+    margin: 0 0 2mm;
+    padding: 0 0 1.5mm;
+    border-bottom: 1px solid #000;
     background: #fff !important;
     break-inside: avoid;
   }
 
-  .stockList {
-    opacity: 1 !important;
-    pointer-events: auto !important;
-    transition: none !important;
+  .printSummaryLine {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    white-space: nowrap;
     overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 0.56rem;
+    line-height: 1.15;
+    color: #000;
+  }
+
+  .printBrand {
+    flex: 0 0 auto;
+  }
+
+  .printDivider {
+    flex: 0 0 auto;
+  }
+
+  .printItem {
+    display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 18ch;
+  }
+
+  .printItem:last-child,
+  .printItem:nth-last-child(3) {
+    max-width: 24ch;
+  }
+
+  .printTableOnly {
+    display: block;
+  }
+
+  .stockList {
+    display: none !important;
   }
 }
