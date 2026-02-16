@@ -352,19 +352,12 @@ export function ScreenerClient({
     sell: dict.aiAnalysis?.sell ?? "Sell",
   };
 
-  const visibleStocks = useMemo(() => {
+  // Base stocks: hidden + recommendation filtered/sorted, but NOT search filtered.
+  // Used as the stable rank source so search doesn't change positions.
+  const rankBaseStocks = useMemo(() => {
     let next = scoredStocks.filter(
       (stock) => !currentHiddenSymbols.includes(stock.symbol)
     );
-
-    if (searchQuery) {
-      const query = searchQuery.toLowerCase();
-      next = next.filter((stock) =>
-        stock.exchange === "tlv"
-          ? stock.nameHebrew?.toLowerCase().includes(query)
-          : stock.symbol.toLowerCase().includes(query)
-      );
-    }
 
     if (preferences.showRecommendedOnly) {
       const recommendedOnly = next.filter((stock) =>
@@ -388,12 +381,31 @@ export function ScreenerClient({
   }, [
     scoredStocks,
     currentHiddenSymbols,
-    searchQuery,
     preferences.showRecommendedOnly,
     preferences.sortBy,
     preferences.sortDirection,
     liveQuotes,
   ]);
+
+  // Stable rank map: positions based on the full list without search filtering.
+  const rankMap = useMemo(() => {
+    const map = new Map<string, number>();
+    rankBaseStocks.forEach((stock, index) => {
+      map.set(stock.symbol, index + 1);
+    });
+    return map;
+  }, [rankBaseStocks]);
+
+  const visibleStocks = useMemo(() => {
+    if (!searchQuery) return rankBaseStocks;
+
+    const query = searchQuery.toLowerCase();
+    return rankBaseStocks.filter((stock) =>
+      stock.exchange === "tlv"
+        ? stock.nameHebrew?.toLowerCase().includes(query)
+        : stock.symbol.toLowerCase().includes(query)
+    );
+  }, [rankBaseStocks, searchQuery]);
 
   const displayedStocks = useMemo(() => {
     if (preferences.showRecommendedOnly || searchQuery) {
@@ -424,24 +436,7 @@ export function ScreenerClient({
     [missingVisibleTop20Symbols]
   );
 
-  const displayedRankMap = useMemo(() => {
-    const map = new Map<string, number>();
-    displayedStocks.forEach((stock, index) => {
-      map.set(stock.symbol, index + 1);
-    });
-    return map;
-  }, [displayedStocks]);
-
-  const printRankMap = useMemo(() => {
-    const map = new Map<string, number>();
-    printStocks.forEach((stock, index) => {
-      map.set(stock.symbol, index + 1);
-    });
-    return map;
-  }, [printStocks]);
-
   const activeTableStocks = isPrinting ? printStocks : displayedStocks;
-  const activeRankMap = isPrinting ? printRankMap : displayedRankMap;
 
   useEffect(() => {
     if (!isLoaded) return;
@@ -613,7 +608,7 @@ export function ScreenerClient({
         onPrint={handlePrint}
         isRefreshing={isLoading}
         visibleStocks={displayedStocks}
-        rankMap={displayedRankMap}
+        rankMap={rankMap}
         labels={controlLabels}
       />
 
@@ -668,7 +663,7 @@ export function ScreenerClient({
             onSelectStock={onSelectStock}
             onHideStock={hideStock}
             liveQuotes={liveQuotes}
-            rankMap={activeRankMap}
+            rankMap={rankMap}
             aiBadges={mergedAiBadges}
             aiLabels={aiLabels}
             labels={tableLabels}
@@ -681,7 +676,7 @@ export function ScreenerClient({
             onSelectStock={onSelectStock}
             onHideStock={hideStock}
             liveQuotes={liveQuotes}
-            rankMap={displayedRankMap}
+            rankMap={rankMap}
             aiBadges={mergedAiBadges}
             aiLabels={aiLabels}
             labels={cardLabels}

@@ -281,6 +281,63 @@ describe("ScreenerClient search", () => {
     );
   });
 
+  it("preserves original rank during search", async () => {
+    const user = userEvent.setup();
+    const rankStocks = [
+      mockStock("AAPL", 40),
+      mockStock("MSFT", 30),
+      mockStock("GOOG", 20),
+      mockStock("HYMC", 10),
+    ];
+
+    mockPreferences.mockReturnValue({
+      ...nasdaqPreferences(),
+      isLoaded: false,
+      currentHiddenSymbols: [],
+    });
+
+    render(
+      <ScreenerClient
+        initialData={{
+          ...mockInitialData,
+          stocks: rankStocks,
+        }}
+        dict={mockDict}
+        onSelectStock={vi.fn()}
+        selectedSymbol={null}
+        activeFormulas={{ nasdaq: null, tlv: null }}
+        onFormulaChange={vi.fn()}
+        isAdmin={false}
+        navContent={<div>Nav</div>}
+      />
+    );
+
+    // Before search: HYMC should be rank 4
+    const stockList = screen.getByTestId("screener-stock-list");
+    let tableRows = within(stockList).getAllByRole("row").slice(1);
+    let ranks = tableRows.map((row) => {
+      const cells = within(row).getAllByRole("cell");
+      return cells[0].textContent?.trim();
+    });
+    expect(ranks).toEqual(["1", "2", "3", "4"]);
+
+    // Search for HYMC
+    await user.type(getSearchInput(), "HYMC");
+
+    // After search: HYMC should still show rank 4, not rank 1
+    await waitFor(() => {
+      const rows = within(stockList).getAllByRole("row").slice(1);
+      expect(rows).toHaveLength(1);
+    });
+
+    tableRows = within(stockList).getAllByRole("row").slice(1);
+    const rank = within(tableRows[0]).getAllByRole("cell")[0].textContent?.trim();
+    expect(rank).toBe("4");
+
+    const symbol = within(tableRows[0]).getAllByRole("cell")[1].textContent ?? "";
+    expect(symbol).toContain("HYMC");
+  });
+
   it("reindexes table ranks after hiding a stock", () => {
     const rankStocks = [
       mockStock("TOP1", 40),
@@ -304,7 +361,7 @@ describe("ScreenerClient search", () => {
         dict={mockDict}
         onSelectStock={vi.fn()}
         selectedSymbol={null}
-        activeFormula={null}
+        activeFormulas={{ nasdaq: null, tlv: null }}
         onFormulaChange={vi.fn()}
         isAdmin={false}
         navContent={<div>Nav</div>}
