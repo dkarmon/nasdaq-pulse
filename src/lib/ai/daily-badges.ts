@@ -1,4 +1,4 @@
-// ABOUTME: Server-side helpers for computing and refreshing the daily top-20 AI recommendation badges.
+// ABOUTME: Server-side helpers for computing and refreshing the daily top-25 AI recommendation badges.
 // ABOUTME: Daily badges define which symbols show a buy/hold/sell pill in the screener.
 
 import { createAdminClient } from "@/lib/supabase/server";
@@ -13,6 +13,9 @@ import { getStockDetail } from "@/lib/market-data";
 import { generateStockAnalysis, type StockMetrics } from "@/lib/ai/gemini";
 import type { Recommendation } from "@/lib/ai/types";
 import type { Stock } from "@/lib/market-data/types";
+
+/** Number of top-ranked stocks that receive a daily AI recommendation badge. */
+export const DAILY_BADGE_LIMIT = 25;
 
 export type DailyAiTrigger = "cron" | "formula_change" | "manual";
 
@@ -84,7 +87,7 @@ export async function computeTopRecommendedSymbols(options: {
   formula: RecommendationFormula;
   limit?: number;
 }): Promise<string[]> {
-  const limit = options.limit ?? 20;
+  const limit = options.limit ?? DAILY_BADGE_LIMIT;
   const exchange = options.exchange;
 
   const stocks = await getStocks(exchange);
@@ -332,7 +335,7 @@ export async function refreshDailyAiBadges(options: {
   const symbols = await computeTopRecommendedSymbols({
     exchange: options.exchange,
     formula: activeFormula,
-    limit: 20,
+    limit: DAILY_BADGE_LIMIT,
   });
 
   const result: RefreshBadgesResult = {
@@ -370,7 +373,7 @@ export async function refreshDailyAiBadges(options: {
 
         const symbol = symbols[idx++];
         try {
-          // Keep existing row for this run when the symbol remains in top-20.
+          // Keep existing row for this run when the symbol remains in top-25.
           if (existingSet.has(symbol)) {
             result.skipped.push(symbol);
             continue;
@@ -408,7 +411,7 @@ export async function refreshDailyAiBadges(options: {
             result.added.push(symbol);
             continue;
           } catch {
-            // Fall back to latest historical analysis to avoid empty top-20 badges.
+            // Fall back to latest historical analysis to avoid empty top-25 badges.
           }
 
           const reuseLatest = await findLatestAnalysisForSymbol({
@@ -478,8 +481,8 @@ export async function refreshDailyAiBadgesOnFormulaChange(options: {
       trigger,
     });
 
-    const oldSet = new Set(await computeTopRecommendedSymbols({ exchange, formula: prevFormula, limit: 20 }));
-    const newSymbols = await computeTopRecommendedSymbols({ exchange, formula: nextFormula, limit: 20 });
+    const oldSet = new Set(await computeTopRecommendedSymbols({ exchange, formula: prevFormula, limit: DAILY_BADGE_LIMIT }));
+    const newSymbols = await computeTopRecommendedSymbols({ exchange, formula: nextFormula, limit: DAILY_BADGE_LIMIT });
     const newSet = new Set(newSymbols);
 
     const existing = new Set(await listExistingBadges({ supabase, runId: run.id }));

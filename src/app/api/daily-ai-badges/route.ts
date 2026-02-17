@@ -1,4 +1,4 @@
-// ABOUTME: Returns daily AI badge set (top-20 membership) for the requested exchange.
+// ABOUTME: Returns daily AI badge set (top-25 membership) for the requested exchange.
 // ABOUTME: Prefers today's run, then falls back to latest successful run with badges.
 
 import { NextRequest, NextResponse } from "next/server";

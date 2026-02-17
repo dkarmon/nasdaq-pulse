@@ -1,5 +1,5 @@
-// ABOUTME: Admin endpoint to refresh the daily top-20 AI badges based on a formula switch.
-// ABOUTME: Generates Gemini analyses only for symbols newly entering the top-20 set (delta between formulas).
+// ABOUTME: Admin endpoint to refresh the daily top-25 AI badges based on a formula switch.
+// ABOUTME: Generates Gemini analyses only for symbols newly entering the top-25 set (delta between formulas).
 
 import { NextResponse } from "next/server";
 import { createClient, createAdminClient } from "@/lib/supabase/server";

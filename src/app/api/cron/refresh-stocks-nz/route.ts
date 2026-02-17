@@ -24,7 +24,7 @@ export async function GET(request: Request) {
   let ai: unknown = null;
   if (tlvResult.success) {
     try {
-      // Piggyback AI refresh for TLV top-20 (no extra cron job).
+      // Piggyback AI refresh for TLV top-25 (no extra cron job).
       ai = await refreshDailyAiBadges({ exchange: "tlv", trigger: "cron", timeBudgetMs: 240_000 });
     } catch (err) {
       ai = { error: err instanceof Error ? err.message : String(err) };
