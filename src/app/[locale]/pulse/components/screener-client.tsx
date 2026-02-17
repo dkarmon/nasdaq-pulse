@@ -424,29 +424,29 @@ export function ScreenerClient({
     [visibleStocks]
   );
 
-  const missingVisibleTop20Symbols = useMemo(() => {
+  const missingVisibleTop25Symbols = useMemo(() => {
     return visibleStocks
-      .slice(0, 20)
+      .slice(0, 25)
       .map((stock) => stock.symbol.toUpperCase())
       .filter((symbol) => !dailyAiBadges[symbol]);
   }, [visibleStocks, dailyAiBadges]);
 
-  const missingVisibleTop20Key = useMemo(
-    () => missingVisibleTop20Symbols.join(","),
-    [missingVisibleTop20Symbols]
+  const missingVisibleTop25Key = useMemo(
+    () => missingVisibleTop25Symbols.join(","),
+    [missingVisibleTop25Symbols]
   );
 
   const activeTableStocks = isPrinting ? printStocks : displayedStocks;
 
   useEffect(() => {
     if (!isLoaded) return;
-    if (!missingVisibleTop20Key) {
+    if (!missingVisibleTop25Key) {
       setFallbackAiBadges((prev) => (Object.keys(prev).length === 0 ? prev : {}));
       return;
     }
 
     const abortController = new AbortController();
-    const params = new URLSearchParams({ symbols: missingVisibleTop20Key });
+    const params = new URLSearchParams({ symbols: missingVisibleTop25Key });
 
     fetch(`/api/analysis/badges?${params.toString()}`, { signal: abortController.signal })
       .then((res) => (res.ok ? res.json() : null))
@@ -477,7 +477,7 @@ export function ScreenerClient({
       });
 
     return () => abortController.abort();
-  }, [isLoaded, preferences.exchange, missingVisibleTop20Key]);
+  }, [isLoaded, preferences.exchange, missingVisibleTop25Key]);
 
   const mergedAiBadges = useMemo(
     () => ({ ...fallbackAiBadges, ...dailyAiBadges }),

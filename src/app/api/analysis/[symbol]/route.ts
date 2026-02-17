@@ -57,7 +57,7 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
 
   const supabase = await createClient();
 
-  // Prefer today's daily badge analysis if present (top-20 membership).
+  // Prefer today's daily badge analysis if present (top-25 membership).
   const { data: run } = await supabase
     .from("daily_ai_runs")
     .select("id")

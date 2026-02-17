@@ -121,7 +121,7 @@ export function FormulasTab({ dict }: FormulasTabProps) {
       setMessage(dict.settings.activeSaved);
       setTimeout(() => setMessage(null), 3000);
 
-      // Trigger immediate daily badge delta refresh (new top-20 minus old top-20).
+      // Trigger immediate daily badge delta refresh (new top-25 minus old top-25).
       fetch("/api/admin/daily-ai/refresh-delta", {
         method: "POST",
         headers: { "Content-Type": "application/json" },

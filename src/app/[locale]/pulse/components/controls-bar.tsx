@@ -135,7 +135,7 @@ export function ControlsBar({
     const data = await res.json().catch(() => null);
     if (!res.ok) return;
 
-    // Trigger immediate delta refresh so today's top-20 badge set matches the new formula.
+    // Trigger immediate delta refresh so today's top-25 badge set matches the new formula.
     fetch("/api/admin/daily-ai/refresh-delta", {
       method: "POST",
       headers: { "Content-Type": "application/json" },

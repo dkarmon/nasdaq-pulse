@@ -1,5 +1,5 @@
 // ABOUTME: Batch API route for latest AI recommendation badges by symbol.
-// ABOUTME: Used as a fallback when a visible top-20 row is missing a daily badge row.
+// ABOUTME: Used as a fallback when a visible top-25 row is missing a daily badge row.
 
 import { NextRequest, NextResponse } from "next/server";
 import { createAdminClient } from "@/lib/supabase/server";
