@@ -213,4 +213,33 @@ describe("calculateGrowthByCalendarMonths", () => {
     // Growth = (105 - 105) / 105 * 100 = 0%
     expect(growth6m).toBe(0);
   });
+
+  it("returns 0 when past price is 0 (would produce Infinity)", () => {
+    vi.setSystemTime(new Date("2026-02-03T20:00:00Z"));
+
+    const timestamps = [
+      Math.floor(new Date("2026-01-03T20:00:00Z").getTime() / 1000),
+      Math.floor(new Date("2026-02-03T20:00:00Z").getTime() / 1000),
+    ];
+    // Past price is 0 -> division by zero -> Infinity
+    const prices = [0, 100];
+
+    const growth = calculateGrowthByCalendarMonths(prices, timestamps, 1);
+    expect(growth).toBe(0);
+    expect(Number.isFinite(growth)).toBe(true);
+  });
+
+  it("returns finite value for normal price data", () => {
+    vi.setSystemTime(new Date("2026-02-03T20:00:00Z"));
+
+    const timestamps = [
+      Math.floor(new Date("2026-01-03T20:00:00Z").getTime() / 1000),
+      Math.floor(new Date("2026-02-03T20:00:00Z").getTime() / 1000),
+    ];
+    const prices = [100, 150];
+
+    const growth = calculateGrowthByCalendarMonths(prices, timestamps, 1);
+    expect(growth).toBeCloseTo(50, 1);
+    expect(Number.isFinite(growth)).toBe(true);
+  });
 });

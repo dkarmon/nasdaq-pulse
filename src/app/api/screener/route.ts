@@ -61,9 +61,10 @@ function normalizeGrowth3m(stock: Stock): Stock {
     return stock;
   }
 
+  const avg = (stock.growth1m + stock.growth6m) / 2;
   return {
     ...stock,
-    growth3m: (stock.growth1m + stock.growth6m) / 2,
+    growth3m: Number.isFinite(avg) ? avg : 0,
   };
 }
 
