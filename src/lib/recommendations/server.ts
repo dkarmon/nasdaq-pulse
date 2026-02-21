@@ -302,11 +302,15 @@ export async function fetchEffectiveOmitRules(
 
   // If we have a user, check their preferences
   if (userId) {
-    const { data: userPrefs } = await supabase
+    const { data: userPrefs, error: userError } = await supabase
       .from("user_preferences")
       .select("omit_rules")
       .eq("user_id", userId)
       .maybeSingle();
+
+    if (userError) {
+      console.error("fetchEffectiveOmitRules: failed to fetch user preferences:", userError.message);
+    }
 
     const userOmitPrefs = userPrefs?.omit_rules as UserOmitPrefs | null;
 
@@ -317,11 +321,15 @@ export async function fetchEffectiveOmitRules(
   }
 
   // Otherwise, fetch admin defaults
-  const { data: settings } = await supabase
+  const { data: settings, error: settingsError } = await supabase
     .from("recommendation_settings")
     .select("omit_rules")
     .eq("id", true)
     .maybeSingle();
+
+  if (settingsError) {
+    console.error("fetchEffectiveOmitRules: failed to fetch admin omit rules:", settingsError.message);
+  }
 
   return (settings?.omit_rules as OmitRulesConfig | null) ?? null;
 }

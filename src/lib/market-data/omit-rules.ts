@@ -32,7 +32,9 @@ export function applyOmitRules(stocks: Stock[], rules: OmitRulesConfig | null, e
   return stocks.filter((stock) => {
     for (const rule of exchangeRules) {
       const value = getStockFieldValue(stock, rule.field);
-      if (value === undefined) continue;
+      if (value === undefined || value === null) continue;
+      // NaN and Infinity bypass comparison operators; treat them as rule violations
+      if (!Number.isFinite(value)) return false;
 
       if (rule.min != null && value < rule.min) return false;
       if (rule.max != null && value > rule.max) return false;

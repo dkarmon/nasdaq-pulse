@@ -109,7 +109,8 @@ export function calculateGrowthByTradingDays(
 
   if (!pastPrice || pastPrice === 0) return 0;
 
-  return ((currentPrice - pastPrice) / pastPrice) * 100;
+  const growth = ((currentPrice - pastPrice) / pastPrice) * 100;
+  return Number.isFinite(growth) ? growth : 0;
 }
 
 export function calculateGrowthByCalendarMonths(
@@ -139,7 +140,8 @@ export function calculateGrowthByCalendarMonths(
   const pastPrice = prices[targetIdx];
   if (!pastPrice || pastPrice === 0) return 0;
 
-  return ((currentPrice - pastPrice) / pastPrice) * 100;
+  const growth = ((currentPrice - pastPrice) / pastPrice) * 100;
+  return Number.isFinite(growth) ? growth : 0;
 }
 
 function detectLikelySplit(prices: number[], daysToCheck: number = 30): boolean {
