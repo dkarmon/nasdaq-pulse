@@ -131,6 +131,13 @@
   flex-wrap: wrap;
 }
 
+.mobileFormulaRow {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--muted);
+  padding: 0 4px;
+}
+
 .mobileSearchInput {
   composes: searchInput;
   width: 100%;

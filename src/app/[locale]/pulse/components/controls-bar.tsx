@@ -206,7 +206,13 @@ export function ControlsBar({
           </button>
           {/* Refresh and filter buttons are rendered in sticky-header nav on mobile */}
         </div>
-        {/* Row 2: Search (full width) */}
+        {/* Formula name row, visible when recommended mode is active */}
+        {showRecommendedOnly && activeFormula?.name && (
+          <div className={styles.mobileFormulaRow}>
+            {activeFormula.name}
+          </div>
+        )}
+        {/* Search (full width) */}
         <input
           type="text"
           className={styles.mobileSearchInput}
