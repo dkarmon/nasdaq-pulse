@@ -102,8 +102,6 @@ export function StickyHeader({
     };
   }, []);
 
-  const activeFormula = activeFormulas?.[exchange] ?? null;
-
   return (
     <div ref={headerRef} className={styles.stickyHeader}>
       <nav className={styles.nav}>
@@ -129,14 +127,6 @@ export function StickyHeader({
           </button>
         </div>
       </nav>
-
-      {/* Mobile-only: formula name row, visible when recommended mode is active */}
-      {showRecommendedOnly && activeFormula?.name && (
-        <div className={styles.mobileFormulaRow}>
-          {activeFormula.name}
-        </div>
-      )}
-
       <ControlsBar
         exchange={exchange}
         sortBy={sortBy}
