@@ -132,9 +132,9 @@
 }
 
 .mobileFormulaRow {
-  font-size: 0.8rem;
-  font-weight: 600;
-  color: var(--muted);
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #fcd34d;
   padding: 0 4px;
 }
 
