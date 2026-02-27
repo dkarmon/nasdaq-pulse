@@ -22,7 +22,7 @@ export async function GET(request: Request) {
   let ai: unknown = null;
   if (result.success) {
     try {
-      // Piggyback AI refresh for NASDAQ top-20 (no extra cron job).
+      // Piggyback AI refresh for NASDAQ top-25 (no extra cron job).
       ai = await refreshDailyAiBadges({ exchange: "nasdaq", trigger: "cron", timeBudgetMs: 240_000 });
     } catch (err) {
       ai = { error: err instanceof Error ? err.message : String(err) };

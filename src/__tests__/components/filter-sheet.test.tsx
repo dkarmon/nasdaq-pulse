@@ -73,8 +73,8 @@ describe("FilterSheet", () => {
   });
 
   it("shows active state for current sort option", () => {
-    render(<FilterSheet {...defaultProps} sortBy="1m" />);
-    const sortButton = screen.getByText("1M");
+    render(<FilterSheet {...defaultProps} sortBy="3m" />);
+    const sortButton = screen.getByText("3M");
     expect(sortButton).toHaveAttribute("data-active", "true");
   });
 

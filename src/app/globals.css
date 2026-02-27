@@ -401,7 +401,7 @@ select option {
 @media print {
   @page {
     size: A4 landscape;
-    margin: 10mm;
+    margin: 8mm;
   }
 
   html,

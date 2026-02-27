@@ -1,5 +1,5 @@
 /* ABOUTME: Styles for the main screener client component. */
-/* ABOUTME: Handles loading states and cached data notices. */
+/* ABOUTME: Handles loading states and print-specific summary/table surfaces. */
 
 .screener {
   display: flex;
@@ -15,24 +15,20 @@
   display: none;
 }
 
-.printTitle {
-  margin: 0 0 8px;
-  font-size: 1rem;
-  font-weight: 700;
-  color: #000;
-}
-
-.printMetaGrid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 4px 16px;
-}
-
-.printMetaGrid p {
+.printSummaryLine {
   margin: 0;
-  font-size: 0.72rem;
-  line-height: 1.35;
-  color: #000;
+}
+
+.printBrand {
+  font-weight: 700;
+}
+
+.printDivider {
+  color: #4b5563;
+}
+
+.printItem {
+  min-width: 0;
 }
 
 .cachedNotice {
@@ -55,23 +51,51 @@
   }
 
   .printPage {
-    height: 190mm;
-    overflow: hidden;
+    display: block;
   }
 
   .printSummary {
     display: block;
-    margin: 0 0 8px;
-    padding: 6px 8px;
-    border: 1px solid #000;
+    margin: 0 0 2.5mm;
+    padding: 0 0 2mm;
+    border-bottom: 1px solid #000;
     background: #fff !important;
     break-inside: avoid;
   }
 
+  .printSummaryLine {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 2px 7px;
+    white-space: normal;
+    overflow: visible;
+    text-overflow: clip;
+    font-size: 0.68rem;
+    line-height: 1.3;
+    color: #000;
+  }
+
+  .printBrand {
+    flex: 0 0 auto;
+  }
+
+  .printDivider {
+    flex: 0 0 auto;
+  }
+
+  .printItem {
+    display: inline;
+    overflow: visible;
+    text-overflow: clip;
+    white-space: normal;
+    max-width: none;
+  }
+
   .stockList {
+    display: block !important;
     opacity: 1 !important;
     pointer-events: auto !important;
     transition: none !important;
-    overflow: hidden;
   }
 }

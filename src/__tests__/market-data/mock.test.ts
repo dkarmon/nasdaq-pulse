@@ -48,6 +48,22 @@ describe("Mock Market Data Provider", () => {
       }
     });
 
+    it("returns stocks sorted by 3m growth", () => {
+      const params: ScreenerParams = {
+        sortBy: "3m",
+        limit: 10,
+        exchange: "nasdaq",
+      };
+
+      const result = getScreenerData(params);
+
+      for (let i = 0; i < result.stocks.length - 1; i++) {
+        expect(result.stocks[i].growth3m).toBeGreaterThanOrEqual(
+          result.stocks[i + 1].growth3m
+        );
+      }
+    });
+
     it("returns stocks sorted by 1d growth", () => {
       const params: ScreenerParams = {
         sortBy: "1d",
@@ -102,6 +118,7 @@ describe("Mock Market Data Provider", () => {
       expect(result!.profile.name).toBe("NVIDIA Corporation");
       expect(result!.quote.symbol).toBe("NVDA");
       expect(result!.quote.price).toBeGreaterThan(0);
+      expect(result!.growth3m).toBeDefined();
       expect(result!.history.length).toBeGreaterThan(0);
     });
 

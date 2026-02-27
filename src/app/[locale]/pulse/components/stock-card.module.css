@@ -13,6 +13,12 @@
   }
 }
 
+@media print {
+  .cardList {
+    display: none !important;
+  }
+}
+
 .cardWrapper {
   position: relative;
   overflow: hidden;
@@ -175,7 +181,8 @@
 }
 
 .growthRow {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 4px;
 }
 
@@ -245,5 +252,9 @@
 
   .growthLabel {
     font-size: 0.6rem;
+  }
+
+  .growthRow {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }

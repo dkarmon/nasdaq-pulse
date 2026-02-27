@@ -3,7 +3,7 @@
 
 "use client";
 
-import { useState, ReactNode } from "react";
+import { useState, ReactNode, useCallback } from "react";
 import { ScreenerClient } from "./screener-client";
 import { StockDetail } from "./stock-detail";
 import type { Exchange, ScreenerResponse } from "@/lib/market-data/types";
@@ -19,6 +19,19 @@ type PulseWrapperProps = {
   navContent: ReactNode;
 };
 
+function isSameFormula(
+  current: RecommendationFormulaSummary | null,
+  next: RecommendationFormulaSummary | null
+): boolean {
+  if (current === next) return true;
+  if (!current || !next) return current === next;
+  return (
+    current.id === next.id &&
+    current.version === next.version &&
+    current.updatedAt === next.updatedAt
+  );
+}
+
 export function PulseWrapper({ initialData, dict, locale, isAdmin, navContent }: PulseWrapperProps) {
   const [selectedSymbol, setSelectedSymbol] = useState<string | null>(null);
   const [activeFormulas, setActiveFormulas] = useState<Record<Exchange, RecommendationFormulaSummary | null>>(() => {
@@ -30,12 +43,17 @@ export function PulseWrapper({ initialData, dict, locale, isAdmin, navContent }:
     };
   });
 
-  const handleFormulaChange = (exchange: Exchange, formula: RecommendationFormulaSummary | null) => {
-    setActiveFormulas((prev) => ({
-      ...prev,
-      [exchange]: formula,
-    }));
-  };
+  const handleFormulaChange = useCallback((exchange: Exchange, formula: RecommendationFormulaSummary | null) => {
+    setActiveFormulas((prev) => {
+      if (isSameFormula(prev[exchange], formula)) {
+        return prev;
+      }
+      return {
+        ...prev,
+        [exchange]: formula,
+      };
+    });
+  }, []);
 
   const detailLabels = {
     backToList: dict.screener.backToList,
@@ -43,6 +61,7 @@ export function PulseWrapper({ initialData, dict, locale, isAdmin, navContent }:
     growth1d: dict.screener.growth1d,
     growth5d: dict.screener.growth5d,
     growth1m: dict.screener.growth1m,
+    growth3m: dict.screener.growth3m,
     growth6m: dict.screener.growth6m,
     growth12m: dict.screener.growth12m,
     pe: dict.screener.pe,
@@ -57,6 +76,7 @@ export function PulseWrapper({ initialData, dict, locale, isAdmin, navContent }:
     sector: dict.screener.sector,
     industry: dict.screener.industry,
     marketCap: dict.screener.marketCap,
+    companyInfo: dict.screener.companyInfo,
     companyOverview: dict.screener.companyOverview,
     website: dict.screener.website,
   };

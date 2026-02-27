@@ -19,6 +19,7 @@ const FIELD_OPTIONS: { value: OmitField; labelKey: keyof Dictionary["settings"] 
   { value: "growth1d", labelKey: "growth1d" },
   { value: "growth5d", labelKey: "growth5d" },
   { value: "growth1m", labelKey: "growth1m" },
+  { value: "growth3m", labelKey: "growth3m" },
   { value: "growth6m", labelKey: "growth6m" },
   { value: "growth12m", labelKey: "growth12m" },
 ];
@@ -40,6 +41,7 @@ function getFieldLabel(field: OmitField, dict: Dictionary): string {
     case "growth1d": return dict.screener.growth1d;
     case "growth5d": return dict.screener.growth5d;
     case "growth1m": return dict.screener.growth1m;
+    case "growth3m": return dict.screener.growth3m;
     case "growth6m": return dict.screener.growth6m;
     case "growth12m": return dict.screener.growth12m;
   }

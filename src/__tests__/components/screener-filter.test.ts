@@ -32,6 +32,7 @@ const mockStock = (
   currency: exchange === "tlv" ? "ILS" : "USD",
   marketCap: 1000000000,
   growth1m: 10,
+  growth3m: 7,
   growth6m: 5,
   growth12m: 15,
   updatedAt: new Date().toISOString(),

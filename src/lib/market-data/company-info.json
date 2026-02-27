@@ -378,7 +378,7 @@
     "industry": "Construction"
   },
   "AMX.TA": {
-    "sector": "Automotive",
+    "sector": "Industrials",
     "description": "Automax Motors Ltd. is an Israeli automotive company engaged in vehicle sales, leasing, and related services.",
     "descriptionHebrew": "אוטומקס מוטורס בע\"מ היא חברת רכב ישראלית העוסקת במכירת רכבים, ליסינג ושירותים נלווים.",
     "marketCap": 11200000,
@@ -410,7 +410,7 @@
     "industry": "Renewable Energy"
   },
   "AQUA.TA": {
-    "sector": "Automotive",
+    "sector": "Industrials",
     "description": "Aquarius Engines AM Ltd. is an Israeli company developing innovative internal combustion engines with reduced weight and improved efficiency.",
     "descriptionHebrew": "אקווריוס אנג'ינס בע\"מ היא חברה ישראלית המפתחת מנועי בעירה פנימית חדשניים עם משקל מופחת ויעילות משופרת.",
     "marketCap": 66070000,
@@ -426,7 +426,7 @@
     "industry": "IT Services"
   },
   "ARBE.TA": {
-    "sector": "Automotive",
+    "sector": "Industrials",
     "description": "Arbe Robotics Ltd. is an Israeli company developing next-generation radar technology for autonomous vehicles and ADAS applications.",
     "descriptionHebrew": "ארבי רובוטיקס בע\"מ היא חברה ישראלית המפתחת טכנולוגיית רדאר מהדור הבא לרכבים אוטונומיים ויישומי ADAS.",
     "marketCap": 395000000,
@@ -21740,6 +21740,2316 @@
     "sector": "Communication",
     "description": "Blog.  News.  Contact.",
     "descriptionHebrew": "בלוג. חדשות. צור קשר.",
+    "industry": "Media"
+  },
+  "AMD.TA": {
+    "sector": "Technology",
+    "description": "Amiad Water Systems Ltd. is an Israeli public company operating in the Semiconductors industry within the Technology sector. It develops software, digital platforms, and IT solutions for enterprise and public-sector clients.",
+    "descriptionHebrew": "עמיעד היא חברה ציבורית ישראלית הפועלת בענף Semiconductors בסקטור טכנולוגיה. החברה מפתחת תוכנה, פלטפורמות דיגיטליות ופתרונות IT עבור לקוחות עסקיים וציבוריים.",
+    "industry": "Semiconductors"
+  },
+  "AXN.TA": {
+    "sector": "Energy",
+    "description": "Exxon Mobil Corporation is an Israeli public company operating in the Oil & Gas industry within the Energy sector. It develops, produces, and supplies energy products and related infrastructure services.",
+    "descriptionHebrew": "חברה לישראל היא חברה ציבורית ישראלית הפועלת בענף Oil & Gas בסקטור אנרגיה. החברה מפתחת, מייצרת ומספקת מוצרי אנרגיה ושירותי תשתית קשורים.",
+    "industry": "Oil & Gas"
+  },
+  "CNGL.TA": {
+    "sector": "Industrials",
+    "description": "Canada Global (Trading) Ltd. is an Israeli public company operating in the Electrical industry within the Industrials sector. It delivers industrial, engineering, infrastructure, and manufacturing solutions for business and government customers.",
+    "descriptionHebrew": "קנדה גלובל היא חברה ציבורית ישראלית הפועלת בענף Electrical בסקטור תעשייה. החברה מספקת פתרונות תעשייה, הנדסה, תשתיות וייצור ללקוחות עסקיים וממשלתיים.",
+    "industry": "Electrical"
+  },
+  "CNTC.TA": {
+    "sector": "Healthcare",
+    "description": "Cannabotech Ltd. is an Israeli public company operating in the Biotechnology industry within the Healthcare sector. It develops and markets healthcare and life-science products and services for medical providers and patients.",
+    "descriptionHebrew": "ג'ין טכנולוגיות היא חברה ציבורית ישראלית הפועלת בענף Biotechnology בסקטור בריאות. החברה מפתחת ומשווקת מוצרים ושירותים בתחום הבריאות ומדעי החיים עבור גופים רפואיים ומטופלים.",
+    "industry": "Biotechnology"
+  },
+  "CPIA.TA": {
+    "sector": "Technology",
+    "description": "Cipia Vision Ltd. is an Israeli public company operating in the Automotive industry within the Technology sector. It develops software, digital platforms, and IT solutions for enterprise and public-sector clients.",
+    "descriptionHebrew": "סיפיה וויז'ן היא חברה ציבורית ישראלית הפועלת בענף Automotive בסקטור טכנולוגיה. החברה מפתחת תוכנה, פלטפורמות דיגיטליות ופתרונות IT עבור לקוחות עסקיים וציבוריים.",
+    "industry": "Automotive"
+  },
+  "CPPL.TA": {
+    "sector": "Real Estate",
+    "description": "City People of Rotshtein Group Ltd. is an Israeli public company operating in the Property Development industry within the Real Estate sector. It initiates, develops, acquires, and manages residential, commercial, and income-producing properties.",
+    "descriptionHebrew": "אנשי העיר היא חברה ציבורית ישראלית הפועלת בענף Property Development בסקטור נדל\"ן. החברה יוזמת, מפתחת, רוכשת ומנהלת נכסי מגורים, מסחר ונכסים מניבים.",
+    "industry": "Property Development"
+  },
+  "CPTP.TA": {
+    "sector": "Finance",
+    "description": "Capital Point Ltd. is an Israeli public company operating in the Venture Capital industry within the Finance sector. It provides banking, credit, insurance, and investment services to retail and institutional customers.",
+    "descriptionHebrew": "קפיטל פוינט היא חברה ציבורית ישראלית הפועלת בענף Venture Capital בסקטור פיננסים. החברה מספקת שירותי בנקאות, אשראי, ביטוח והשקעות ללקוחות פרטיים ומוסדיים.",
+    "industry": "Venture Capital"
+  },
+  "CRML.TA": {
+    "sector": "Materials",
+    "description": "Carmel Corp Ltd is an Israeli public company operating in the Mining industry within the Materials sector. It produces and supplies construction materials, chemicals, and other industrial inputs.",
+    "descriptionHebrew": "כרמל קורפ היא חברה ציבורית ישראלית הפועלת בענף Mining בסקטור חומרים. החברה מייצרת ומספקת חומרי בנייה, כימיקלים ותשומות תעשייתיות נוספות.",
+    "industry": "Mining"
+  },
+  "CRMT.TA": {
+    "sector": "Industrials",
+    "description": "Carmit Candy Industries Ltd. is an Israeli public company operating in the Traditional Auto industry within the Industrials sector. It delivers industrial, engineering, infrastructure, and manufacturing solutions for business and government customers.",
+    "descriptionHebrew": "כרמית היא חברה ציבורית ישראלית הפועלת בענף Traditional Auto בסקטור תעשייה. החברה מספקת פתרונות תעשייה, הנדסה, תשתיות וייצור ללקוחות עסקיים וממשלתיים.",
+    "industry": "Traditional Auto"
+  },
+  "CRSM.TA": {
+    "sector": "Industrials",
+    "description": "Carasso Motors Ltd. is an Israeli public company operating in the Traditional Auto industry within the Industrials sector. It delivers industrial, engineering, infrastructure, and manufacturing solutions for business and government customers.",
+    "descriptionHebrew": "קרסו מוטורס היא חברה ציבורית ישראלית הפועלת בענף Traditional Auto בסקטור תעשייה. החברה מספקת פתרונות תעשייה, הנדסה, תשתיות וייצור ללקוחות עסקיים וממשלתיים.",
+    "industry": "Traditional Auto"
+  },
+  "CRSR.TA": {
+    "sector": "Technology",
+    "description": "Carasso Real Estate Ltd. is an Israeli public company operating in the Hardware industry within the Technology sector. It develops software, digital platforms, and IT solutions for enterprise and public-sector clients.",
+    "descriptionHebrew": "קרסו נדל\"ן היא חברה ציבורית ישראלית הפועלת בענף Hardware בסקטור טכנולוגיה. החברה מפתחת תוכנה, פלטפורמות דיגיטליות ופתרונות IT עבור לקוחות עסקיים וציבוריים.",
+    "industry": "Hardware"
+  },
+  "DANE.TA": {
+    "sector": "Healthcare",
+    "description": "Danel (Adir Yeoshua) Ltd. is an Israeli public company operating in the Healthcare Services industry within the Healthcare sector. It develops and markets healthcare and life-science products and services for medical providers and patients.",
+    "descriptionHebrew": "דנאל היא חברה ציבורית ישראלית הפועלת בענף Healthcare Services בסקטור בריאות. החברה מפתחת ומשווקת מוצרים ושירותים בתחום הבריאות ומדעי החיים עבור גופים רפואיים ומטופלים.",
+    "industry": "Healthcare Services"
+  },
+  "DANH.TA": {
+    "sector": "Consumer Goods",
+    "description": "Dan Hotels Corp. Ltd. is an Israeli public company operating in the Retail industry within the Consumer Goods sector. It manufactures, markets, and distributes consumer products through retail and wholesale channels.",
+    "descriptionHebrew": "דן מלונות היא חברה ציבורית ישראלית הפועלת בענף Retail בסקטור מוצרי צריכה. החברה מייצרת, משווקת ומפיצה מוצרי צריכה באמצעות ערוצי קמעונאות וסיטונאות.",
+    "industry": "Retail"
+  },
+  "DELG.TA": {
+    "sector": "Consumer Goods",
+    "description": "Delta Galil Ltd. is an Israeli public company operating in the Apparel industry within the Consumer Goods sector. It manufactures, markets, and distributes consumer products through retail and wholesale channels.",
+    "descriptionHebrew": "דלתא גליל היא חברה ציבורית ישראלית הפועלת בענף Apparel בסקטור מוצרי צריכה. החברה מייצרת, משווקת ומפיצה מוצרי צריכה באמצעות ערוצי קמעונאות וסיטונאות.",
+    "industry": "Apparel"
+  },
+  "DIFI.TA": {
+    "sector": "Finance",
+    "description": "Direct Finance of Direct Group Inc. is an Israeli public company operating in the Fintech industry within the Finance sector. It provides banking, credit, insurance, and investment services to retail and institutional customers.",
+    "descriptionHebrew": "מימון ישיר קב היא חברה ציבורית ישראלית הפועלת בענף Fintech בסקטור פיננסים. החברה מספקת שירותי בנקאות, אשראי, ביטוח והשקעות ללקוחות פרטיים ומוסדיים.",
+    "industry": "Fintech"
+  },
+  "DIMRI.TA": {
+    "sector": "Industrials",
+    "description": "YH Dimri Construction & Development Ltd. is an Israeli public company operating in the Construction industry within the Industrials sector. It delivers industrial, engineering, infrastructure, and manufacturing solutions for business and government customers.",
+    "descriptionHebrew": "דמרי היא חברה ציבורית ישראלית הפועלת בענף Construction בסקטור תעשייה. החברה מספקת פתרונות תעשייה, הנדסה, תשתיות וייצור ללקוחות עסקיים וממשלתיים.",
+    "industry": "Construction"
+  },
+  "DIPL.TA": {
+    "sector": "Industrials",
+    "description": "Diplomat Holdings Ltd. is an Israeli public company operating in the Transportation industry within the Industrials sector. It delivers industrial, engineering, infrastructure, and manufacturing solutions for business and government customers.",
+    "descriptionHebrew": "דיפלומט היא חברה ציבורית ישראלית הפועלת בענף Transportation בסקטור תעשייה. החברה מספקת פתרונות תעשייה, הנדסה, תשתיות וייצור ללקוחות עסקיים וממשלתיים.",
+    "industry": "Transportation"
+  },
+  "DISI.TA": {
+    "sector": "Finance",
+    "description": "Discount Investment Corporation Ltd. is an Israeli public company operating in the Asset Management industry within the Finance sector. It provides banking, credit, insurance, and investment services to retail and institutional customers.",
+    "descriptionHebrew": "סיאון היא חברה ציבורית ישראלית הפועלת בענף Asset Management בסקטור פיננסים. החברה מספקת שירותי בנקאות, אשראי, ביטוח והשקעות ללקוחות פרטיים ומוסדיים.",
+    "industry": "Asset Management"
+  },
+  "DLEA.TA": {
+    "sector": "Industrials",
+    "description": "Delek Automotive Systems Ltd. is an Israeli public company operating in the Traditional Auto industry within the Industrials sector. It delivers industrial, engineering, infrastructure, and manufacturing solutions for business and government customers.",
+    "descriptionHebrew": "דלק רכב היא חברה ציבורית ישראלית הפועלת בענף Traditional Auto בסקטור תעשייה. החברה מספקת פתרונות תעשייה, הנדסה, תשתיות וייצור ללקוחות עסקיים וממשלתיים.",
+    "industry": "Traditional Auto"
+  },
+  "DLEKG.TA": {
+    "sector": "Energy",
+    "description": "Delek Group Ltd. is an Israeli public company operating in the Oil & Gas industry within the Energy sector. It develops, produces, and supplies energy products and related infrastructure services.",
+    "descriptionHebrew": "דלק קבוצה היא חברה ציבורית ישראלית הפועלת בענף Oil & Gas בסקטור אנרגיה. החברה מפתחת, מייצרת ומספקת מוצרי אנרגיה ושירותי תשתית קשורים.",
+    "industry": "Oil & Gas"
+  },
+  "DLPR.TA": {
+    "sector": "Real Estate",
+    "description": "Delek Israel Properties (D.P.) Ltd. is an Israeli public company operating in the Commercial Real Estate industry within the Real Estate sector. It initiates, develops, acquires, and manages residential, commercial, and income-producing properties.",
+    "descriptionHebrew": "דלק ישראל נכסים היא חברה ציבורית ישראלית הפועלת בענף Commercial Real Estate בסקטור נדל\"ן. החברה יוזמת, מפתחת, רוכשת ומנהלת נכסי מגורים, מסחר ונכסים מניבים.",
+    "industry": "Commercial Real Estate"
+  },
+  "DLTI.TA": {
+    "sector": "Consumer Goods",
+    "description": "Delta Israel Brands Ltd. is an Israeli public company operating in the Consumer Electronics industry within the Consumer Goods sector. It manufactures, markets, and distributes consumer products through retail and wholesale channels.",
+    "descriptionHebrew": "דלתא מותגים היא חברה ציבורית ישראלית הפועלת בענף Consumer Electronics בסקטור מוצרי צריכה. החברה מייצרת, משווקת ומפיצה מוצרי צריכה באמצעות ערוצי קמעונאות וסיטונאות.",
+    "industry": "Consumer Electronics"
+  },
+  "DNA.TA": {
+    "sector": "Technology",
+    "description": "DNA Group Trust Ltd. is an Israeli public company operating in the IT Services industry within the Technology sector. It develops software, digital platforms, and IT solutions for enterprise and public-sector clients.",
+    "descriptionHebrew": "DNA Group Trust Ltd. היא חברה ציבורית ישראלית הפועלת בענף IT Services בסקטור טכנולוגיה. החברה מפתחת תוכנה, פלטפורמות דיגיטליות ופתרונות IT עבור לקוחות עסקיים וציבוריים.",
+    "industry": "IT Services"
+  },
+  "DNYA.TA": {
+    "sector": "Industrials",
+    "description": "Danya Cebus Ltd. is an Israeli public company operating in the Construction industry within the Industrials sector. It delivers industrial, engineering, infrastructure, and manufacturing solutions for business and government customers.",
+    "descriptionHebrew": "דניה סיבוס היא חברה ציבורית ישראלית הפועלת בענף Construction בסקטור תעשייה. החברה מספקת פתרונות תעשייה, הנדסה, תשתיות וייצור ללקוחות עסקיים וממשלתיים.",
+    "industry": "Construction"
+  },
+  "DORL.TA": {
+    "sector": "Energy",
+    "description": "Doral Group Renewable Energy Resources Ltd. is an Israeli public company operating in the Renewable Energy industry within the Energy sector. It develops, produces, and supplies energy products and related infrastructure services.",
+    "descriptionHebrew": "דוראל אנרגיה היא חברה ציבורית ישראלית הפועלת בענף Renewable Energy בסקטור אנרגיה. החברה מפתחת, מייצרת ומספקת מוצרי אנרגיה ושירותי תשתית קשורים.",
+    "industry": "Renewable Energy"
+  },
+  "DRAL.TA": {
+    "sector": "Energy",
+    "description": "Dor Alon Energy in Israel Ltd. is an Israeli public company operating in the Oil & Gas industry within the Energy sector. It develops, produces, and supplies energy products and related infrastructure services.",
+    "descriptionHebrew": "דור אלון היא חברה ציבורית ישראלית הפועלת בענף Oil & Gas בסקטור אנרגיה. החברה מפתחת, מייצרת ומספקת מוצרי אנרגיה ושירותי תשתית קשורים.",
+    "industry": "Oil & Gas"
+  },
+  "DRSH.TA": {
+    "sector": "Real Estate",
+    "description": "Dorsel Holdings Ltd. is an Israeli public company operating in the Commercial Real Estate industry within the Real Estate sector. It initiates, develops, acquires, and manages residential, commercial, and income-producing properties.",
+    "descriptionHebrew": "דורסל החזקות היא חברה ציבורית ישראלית הפועלת בענף Commercial Real Estate בסקטור נדל\"ן. החברה יוזמת, מפתחת, רוכשת ומנהלת נכסי מגורים, מסחר ונכסים מניבים.",
+    "industry": "Commercial Real Estate"
+  },
+  "DSCT.TA": {
+    "sector": "Finance",
+    "description": "Israel Discount Bank Ltd. is an Israeli public company operating in the Banks industry within the Finance sector. It provides banking, credit, insurance, and investment services to retail and institutional customers.",
+    "descriptionHebrew": "דיסקונט היא חברה ציבורית ישראלית הפועלת בענף Banks בסקטור פיננסים. החברה מספקת שירותי בנקאות, אשראי, ביטוח והשקעות ללקוחות פרטיים ומוסדיים.",
+    "industry": "Banks"
+  },
+  "DUNI.TA": {
+    "sector": "Industrials",
+    "description": "Duniec Brothers Ltd. is an Israeli public company operating in the Construction industry within the Industrials sector. It delivers industrial, engineering, infrastructure, and manufacturing solutions for business and government customers.",
+    "descriptionHebrew": "דוניץ היא חברה ציבורית ישראלית הפועלת בענף Construction בסקטור תעשייה. החברה מספקת פתרונות תעשייה, הנדסה, תשתיות וייצור ללקוחות עסקיים וממשלתיים.",
+    "industry": "Construction"
+  },
+  "ECNR.TA": {
+    "sector": "Energy",
+    "description": "Econergy Renewable Energy Ltd. is an Israeli public company operating in the Renewable Energy industry within the Energy sector. It develops, produces, and supplies energy products and related infrastructure services.",
+    "descriptionHebrew": "אקונרג'י היא חברה ציבורית ישראלית הפועלת בענף Renewable Energy בסקטור אנרגיה. החברה מפתחת, מייצרת ומספקת מוצרי אנרגיה ושירותי תשתית קשורים.",
+    "industry": "Renewable Energy"
+  },
+  "ECP.TA": {
+    "sector": "Consumer Goods",
+    "description": "Electra Consumer Products Ltd. is an Israeli public company operating in the Retail industry within the Consumer Goods sector. It manufactures, markets, and distributes consumer products through retail and wholesale channels.",
+    "descriptionHebrew": "אלקטרה צריכה היא חברה ציבורית ישראלית הפועלת בענף Retail בסקטור מוצרי צריכה. החברה מייצרת, משווקת ומפיצה מוצרי צריכה באמצעות ערוצי קמעונאות וסיטונאות.",
+    "industry": "Retail"
+  },
+  "EFCP.TA": {
+    "sector": "Real Estate",
+    "description": "Effi Capital Nadlan Ltd. is an Israeli public company operating in the Property Development industry within the Real Estate sector. It initiates, develops, acquires, and manages residential, commercial, and income-producing properties.",
+    "descriptionHebrew": "אפי קפיטל נדל\"ן היא חברה ציבורית ישראלית הפועלת בענף Property Development בסקטור נדל\"ן. החברה יוזמת, מפתחת, רוכשת ומנהלת נכסי מגורים, מסחר ונכסים מניבים.",
+    "industry": "Property Development"
+  },
+  "ELAD.TA": {
+    "sector": "Technology",
+    "description": "Elad Software Systems Ltd. is an Israeli public company operating in the IT Services industry within the Technology sector. It develops software, digital platforms, and IT solutions for enterprise and public-sector clients.",
+    "descriptionHebrew": "אלעד היא חברה ציבורית ישראלית הפועלת בענף IT Services בסקטור טכנולוגיה. החברה מפתחת תוכנה, פלטפורמות דיגיטליות ופתרונות IT עבור לקוחות עסקיים וציבוריים.",
+    "industry": "IT Services"
+  },
+  "ELAL.TA": {
+    "sector": "Consumer Goods",
+    "description": "El Al Israel Airlines Ltd. is an Israeli public company operating in the Restaurants industry within the Consumer Goods sector. It manufactures, markets, and distributes consumer products through retail and wholesale channels.",
+    "descriptionHebrew": "אל על היא חברה ציבורית ישראלית הפועלת בענף Restaurants בסקטור מוצרי צריכה. החברה מייצרת, משווקת ומפיצה מוצרי צריכה באמצעות ערוצי קמעונאות וסיטונאות.",
+    "industry": "Restaurants"
+  },
+  "ELCO.TA": {
+    "sector": "Industrials",
+    "description": "Elco Ltd. is an Israeli public company operating in the Construction industry within the Industrials sector. It delivers industrial, engineering, infrastructure, and manufacturing solutions for business and government customers.",
+    "descriptionHebrew": "אלקו היא חברה ציבורית ישראלית הפועלת בענף Construction בסקטור תעשייה. החברה מספקת פתרונות תעשייה, הנדסה, תשתיות וייצור ללקוחות עסקיים וממשלתיים.",
+    "industry": "Construction"
+  },
+  "ELCP.TA": {
+    "sector": "Energy",
+    "description": "Electra Power Ltd. is an Israeli public company operating in the Energy Services industry within the Energy sector. It develops, produces, and supplies energy products and related infrastructure services.",
+    "descriptionHebrew": "אלקטרה צריכה היא חברה ציבורית ישראלית הפועלת בענף Energy Services בסקטור אנרגיה. החברה מפתחת, מייצרת ומספקת מוצרי אנרגיה ושירותי תשתית קשורים.",
+    "industry": "Energy Services"
+  },
+  "ELCRE.TA": {
+    "sector": "Real Estate",
+    "description": "Electra Real Estate Ltd. is an Israeli public company operating in the Property Development industry within the Real Estate sector. It initiates, develops, acquires, and manages residential, commercial, and income-producing properties.",
+    "descriptionHebrew": "אלקטרה נדל\"ן היא חברה ציבורית ישראלית הפועלת בענף Property Development בסקטור נדל\"ן. החברה יוזמת, מפתחת, רוכשת ומנהלת נכסי מגורים, מסחר ונכסים מניבים.",
+    "industry": "Property Development"
+  },
+  "ELDT.TA": {
+    "sector": "Industrials",
+    "description": "Eldan Transportation Ltd. is an Israeli public company operating in the Transportation industry within the Industrials sector. It delivers industrial, engineering, infrastructure, and manufacturing solutions for business and government customers.",
+    "descriptionHebrew": "אלדן תחבורה היא חברה ציבורית ישראלית הפועלת בענף Transportation בסקטור תעשייה. החברה מספקת פתרונות תעשייה, הנדסה, תשתיות וייצור ללקוחות עסקיים וממשלתיים.",
+    "industry": "Transportation"
+  },
+  "ELLO.TA": {
+    "sector": "Energy",
+    "description": "Ellomay Capital Ltd. is an Israeli public company operating in the Renewable Energy industry within the Energy sector. It develops, produces, and supplies energy products and related infrastructure services.",
+    "descriptionHebrew": "אלומיי קפיטל היא חברה ציבורית ישראלית הפועלת בענף Renewable Energy בסקטור אנרגיה. החברה מפתחת, מייצרת ומספקת מוצרי אנרגיה ושירותי תשתית קשורים.",
+    "industry": "Renewable Energy"
+  },
+  "ELMR.TA": {
+    "sector": "Industrials",
+    "description": "Elmor Electrical Installation Inc. is an Israeli public company operating in the Machinery industry within the Industrials sector. It delivers industrial, engineering, infrastructure, and manufacturing solutions for business and government customers.",
+    "descriptionHebrew": "אלמור חשמל היא חברה ציבורית ישראלית הפועלת בענף Machinery בסקטור תעשייה. החברה מספקת פתרונות תעשייה, הנדסה, תשתיות וייצור ללקוחות עסקיים וממשלתיים.",
+    "industry": "Machinery"
+  },
+  "ELRN.TA": {
+    "sector": "Technology",
+    "description": "Elron Ventures Ltd. is an Israeli public company operating in the IT Services industry within the Technology sector. It develops software, digital platforms, and IT solutions for enterprise and public-sector clients.",
+    "descriptionHebrew": "אלרון היא חברה ציבורית ישראלית הפועלת בענף IT Services בסקטור טכנולוגיה. החברה מפתחת תוכנה, פלטפורמות דיגיטליות ופתרונות IT עבור לקוחות עסקיים וציבוריים.",
+    "industry": "IT Services"
+  },
+  "ELSPC.TA": {
+    "sector": "Technology",
+    "description": "Elspec Engineering Ltd. is an Israeli public company operating in the Hardware industry within the Technology sector. It develops software, digital platforms, and IT solutions for enterprise and public-sector clients.",
+    "descriptionHebrew": "אלספק היא חברה ציבורית ישראלית הפועלת בענף Hardware בסקטור טכנולוגיה. החברה מפתחת תוכנה, פלטפורמות דיגיטליות ופתרונות IT עבור לקוחות עסקיים וציבוריים.",
+    "industry": "Hardware"
+  },
+  "ELTR.TA": {
+    "sector": "Industrials",
+    "description": "Electra Ltd. is an Israeli public company operating in the Construction industry within the Industrials sector. It delivers industrial, engineering, infrastructure, and manufacturing solutions for business and government customers.",
+    "descriptionHebrew": "אלקטרה היא חברה ציבורית ישראלית הפועלת בענף Construction בסקטור תעשייה. החברה מספקת פתרונות תעשייה, הנדסה, תשתיות וייצור ללקוחות עסקיים וממשלתיים.",
+    "industry": "Construction"
+  },
+  "ELWS.TA": {
+    "sector": "Industrials",
+    "description": "Electreon Wireless Ltd. is an Israeli public company operating in the EV industry within the Industrials sector. It delivers industrial, engineering, infrastructure, and manufacturing solutions for business and government customers.",
+    "descriptionHebrew": "אלקטריאון וירלס היא חברה ציבורית ישראלית הפועלת בענף EV בסקטור תעשייה. החברה מספקת פתרונות תעשייה, הנדסה, תשתיות וייצור ללקוחות עסקיים וממשלתיים.",
+    "industry": "EV"
+  },
+  "EMCO.TA": {
+    "sector": "Technology",
+    "description": "E&M Computing Ltd. is an Israeli public company operating in the IT Services industry within the Technology sector. It develops software, digital platforms, and IT solutions for enterprise and public-sector clients.",
+    "descriptionHebrew": "אמת היא חברה ציבורית ישראלית הפועלת בענף IT Services בסקטור טכנולוגיה. החברה מפתחת תוכנה, פלטפורמות דיגיטליות ופתרונות IT עבור לקוחות עסקיים וציבוריים.",
+    "industry": "IT Services"
+  },
+  "EMDV.TA": {
+    "sector": "Industrials",
+    "description": "Emilia Development Ltd. is an Israeli public company operating in the Transportation industry within the Industrials sector. It delivers industrial, engineering, infrastructure, and manufacturing solutions for business and government customers.",
+    "descriptionHebrew": "אמיליה פיתוח היא חברה ציבורית ישראלית הפועלת בענף Transportation בסקטור תעשייה. החברה מספקת פתרונות תעשייה, הנדסה, תשתיות וייצור ללקוחות עסקיים וממשלתיים.",
+    "industry": "Transportation"
+  },
+  "EMITF.TA": {
+    "sector": "Real Estate",
+    "description": "Elbit Imaging Ltd. is an Israeli public company operating in the Commercial Real Estate industry within the Real Estate sector. It initiates, develops, acquires, and manages residential, commercial, and income-producing properties.",
+    "descriptionHebrew": "אלביט הדמיה היא חברה ציבורית ישראלית הפועלת בענף Commercial Real Estate בסקטור נדל\"ן. החברה יוזמת, מפתחת, רוכשת ומנהלת נכסי מגורים, מסחר ונכסים מניבים.",
+    "industry": "Commercial Real Estate"
+  },
+  "ENLT.TA": {
+    "sector": "Energy",
+    "description": "Enlight Renewable Energy Ltd. is an Israeli public company operating in the Renewable Energy industry within the Energy sector. It develops, produces, and supplies energy products and related infrastructure services.",
+    "descriptionHebrew": "אנלייט אנרגיה היא חברה ציבורית ישראלית הפועלת בענף Renewable Energy בסקטור אנרגיה. החברה מפתחת, מייצרת ומספקת מוצרי אנרגיה ושירותי תשתית קשורים.",
+    "industry": "Renewable Energy"
+  },
+  "ENLV.TA": {
+    "sector": "Healthcare",
+    "description": "Enlivex Therapeutics Ltd. is an Israeli public company operating in the Biotechnology industry within the Healthcare sector. It develops and markets healthcare and life-science products and services for medical providers and patients.",
+    "descriptionHebrew": "אנלייבקס היא חברה ציבורית ישראלית הפועלת בענף Biotechnology בסקטור בריאות. החברה מפתחת ומשווקת מוצרים ושירותים בתחום הבריאות ומדעי החיים עבור גופים רפואיים ומטופלים.",
+    "industry": "Biotechnology"
+  },
+  "ENOG.TA": {
+    "sector": "Energy",
+    "description": "Energean Plc is an Israeli public company operating in the Oil & Gas industry within the Energy sector. It develops, produces, and supplies energy products and related infrastructure services.",
+    "descriptionHebrew": "אנרג'יאן היא חברה ציבורית ישראלית הפועלת בענף Oil & Gas בסקטור אנרגיה. החברה מפתחת, מייצרת ומספקת מוצרי אנרגיה ושירותי תשתית קשורים.",
+    "industry": "Oil & Gas"
+  },
+  "ENRG.TA": {
+    "sector": "Energy",
+    "description": "Energix-Renewable Energies Ltd. is an Israeli public company operating in the Renewable Energy industry within the Energy sector. It develops, produces, and supplies energy products and related infrastructure services.",
+    "descriptionHebrew": "אנרג'יקס היא חברה ציבורית ישראלית הפועלת בענף Renewable Energy בסקטור אנרגיה. החברה מפתחת, מייצרת ומספקת מוצרי אנרגיה ושירותי תשתית קשורים.",
+    "industry": "Renewable Energy"
+  },
+  "EPIT.TA": {
+    "sector": "Healthcare",
+    "description": "Epitomee Medical Ltd. is an Israeli public company operating in the Medical Devices industry within the Healthcare sector. It develops and markets healthcare and life-science products and services for medical providers and patients.",
+    "descriptionHebrew": "אפיטומי היא חברה ציבורית ישראלית הפועלת בענף Medical Devices בסקטור בריאות. החברה מפתחת ומשווקת מוצרים ושירותים בתחום הבריאות ומדעי החיים עבור גופים רפואיים ומטופלים.",
+    "industry": "Medical Devices"
+  },
+  "EQTL.TA": {
+    "sector": "Energy",
+    "description": "Equital Ltd. is an Israeli public company operating in the Oil & Gas industry within the Energy sector. It develops, produces, and supplies energy products and related infrastructure services.",
+    "descriptionHebrew": "אקויטל היא חברה ציבורית ישראלית הפועלת בענף Oil & Gas בסקטור אנרגיה. החברה מפתחת, מייצרת ומספקת מוצרי אנרגיה ושירותי תשתית קשורים.",
+    "industry": "Oil & Gas"
+  },
+  "ERKA.TA": {
+    "sector": "Healthcare",
+    "description": "Erika Carmel-Tech Ltd is an Israeli public company operating in the Medical Devices industry within the Healthcare sector. It develops and markets healthcare and life-science products and services for medical providers and patients.",
+    "descriptionHebrew": "אריקה כרמל היא חברה ציבורית ישראלית הפועלת בענף Medical Devices בסקטור בריאות. החברה מפתחת ומשווקת מוצרים ושירותים בתחום הבריאות ומדעי החיים עבור גופים רפואיים ומטופלים.",
+    "industry": "Medical Devices"
+  },
+  "ESLT.TA": {
+    "sector": "Industrials",
+    "description": "Elbit Systems Ltd. is an Israeli public company operating in the Defense industry within the Industrials sector. It delivers industrial, engineering, infrastructure, and manufacturing solutions for business and government customers.",
+    "descriptionHebrew": "אלביט מערכות היא חברה ציבורית ישראלית הפועלת בענף Defense בסקטור תעשייה. החברה מספקת פתרונות תעשייה, הנדסה, תשתיות וייצור ללקוחות עסקיים וממשלתיים.",
+    "industry": "Defense"
+  },
+  "ETGA.TA": {
+    "sector": "Industrials",
+    "description": "Etga Group Ltd. is an Israeli public company operating in the Transportation industry within the Industrials sector. It delivers industrial, engineering, infrastructure, and manufacturing solutions for business and government customers.",
+    "descriptionHebrew": "אי.טי.ג'י.איי היא חברה ציבורית ישראלית הפועלת בענף Transportation בסקטור תעשייה. החברה מספקת פתרונות תעשייה, הנדסה, תשתיות וייצור ללקוחות עסקיים וממשלתיים.",
+    "industry": "Transportation"
+  },
+  "EVGN.TA": {
+    "sector": "Healthcare",
+    "description": "Evogene Ltd. is an Israeli public company operating in the Biotechnology industry within the Healthcare sector. It develops and markets healthcare and life-science products and services for medical providers and patients.",
+    "descriptionHebrew": "אבוג'ן היא חברה ציבורית ישראלית הפועלת בענף Biotechnology בסקטור בריאות. החברה מפתחת ומשווקת מוצרים ושירותים בתחום הבריאות ומדעי החיים עבור גופים רפואיים ומטופלים.",
+    "industry": "Biotechnology"
+  },
+  "EXPO.TA": {
+    "sector": "Industrials",
+    "description": "Export Investment Co. Ltd. is an Israeli public company operating in the IT Services industry within the Industrials sector. It delivers industrial, engineering, infrastructure, and manufacturing solutions for business and government customers.",
+    "descriptionHebrew": "יצוא היא חברה ציבורית ישראלית הפועלת בענף IT Services בסקטור תעשייה. החברה מספקת פתרונות תעשייה, הנדסה, תשתיות וייצור ללקוחות עסקיים וממשלתיים.",
+    "industry": "IT Services"
+  },
+  "FBRT.TA": {
+    "sector": "Industrials",
+    "description": "FMS Enterprises Migun Ltd. is an Israeli public company operating in the Aerospace industry within the Industrials sector. It delivers industrial, engineering, infrastructure, and manufacturing solutions for business and government customers.",
+    "descriptionHebrew": "פמס היא חברה ציבורית ישראלית הפועלת בענף Aerospace בסקטור תעשייה. החברה מספקת פתרונות תעשייה, הנדסה, תשתיות וייצור ללקוחות עסקיים וממשלתיים.",
+    "industry": "Aerospace"
+  },
+  "FGAS.TA": {
+    "sector": "Industrials",
+    "description": "Fire & Gas Detection Technologies Inc. is an Israeli public company operating in the Energy Services industry within the Industrials sector. It delivers industrial, engineering, infrastructure, and manufacturing solutions for business and government customers.",
+    "descriptionHebrew": "טכנ גילוי אש גז היא חברה ציבורית ישראלית הפועלת בענף Energy Services בסקטור תעשייה. החברה מספקת פתרונות תעשייה, הנדסה, תשתיות וייצור ללקוחות עסקיים וממשלתיים.",
+    "industry": "Energy Services"
+  },
+  "FIBI.TA": {
+    "sector": "Finance",
+    "description": "First International Bank of Israel Ltd. is an Israeli public company operating in the Banks industry within the Finance sector. It provides banking, credit, insurance, and investment services to retail and institutional customers.",
+    "descriptionHebrew": "בינלאומי היא חברה ציבורית ישראלית הפועלת בענף Banks בסקטור פיננסים. החברה מספקת שירותי בנקאות, אשראי, ביטוח והשקעות ללקוחות פרטיים ומוסדיים.",
+    "industry": "Banks"
+  },
+  "FIBIH.TA": {
+    "sector": "Finance",
+    "description": "Fibi Holdings Ltd. is an Israeli public company operating in the Asset Management industry within the Finance sector. It provides banking, credit, insurance, and investment services to retail and institutional customers.",
+    "descriptionHebrew": "פיבי היא חברה ציבורית ישראלית הפועלת בענף Asset Management בסקטור פיננסים. החברה מספקת שירותי בנקאות, אשראי, ביטוח והשקעות ללקוחות פרטיים ומוסדיים.",
+    "industry": "Asset Management"
+  },
+  "FLYS.TA": {
+    "sector": "Healthcare",
+    "description": "Flying Sparks Ltd. is an Israeli public company operating in the Biotechnology industry within the Healthcare sector. It develops and markets healthcare and life-science products and services for medical providers and patients.",
+    "descriptionHebrew": "פליינג ספארק היא חברה ציבורית ישראלית הפועלת בענף Biotechnology בסקטור בריאות. החברה מפתחת ומשווקת מוצרים ושירותים בתחום הבריאות ומדעי החיים עבור גופים רפואיים ומטופלים.",
+    "industry": "Biotechnology"
+  },
+  "FORTY.TA": {
+    "sector": "Technology",
+    "description": "Formula Systems (1985) Ltd. is an Israeli public company operating in the IT Services industry within the Technology sector. It develops software, digital platforms, and IT solutions for enterprise and public-sector clients.",
+    "descriptionHebrew": "פורמולה מערכות היא חברה ציבורית ישראלית הפועלת בענף IT Services בסקטור טכנולוגיה. החברה מפתחת תוכנה, פלטפורמות דיגיטליות ופתרונות IT עבור לקוחות עסקיים וציבוריים.",
+    "industry": "IT Services"
+  },
+  "FOX.TA": {
+    "sector": "Communication",
+    "description": "Fox-Wizel Ltd. is an Israeli public company operating in the Media industry within the Communication sector. It provides media, telecommunications, and digital communication services to businesses and consumers.",
+    "descriptionHebrew": "פוקס היא חברה ציבורית ישראלית הפועלת בענף Media בסקטור תקשורת. החברה מספקת שירותי מדיה, תקשורת וטלקום לעסקים ולצרכנים.",
+    "industry": "Media"
+  },
+  "FRDN.TA": {
+    "sector": "Industrials",
+    "description": "Fridenson Logistic Services Ltd. is an Israeli public company operating in the Transportation industry within the Industrials sector. It delivers industrial, engineering, infrastructure, and manufacturing solutions for business and government customers.",
+    "descriptionHebrew": "פרידנזון היא חברה ציבורית ישראלית הפועלת בענף Transportation בסקטור תעשייה. החברה מספקת פתרונות תעשייה, הנדסה, תשתיות וייצור ללקוחות עסקיים וממשלתיים.",
+    "industry": "Transportation"
+  },
+  "FRSX.TA": {
+    "sector": "Industrials",
+    "description": "Foresight Autonomous Holdings Ltd. is an Israeli public company operating in the EV industry within the Industrials sector. It delivers industrial, engineering, infrastructure, and manufacturing solutions for business and government customers.",
+    "descriptionHebrew": "פורסייט היא חברה ציבורית ישראלית הפועלת בענף EV בסקטור תעשייה. החברה מספקת פתרונות תעשייה, הנדסה, תשתיות וייצור ללקוחות עסקיים וממשלתיים.",
+    "industry": "EV"
+  },
+  "FTAL.TA": {
+    "sector": "Real Estate",
+    "description": "Fattal Holdings 1998 Ltd. is an Israeli public company operating in the Commercial Real Estate industry within the Real Estate sector. It initiates, develops, acquires, and manages residential, commercial, and income-producing properties.",
+    "descriptionHebrew": "פתאל החזקות היא חברה ציבורית ישראלית הפועלת בענף Commercial Real Estate בסקטור נדל\"ן. החברה יוזמת, מפתחת, רוכשת ומנהלת נכסי מגורים, מסחר ונכסים מניבים.",
+    "industry": "Commercial Real Estate"
+  },
+  "GAD.TA": {
+    "sector": "Consumer Goods",
+    "description": "Gad Dairies (Marketing 1992) Ltd. is an Israeli public company operating in the Food & Beverage industry within the Consumer Goods sector. It manufactures, markets, and distributes consumer products through retail and wholesale channels.",
+    "descriptionHebrew": "מחלבות גד היא חברה ציבורית ישראלית הפועלת בענף Food & Beverage בסקטור מוצרי צריכה. החברה מייצרת, משווקת ומפיצה מוצרי צריכה באמצעות ערוצי קמעונאות וסיטונאות.",
+    "industry": "Food & Beverage"
+  },
+  "GAGR.TA": {
+    "sector": "Industrials",
+    "description": "Gaon Group Ltd. is an Israeli public company operating in the Machinery industry within the Industrials sector. It delivers industrial, engineering, infrastructure, and manufacturing solutions for business and government customers.",
+    "descriptionHebrew": "גאון קבוצה היא חברה ציבורית ישראלית הפועלת בענף Machinery בסקטור תעשייה. החברה מספקת פתרונות תעשייה, הנדסה, תשתיות וייצור ללקוחות עסקיים וממשלתיים.",
+    "industry": "Machinery"
+  },
+  "GCT.TA": {
+    "sector": "Technology",
+    "description": "G City Ltd. is an Israeli public company operating in the Internet industry within the Technology sector. It develops software, digital platforms, and IT solutions for enterprise and public-sector clients.",
+    "descriptionHebrew": "ג'י סיטי היא חברה ציבורית ישראלית הפועלת בענף Internet בסקטור טכנולוגיה. החברה מפתחת תוכנה, פלטפורמות דיגיטליות ופתרונות IT עבור לקוחות עסקיים וציבוריים.",
+    "industry": "Internet"
+  },
+  "GEFR.TA": {
+    "sector": "Healthcare",
+    "description": "Gefen Residential and Renewal Ltd. is an Israeli public company operating in the Biotechnology industry within the Healthcare sector. It develops and markets healthcare and life-science products and services for medical providers and patients.",
+    "descriptionHebrew": "גפן מגורים היא חברה ציבורית ישראלית הפועלת בענף Biotechnology בסקטור בריאות. החברה מפתחת ומשווקת מוצרים ושירותים בתחום הבריאות ומדעי החיים עבור גופים רפואיים ומטופלים.",
+    "industry": "Biotechnology"
+  },
+  "GIBUI.TA": {
+    "sector": "Finance",
+    "description": "Gibui Holdings Ltd. is an Israeli public company operating in the Fintech industry within the Finance sector. It provides banking, credit, insurance, and investment services to retail and institutional customers.",
+    "descriptionHebrew": "גיבוי אחזקות היא חברה ציבורית ישראלית הפועלת בענף Fintech בסקטור פיננסים. החברה מספקת שירותי בנקאות, אשראי, ביטוח והשקעות ללקוחות פרטיים ומוסדיים.",
+    "industry": "Fintech"
+  },
+  "GILT.TA": {
+    "sector": "Communication",
+    "description": "Gilat Satellite Networks Ltd. is an Israeli public company operating in the Telecom industry within the Communication sector. It provides media, telecommunications, and digital communication services to businesses and consumers.",
+    "descriptionHebrew": "גילת היא חברה ציבורית ישראלית הפועלת בענף Telecom בסקטור תקשורת. החברה מספקת שירותי מדיה, תקשורת וטלקום לעסקים ולצרכנים.",
+    "industry": "Telecom"
+  },
+  "GIX.TA": {
+    "sector": "Communication",
+    "description": "Gix Internet Ltd. is an Israeli public company operating in the Advertising industry within the Communication sector. It provides media, telecommunications, and digital communication services to businesses and consumers.",
+    "descriptionHebrew": "גיקס אינטרנט היא חברה ציבורית ישראלית הפועלת בענף Advertising בסקטור תקשורת. החברה מספקת שירותי מדיה, תקשורת וטלקום לעסקים ולצרכנים.",
+    "industry": "Advertising"
+  },
+  "GKL.TA": {
+    "sector": "Industrials",
+    "description": "Global Knafaim Leasing Ltd. is an Israeli public company operating in the Aerospace industry within the Industrials sector. It delivers industrial, engineering, infrastructure, and manufacturing solutions for business and government customers.",
+    "descriptionHebrew": "גלובל כנפיים היא חברה ציבורית ישראלית הפועלת בענף Aerospace בסקטור תעשייה. החברה מספקת פתרונות תעשייה, הנדסה, תשתיות וייצור ללקוחות עסקיים וממשלתיים.",
+    "industry": "Aerospace"
+  },
+  "GLDE.TA": {
+    "sector": "Energy",
+    "description": "Golden Energy Power Ltd is an Israeli public company operating in the Energy Services industry within the Energy sector. It develops, produces, and supplies energy products and related infrastructure services.",
+    "descriptionHebrew": "גולדן אנרג'י היא חברה ציבורית ישראלית הפועלת בענף Energy Services בסקטור אנרגיה. החברה מפתחת, מייצרת ומספקת מוצרי אנרגיה ושירותי תשתית קשורים.",
+    "industry": "Energy Services"
+  },
+  "GLRS.TA": {
+    "sector": "Consumer Goods",
+    "description": "Globrands Ltd. is an Israeli public company operating in the Retail industry within the Consumer Goods sector. It manufactures, markets, and distributes consumer products through retail and wholesale channels.",
+    "descriptionHebrew": "גלוברנדס גרופ היא חברה ציבורית ישראלית הפועלת בענף Retail בסקטור מוצרי צריכה. החברה מייצרת, משווקת ומפיצה מוצרי צריכה באמצעות ערוצי קמעונאות וסיטונאות.",
+    "industry": "Retail"
+  },
+  "GLTL.TA": {
+    "sector": "Communication",
+    "description": "Gilat Telecom Global Ltd. is an Israeli public company operating in the Telecom industry within the Communication sector. It provides media, telecommunications, and digital communication services to businesses and consumers.",
+    "descriptionHebrew": "גילת טלקום היא חברה ציבורית ישראלית הפועלת בענף Telecom בסקטור תקשורת. החברה מספקת שירותי מדיה, תקשורת וטלקום לעסקים ולצרכנים.",
+    "industry": "Telecom"
+  },
+  "GMLA.TA": {
+    "sector": "Real Estate",
+    "description": "Gamla - Harel Residential Real-Estate Ltd is an Israeli public company operating in the Commercial Real Estate industry within the Real Estate sector. It initiates, develops, acquires, and manages residential, commercial, and income-producing properties.",
+    "descriptionHebrew": "סלע קפיטל נדל\"ן היא חברה ציבורית ישראלית הפועלת בענף Commercial Real Estate בסקטור נדל\"ן. החברה יוזמת, מפתחת, רוכשת ומנהלת נכסי מגורים, מסחר ונכסים מניבים.",
+    "industry": "Commercial Real Estate"
+  },
+  "GNCL.TA": {
+    "sector": "Energy",
+    "description": "Gencell Ltd. is an Israeli public company operating in the Renewable Energy industry within the Energy sector. It develops, produces, and supplies energy products and related infrastructure services.",
+    "descriptionHebrew": "ג'נסל היא חברה ציבורית ישראלית הפועלת בענף Renewable Energy בסקטור אנרגיה. החברה מפתחת, מייצרת ומספקת מוצרי אנרגיה ושירותי תשתית קשורים.",
+    "industry": "Renewable Energy"
+  },
+  "GNGR.TA": {
+    "sector": "Materials",
+    "description": "Ginegar Plastic Products Ltd. is an Israeli public company operating in the Chemicals industry within the Materials sector. It produces and supplies construction materials, chemicals, and other industrial inputs.",
+    "descriptionHebrew": "גניגר היא חברה ציבורית ישראלית הפועלת בענף Chemicals בסקטור חומרים. החברה מייצרת ומספקת חומרי בנייה, כימיקלים ותשומות תעשייתיות נוספות.",
+    "industry": "Chemicals"
+  },
+  "GNRS.TA": {
+    "sector": "Energy",
+    "description": "Generation Capital Ltd. is an Israeli public company operating in the Energy Services industry within the Energy sector. It develops, produces, and supplies energy products and related infrastructure services.",
+    "descriptionHebrew": "ג'נריישן קפיטל היא חברה ציבורית ישראלית הפועלת בענף Energy Services בסקטור אנרגיה. החברה מפתחת, מייצרת ומספקת מוצרי אנרגיה ושירותי תשתית קשורים.",
+    "industry": "Energy Services"
+  },
+  "GOHO.TA": {
+    "sector": "Healthcare",
+    "description": "Golden House Inc. is an Israeli public company operating in the Healthcare Services industry within the Healthcare sector. It develops and markets healthcare and life-science products and services for medical providers and patients.",
+    "descriptionHebrew": "בית הזהב היא חברה ציבורית ישראלית הפועלת בענף Healthcare Services בסקטור בריאות. החברה מפתחת ומשווקת מוצרים ושירותים בתחום הבריאות ומדעי החיים עבור גופים רפואיים ומטופלים.",
+    "industry": "Healthcare Services"
+  },
+  "GOLD.TA": {
+    "sector": "Industrials",
+    "description": "Gold Bond Group Ltd. is an Israeli public company operating in the Transportation industry within the Industrials sector. It delivers industrial, engineering, infrastructure, and manufacturing solutions for business and government customers.",
+    "descriptionHebrew": "גולד היא חברה ציבורית ישראלית הפועלת בענף Transportation בסקטור תעשייה. החברה מספקת פתרונות תעשייה, הנדסה, תשתיות וייצור ללקוחות עסקיים וממשלתיים.",
+    "industry": "Transportation"
+  },
+  "GOLF.TA": {
+    "sector": "Consumer Goods",
+    "description": "Golf & Co Group Ltd. is an Israeli public company operating in the Retail industry within the Consumer Goods sector. It manufactures, markets, and distributes consumer products through retail and wholesale channels.",
+    "descriptionHebrew": "גולף היא חברה ציבורית ישראלית הפועלת בענף Retail בסקטור מוצרי צריכה. החברה מייצרת, משווקת ומפיצה מוצרי צריכה באמצעות ערוצי קמעונאות וסיטונאות.",
+    "industry": "Retail"
+  },
+  "GOSS.TA": {
+    "sector": "Healthcare",
+    "description": "G1 Secure Solutions Ltd. is an Israeli public company operating in the Biotechnology industry within the Healthcare sector. It develops and markets healthcare and life-science products and services for medical providers and patients.",
+    "descriptionHebrew": "ג'י וואן היא חברה ציבורית ישראלית הפועלת בענף Biotechnology בסקטור בריאות. החברה מפתחת ומשווקת מוצרים ושירותים בתחום הבריאות ומדעי החיים עבור גופים רפואיים ומטופלים.",
+    "industry": "Biotechnology"
+  },
+  "GOTO.TA": {
+    "sector": "Technology",
+    "description": "Goto Ltd. is an Israeli public company operating in the Software industry within the Technology sector. It develops software, digital platforms, and IT solutions for enterprise and public-sector clients.",
+    "descriptionHebrew": "גוטו היא חברה ציבורית ישראלית הפועלת בענף Software בסקטור טכנולוגיה. החברה מפתחת תוכנה, פלטפורמות דיגיטליות ופתרונות IT עבור לקוחות עסקיים וציבוריים.",
+    "industry": "Software"
+  },
+  "GRAC.TA": {
+    "sector": "Materials",
+    "description": "Grace Breeding Ltd. is an Israeli public company operating in the Chemicals industry within the Materials sector. It produces and supplies construction materials, chemicals, and other industrial inputs.",
+    "descriptionHebrew": "גרייס ברידינג היא חברה ציבורית ישראלית הפועלת בענף Chemicals בסקטור חומרים. החברה מייצרת ומספקת חומרי בנייה, כימיקלים ותשומות תעשייתיות נוספות.",
+    "industry": "Chemicals"
+  },
+  "GRIN.TA": {
+    "sector": "Industrials",
+    "description": "Golan Renewable Industries Ltd. is an Israeli public company operating in the Construction Materials industry within the Industrials sector. It delivers industrial, engineering, infrastructure, and manufacturing solutions for business and government customers.",
+    "descriptionHebrew": "גולן תעשיות היא חברה ציבורית ישראלית הפועלת בענף Construction Materials בסקטור תעשייה. החברה מספקת פתרונות תעשייה, הנדסה, תשתיות וייצור ללקוחות עסקיים וממשלתיים.",
+    "industry": "Construction Materials"
+  },
+  "GSFI.TA": {
+    "sector": "Consumer Goods",
+    "description": "Gan Shmuel Foods Ltd. is an Israeli public company operating in the Food & Beverage industry within the Consumer Goods sector. It manufactures, markets, and distributes consumer products through retail and wholesale channels.",
+    "descriptionHebrew": "גן שמואל היא חברה ציבורית ישראלית הפועלת בענף Food & Beverage בסקטור מוצרי צריכה. החברה מייצרת, משווקת ומפיצה מוצרי צריכה באמצעות ערוצי קמעונאות וסיטונאות.",
+    "industry": "Food & Beverage"
+  },
+  "GVYM.TA": {
+    "sector": "Real Estate",
+    "description": "Gav-Yam Lands Corp Ltd. is an Israeli public company operating in the Commercial Real Estate industry within the Real Estate sector. It initiates, develops, acquires, and manages residential, commercial, and income-producing properties.",
+    "descriptionHebrew": "גב ים היא חברה ציבורית ישראלית הפועלת בענף Commercial Real Estate בסקטור נדל\"ן. החברה יוזמת, מפתחת, רוכשת ומנהלת נכסי מגורים, מסחר ונכסים מניבים.",
+    "industry": "Commercial Real Estate"
+  },
+  "HAMAT.TA": {
+    "sector": "Consumer Goods",
+    "description": "Hamat Group Ltd. is an Israeli public company operating in the Retail industry within the Consumer Goods sector. It manufactures, markets, and distributes consumer products through retail and wholesale channels.",
+    "descriptionHebrew": "חמת היא חברה ציבורית ישראלית הפועלת בענף Retail בסקטור מוצרי צריכה. החברה מייצרת, משווקת ומפיצה מוצרי צריכה באמצעות ערוצי קמעונאות וסיטונאות.",
+    "industry": "Retail"
+  },
+  "HARL.TA": {
+    "sector": "Finance",
+    "description": "Harel Insurance Investments & Financial Services Ltd. is an Israeli public company operating in the Insurance industry within the Finance sector. It provides banking, credit, insurance, and investment services to retail and institutional customers.",
+    "descriptionHebrew": "הראל השקעות היא חברה ציבורית ישראלית הפועלת בענף Insurance בסקטור פיננסים. החברה מספקת שירותי בנקאות, אשראי, ביטוח והשקעות ללקוחות פרטיים ומוסדיים.",
+    "industry": "Insurance"
+  },
+  "HGG.TA": {
+    "sector": "Real Estate",
+    "description": "Hagag Group Real Estate Development Ltd. is an Israeli public company operating in the Property Development industry within the Real Estate sector. It initiates, develops, acquires, and manages residential, commercial, and income-producing properties.",
+    "descriptionHebrew": "בית וגג היא חברה ציבורית ישראלית הפועלת בענף Property Development בסקטור נדל\"ן. החברה יוזמת, מפתחת, רוכשת ומנהלת נכסי מגורים, מסחר ונכסים מניבים.",
+    "industry": "Property Development"
+  },
+  "HGGE.TA": {
+    "sector": "Real Estate",
+    "description": "Hagag Europe Development Ltd. is an Israeli public company operating in the Property Development industry within the Real Estate sector. It initiates, develops, acquires, and manages residential, commercial, and income-producing properties.",
+    "descriptionHebrew": "חג'ג' אירופה היא חברה ציבורית ישראלית הפועלת בענף Property Development בסקטור נדל\"ן. החברה יוזמת, מפתחת, רוכשת ומנהלת נכסי מגורים, מסחר ונכסים מניבים.",
+    "industry": "Property Development"
+  },
+  "HIPR.TA": {
+    "sector": "Technology",
+    "description": "Hiper Global Ltd. is an Israeli public company operating in the IT Services industry within the Technology sector. It develops software, digital platforms, and IT solutions for enterprise and public-sector clients.",
+    "descriptionHebrew": "הייפר היא חברה ציבורית ישראלית הפועלת בענף IT Services בסקטור טכנולוגיה. החברה מפתחת תוכנה, פלטפורמות דיגיטליות ופתרונות IT עבור לקוחות עסקיים וציבוריים.",
+    "industry": "IT Services"
+  },
+  "HLAN.TA": {
+    "sector": "Technology",
+    "description": "Hilan Ltd. is an Israeli public company operating in the Software industry within the Technology sector. It develops software, digital platforms, and IT solutions for enterprise and public-sector clients.",
+    "descriptionHebrew": "חילן היא חברה ציבורית ישראלית הפועלת בענף Software בסקטור טכנולוגיה. החברה מפתחת תוכנה, פלטפורמות דיגיטליות ופתרונות IT עבור לקוחות עסקיים וציבוריים.",
+    "industry": "Software"
+  },
+  "HLMS.TA": {
+    "sector": "Healthcare",
+    "description": "Holmes Place International Ltd. is an Israeli public company operating in the Healthcare Services industry within the Healthcare sector. It develops and markets healthcare and life-science products and services for medical providers and patients.",
+    "descriptionHebrew": "הולמס פלייס היא חברה ציבורית ישראלית הפועלת בענף Healthcare Services בסקטור בריאות. החברה מפתחת ומשווקת מוצרים ושירותים בתחום הבריאות ומדעי החיים עבור גופים רפואיים ומטופלים.",
+    "industry": "Healthcare Services"
+  },
+  "HMAM.TA": {
+    "sector": "Consumer Goods",
+    "description": "Hamama Meir Trading 1996 Ltd. is an Israeli public company operating in the Food & Beverage industry within the Consumer Goods sector. It manufactures, markets, and distributes consumer products through retail and wholesale channels.",
+    "descriptionHebrew": "חממה סחר היא חברה ציבורית ישראלית הפועלת בענף Food & Beverage בסקטור מוצרי צריכה. החברה מייצרת, משווקת ומפיצה מוצרי צריכה באמצעות ערוצי קמעונאות וסיטונאות.",
+    "industry": "Food & Beverage"
+  },
+  "HMGS.TA": {
+    "sector": "Industrials",
+    "description": "HomeBiogas Ltd. is an Israeli public company operating in the Machinery industry within the Industrials sector. It delivers industrial, engineering, infrastructure, and manufacturing solutions for business and government customers.",
+    "descriptionHebrew": "הום ביוגז היא חברה ציבורית ישראלית הפועלת בענף Machinery בסקטור תעשייה. החברה מספקת פתרונות תעשייה, הנדסה, תשתיות וייצור ללקוחות עסקיים וממשלתיים.",
+    "industry": "Machinery"
+  },
+  "HOD.TA": {
+    "sector": "Industrials",
+    "description": "Hod Assaf Industries Ltd. is an Israeli public company operating in the Construction industry within the Industrials sector. It delivers industrial, engineering, infrastructure, and manufacturing solutions for business and government customers.",
+    "descriptionHebrew": "חד-אסף היא חברה ציבורית ישראלית הפועלת בענף Construction בסקטור תעשייה. החברה מספקת פתרונות תעשייה, הנדסה, תשתיות וייצור ללקוחות עסקיים וממשלתיים.",
+    "industry": "Construction"
+  },
+  "HRON.TA": {
+    "sector": "Real Estate",
+    "description": "Hiron Trade Investment Ltd. is an Israeli public company operating in the REITs industry within the Real Estate sector. It initiates, develops, acquires, and manages residential, commercial, and income-producing properties.",
+    "descriptionHebrew": "מיטב טרייד היא חברה ציבורית ישראלית הפועלת בענף REITs בסקטור נדל\"ן. החברה יוזמת, מפתחת, רוכשת ומנהלת נכסי מגורים, מסחר ונכסים מניבים.",
+    "industry": "REITs"
+  },
+  "IBI.TA": {
+    "sector": "Finance",
+    "description": "Ibi Investment House Ltd. is an Israeli public company operating in the Asset Management industry within the Finance sector. It provides banking, credit, insurance, and investment services to retail and institutional customers.",
+    "descriptionHebrew": "איביאי בית השק היא חברה ציבורית ישראלית הפועלת בענף Asset Management בסקטור פיננסים. החברה מספקת שירותי בנקאות, אשראי, ביטוח והשקעות ללקוחות פרטיים ומוסדיים.",
+    "industry": "Asset Management"
+  },
+  "IBIU.TA": {
+    "sector": "Finance",
+    "description": "IBI Managing & Underwriting Ltd. is an Israeli public company operating in the Capital Markets industry within the Finance sector. It provides banking, credit, insurance, and investment services to retail and institutional customers.",
+    "descriptionHebrew": "איביאי חיתום היא חברה ציבורית ישראלית הפועלת בענף Capital Markets בסקטור פיננסים. החברה מספקת שירותי בנקאות, אשראי, ביטוח והשקעות ללקוחות פרטיים ומוסדיים.",
+    "industry": "Capital Markets"
+  },
+  "ICHO.TA": {
+    "sector": "Real Estate",
+    "description": "Israel Canada Hotels Ltd is an Israeli public company operating in the Commercial Real Estate industry within the Real Estate sector. It initiates, develops, acquires, and manages residential, commercial, and income-producing properties.",
+    "descriptionHebrew": "ישראל קנדה מלונ היא חברה ציבורית ישראלית הפועלת בענף Commercial Real Estate בסקטור נדל\"ן. החברה יוזמת, מפתחת, רוכשת ומנהלת נכסי מגורים, מסחר ונכסים מניבים.",
+    "industry": "Commercial Real Estate"
+  },
+  "ICL.TA": {
+    "sector": "Materials",
+    "description": "ICL Group Ltd. is an Israeli public company operating in the Chemicals industry within the Materials sector. It produces and supplies construction materials, chemicals, and other industrial inputs.",
+    "descriptionHebrew": "איי.סי.אל היא חברה ציבורית ישראלית הפועלת בענף Chemicals בסקטור חומרים. החברה מייצרת ומספקת חומרי בנייה, כימיקלים ותשומות תעשייתיות נוספות.",
+    "industry": "Chemicals"
+  },
+  "ICON.TA": {
+    "sector": "Industrials",
+    "description": "Icon Group Ltd. is an Israeli public company operating in the Transportation industry within the Industrials sector. It delivers industrial, engineering, infrastructure, and manufacturing solutions for business and government customers.",
+    "descriptionHebrew": "אייקון גרופ היא חברה ציבורית ישראלית הפועלת בענף Transportation בסקטור תעשייה. החברה מספקת פתרונות תעשייה, הנדסה, תשתיות וייצור ללקוחות עסקיים וממשלתיים.",
+    "industry": "Transportation"
+  },
+  "IDIN.TA": {
+    "sector": "Finance",
+    "description": "Idi Insurance Co. Ltd. is an Israeli public company operating in the Insurance industry within the Finance sector. It provides banking, credit, insurance, and investment services to retail and institutional customers.",
+    "descriptionHebrew": "איידיאיי ביטוח היא חברה ציבורית ישראלית הפועלת בענף Insurance בסקטור פיננסים. החברה מספקת שירותי בנקאות, אשראי, ביטוח והשקעות ללקוחות פרטיים ומוסדיים.",
+    "industry": "Insurance"
+  },
+  "IDMO.TA": {
+    "sector": "Technology",
+    "description": "Idomoo Ltd. is an Israeli public company operating in the Software industry within the Technology sector. It develops software, digital platforms, and IT solutions for enterprise and public-sector clients.",
+    "descriptionHebrew": "אידומו היא חברה ציבורית ישראלית הפועלת בענף Software בסקטור טכנולוגיה. החברה מפתחת תוכנה, פלטפורמות דיגיטליות ופתרונות IT עבור לקוחות עסקיים וציבוריים.",
+    "industry": "Software"
+  },
+  "IDNT.TA": {
+    "sector": "Healthcare",
+    "description": "Identi Healthcare Ltd. is an Israeli public company operating in the Medical Devices industry within the Healthcare sector. It develops and markets healthcare and life-science products and services for medical providers and patients.",
+    "descriptionHebrew": "איידנטי הלת' היא חברה ציבורית ישראלית הפועלת בענף Medical Devices בסקטור בריאות. החברה מפתחת ומשווקת מוצרים ושירותים בתחום הבריאות ומדעי החיים עבור גופים רפואיים ומטופלים.",
+    "industry": "Medical Devices"
+  },
+  "IES.TA": {
+    "sector": "Industrials",
+    "description": "IES Holdings, Inc. is an Israeli public company operating in the Construction industry within the Industrials sector. It delivers industrial, engineering, infrastructure, and manufacturing solutions for business and government customers.",
+    "descriptionHebrew": "אייאיאס היא חברה ציבורית ישראלית הפועלת בענף Construction בסקטור תעשייה. החברה מספקת פתרונות תעשייה, הנדסה, תשתיות וייצור ללקוחות עסקיים וממשלתיים.",
+    "industry": "Construction"
+  },
+  "ILCO.TA": {
+    "sector": "Finance",
+    "description": "Israel Corporation Limited is an Israeli public company operating in the Asset Management industry within the Finance sector. It provides banking, credit, insurance, and investment services to retail and institutional customers.",
+    "descriptionHebrew": "חברה לישראל היא חברה ציבורית ישראלית הפועלת בענף Asset Management בסקטור פיננסים. החברה מספקת שירותי בנקאות, אשראי, ביטוח והשקעות ללקוחות פרטיים ומוסדיים.",
+    "industry": "Asset Management"
+  },
+  "ILDC.TA": {
+    "sector": "Real Estate",
+    "description": "Israel Land Development Company Ltd. is an Israeli public company operating in the Property Development industry within the Real Estate sector. It initiates, develops, acquires, and manages residential, commercial, and income-producing properties.",
+    "descriptionHebrew": "הכשרה התחדשות היא חברה ציבורית ישראלית הפועלת בענף Property Development בסקטור נדל\"ן. החברה יוזמת, מפתחת, רוכשת ומנהלת נכסי מגורים, מסחר ונכסים מניבים.",
+    "industry": "Property Development"
+  },
+  "ILDR.TA": {
+    "sector": "Real Estate",
+    "description": "Israel Land Development Company Ltd. is an Israeli public company operating in the Property Development industry within the Real Estate sector. It initiates, develops, acquires, and manages residential, commercial, and income-producing properties.",
+    "descriptionHebrew": "הכשרה התחדשות היא חברה ציבורית ישראלית הפועלת בענף Property Development בסקטור נדל\"ן. החברה יוזמת, מפתחת, רוכשת ומנהלת נכסי מגורים, מסחר ונכסים מניבים.",
+    "industry": "Property Development"
+  },
+  "ILX.TA": {
+    "sector": "Healthcare",
+    "description": "Ilex Medical Ltd. is an Israeli public company operating in the Medical Devices industry within the Healthcare sector. It develops and markets healthcare and life-science products and services for medical providers and patients.",
+    "descriptionHebrew": "אילקס מדיקל היא חברה ציבורית ישראלית הפועלת בענף Medical Devices בסקטור בריאות. החברה מפתחת ומשווקת מוצרים ושירותים בתחום הבריאות ומדעי החיים עבור גופים רפואיים ומטופלים.",
+    "industry": "Medical Devices"
+  },
+  "IMCO.TA": {
+    "sector": "Industrials",
+    "description": "Imco Industries Ltd. is an Israeli public company operating in the Aerospace industry within the Industrials sector. It delivers industrial, engineering, infrastructure, and manufacturing solutions for business and government customers.",
+    "descriptionHebrew": "אימקו היא חברה ציבורית ישראלית הפועלת בענף Aerospace בסקטור תעשייה. החברה מספקת פתרונות תעשייה, הנדסה, תשתיות וייצור ללקוחות עסקיים וממשלתיים.",
+    "industry": "Aerospace"
+  },
+  "INCR.TA": {
+    "sector": "Consumer Goods",
+    "description": "Intercure Ltd. is an Israeli public company operating in the Food & Beverage industry within the Consumer Goods sector. It manufactures, markets, and distributes consumer products through retail and wholesale channels.",
+    "descriptionHebrew": "אינטרקיור היא חברה ציבורית ישראלית הפועלת בענף Food & Beverage בסקטור מוצרי צריכה. החברה מייצרת, משווקת ומפיצה מוצרי צריכה באמצעות ערוצי קמעונאות וסיטונאות.",
+    "industry": "Food & Beverage"
+  },
+  "ININ.TA": {
+    "sector": "Energy",
+    "description": "Inter Industries Plus Ltd. is an Israeli public company operating in the Energy Services industry within the Energy sector. It develops, produces, and supplies energy products and related infrastructure services.",
+    "descriptionHebrew": "אינטר תעשיות היא חברה ציבורית ישראלית הפועלת בענף Energy Services בסקטור אנרגיה. החברה מפתחת, מייצרת ומספקת מוצרי אנרגיה ושירותי תשתית קשורים.",
+    "industry": "Energy Services"
+  },
+  "INRM.TA": {
+    "sector": "Industrials",
+    "description": "Inrom Construction Industries Ltd. is an Israeli public company operating in the Construction industry within the Industrials sector. It delivers industrial, engineering, infrastructure, and manufacturing solutions for business and government customers.",
+    "descriptionHebrew": "אינרום בנייה היא חברה ציבורית ישראלית הפועלת בענף Construction בסקטור תעשייה. החברה מספקת פתרונות תעשייה, הנדסה, תשתיות וייצור ללקוחות עסקיים וממשלתיים.",
+    "industry": "Construction"
+  },
+  "INTR.TA": {
+    "sector": "Finance",
+    "description": "Inter-Gama Investment Co. is an Israeli public company operating in the Banks industry within the Finance sector. It provides banking, credit, insurance, and investment services to retail and institutional customers.",
+    "descriptionHebrew": "אינטרגאמא היא חברה ציבורית ישראלית הפועלת בענף Banks בסקטור פיננסים. החברה מספקת שירותי בנקאות, אשראי, ביטוח והשקעות ללקוחות פרטיים ומוסדיים.",
+    "industry": "Banks"
+  },
+  "ISCD.TA": {
+    "sector": "Finance",
+    "description": "Isracard Ltd. is an Israeli public company operating in the Fintech industry within the Finance sector. It provides banking, credit, insurance, and investment services to retail and institutional customers.",
+    "descriptionHebrew": "ישראכרט היא חברה ציבורית ישראלית הפועלת בענף Fintech בסקטור פיננסים. החברה מספקת שירותי בנקאות, אשראי, ביטוח והשקעות ללקוחות פרטיים ומוסדיים.",
+    "industry": "Fintech"
+  },
+  "ISCN.TA": {
+    "sector": "Real Estate",
+    "description": "Israel Canada T.R Ltd. is an Israeli public company operating in the Property Development industry within the Real Estate sector. It initiates, develops, acquires, and manages residential, commercial, and income-producing properties.",
+    "descriptionHebrew": "ישראל קנדה היא חברה ציבורית ישראלית הפועלת בענף Property Development בסקטור נדל\"ן. החברה יוזמת, מפתחת, רוכשת ומנהלת נכסי מגורים, מסחר ונכסים מניבים.",
+    "industry": "Property Development"
+  },
+  "ISHI.TA": {
+    "sector": "Industrials",
+    "description": "Israel Shipyards Industries Ltd. is an Israeli public company operating in the Machinery industry within the Industrials sector. It delivers industrial, engineering, infrastructure, and manufacturing solutions for business and government customers.",
+    "descriptionHebrew": "מספנות ישראל היא חברה ציבורית ישראלית הפועלת בענף Machinery בסקטור תעשייה. החברה מספקת פתרונות תעשייה, הנדסה, תשתיות וייצור ללקוחות עסקיים וממשלתיים.",
+    "industry": "Machinery"
+  },
+  "ISHO.TA": {
+    "sector": "Real Estate",
+    "description": "Isras Holdings Ltd. is an Israeli public company operating in the Property Development industry within the Real Estate sector. It initiates, develops, acquires, and manages residential, commercial, and income-producing properties.",
+    "descriptionHebrew": "ישרס אחזקות היא חברה ציבורית ישראלית הפועלת בענף Property Development בסקטור נדל\"ן. החברה יוזמת, מפתחת, רוכשת ומנהלת נכסי מגורים, מסחר ונכסים מניבים.",
+    "industry": "Property Development"
+  },
+  "ISI.TA": {
+    "sector": "Technology",
+    "description": "ImageSat International Ltd. is an Israeli public company operating in the IT Services industry within the Technology sector. It develops software, digital platforms, and IT solutions for enterprise and public-sector clients.",
+    "descriptionHebrew": "אימאג'סט אינט' היא חברה ציבורית ישראלית הפועלת בענף IT Services בסקטור טכנולוגיה. החברה מפתחת תוכנה, פלטפורמות דיגיטליות ופתרונות IT עבור לקוחות עסקיים וציבוריים.",
+    "industry": "IT Services"
+  },
+  "ISRG.TA": {
+    "sector": "Healthcare",
+    "description": "Israir Group Ltd. is an Israeli public company operating in the Medical Devices industry within the Healthcare sector. It develops and markets healthcare and life-science products and services for medical providers and patients.",
+    "descriptionHebrew": "ישראייר גרופ היא חברה ציבורית ישראלית הפועלת בענף Medical Devices בסקטור בריאות. החברה מפתחת ומשווקת מוצרים ושירותים בתחום הבריאות ומדעי החיים עבור גופים רפואיים ומטופלים.",
+    "industry": "Medical Devices"
+  },
+  "ISRO.TA": {
+    "sector": "Consumer Goods",
+    "description": "Isrotel Ltd. is an Israeli public company operating in the Restaurants industry within the Consumer Goods sector. It manufactures, markets, and distributes consumer products through retail and wholesale channels.",
+    "descriptionHebrew": "ישרוטל היא חברה ציבורית ישראלית הפועלת בענף Restaurants בסקטור מוצרי צריכה. החברה מייצרת, משווקת ומפיצה מוצרי צריכה באמצעות ערוצי קמעונאות וסיטונאות.",
+    "industry": "Restaurants"
+  },
+  "ISRS.TA": {
+    "sector": "Real Estate",
+    "description": "Isras Investment Company Ltd. is an Israeli public company operating in the Property Development industry within the Real Estate sector. It initiates, develops, acquires, and manages residential, commercial, and income-producing properties.",
+    "descriptionHebrew": "ישרס היא חברה ציבורית ישראלית הפועלת בענף Property Development בסקטור נדל\"ן. החברה יוזמת, מפתחת, רוכשת ומנהלת נכסי מגורים, מסחר ונכסים מניבים.",
+    "industry": "Property Development"
+  },
+  "ISTA.TA": {
+    "sector": "Consumer Goods",
+    "description": "Issta Ltd. is an Israeli public company operating in the Retail industry within the Consumer Goods sector. It manufactures, markets, and distributes consumer products through retail and wholesale channels.",
+    "descriptionHebrew": "איסתא היא חברה ציבורית ישראלית הפועלת בענף Retail בסקטור מוצרי צריכה. החברה מייצרת, משווקת ומפיצה מוצרי צריכה באמצעות ערוצי קמעונאות וסיטונאות.",
+    "industry": "Retail"
+  },
+  "JBNK.TA": {
+    "sector": "Finance",
+    "description": "Bank of Jerusalem Ltd. is an Israeli public company operating in the Banks industry within the Finance sector. It provides banking, credit, insurance, and investment services to retail and institutional customers.",
+    "descriptionHebrew": "ירושלים היא חברה ציבורית ישראלית הפועלת בענף Banks בסקטור פיננסים. החברה מספקת שירותי בנקאות, אשראי, ביטוח והשקעות ללקוחות פרטיים ומוסדיים.",
+    "industry": "Banks"
+  },
+  "JCFN.TA": {
+    "sector": "Finance",
+    "description": "Jacob Finance and Investment Inc. is an Israeli public company operating in the Fintech industry within the Finance sector. It provides banking, credit, insurance, and investment services to retail and institutional customers.",
+    "descriptionHebrew": "יעקב פיננסים היא חברה ציבורית ישראלית הפועלת בענף Fintech בסקטור פיננסים. החברה מספקת שירותי בנקאות, אשראי, ביטוח והשקעות ללקוחות פרטיים ומוסדיים.",
+    "industry": "Fintech"
+  },
+  "JEEN.TA": {
+    "sector": "Technology",
+    "description": "Jeen Technologies AI Ltd is an Israeli public company operating in the Software industry within the Technology sector. It develops software, digital platforms, and IT solutions for enterprise and public-sector clients.",
+    "descriptionHebrew": "ג'ין טכנולוגיות היא חברה ציבורית ישראלית הפועלת בענף Software בסקטור טכנולוגיה. החברה מפתחת תוכנה, פלטפורמות דיגיטליות ופתרונות IT עבור לקוחות עסקיים וציבוריים.",
+    "industry": "Software"
+  },
+  "JNGO.TA": {
+    "sector": "Industrials",
+    "description": "Jungo Connectivity Ltd. is an Israeli public company operating in the Auto Parts industry within the Industrials sector. It delivers industrial, engineering, infrastructure, and manufacturing solutions for business and government customers.",
+    "descriptionHebrew": "ג'נגו היא חברה ציבורית ישראלית הפועלת בענף Auto Parts בסקטור תעשייה. החברה מספקת פתרונות תעשייה, הנדסה, תשתיות וייצור ללקוחות עסקיים וממשלתיים.",
+    "industry": "Auto Parts"
+  },
+  "KAFR.TA": {
+    "sector": "Materials",
+    "description": "Kafrit Industries (1993) Ltd. is an Israeli public company operating in the Chemicals industry within the Materials sector. It produces and supplies construction materials, chemicals, and other industrial inputs.",
+    "descriptionHebrew": "כפרית היא חברה ציבורית ישראלית הפועלת בענף Chemicals בסקטור חומרים. החברה מייצרת ומספקת חומרי בנייה, כימיקלים ותשומות תעשייתיות נוספות.",
+    "industry": "Chemicals"
+  },
+  "KARE.TA": {
+    "sector": "Real Estate",
+    "description": "Kardan Real Estate Ltd. is an Israeli public company operating in the Property Development industry within the Real Estate sector. It initiates, develops, acquires, and manages residential, commercial, and income-producing properties.",
+    "descriptionHebrew": "קרדן נדל\"ן היא חברה ציבורית ישראלית הפועלת בענף Property Development בסקטור נדל\"ן. החברה יוזמת, מפתחת, רוכשת ומנהלת נכסי מגורים, מסחר ונכסים מניבים.",
+    "industry": "Property Development"
+  },
+  "KEN.TA": {
+    "sector": "Industrials",
+    "description": "Kenon Holdings Ltd. is an Israeli public company operating in the Machinery industry within the Industrials sector. It delivers industrial, engineering, infrastructure, and manufacturing solutions for business and government customers.",
+    "descriptionHebrew": "קנון הולדינגס היא חברה ציבורית ישראלית הפועלת בענף Machinery בסקטור תעשייה. החברה מספקת פתרונות תעשייה, הנדסה, תשתיות וייצור ללקוחות עסקיים וממשלתיים.",
+    "industry": "Machinery"
+  },
+  "KLIL.TA": {
+    "sector": "Industrials",
+    "description": "Klil Industries Ltd. is an Israeli public company operating in the Construction Materials industry within the Industrials sector. It delivers industrial, engineering, infrastructure, and manufacturing solutions for business and government customers.",
+    "descriptionHebrew": "קליל היא חברה ציבורית ישראלית הפועלת בענף Construction Materials בסקטור תעשייה. החברה מספקת פתרונות תעשייה, הנדסה, תשתיות וייצור ללקוחות עסקיים וממשלתיים.",
+    "industry": "Construction Materials"
+  },
+  "KMDA.TA": {
+    "sector": "Healthcare",
+    "description": "Kamada Ltd. is an Israeli public company operating in the Biotechnology industry within the Healthcare sector. It develops and markets healthcare and life-science products and services for medical providers and patients.",
+    "descriptionHebrew": "קמהדע היא חברה ציבורית ישראלית הפועלת בענף Biotechnology בסקטור בריאות. החברה מפתחת ומשווקת מוצרים ושירותים בתחום הבריאות ומדעי החיים עבור גופים רפואיים ומטופלים.",
+    "industry": "Biotechnology"
+  },
+  "KNFM.TA": {
+    "sector": "Industrials",
+    "description": "Knafaim Holdings Ltd. is an Israeli public company operating in the Transportation industry within the Industrials sector. It delivers industrial, engineering, infrastructure, and manufacturing solutions for business and government customers.",
+    "descriptionHebrew": "כנפיים היא חברה ציבורית ישראלית הפועלת בענף Transportation בסקטור תעשייה. החברה מספקת פתרונות תעשייה, הנדסה, תשתיות וייצור ללקוחות עסקיים וממשלתיים.",
+    "industry": "Transportation"
+  },
+  "KRDI.TA": {
+    "sector": "Real Estate",
+    "description": "Kardan Israel Ltd. is an Israeli public company operating in the Property Development industry within the Real Estate sector. It initiates, develops, acquires, and manages residential, commercial, and income-producing properties.",
+    "descriptionHebrew": "קרדן ישראל היא חברה ציבורית ישראלית הפועלת בענף Property Development בסקטור נדל\"ן. החברה יוזמת, מפתחת, רוכשת ומנהלת נכסי מגורים, מסחר ונכסים מניבים.",
+    "industry": "Property Development"
+  },
+  "KRUR.TA": {
+    "sector": "Consumer Goods",
+    "description": "Kerur Holdings Ltd. is an Israeli public company operating in the Food & Beverage industry within the Consumer Goods sector. It manufactures, markets, and distributes consumer products through retail and wholesale channels.",
+    "descriptionHebrew": "קרור היא חברה ציבורית ישראלית הפועלת בענף Food & Beverage בסקטור מוצרי צריכה. החברה מייצרת, משווקת ומפיצה מוצרי צריכה באמצעות ערוצי קמעונאות וסיטונאות.",
+    "industry": "Food & Beverage"
+  },
+  "LAHAV.TA": {
+    "sector": "Real Estate",
+    "description": "Lahav L.R. Real Estate Ltd. is an Israeli public company operating in the Commercial Real Estate industry within the Real Estate sector. It initiates, develops, acquires, and manages residential, commercial, and income-producing properties.",
+    "descriptionHebrew": "להב היא חברה ציבורית ישראלית הפועלת בענף Commercial Real Estate בסקטור נדל\"ן. החברה יוזמת, מפתחת, רוכשת ומנהלת נכסי מגורים, מסחר ונכסים מניבים.",
+    "industry": "Commercial Real Estate"
+  },
+  "LAPD.TA": {
+    "sector": "Industrials",
+    "description": "Lapidoth Capital Ltd. is an Israeli public company operating in the Construction industry within the Industrials sector. It delivers industrial, engineering, infrastructure, and manufacturing solutions for business and government customers.",
+    "descriptionHebrew": "לפידות קפיטל היא חברה ציבורית ישראלית הפועלת בענף Construction בסקטור תעשייה. החברה מספקת פתרונות תעשייה, הנדסה, תשתיות וייצור ללקוחות עסקיים וממשלתיים.",
+    "industry": "Construction"
+  },
+  "LBRA.TA": {
+    "sector": "Finance",
+    "description": "Libra Insurance Company Ltd. is an Israeli public company operating in the Insurance industry within the Finance sector. It provides banking, credit, insurance, and investment services to retail and institutional customers.",
+    "descriptionHebrew": "ליברה היא חברה ציבורית ישראלית הפועלת בענף Insurance בסקטור פיננסים. החברה מספקת שירותי בנקאות, אשראי, ביטוח והשקעות ללקוחות פרטיים ומוסדיים.",
+    "industry": "Insurance"
+  },
+  "LBTL.TA": {
+    "sector": "Real Estate",
+    "description": "A. Libental Holdings Ltd. is an Israeli public company operating in the Property Development industry within the Real Estate sector. It initiates, develops, acquires, and manages residential, commercial, and income-producing properties.",
+    "descriptionHebrew": "ליבנטל היא חברה ציבורית ישראלית הפועלת בענף Property Development בסקטור נדל\"ן. החברה יוזמת, מפתחת, רוכשת ומנהלת נכסי מגורים, מסחר ונכסים מניבים.",
+    "industry": "Property Development"
+  },
+  "LCTX.TA": {
+    "sector": "Healthcare",
+    "description": "Lineage Cell Therapeutics Inc. is an Israeli public company operating in the Biotechnology industry within the Healthcare sector. It develops and markets healthcare and life-science products and services for medical providers and patients.",
+    "descriptionHebrew": "ליניאג תרפיוטיק היא חברה ציבורית ישראלית הפועלת בענף Biotechnology בסקטור בריאות. החברה מפתחת ומשווקת מוצרים ושירותים בתחום הבריאות ומדעי החיים עבור גופים רפואיים ומטופלים.",
+    "industry": "Biotechnology"
+  },
+  "LEOF.TA": {
+    "sector": "Real Estate",
+    "description": "Levinski Ofer Ltd. is an Israeli public company operating in the Property Development industry within the Real Estate sector. It initiates, develops, acquires, and manages residential, commercial, and income-producing properties.",
+    "descriptionHebrew": "לוינסקי עופר היא חברה ציבורית ישראלית הפועלת בענף Property Development בסקטור נדל\"ן. החברה יוזמת, מפתחת, רוכשת ומנהלת נכסי מגורים, מסחר ונכסים מניבים.",
+    "industry": "Property Development"
+  },
+  "LEVI.TA": {
+    "sector": "Real Estate",
+    "description": "Meshulam Levinstein Contracting & Engineering Ltd. is an Israeli public company operating in the Property Development industry within the Real Estate sector. It initiates, develops, acquires, and manages residential, commercial, and income-producing properties.",
+    "descriptionHebrew": "לוינשטין הנדסה היא חברה ציבורית ישראלית הפועלת בענף Property Development בסקטור נדל\"ן. החברה יוזמת, מפתחת, רוכשת ומנהלת נכסי מגורים, מסחר ונכסים מניבים.",
+    "industry": "Property Development"
+  },
+  "LHIS.TA": {
+    "sector": "Industrials",
+    "description": "Lachish Industries Ltd. is an Israeli public company operating in the Machinery industry within the Industrials sector. It delivers industrial, engineering, infrastructure, and manufacturing solutions for business and government customers.",
+    "descriptionHebrew": "לכיש היא חברה ציבורית ישראלית הפועלת בענף Machinery בסקטור תעשייה. החברה מספקת פתרונות תעשייה, הנדסה, תשתיות וייצור ללקוחות עסקיים וממשלתיים.",
+    "industry": "Machinery"
+  },
+  "LODZ.TA": {
+    "sector": "Real Estate",
+    "description": "Lodzia Real Estate Ltd. is an Israeli public company operating in the Commercial Real Estate industry within the Real Estate sector. It initiates, develops, acquires, and manages residential, commercial, and income-producing properties.",
+    "descriptionHebrew": "לודזיה היא חברה ציבורית ישראלית הפועלת בענף Commercial Real Estate בסקטור נדל\"ן. החברה יוזמת, מפתחת, רוכשת ומנהלת נכסי מגורים, מסחר ונכסים מניבים.",
+    "industry": "Commercial Real Estate"
+  },
+  "LPSN.TA": {
+    "sector": "Technology",
+    "description": "LivePerson, Inc. is an Israeli public company operating in the Software industry within the Technology sector. It develops software, digital platforms, and IT solutions for enterprise and public-sector clients.",
+    "descriptionHebrew": "לייבפרסון היא חברה ציבורית ישראלית הפועלת בענף Software בסקטור טכנולוגיה. החברה מפתחת תוכנה, פלטפורמות דיגיטליות ופתרונות IT עבור לקוחות עסקיים וציבוריים.",
+    "industry": "Software"
+  },
+  "LSCO.TA": {
+    "sector": "Industrials",
+    "description": "Lesico Ltd. is an Israeli public company operating in the Construction industry within the Industrials sector. It delivers industrial, engineering, infrastructure, and manufacturing solutions for business and government customers.",
+    "descriptionHebrew": "לסיכו היא חברה ציבורית ישראלית הפועלת בענף Construction בסקטור תעשייה. החברה מספקת פתרונות תעשייה, הנדסה, תשתיות וייצור ללקוחות עסקיים וממשלתיים.",
+    "industry": "Construction"
+  },
+  "LUDN.TA": {
+    "sector": "Industrials",
+    "description": "Ludan Engineering Co. Ltd. is an Israeli public company operating in the Engineering industry within the Industrials sector. It delivers industrial, engineering, infrastructure, and manufacturing solutions for business and government customers.",
+    "descriptionHebrew": "לודן היא חברה ציבורית ישראלית הפועלת בענף Engineering בסקטור תעשייה. החברה מספקת פתרונות תעשייה, הנדסה, תשתיות וייצור ללקוחות עסקיים וממשלתיים.",
+    "industry": "Engineering"
+  },
+  "LUDT.TA": {
+    "sector": "Technology",
+    "description": "Ludan-Tech Ltd. is an Israeli public company operating in the Cybersecurity industry within the Technology sector. It develops software, digital platforms, and IT solutions for enterprise and public-sector clients.",
+    "descriptionHebrew": "לודן-טק היא חברה ציבורית ישראלית הפועלת בענף Cybersecurity בסקטור טכנולוגיה. החברה מפתחת תוכנה, פלטפורמות דיגיטליות ופתרונות IT עבור לקוחות עסקיים וציבוריים.",
+    "industry": "Cybersecurity"
+  },
+  "LUMI.TA": {
+    "sector": "Finance",
+    "description": "Bank Leumi Le-Israel B.M. is an Israeli public company operating in the Banks industry within the Finance sector. It provides banking, credit, insurance, and investment services to retail and institutional customers.",
+    "descriptionHebrew": "לאומי היא חברה ציבורית ישראלית הפועלת בענף Banks בסקטור פיננסים. החברה מספקת שירותי בנקאות, אשראי, ביטוח והשקעות ללקוחות פרטיים ומוסדיים.",
+    "industry": "Banks"
+  },
+  "LURO.TA": {
+    "sector": "Real Estate",
+    "description": "Luzon Ronson N.V. is an Israeli public company operating in the Property Development industry within the Real Estate sector. It initiates, develops, acquires, and manages residential, commercial, and income-producing properties.",
+    "descriptionHebrew": "לוזון רונסון היא חברה ציבורית ישראלית הפועלת בענף Property Development בסקטור נדל\"ן. החברה יוזמת, מפתחת, רוכשת ומנהלת נכסי מגורים, מסחר ונכסים מניבים.",
+    "industry": "Property Development"
+  },
+  "LUZN.TA": {
+    "sector": "Industrials",
+    "description": "Luzon Group is an Israeli public company operating in the Construction industry within the Industrials sector. It delivers industrial, engineering, infrastructure, and manufacturing solutions for business and government customers.",
+    "descriptionHebrew": "לוזון קבוצה היא חברה ציבורית ישראלית הפועלת בענף Construction בסקטור תעשייה. החברה מספקת פתרונות תעשייה, הנדסה, תשתיות וייצור ללקוחות עסקיים וממשלתיים.",
+    "industry": "Construction"
+  },
+  "MAXO.TA": {
+    "sector": "Consumer Goods",
+    "description": "Max Stock Ltd. is an Israeli public company operating in the Retail industry within the Consumer Goods sector. It manufactures, markets, and distributes consumer products through retail and wholesale channels.",
+    "descriptionHebrew": "מקס סטוק היא חברה ציבורית ישראלית הפועלת בענף Retail בסקטור מוצרי צריכה. החברה מייצרת, משווקת ומפיצה מוצרי צריכה באמצעות ערוצי קמעונאות וסיטונאות.",
+    "industry": "Retail"
+  },
+  "MCLL.TA": {
+    "sector": "Finance",
+    "description": "Michlol Finance Ltd. is an Israeli public company operating in the Capital Markets industry within the Finance sector. It provides banking, credit, insurance, and investment services to retail and institutional customers.",
+    "descriptionHebrew": "מכלול מימון היא חברה ציבורית ישראלית הפועלת בענף Capital Markets בסקטור פיננסים. החברה מספקת שירותי בנקאות, אשראי, ביטוח והשקעות ללקוחות פרטיים ומוסדיים.",
+    "industry": "Capital Markets"
+  },
+  "MCMN.TA": {
+    "sector": "Finance",
+    "description": "Michman Maimon Ltd. is an Israeli public company operating in the Fintech industry within the Finance sector. It provides banking, credit, insurance, and investment services to retail and institutional customers.",
+    "descriptionHebrew": "Michman Maimon Ltd. היא חברה ציבורית ישראלית הפועלת בענף Fintech בסקטור פיננסים. החברה מספקת שירותי בנקאות, אשראי, ביטוח והשקעות ללקוחות פרטיים ומוסדיים.",
+    "industry": "Fintech"
+  },
+  "MCPL.TA": {
+    "sector": "Technology",
+    "description": "Michpal Technologies Ltd. is an Israeli public company operating in the Software industry within the Technology sector. It develops software, digital platforms, and IT solutions for enterprise and public-sector clients.",
+    "descriptionHebrew": "מיכפל היא חברה ציבורית ישראלית הפועלת בענף Software בסקטור טכנולוגיה. החברה מפתחת תוכנה, פלטפורמות דיגיטליות ופתרונות IT עבור לקוחות עסקיים וציבוריים.",
+    "industry": "Software"
+  },
+  "MDPR.TA": {
+    "sector": "Healthcare",
+    "description": "Medipower Overseas Public Co. Ltd. is an Israeli public company operating in the Medical Devices industry within the Healthcare sector. It develops and markets healthcare and life-science products and services for medical providers and patients.",
+    "descriptionHebrew": "מדיפאואר היא חברה ציבורית ישראלית הפועלת בענף Medical Devices בסקטור בריאות. החברה מפתחת ומשווקת מוצרים ושירותים בתחום הבריאות ומדעי החיים עבור גופים רפואיים ומטופלים.",
+    "industry": "Medical Devices"
+  },
+  "MDTR.TA": {
+    "sector": "Healthcare",
+    "description": "Mediterranean Towers Ltd. is an Israeli public company operating in the Healthcare Services industry within the Healthcare sector. It develops and markets healthcare and life-science products and services for medical providers and patients.",
+    "descriptionHebrew": "מגדלי ים תיכון היא חברה ציבורית ישראלית הפועלת בענף Healthcare Services בסקטור בריאות. החברה מפתחת ומשווקת מוצרים ושירותים בתחום הבריאות ומדעי החיים עבור גופים רפואיים ומטופלים.",
+    "industry": "Healthcare Services"
+  },
+  "MEDN.TA": {
+    "sector": "Consumer Goods",
+    "description": "Mehadrin Ltd. is an Israeli public company operating in the Food & Beverage industry within the Consumer Goods sector. It manufactures, markets, and distributes consumer products through retail and wholesale channels.",
+    "descriptionHebrew": "מהדרין היא חברה ציבורית ישראלית הפועלת בענף Food & Beverage בסקטור מוצרי צריכה. החברה מייצרת, משווקת ומפיצה מוצרי צריכה באמצעות ערוצי קמעונאות וסיטונאות.",
+    "industry": "Food & Beverage"
+  },
+  "MGDL.TA": {
+    "sector": "Finance",
+    "description": "Migdal Insurance and Financial Holdings Ltd. is an Israeli public company operating in the Insurance industry within the Finance sector. It provides banking, credit, insurance, and investment services to retail and institutional customers.",
+    "descriptionHebrew": "מגדל ביטוח היא חברה ציבורית ישראלית הפועלת בענף Insurance בסקטור פיננסים. החברה מספקת שירותי בנקאות, אשראי, ביטוח והשקעות ללקוחות פרטיים ומוסדיים.",
+    "industry": "Insurance"
+  },
+  "MGDO.TA": {
+    "sector": "Real Estate",
+    "description": "Megiddo Y.K. Ltd. is an Israeli public company operating in the Property Development industry within the Real Estate sector. It initiates, develops, acquires, and manages residential, commercial, and income-producing properties.",
+    "descriptionHebrew": "מגידו היא חברה ציבורית ישראלית הפועלת בענף Property Development בסקטור נדל\"ן. החברה יוזמת, מפתחת, רוכשת ומנהלת נכסי מגורים, מסחר ונכסים מניבים.",
+    "industry": "Property Development"
+  },
+  "MGIC.TA": {
+    "sector": "Technology",
+    "description": "Magic Software Enterprises Ltd. is an Israeli public company operating in the Software industry within the Technology sector. It develops software, digital platforms, and IT solutions for enterprise and public-sector clients.",
+    "descriptionHebrew": "מג'יק היא חברה ציבורית ישראלית הפועלת בענף Software בסקטור טכנולוגיה. החברה מפתחת תוכנה, פלטפורמות דיגיטליות ופתרונות IT עבור לקוחות עסקיים וציבוריים.",
+    "industry": "Software"
+  },
+  "MGOR.TA": {
+    "sector": "Real Estate",
+    "description": "Mega Or Holdings Ltd. is an Israeli public company operating in the Commercial Real Estate industry within the Real Estate sector. It initiates, develops, acquires, and manages residential, commercial, and income-producing properties.",
+    "descriptionHebrew": "מגה אור היא חברה ציבורית ישראלית הפועלת בענף Commercial Real Estate בסקטור נדל\"ן. החברה יוזמת, מפתחת, רוכשת ומנהלת נכסי מגורים, מסחר ונכסים מניבים.",
+    "industry": "Commercial Real Estate"
+  },
+  "MIA.TA": {
+    "sector": "Industrials",
+    "description": "Mia Dynamics Motors Ltd. is an Israeli public company operating in the EV industry within the Industrials sector. It delivers industrial, engineering, infrastructure, and manufacturing solutions for business and government customers.",
+    "descriptionHebrew": "מיה דיינמיקס היא חברה ציבורית ישראלית הפועלת בענף EV בסקטור תעשייה. החברה מספקת פתרונות תעשייה, הנדסה, תשתיות וייצור ללקוחות עסקיים וממשלתיים.",
+    "industry": "EV"
+  },
+  "MIFT.TA": {
+    "sector": "Consumer Goods",
+    "description": "Millennium Food-Tech Ltd. is an Israeli public company operating in the Food & Beverage industry within the Consumer Goods sector. It manufactures, markets, and distributes consumer products through retail and wholesale channels.",
+    "descriptionHebrew": "מילניום פוד-טק היא חברה ציבורית ישראלית הפועלת בענף Food & Beverage בסקטור מוצרי צריכה. החברה מייצרת, משווקת ומפיצה מוצרי צריכה באמצעות ערוצי קמעונאות וסיטונאות.",
+    "industry": "Food & Beverage"
+  },
+  "MISH.TA": {
+    "sector": "Finance",
+    "description": "Mivtach Shamir Holdings Ltd. is an Israeli public company operating in the Asset Management industry within the Finance sector. It provides banking, credit, insurance, and investment services to retail and institutional customers.",
+    "descriptionHebrew": "מבטח שמיר היא חברה ציבורית ישראלית הפועלת בענף Asset Management בסקטור פיננסים. החברה מספקת שירותי בנקאות, אשראי, ביטוח והשקעות ללקוחות פרטיים ומוסדיים.",
+    "industry": "Asset Management"
+  },
+  "MLD.TA": {
+    "sector": "Real Estate",
+    "description": "Mirland Development Corporation is an Israeli public company operating in the Property Development industry within the Real Estate sector. It initiates, develops, acquires, and manages residential, commercial, and income-producing properties.",
+    "descriptionHebrew": "מירלנד-ש היא חברה ציבורית ישראלית הפועלת בענף Property Development בסקטור נדל\"ן. החברה יוזמת, מפתחת, רוכשת ומנהלת נכסי מגורים, מסחר ונכסים מניבים.",
+    "industry": "Property Development"
+  },
+  "MLRN.TA": {
+    "sector": "Finance",
+    "description": "Mlran Projects & Trading Ltd. is an Israeli public company operating in the Fintech industry within the Finance sector. It provides banking, credit, insurance, and investment services to retail and institutional customers.",
+    "descriptionHebrew": "מלרן פרוייקטים היא חברה ציבורית ישראלית הפועלת בענף Fintech בסקטור פיננסים. החברה מספקת שירותי בנקאות, אשראי, ביטוח והשקעות ללקוחות פרטיים ומוסדיים.",
+    "industry": "Fintech"
+  },
+  "MLSR.TA": {
+    "sector": "Real Estate",
+    "description": "Melisron Ltd. is an Israeli public company operating in the Commercial Real Estate industry within the Real Estate sector. It initiates, develops, acquires, and manages residential, commercial, and income-producing properties.",
+    "descriptionHebrew": "מליסרון היא חברה ציבורית ישראלית הפועלת בענף Commercial Real Estate בסקטור נדל\"ן. החברה יוזמת, מפתחת, רוכשת ומנהלת נכסי מגורים, מסחר ונכסים מניבים.",
+    "industry": "Commercial Real Estate"
+  },
+  "MLTH.TA": {
+    "sector": "Technology",
+    "description": "Malam-Team Holdings Ltd is an Israeli public company operating in the IT Services industry within the Technology sector. It develops software, digital platforms, and IT solutions for enterprise and public-sector clients.",
+    "descriptionHebrew": "מלם-תים אחזקות היא חברה ציבורית ישראלית הפועלת בענף IT Services בסקטור טכנולוגיה. החברה מפתחת תוכנה, פלטפורמות דיגיטליות ופתרונות IT עבור לקוחות עסקיים וציבוריים.",
+    "industry": "IT Services"
+  },
+  "MLTM.TA": {
+    "sector": "Technology",
+    "description": "Malam-Team Ltd. is an Israeli public company operating in the IT Services industry within the Technology sector. It develops software, digital platforms, and IT solutions for enterprise and public-sector clients.",
+    "descriptionHebrew": "מלם תים היא חברה ציבורית ישראלית הפועלת בענף IT Services בסקטור טכנולוגיה. החברה מפתחת תוכנה, פלטפורמות דיגיטליות ופתרונות IT עבור לקוחות עסקיים וציבוריים.",
+    "industry": "IT Services"
+  },
+  "MMHD.TA": {
+    "sector": "Finance",
+    "description": "Menora Mivtachim Holdings Ltd. is an Israeli public company operating in the Insurance industry within the Finance sector. It provides banking, credit, insurance, and investment services to retail and institutional customers.",
+    "descriptionHebrew": "מנורה מב החזקות היא חברה ציבורית ישראלית הפועלת בענף Insurance בסקטור פיננסים. החברה מספקת שירותי בנקאות, אשראי, ביטוח והשקעות ללקוחות פרטיים ומוסדיים.",
+    "industry": "Insurance"
+  },
+  "MNIF.TA": {
+    "sector": "Finance",
+    "description": "Menif Financial Services Ltd. is an Israeli public company operating in the Capital Markets industry within the Finance sector. It provides banking, credit, insurance, and investment services to retail and institutional customers.",
+    "descriptionHebrew": "מניף-פיננסים היא חברה ציבורית ישראלית הפועלת בענף Capital Markets בסקטור פיננסים. החברה מספקת שירותי בנקאות, אשראי, ביטוח והשקעות ללקוחות פרטיים ומוסדיים.",
+    "industry": "Capital Markets"
+  },
+  "MNIN.TA": {
+    "sector": "Materials",
+    "description": "Mendelson Infrastructures & Industries Ltd. is an Israeli public company operating in the Chemicals industry within the Materials sector. It produces and supplies construction materials, chemicals, and other industrial inputs.",
+    "descriptionHebrew": "מנדלסון תשתיות היא חברה ציבורית ישראלית הפועלת בענף Chemicals בסקטור חומרים. החברה מייצרת ומספקת חומרי בנייה, כימיקלים ותשומות תעשייתיות נוספות.",
+    "industry": "Chemicals"
+  },
+  "MPP.TA": {
+    "sector": "Finance",
+    "description": "Menora Mivtachim Holdings Ltd. is an Israeli public company operating in the Insurance industry within the Finance sector. It provides banking, credit, insurance, and investment services to retail and institutional customers.",
+    "descriptionHebrew": "מנורה מב החזקות היא חברה ציבורית ישראלית הפועלת בענף Insurance בסקטור פיננסים. החברה מספקת שירותי בנקאות, אשראי, ביטוח והשקעות ללקוחות פרטיים ומוסדיים.",
+    "industry": "Insurance"
+  },
+  "MPRS.TA": {
+    "sector": "Healthcare",
+    "description": "Medipress Health L.P. is an Israeli public company operating in the Biotechnology industry within the Healthcare sector. It develops and markets healthcare and life-science products and services for medical providers and patients.",
+    "descriptionHebrew": "מדיפרס בריאות היא חברה ציבורית ישראלית הפועלת בענף Biotechnology בסקטור בריאות. החברה מפתחת ומשווקת מוצרים ושירותים בתחום הבריאות ומדעי החיים עבור גופים רפואיים ומטופלים.",
+    "industry": "Biotechnology"
+  },
+  "MRG.TA": {
+    "sector": "Consumer Goods",
+    "description": "Multi Retail Group Ltd. is an Israeli public company operating in the Retail industry within the Consumer Goods sector. It manufactures, markets, and distributes consumer products through retail and wholesale channels.",
+    "descriptionHebrew": "מולטי ריטייל היא חברה ציבורית ישראלית הפועלת בענף Retail בסקטור מוצרי צריכה. החברה מייצרת, משווקת ומפיצה מוצרי צריכה באמצעות ערוצי קמעונאות וסיטונאות.",
+    "industry": "Retail"
+  },
+  "MRHL.TA": {
+    "sector": "Healthcare",
+    "description": "Merchavia Holdings and Investments Ltd. is an Israeli public company operating in the Medical Devices industry within the Healthcare sector. It develops and markets healthcare and life-science products and services for medical providers and patients.",
+    "descriptionHebrew": "מרחביה אחזקות היא חברה ציבורית ישראלית הפועלת בענף Medical Devices בסקטור בריאות. החברה מפתחת ומשווקת מוצרים ושירותים בתחום הבריאות ומדעי החיים עבור גופים רפואיים ומטופלים.",
+    "industry": "Medical Devices"
+  },
+  "MRIN.TA": {
+    "sector": "Finance",
+    "description": "Y.D. More Investments Ltd. is an Israeli public company operating in the Asset Management industry within the Finance sector. It provides banking, credit, insurance, and investment services to retail and institutional customers.",
+    "descriptionHebrew": "מור השקעות היא חברה ציבורית ישראלית הפועלת בענף Asset Management בסקטור פיננסים. החברה מספקת שירותי בנקאות, אשראי, ביטוח והשקעות ללקוחות פרטיים ומוסדיים.",
+    "industry": "Asset Management"
+  },
+  "MSBI.TA": {
+    "sector": "Finance",
+    "description": "Hamashbir 365 Ltd. is an Israeli public company operating in the Banks industry within the Finance sector. It provides banking, credit, insurance, and investment services to retail and institutional customers.",
+    "descriptionHebrew": "המשביר 365 היא חברה ציבורית ישראלית הפועלת בענף Banks בסקטור פיננסים. החברה מספקת שירותי בנקאות, אשראי, ביטוח והשקעות ללקוחות פרטיים ומוסדיים.",
+    "industry": "Banks"
+  },
+  "MSHR.TA": {
+    "sector": "Real Estate",
+    "description": "Mishorim Real Estate Investments Ltd. is an Israeli public company operating in the Commercial Real Estate industry within the Real Estate sector. It initiates, develops, acquires, and manages residential, commercial, and income-producing properties.",
+    "descriptionHebrew": "מישורים היא חברה ציבורית ישראלית הפועלת בענף Commercial Real Estate בסקטור נדל\"ן. החברה יוזמת, מפתחת, רוכשת ומנהלת נכסי מגורים, מסחר ונכסים מניבים.",
+    "industry": "Commercial Real Estate"
+  },
+  "MSKE.TA": {
+    "sector": "Energy",
+    "description": "Meshek Energy Renewable Energies Ltd. is an Israeli public company operating in the Renewable Energy industry within the Energy sector. It develops, produces, and supplies energy products and related infrastructure services.",
+    "descriptionHebrew": "משק אנרגיה היא חברה ציבורית ישראלית הפועלת בענף Renewable Energy בסקטור אנרגיה. החברה מפתחת, מייצרת ומספקת מוצרי אנרגיה ושירותי תשתית קשורים.",
+    "industry": "Renewable Energy"
+  },
+  "MSLA.TA": {
+    "sector": "Industrials",
+    "description": "Maslavi Construction Co. Ltd. is an Israeli public company operating in the Construction industry within the Industrials sector. It delivers industrial, engineering, infrastructure, and manufacturing solutions for business and government customers.",
+    "descriptionHebrew": "מצלאוי היא חברה ציבורית ישראלית הפועלת בענף Construction בסקטור תעשייה. החברה מספקת פתרונות תעשייה, הנדסה, תשתיות וייצור ללקוחות עסקיים וממשלתיים.",
+    "industry": "Construction"
+  },
+  "MSVT.TA": {
+    "sector": "Technology",
+    "description": "Massivit 3D Printing Technologies Ltd. is an Israeli public company operating in the Hardware industry within the Technology sector. It develops software, digital platforms, and IT solutions for enterprise and public-sector clients.",
+    "descriptionHebrew": "מאסיבית היא חברה ציבורית ישראלית הפועלת בענף Hardware בסקטור טכנולוגיה. החברה מפתחת תוכנה, פלטפורמות דיגיטליות ופתרונות IT עבור לקוחות עסקיים וציבוריים.",
+    "industry": "Hardware"
+  },
+  "MTAV.TA": {
+    "sector": "Finance",
+    "description": "Meitav Investments House Ltd. is an Israeli public company operating in the Asset Management industry within the Finance sector. It provides banking, credit, insurance, and investment services to retail and institutional customers.",
+    "descriptionHebrew": "מיטב בית השקעות היא חברה ציבורית ישראלית הפועלת בענף Asset Management בסקטור פיננסים. החברה מספקת שירותי בנקאות, אשראי, ביטוח והשקעות ללקוחות פרטיים ומוסדיים.",
+    "industry": "Asset Management"
+  },
+  "MTLF.TA": {
+    "sector": "Healthcare",
+    "description": "Matricelf Ltd. is an Israeli public company operating in the Biotechnology industry within the Healthcare sector. It develops and markets healthcare and life-science products and services for medical providers and patients.",
+    "descriptionHebrew": "מטריסלף היא חברה ציבורית ישראלית הפועלת בענף Biotechnology בסקטור בריאות. החברה מפתחת ומשווקת מוצרים ושירותים בתחום הבריאות ומדעי החיים עבור גופים רפואיים ומטופלים.",
+    "industry": "Biotechnology"
+  },
+  "MTRD.TA": {
+    "sector": "Finance",
+    "description": "Meitav Investments Ltd. is an Israeli public company operating in the Asset Management industry within the Finance sector. It provides banking, credit, insurance, and investment services to retail and institutional customers.",
+    "descriptionHebrew": "מיטב בית השקעות היא חברה ציבורית ישראלית הפועלת בענף Asset Management בסקטור פיננסים. החברה מספקת שירותי בנקאות, אשראי, ביטוח והשקעות ללקוחות פרטיים ומוסדיים.",
+    "industry": "Asset Management"
+  },
+  "MTRN.TA": {
+    "sector": "Consumer Goods",
+    "description": "Maytronics Ltd. is an Israeli public company operating in the Consumer Electronics industry within the Consumer Goods sector. It manufactures, markets, and distributes consumer products through retail and wholesale channels.",
+    "descriptionHebrew": "מיטרוניקס היא חברה ציבורית ישראלית הפועלת בענף Consumer Electronics בסקטור מוצרי צריכה. החברה מייצרת, משווקת ומפיצה מוצרי צריכה באמצעות ערוצי קמעונאות וסיטונאות.",
+    "industry": "Consumer Electronics"
+  },
+  "MTRX.TA": {
+    "sector": "Industrials",
+    "description": "Matrix IT Ltd. is an Israeli public company operating in the Energy Services industry within the Industrials sector. It delivers industrial, engineering, infrastructure, and manufacturing solutions for business and government customers.",
+    "descriptionHebrew": "מטריקס היא חברה ציבורית ישראלית הפועלת בענף Energy Services בסקטור תעשייה. החברה מספקת פתרונות תעשייה, הנדסה, תשתיות וייצור ללקוחות עסקיים וממשלתיים.",
+    "industry": "Energy Services"
+  },
+  "MVNE.TA": {
+    "sector": "Real Estate",
+    "description": "Mivne Real Estate K.D. Ltd. is an Israeli public company operating in the Commercial Real Estate industry within the Real Estate sector. It initiates, develops, acquires, and manages residential, commercial, and income-producing properties.",
+    "descriptionHebrew": "מבנה היא חברה ציבורית ישראלית הפועלת בענף Commercial Real Estate בסקטור נדל\"ן. החברה יוזמת, מפתחת, רוכשת ומנהלת נכסי מגורים, מסחר ונכסים מניבים.",
+    "industry": "Commercial Real Estate"
+  },
+  "MYDS.TA": {
+    "sector": "Real Estate",
+    "description": "Mydas Real Estate Investment is an Israeli public company operating in the REITs industry within the Real Estate sector. It initiates, develops, acquires, and manages residential, commercial, and income-producing properties.",
+    "descriptionHebrew": "מידאס השקעות היא חברה ציבורית ישראלית הפועלת בענף REITs בסקטור נדל\"ן. החברה יוזמת, מפתחת, רוכשת ומנהלת נכסי מגורים, מסחר ונכסים מניבים.",
+    "industry": "REITs"
+  },
+  "MZTF.TA": {
+    "sector": "Finance",
+    "description": "Mizrahi Tefahot Bank Ltd. is an Israeli public company operating in the Banks industry within the Finance sector. It provides banking, credit, insurance, and investment services to retail and institutional customers.",
+    "descriptionHebrew": "מזרחי טפחות היא חברה ציבורית ישראלית הפועלת בענף Banks בסקטור פיננסים. החברה מספקת שירותי בנקאות, אשראי, ביטוח והשקעות ללקוחות פרטיים ומוסדיים.",
+    "industry": "Banks"
+  },
+  "NAWI.TA": {
+    "sector": "Finance",
+    "description": "Nawi Group Ltd. is an Israeli public company operating in the Fintech industry within the Finance sector. It provides banking, credit, insurance, and investment services to retail and institutional customers.",
+    "descriptionHebrew": "נאוי היא חברה ציבורית ישראלית הפועלת בענף Fintech בסקטור פיננסים. החברה מספקת שירותי בנקאות, אשראי, ביטוח והשקעות ללקוחות פרטיים ומוסדיים.",
+    "industry": "Fintech"
+  },
+  "NFTA.TA": {
+    "sector": "Energy",
+    "description": "Naphtha Israel Petroleum Corp. is an Israeli public company operating in the Oil & Gas industry within the Energy sector. It develops, produces, and supplies energy products and related infrastructure services.",
+    "descriptionHebrew": "נפטא היא חברה ציבורית ישראלית הפועלת בענף Oil & Gas בסקטור אנרגיה. החברה מפתחת, מייצרת ומספקת מוצרי אנרגיה ושירותי תשתית קשורים.",
+    "industry": "Oil & Gas"
+  },
+  "NICE.TA": {
+    "sector": "Technology",
+    "description": "Nice Ltd. is an Israeli public company operating in the Software industry within the Technology sector. It develops software, digital platforms, and IT solutions for enterprise and public-sector clients.",
+    "descriptionHebrew": "נייס היא חברה ציבורית ישראלית הפועלת בענף Software בסקטור טכנולוגיה. החברה מפתחת תוכנה, פלטפורמות דיגיטליות ופתרונות IT עבור לקוחות עסקיים וציבוריים.",
+    "industry": "Software"
+  },
+  "NISA.TA": {
+    "sector": "Healthcare",
+    "description": "Nissan Medical Industries Ltd. is an Israeli public company operating in the Medical Devices industry within the Healthcare sector. It develops and markets healthcare and life-science products and services for medical providers and patients.",
+    "descriptionHebrew": "ניסן היא חברה ציבורית ישראלית הפועלת בענף Medical Devices בסקטור בריאות. החברה מפתחת ומשווקת מוצרים ושירותים בתחום הבריאות ומדעי החיים עבור גופים רפואיים ומטופלים.",
+    "industry": "Medical Devices"
+  },
+  "NOFR.TA": {
+    "sector": "Energy",
+    "description": "Nofar Energy Ltd. is an Israeli public company operating in the Renewable Energy industry within the Energy sector. It develops, produces, and supplies energy products and related infrastructure services.",
+    "descriptionHebrew": "נופר אנרג'י היא חברה ציבורית ישראלית הפועלת בענף Renewable Energy בסקטור אנרגיה. החברה מפתחת, מייצרת ומספקת מוצרי אנרגיה ושירותי תשתית קשורים.",
+    "industry": "Renewable Energy"
+  },
+  "NRGN.TA": {
+    "sector": "Technology",
+    "description": "Nrgene Technologies Ltd. is an Israeli public company operating in the Biotechnology industry within the Technology sector. It develops software, digital platforms, and IT solutions for enterprise and public-sector clients.",
+    "descriptionHebrew": "אנרג'ין טכנו היא חברה ציבורית ישראלית הפועלת בענף Biotechnology בסקטור טכנולוגיה. החברה מפתחת תוכנה, פלטפורמות דיגיטליות ופתרונות IT עבור לקוחות עסקיים וציבוריים.",
+    "industry": "Biotechnology"
+  },
+  "NSTR.TA": {
+    "sector": "Real Estate",
+    "description": "Norstar Holdings Inc. is an Israeli public company operating in the Commercial Real Estate industry within the Real Estate sector. It initiates, develops, acquires, and manages residential, commercial, and income-producing properties.",
+    "descriptionHebrew": "נורסטאר החזקות היא חברה ציבורית ישראלית הפועלת בענף Commercial Real Estate בסקטור נדל\"ן. החברה יוזמת, מפתחת, רוכשת ומנהלת נכסי מגורים, מסחר ונכסים מניבים.",
+    "industry": "Commercial Real Estate"
+  },
+  "NTGR.TA": {
+    "sector": "Technology",
+    "description": "Netanel Group Ltd. is an Israeli public company operating in the Hardware industry within the Technology sector. It develops software, digital platforms, and IT solutions for enterprise and public-sector clients.",
+    "descriptionHebrew": "נתנאל גרופ היא חברה ציבורית ישראלית הפועלת בענף Hardware בסקטור טכנולוגיה. החברה מפתחת תוכנה, פלטפורמות דיגיטליות ופתרונות IT עבור לקוחות עסקיים וציבוריים.",
+    "industry": "Hardware"
+  },
+  "NTML.TA": {
+    "sector": "Consumer Goods",
+    "description": "Neto Malinda Trading Ltd. is an Israeli public company operating in the Food & Beverage industry within the Consumer Goods sector. It manufactures, markets, and distributes consumer products through retail and wholesale channels.",
+    "descriptionHebrew": "נטו מלינדה היא חברה ציבורית ישראלית הפועלת בענף Food & Beverage בסקטור מוצרי צריכה. החברה מייצרת, משווקת ומפיצה מוצרי צריכה באמצעות ערוצי קמעונאות וסיטונאות.",
+    "industry": "Food & Beverage"
+  },
+  "NTNB.TA": {
+    "sector": "Industrials",
+    "description": "Netanel Menivim Ltd. is an Israeli public company operating in the Construction industry within the Industrials sector. It delivers industrial, engineering, infrastructure, and manufacturing solutions for business and government customers.",
+    "descriptionHebrew": "נתנאל מניבים היא חברה ציבורית ישראלית הפועלת בענף Construction בסקטור תעשייה. החברה מספקת פתרונות תעשייה, הנדסה, תשתיות וייצור ללקוחות עסקיים וממשלתיים.",
+    "industry": "Construction"
+  },
+  "NTO.TA": {
+    "sector": "Consumer Goods",
+    "description": "Neto Me Holdings Ltd. is an Israeli public company operating in the Food & Beverage industry within the Consumer Goods sector. It manufactures, markets, and distributes consumer products through retail and wholesale channels.",
+    "descriptionHebrew": "נטו אחזקות היא חברה ציבורית ישראלית הפועלת בענף Food & Beverage בסקטור מוצרי צריכה. החברה מייצרת, משווקת ומפיצה מוצרי צריכה באמצעות ערוצי קמעונאות וסיטונאות.",
+    "industry": "Food & Beverage"
+  },
+  "NURI.TA": {
+    "sector": "Technology",
+    "description": "Nur Ink Innovations Ltd. is an Israeli public company operating in the Semiconductors industry within the Technology sector. It develops software, digital platforms, and IT solutions for enterprise and public-sector clients.",
+    "descriptionHebrew": "נור אינק היא חברה ציבורית ישראלית הפועלת בענף Semiconductors בסקטור טכנולוגיה. החברה מפתחת תוכנה, פלטפורמות דיגיטליות ופתרונות IT עבור לקוחות עסקיים וציבוריים.",
+    "industry": "Semiconductors"
+  },
+  "NVLG.TA": {
+    "sector": "Healthcare",
+    "description": "Novolog Ltd. is an Israeli public company operating in the Healthcare Services industry within the Healthcare sector. It develops and markets healthcare and life-science products and services for medical providers and patients.",
+    "descriptionHebrew": "נובולוג היא חברה ציבורית ישראלית הפועלת בענף Healthcare Services בסקטור בריאות. החברה מפתחת ומשווקת מוצרים ושירותים בתחום הבריאות ומדעי החיים עבור גופים רפואיים ומטופלים.",
+    "industry": "Healthcare Services"
+  },
+  "NVMI.TA": {
+    "sector": "Technology",
+    "description": "Nova Ltd. is an Israeli public company operating in the Semiconductors industry within the Technology sector. It develops software, digital platforms, and IT solutions for enterprise and public-sector clients.",
+    "descriptionHebrew": "נובה היא חברה ציבורית ישראלית הפועלת בענף Semiconductors בסקטור טכנולוגיה. החברה מפתחת תוכנה, פלטפורמות דיגיטליות ופתרונות IT עבור לקוחות עסקיים וציבוריים.",
+    "industry": "Semiconductors"
+  },
+  "NXGN.TA": {
+    "sector": "Healthcare",
+    "description": "NextGen Biomed Ltd. is an Israeli public company operating in the Biotechnology industry within the Healthcare sector. It develops and markets healthcare and life-science products and services for medical providers and patients.",
+    "descriptionHebrew": "נקסט ג'ן-ש היא חברה ציבורית ישראלית הפועלת בענף Biotechnology בסקטור בריאות. החברה מפתחת ומשווקת מוצרים ושירותים בתחום הבריאות ומדעי החיים עבור גופים רפואיים ומטופלים.",
+    "industry": "Biotechnology"
+  },
+  "NXSN.TA": {
+    "sector": "Technology",
+    "description": "Next Vision Stabilized Systems Ltd. is an Israeli public company operating in the Hardware industry within the Technology sector. It develops software, digital platforms, and IT solutions for enterprise and public-sector clients.",
+    "descriptionHebrew": "נקסט ויז'ן היא חברה ציבורית ישראלית הפועלת בענף Hardware בסקטור טכנולוגיה. החברה מפתחת תוכנה, פלטפורמות דיגיטליות ופתרונות IT עבור לקוחות עסקיים וציבוריים.",
+    "industry": "Hardware"
+  },
+  "NXTG.TA": {
+    "sector": "Healthcare",
+    "description": "Nextage Therapeutics Ltd. is an Israeli public company operating in the Pharmaceuticals industry within the Healthcare sector. It develops and markets healthcare and life-science products and services for medical providers and patients.",
+    "descriptionHebrew": "נקסטייג' היא חברה ציבורית ישראלית הפועלת בענף Pharmaceuticals בסקטור בריאות. החברה מפתחת ומשווקת מוצרים ושירותים בתחום הבריאות ומדעי החיים עבור גופים רפואיים ומטופלים.",
+    "industry": "Pharmaceuticals"
+  },
+  "NXTM.TA": {
+    "sector": "Communication",
+    "description": "Nextcom Ltd is an Israeli public company operating in the Telecom industry within the Communication sector. It provides media, telecommunications, and digital communication services to businesses and consumers.",
+    "descriptionHebrew": "נקסטקום היא חברה ציבורית ישראלית הפועלת בענף Telecom בסקטור תקשורת. החברה מספקת שירותי מדיה, תקשורת וטלקום לעסקים ולצרכנים.",
+    "industry": "Telecom"
+  },
+  "NYAX.TA": {
+    "sector": "Finance",
+    "description": "Nayax Ltd. is an Israeli public company operating in the Fintech industry within the Finance sector. It provides banking, credit, insurance, and investment services to retail and institutional customers.",
+    "descriptionHebrew": "נאייקס היא חברה ציבורית ישראלית הפועלת בענף Fintech בסקטור פיננסים. החברה מספקת שירותי בנקאות, אשראי, ביטוח והשקעות ללקוחות פרטיים ומוסדיים.",
+    "industry": "Fintech"
+  },
+  "OMCN.TA": {
+    "sector": "Real Estate",
+    "description": "Omer Construction & Engineering (1986) Ltd. is an Israeli public company operating in the Commercial Real Estate industry within the Real Estate sector. It initiates, develops, acquires, and manages residential, commercial, and income-producing properties.",
+    "descriptionHebrew": "עומר הנדסה היא חברה ציבורית ישראלית הפועלת בענף Commercial Real Estate בסקטור נדל\"ן. החברה יוזמת, מפתחת, רוכשת ומנהלת נכסי מגורים, מסחר ונכסים מניבים.",
+    "industry": "Commercial Real Estate"
+  },
+  "ONE.TA": {
+    "sector": "Technology",
+    "description": "One Software Technologies Ltd. is an Israeli public company operating in the IT Services industry within the Technology sector. It develops software, digital platforms, and IT solutions for enterprise and public-sector clients.",
+    "descriptionHebrew": "וואן טכנולוגיות היא חברה ציבורית ישראלית הפועלת בענף IT Services בסקטור טכנולוגיה. החברה מפתחת תוכנה, פלטפורמות דיגיטליות ופתרונות IT עבור לקוחות עסקיים וציבוריים.",
+    "industry": "IT Services"
+  },
+  "OPAL.TA": {
+    "sector": "Energy",
+    "description": "Opal Balance Investments Ltd. is an Israeli public company operating in the Renewable Energy industry within the Energy sector. It develops, produces, and supplies energy products and related infrastructure services.",
+    "descriptionHebrew": "אופל בלאנס היא חברה ציבורית ישראלית הפועלת בענף Renewable Energy בסקטור אנרגיה. החברה מפתחת, מייצרת ומספקת מוצרי אנרגיה ושירותי תשתית קשורים.",
+    "industry": "Renewable Energy"
+  },
+  "OPCE.TA": {
+    "sector": "Energy",
+    "description": "Opc Energy Ltd. is an Israeli public company operating in the Renewable Energy industry within the Energy sector. It develops, produces, and supplies energy products and related infrastructure services.",
+    "descriptionHebrew": "או.פי.סי אנרגיה היא חברה ציבורית ישראלית הפועלת בענף Renewable Energy בסקטור אנרגיה. החברה מפתחת, מייצרת ומספקת מוצרי אנרגיה ושירותי תשתית קשורים.",
+    "industry": "Renewable Energy"
+  },
+  "OPK.TA": {
+    "sector": "Healthcare",
+    "description": "Opko Health Inc. is an Israeli public company operating in the Pharmaceuticals industry within the Healthcare sector. It develops and markets healthcare and life-science products and services for medical providers and patients.",
+    "descriptionHebrew": "אופקו היא חברה ציבורית ישראלית הפועלת בענף Pharmaceuticals בסקטור בריאות. החברה מפתחת ומשווקת מוצרים ושירותים בתחום הבריאות ומדעי החיים עבור גופים רפואיים ומטופלים.",
+    "industry": "Pharmaceuticals"
+  },
+  "ORA.TA": {
+    "sector": "Energy",
+    "description": "Ormat Technologies Inc. is an Israeli public company operating in the Renewable Energy industry within the Energy sector. It develops, produces, and supplies energy products and related infrastructure services.",
+    "descriptionHebrew": "אורביט היא חברה ציבורית ישראלית הפועלת בענף Renewable Energy בסקטור אנרגיה. החברה מפתחת, מייצרת ומספקת מוצרי אנרגיה ושירותי תשתית קשורים.",
+    "industry": "Renewable Energy"
+  },
+  "ORAD.TA": {
+    "sector": "Energy",
+    "description": "Orad Ltd. is an Israeli public company operating in the Renewable Energy industry within the Energy sector. It develops, produces, and supplies energy products and related infrastructure services.",
+    "descriptionHebrew": "אורד היא חברה ציבורית ישראלית הפועלת בענף Renewable Energy בסקטור אנרגיה. החברה מפתחת, מייצרת ומספקת מוצרי אנרגיה ושירותי תשתית קשורים.",
+    "industry": "Renewable Energy"
+  },
+  "ORBI.TA": {
+    "sector": "Industrials",
+    "description": "Orbit Technologies Ltd. is an Israeli public company operating in the Aerospace industry within the Industrials sector. It delivers industrial, engineering, infrastructure, and manufacturing solutions for business and government customers.",
+    "descriptionHebrew": "אורביט היא חברה ציבורית ישראלית הפועלת בענף Aerospace בסקטור תעשייה. החברה מספקת פתרונות תעשייה, הנדסה, תשתיות וייצור ללקוחות עסקיים וממשלתיים.",
+    "industry": "Aerospace"
+  },
+  "ORIN.TA": {
+    "sector": "Industrials",
+    "description": "Orian Shm Ltd. is an Israeli public company operating in the Transportation industry within the Industrials sector. It delivers industrial, engineering, infrastructure, and manufacturing solutions for business and government customers.",
+    "descriptionHebrew": "אוריין היא חברה ציבורית ישראלית הפועלת בענף Transportation בסקטור תעשייה. החברה מספקת פתרונות תעשייה, הנדסה, תשתיות וייצור ללקוחות עסקיים וממשלתיים.",
+    "industry": "Transportation"
+  },
+  "ORL.TA": {
+    "sector": "Energy",
+    "description": "Oil Refineries Ltd. is an Israeli public company operating in the Oil & Gas industry within the Energy sector. It develops, produces, and supplies energy products and related infrastructure services.",
+    "descriptionHebrew": "בתי זיקוק היא חברה ציבורית ישראלית הפועלת בענף Oil & Gas בסקטור אנרגיה. החברה מפתחת, מייצרת ומספקת מוצרי אנרגיה ושירותי תשתית קשורים.",
+    "industry": "Oil & Gas"
+  },
+  "ORMP.TA": {
+    "sector": "Healthcare",
+    "description": "Oramed Pharmaceuticals Inc. is an Israeli public company operating in the Pharmaceuticals industry within the Healthcare sector. It develops and markets healthcare and life-science products and services for medical providers and patients.",
+    "descriptionHebrew": "אורמד היא חברה ציבורית ישראלית הפועלת בענף Pharmaceuticals בסקטור בריאות. החברה מפתחת ומשווקת מוצרים ושירותים בתחום הבריאות ומדעי החיים עבור גופים רפואיים ומטופלים.",
+    "industry": "Pharmaceuticals"
+  },
+  "ORNP.TA": {
+    "sector": "Real Estate",
+    "description": "Orion Retail Properties Ltd is an Israeli public company operating in the Commercial Real Estate industry within the Real Estate sector. It initiates, develops, acquires, and manages residential, commercial, and income-producing properties.",
+    "descriptionHebrew": "אוריון היא חברה ציבורית ישראלית הפועלת בענף Commercial Real Estate בסקטור נדל\"ן. החברה יוזמת, מפתחת, רוכשת ומנהלת נכסי מגורים, מסחר ונכסים מניבים.",
+    "industry": "Commercial Real Estate"
+  },
+  "ORON.TA": {
+    "sector": "Real Estate",
+    "description": "Oron Group Investments & Holdings Ltd. is an Israeli public company operating in the Property Development industry within the Real Estate sector. It initiates, develops, acquires, and manages residential, commercial, and income-producing properties.",
+    "descriptionHebrew": "אורון קבוצה היא חברה ציבורית ישראלית הפועלת בענף Property Development בסקטור נדל\"ן. החברה יוזמת, מפתחת, רוכשת ומנהלת נכסי מגורים, מסחר ונכסים מניבים.",
+    "industry": "Property Development"
+  },
+  "ORTC.TA": {
+    "sector": "Technology",
+    "description": "O.R.T Technologies Ltd. is an Israeli public company operating in the IT Services industry within the Technology sector. It develops software, digital platforms, and IT solutions for enterprise and public-sector clients.",
+    "descriptionHebrew": "או.אר.טי. היא חברה ציבורית ישראלית הפועלת בענף IT Services בסקטור טכנולוגיה. החברה מפתחת תוכנה, פלטפורמות דיגיטליות ופתרונות IT עבור לקוחות עסקיים וציבוריים.",
+    "industry": "IT Services"
+  },
+  "OVRS.TA": {
+    "sector": "Industrials",
+    "description": "Overseas Commerce Ltd. is an Israeli public company operating in the Transportation industry within the Industrials sector. It delivers industrial, engineering, infrastructure, and manufacturing solutions for business and government customers.",
+    "descriptionHebrew": "אוברסיז היא חברה ציבורית ישראלית הפועלת בענף Transportation בסקטור תעשייה. החברה מספקת פתרונות תעשייה, הנדסה, תשתיות וייצור ללקוחות עסקיים וממשלתיים.",
+    "industry": "Transportation"
+  },
+  "PAYT.TA": {
+    "sector": "Technology",
+    "description": "Payton Industries Ltd. is an Israeli public company operating in the Hardware industry within the Technology sector. It develops software, digital platforms, and IT solutions for enterprise and public-sector clients.",
+    "descriptionHebrew": "פייטון היא חברה ציבורית ישראלית הפועלת בענף Hardware בסקטור טכנולוגיה. החברה מפתחת תוכנה, פלטפורמות דיגיטליות ופתרונות IT עבור לקוחות עסקיים וציבוריים.",
+    "industry": "Hardware"
+  },
+  "PAZ.TA": {
+    "sector": "Consumer Goods",
+    "description": "Paz Retail and Energy Ltd. is an Israeli public company operating in the Retail industry within the Consumer Goods sector. It manufactures, markets, and distributes consumer products through retail and wholesale channels.",
+    "descriptionHebrew": "פז אנרגיה היא חברה ציבורית ישראלית הפועלת בענף Retail בסקטור מוצרי צריכה. החברה מייצרת, משווקת ומפיצה מוצרי צריכה באמצעות ערוצי קמעונאות וסיטונאות.",
+    "industry": "Retail"
+  },
+  "PCBT.TA": {
+    "sector": "Technology",
+    "description": "P.C.B. Technologies Ltd. is an Israeli public company operating in the Semiconductors industry within the Technology sector. It develops software, digital platforms, and IT solutions for enterprise and public-sector clients.",
+    "descriptionHebrew": "פיסיבי טכנ היא חברה ציבורית ישראלית הפועלת בענף Semiconductors בסקטור טכנולוגיה. החברה מפתחת תוכנה, פלטפורמות דיגיטליות ופתרונות IT עבור לקוחות עסקיים וציבוריים.",
+    "industry": "Semiconductors"
+  },
+  "PEN.TA": {
+    "sector": "Finance",
+    "description": "Peninsula Group Ltd. is an Israeli public company operating in the Asset Management industry within the Finance sector. It provides banking, credit, insurance, and investment services to retail and institutional customers.",
+    "descriptionHebrew": "פנינסולה היא חברה ציבורית ישראלית הפועלת בענף Asset Management בסקטור פיננסים. החברה מספקת שירותי בנקאות, אשראי, ביטוח והשקעות ללקוחות פרטיים ומוסדיים.",
+    "industry": "Asset Management"
+  },
+  "PERI.TA": {
+    "sector": "Technology",
+    "description": "Perion Network Ltd. is an Israeli public company operating in the Internet industry within the Technology sector. It develops software, digital platforms, and IT solutions for enterprise and public-sector clients.",
+    "descriptionHebrew": "פריון נטוורק היא חברה ציבורית ישראלית הפועלת בענף Internet בסקטור טכנולוגיה. החברה מפתחת תוכנה, פלטפורמות דיגיטליות ופתרונות IT עבור לקוחות עסקיים וציבוריים.",
+    "industry": "Internet"
+  },
+  "PFLT.TA": {
+    "sector": "Finance",
+    "description": "PennantPark Floating Rate Capital Ltd. is an Israeli public company operating in the Capital Markets industry within the Finance sector. It provides banking, credit, insurance, and investment services to retail and institutional customers.",
+    "descriptionHebrew": "PennantPark Floating Rate Capital Ltd. היא חברה ציבורית ישראלית הפועלת בענף Capital Markets בסקטור פיננסים. החברה מספקת שירותי בנקאות, אשראי, ביטוח והשקעות ללקוחות פרטיים ומוסדיים.",
+    "industry": "Capital Markets"
+  },
+  "PHOE.TA": {
+    "sector": "Industrials",
+    "description": "Phoenix Financial Ltd. is an Israeli public company operating in the Construction industry within the Industrials sector. It delivers industrial, engineering, infrastructure, and manufacturing solutions for business and government customers.",
+    "descriptionHebrew": "הפניקס היא חברה ציבורית ישראלית הפועלת בענף Construction בסקטור תעשייה. החברה מספקת פתרונות תעשייה, הנדסה, תשתיות וייצור ללקוחות עסקיים וממשלתיים.",
+    "industry": "Construction"
+  },
+  "PHTM.TA": {
+    "sector": "Technology",
+    "description": "Photomyne Ltd. is an Israeli public company operating in the Software industry within the Technology sector. It develops software, digital platforms, and IT solutions for enterprise and public-sector clients.",
+    "descriptionHebrew": "פוטומיין היא חברה ציבורית ישראלית הפועלת בענף Software בסקטור טכנולוגיה. החברה מפתחת תוכנה, פלטפורמות דיגיטליות ופתרונות IT עבור לקוחות עסקיים וציבוריים.",
+    "industry": "Software"
+  },
+  "PIES.TA": {
+    "sector": "Real Estate",
+    "description": "Pies Siam Ltd. is an Israeli public company operating in the Property Development industry within the Real Estate sector. It initiates, develops, acquires, and manages residential, commercial, and income-producing properties.",
+    "descriptionHebrew": "פאי סיאם היא חברה ציבורית ישראלית הפועלת בענף Property Development בסקטור נדל\"ן. החברה יוזמת, מפתחת, רוכשת ומנהלת נכסי מגורים, מסחר ונכסים מניבים.",
+    "industry": "Property Development"
+  },
+  "PLCR.TA": {
+    "sector": "Industrials",
+    "description": "Plasto Cargal Group Ltd. is an Israeli public company operating in the Machinery industry within the Industrials sector. It delivers industrial, engineering, infrastructure, and manufacturing solutions for business and government customers.",
+    "descriptionHebrew": "פלסטו קרגל היא חברה ציבורית ישראלית הפועלת בענף Machinery בסקטור תעשייה. החברה מספקת פתרונות תעשייה, הנדסה, תשתיות וייצור ללקוחות עסקיים וממשלתיים.",
+    "industry": "Machinery"
+  },
+  "PLNT.TA": {
+    "sector": "Healthcare",
+    "description": "PlantArc Bio Ltd. is an Israeli public company operating in the Biotechnology industry within the Healthcare sector. It develops and markets healthcare and life-science products and services for medical providers and patients.",
+    "descriptionHebrew": "PlantArc Bio Ltd. היא חברה ציבורית ישראלית הפועלת בענף Biotechnology בסקטור בריאות. החברה מפתחת ומשווקת מוצרים ושירותים בתחום הבריאות ומדעי החיים עבור גופים רפואיים ומטופלים.",
+    "industry": "Biotechnology"
+  },
+  "PLRM.TA": {
+    "sector": "Materials",
+    "description": "Palram Industries (1990) Ltd. is an Israeli public company operating in the Plastics industry within the Materials sector. It produces and supplies construction materials, chemicals, and other industrial inputs.",
+    "descriptionHebrew": "פלרם היא חברה ציבורית ישראלית הפועלת בענף Plastics בסקטור חומרים. החברה מייצרת ומספקת חומרי בנייה, כימיקלים ותשומות תעשייתיות נוספות.",
+    "industry": "Plastics"
+  },
+  "PLSN.TA": {
+    "sector": "Industrials",
+    "description": "Plasson Industries Ltd. is an Israeli public company operating in the Machinery industry within the Industrials sector. It delivers industrial, engineering, infrastructure, and manufacturing solutions for business and government customers.",
+    "descriptionHebrew": "פלסאון תעשיות היא חברה ציבורית ישראלית הפועלת בענף Machinery בסקטור תעשייה. החברה מספקת פתרונות תעשייה, הנדסה, תשתיות וייצור ללקוחות עסקיים וממשלתיים.",
+    "industry": "Machinery"
+  },
+  "PLUR.TA": {
+    "sector": "Healthcare",
+    "description": "Pluri Inc. is an Israeli public company operating in the Biotechnology industry within the Healthcare sector. It develops and markets healthcare and life-science products and services for medical providers and patients.",
+    "descriptionHebrew": "פלורי היא חברה ציבורית ישראלית הפועלת בענף Biotechnology בסקטור בריאות. החברה מפתחת ומשווקת מוצרים ושירותים בתחום הבריאות ומדעי החיים עבור גופים רפואיים ומטופלים.",
+    "industry": "Biotechnology"
+  },
+  "PMNT.TA": {
+    "sector": "Finance",
+    "description": "Payment Financial Technologies Inc. is an Israeli public company operating in the Fintech industry within the Finance sector. It provides banking, credit, insurance, and investment services to retail and institutional customers.",
+    "descriptionHebrew": "פיימנט היא חברה ציבורית ישראלית הפועלת בענף Fintech בסקטור פיננסים. החברה מספקת שירותי בנקאות, אשראי, ביטוח והשקעות ללקוחות פרטיים ומוסדיים.",
+    "industry": "Fintech"
+  },
+  "PMVM.TA": {
+    "sector": "Technology",
+    "description": "Pomvom Ltd. is an Israeli public company operating in the Software industry within the Technology sector. It develops software, digital platforms, and IT solutions for enterprise and public-sector clients.",
+    "descriptionHebrew": "פוםוום היא חברה ציבורית ישראלית הפועלת בענף Software בסקטור טכנולוגיה. החברה מפתחת תוכנה, פלטפורמות דיגיטליות ופתרונות IT עבור לקוחות עסקיים וציבוריים.",
+    "industry": "Software"
+  },
+  "PNRG.TA": {
+    "sector": "Energy",
+    "description": "Phinergy Ltd. is an Israeli public company operating in the Oil & Gas industry within the Energy sector. It develops, produces, and supplies energy products and related infrastructure services.",
+    "descriptionHebrew": "פינרג'י היא חברה ציבורית ישראלית הפועלת בענף Oil & Gas בסקטור אנרגיה. החברה מפתחת, מייצרת ומספקת מוצרי אנרגיה ושירותי תשתית קשורים.",
+    "industry": "Oil & Gas"
+  },
+  "POLI.TA": {
+    "sector": "Finance",
+    "description": "Bank Hapoalim B.M. is an Israeli public company operating in the Banks industry within the Finance sector. It provides banking, credit, insurance, and investment services to retail and institutional customers.",
+    "descriptionHebrew": "פועלים היא חברה ציבורית ישראלית הפועלת בענף Banks בסקטור פיננסים. החברה מספקת שירותי בנקאות, אשראי, ביטוח והשקעות ללקוחות פרטיים ומוסדיים.",
+    "industry": "Banks"
+  },
+  "POLP.TA": {
+    "sector": "Materials",
+    "description": "Polyram Plastic Industries Ltd. is an Israeli public company operating in the Plastics industry within the Materials sector. It produces and supplies construction materials, chemicals, and other industrial inputs.",
+    "descriptionHebrew": "פולירם היא חברה ציבורית ישראלית הפועלת בענף Plastics בסקטור חומרים. החברה מייצרת ומספקת חומרי בנייה, כימיקלים ותשומות תעשייתיות נוספות.",
+    "industry": "Plastics"
+  },
+  "POLY.TA": {
+    "sector": "Real Estate",
+    "description": "Polygon Real Estate Ltd. is an Israeli public company operating in the REITs industry within the Real Estate sector. It initiates, develops, acquires, and manages residential, commercial, and income-producing properties.",
+    "descriptionHebrew": "פוליגון היא חברה ציבורית ישראלית הפועלת בענף REITs בסקטור נדל\"ן. החברה יוזמת, מפתחת, רוכשת ומנהלת נכסי מגורים, מסחר ונכסים מניבים.",
+    "industry": "REITs"
+  },
+  "PPBT.TA": {
+    "sector": "Healthcare",
+    "description": "Purple Biotech Ltd. is an Israeli public company operating in the Biotechnology industry within the Healthcare sector. It develops and markets healthcare and life-science products and services for medical providers and patients.",
+    "descriptionHebrew": "פרפל ביוטק היא חברה ציבורית ישראלית הפועלת בענף Biotechnology בסקטור בריאות. החברה מפתחת ומשווקת מוצרים ושירותים בתחום הבריאות ומדעי החיים עבור גופים רפואיים ומטופלים.",
+    "industry": "Biotechnology"
+  },
+  "PPIL.TA": {
+    "sector": "Consumer Goods",
+    "description": "Plastopil Hazorea Company Ltd. is an Israeli public company operating in the Consumer Electronics industry within the Consumer Goods sector. It manufactures, markets, and distributes consumer products through retail and wholesale channels.",
+    "descriptionHebrew": "פלסטופיל היא חברה ציבורית ישראלית הפועלת בענף Consumer Electronics בסקטור מוצרי צריכה. החברה מייצרת, משווקת ומפיצה מוצרי צריכה באמצעות ערוצי קמעונאות וסיטונאות.",
+    "industry": "Consumer Electronics"
+  },
+  "PRIM.TA": {
+    "sector": "Energy",
+    "description": "Prime Energy P.E. Ltd. is an Israeli public company operating in the Renewable Energy industry within the Energy sector. It develops, produces, and supplies energy products and related infrastructure services.",
+    "descriptionHebrew": "פריים אנרג'י היא חברה ציבורית ישראלית הפועלת בענף Renewable Energy בסקטור אנרגיה. החברה מפתחת, מייצרת ומספקת מוצרי אנרגיה ושירותי תשתית קשורים.",
+    "industry": "Renewable Energy"
+  },
+  "PRKM.TA": {
+    "sector": "Industrials",
+    "description": "Parkomat Ltd. is an Israeli public company operating in the Machinery industry within the Industrials sector. It delivers industrial, engineering, infrastructure, and manufacturing solutions for business and government customers.",
+    "descriptionHebrew": "פרקומט היא חברה ציבורית ישראלית הפועלת בענף Machinery בסקטור תעשייה. החברה מספקת פתרונות תעשייה, הנדסה, תשתיות וייצור ללקוחות עסקיים וממשלתיים.",
+    "industry": "Machinery"
+  },
+  "PRMG.TA": {
+    "sector": "Consumer Goods",
+    "description": "Primotec Group Ltd. is an Israeli public company operating in the Retail industry within the Consumer Goods sector. It manufactures, markets, and distributes consumer products through retail and wholesale channels.",
+    "descriptionHebrew": "פרימוטק היא חברה ציבורית ישראלית הפועלת בענף Retail בסקטור מוצרי צריכה. החברה מייצרת, משווקת ומפיצה מוצרי צריכה באמצעות ערוצי קמעונאות וסיטונאות.",
+    "industry": "Retail"
+  },
+  "PRPD.TA": {
+    "sector": "Real Estate",
+    "description": "Propdo Ltd. is an Israeli public company operating in the Property Development industry within the Real Estate sector. It initiates, develops, acquires, and manages residential, commercial, and income-producing properties.",
+    "descriptionHebrew": "פרופדו היא חברה ציבורית ישראלית הפועלת בענף Property Development בסקטור נדל\"ן. החברה יוזמת, מפתחת, רוכשת ומנהלת נכסי מגורים, מסחר ונכסים מניבים.",
+    "industry": "Property Development"
+  },
+  "PRSK.TA": {
+    "sector": "Real Estate",
+    "description": "Prashkovsky Investments & Co. is an Israeli public company operating in the Property Development industry within the Real Estate sector. It initiates, develops, acquires, and manages residential, commercial, and income-producing properties.",
+    "descriptionHebrew": "פרשקובסקי היא חברה ציבורית ישראלית הפועלת בענף Property Development בסקטור נדל\"ן. החברה יוזמת, מפתחת, רוכשת ומנהלת נכסי מגורים, מסחר ונכסים מניבים.",
+    "industry": "Property Development"
+  },
+  "PRTC.TA": {
+    "sector": "Technology",
+    "description": "Priortech Ltd. is an Israeli public company operating in the Semiconductors industry within the Technology sector. It develops software, digital platforms, and IT solutions for enterprise and public-sector clients.",
+    "descriptionHebrew": "פריורטק היא חברה ציבורית ישראלית הפועלת בענף Semiconductors בסקטור טכנולוגיה. החברה מפתחת תוכנה, פלטפורמות דיגיטליות ופתרונות IT עבור לקוחות עסקיים וציבוריים.",
+    "industry": "Semiconductors"
+  },
+  "PSRX.TA": {
+    "sector": "Healthcare",
+    "description": "PsyRX CNS Bio-Tech Ltd is an Israeli public company operating in the Pharmaceuticals industry within the Healthcare sector. It develops and markets healthcare and life-science products and services for medical providers and patients.",
+    "descriptionHebrew": "פסיירקס ביו-טק היא חברה ציבורית ישראלית הפועלת בענף Pharmaceuticals בסקטור בריאות. החברה מפתחת ומשווקת מוצרים ושירותים בתחום הבריאות ומדעי החיים עבור גופים רפואיים ומטופלים.",
+    "industry": "Pharmaceuticals"
+  },
+  "PTBL.TA": {
+    "sector": "Real Estate",
+    "description": "Property & Building Corp Ltd is an Israeli public company operating in the Commercial Real Estate industry within the Real Estate sector. It initiates, develops, acquires, and manages residential, commercial, and income-producing properties.",
+    "descriptionHebrew": "נכסים ובנין היא חברה ציבורית ישראלית הפועלת בענף Commercial Real Estate בסקטור נדל\"ן. החברה יוזמת, מפתחת, רוכשת ומנהלת נכסי מגורים, מסחר ונכסים מניבים.",
+    "industry": "Commercial Real Estate"
+  },
+  "PTCH.TA": {
+    "sector": "Industrials",
+    "description": "Israel Petrochemical Enterprises Ltd. is an Israeli public company operating in the Machinery industry within the Industrials sector. It delivers industrial, engineering, infrastructure, and manufacturing solutions for business and government customers.",
+    "descriptionHebrew": "פטרוכימיים היא חברה ציבורית ישראלית הפועלת בענף Machinery בסקטור תעשייה. החברה מספקת פתרונות תעשייה, הנדסה, תשתיות וייצור ללקוחות עסקיים וממשלתיים.",
+    "industry": "Machinery"
+  },
+  "PTNR.TA": {
+    "sector": "Communication",
+    "description": "Partner Communications Co. Ltd. is an Israeli public company operating in the Telecom industry within the Communication sector. It provides media, telecommunications, and digital communication services to businesses and consumers.",
+    "descriptionHebrew": "פרטנר היא חברה ציבורית ישראלית הפועלת בענף Telecom בסקטור תקשורת. החברה מספקת שירותי מדיה, תקשורת וטלקום לעסקים ולצרכנים.",
+    "industry": "Telecom"
+  },
+  "PULS.TA": {
+    "sector": "Healthcare",
+    "description": "Pulsenmore Ltd. is an Israeli public company operating in the Medical Devices industry within the Healthcare sector. It develops and markets healthcare and life-science products and services for medical providers and patients.",
+    "descriptionHebrew": "פלסאנמור היא חברה ציבורית ישראלית הפועלת בענף Medical Devices בסקטור בריאות. החברה מפתחת ומשווקת מוצרים ושירותים בתחום הבריאות ומדעי החיים עבור גופים רפואיים ומטופלים.",
+    "industry": "Medical Devices"
+  },
+  "QLTU.TA": {
+    "sector": "Technology",
+    "description": "QualiTau Ltd. is an Israeli public company operating in the Semiconductors industry within the Technology sector. It develops software, digital platforms, and IT solutions for enterprise and public-sector clients.",
+    "descriptionHebrew": "קווליטאו היא חברה ציבורית ישראלית הפועלת בענף Semiconductors בסקטור טכנולוגיה. החברה מפתחת תוכנה, פלטפורמות דיגיטליות ופתרונות IT עבור לקוחות עסקיים וציבוריים.",
+    "industry": "Semiconductors"
+  },
+  "QNCO.TA": {
+    "sector": "Consumer Goods",
+    "description": "Queenco Ltd. is an Israeli public company operating in the Entertainment industry within the Consumer Goods sector. It manufactures, markets, and distributes consumer products through retail and wholesale channels.",
+    "descriptionHebrew": "קווינקו היא חברה ציבורית ישראלית הפועלת בענף Entertainment בסקטור מוצרי צריכה. החברה מייצרת, משווקת ומפיצה מוצרי צריכה באמצעות ערוצי קמעונאות וסיטונאות.",
+    "industry": "Entertainment"
+  },
+  "RANI.TA": {
+    "sector": "Healthcare",
+    "description": "Rani Zim Shopping Centers Ltd. is an Israeli public company operating in the Biotechnology industry within the Healthcare sector. It develops and markets healthcare and life-science products and services for medical providers and patients.",
+    "descriptionHebrew": "רני צים היא חברה ציבורית ישראלית הפועלת בענף Biotechnology בסקטור בריאות. החברה מפתחת ומשווקת מוצרים ושירותים בתחום הבריאות ומדעי החיים עבור גופים רפואיים ומטופלים.",
+    "industry": "Biotechnology"
+  },
+  "RAVD.TA": {
+    "sector": "Real Estate",
+    "description": "Ravad Ltd. is an Israeli public company operating in the Commercial Real Estate industry within the Real Estate sector. It initiates, develops, acquires, and manages residential, commercial, and income-producing properties.",
+    "descriptionHebrew": "רבד היא חברה ציבורית ישראלית הפועלת בענף Commercial Real Estate בסקטור נדל\"ן. החברה יוזמת, מפתחת, רוכשת ומנהלת נכסי מגורים, מסחר ונכסים מניבים.",
+    "industry": "Commercial Real Estate"
+  },
+  "REKA.TA": {
+    "sector": "Healthcare",
+    "description": "Rekah Pharmaceutical Industry Ltd. is an Israeli public company operating in the Pharmaceuticals industry within the Healthcare sector. It develops and markets healthcare and life-science products and services for medical providers and patients.",
+    "descriptionHebrew": "רקח היא חברה ציבורית ישראלית הפועלת בענף Pharmaceuticals בסקטור בריאות. החברה מפתחת ומשווקת מוצרים ושירותים בתחום הבריאות ומדעי החיים עבור גופים רפואיים ומטופלים.",
+    "industry": "Pharmaceuticals"
+  },
+  "RGAS.TA": {
+    "sector": "Finance",
+    "description": "R.G.A. Services & Cleaning (Israel) 1987 Ltd. is an Israeli public company operating in the Insurance industry within the Finance sector. It provides banking, credit, insurance, and investment services to retail and institutional customers.",
+    "descriptionHebrew": "ר.ג.א. היא חברה ציבורית ישראלית הפועלת בענף Insurance בסקטור פיננסים. החברה מספקת שירותי בנקאות, אשראי, ביטוח והשקעות ללקוחות פרטיים ומוסדיים.",
+    "industry": "Insurance"
+  },
+  "RIMO.TA": {
+    "sector": "Industrials",
+    "description": "Rimoni Industries Ltd. is an Israeli public company operating in the Machinery industry within the Industrials sector. It delivers industrial, engineering, infrastructure, and manufacturing solutions for business and government customers.",
+    "descriptionHebrew": "רימוני היא חברה ציבורית ישראלית הפועלת בענף Machinery בסקטור תעשייה. החברה מספקת פתרונות תעשייה, הנדסה, תשתיות וייצור ללקוחות עסקיים וממשלתיים.",
+    "industry": "Machinery"
+  },
+  "RLCO.TA": {
+    "sector": "Consumer Goods",
+    "description": "Ralco Agencies Ltd. is an Israeli public company operating in the Consumer Electronics industry within the Consumer Goods sector. It manufactures, markets, and distributes consumer products through retail and wholesale channels.",
+    "descriptionHebrew": "ראלקו היא חברה ציבורית ישראלית הפועלת בענף Consumer Electronics בסקטור מוצרי צריכה. החברה מייצרת, משווקת ומפיצה מוצרי צריכה באמצעות ערוצי קמעונאות וסיטונאות.",
+    "industry": "Consumer Electronics"
+  },
+  "RMLI.TA": {
+    "sector": "Consumer Goods",
+    "description": "Rami Levy Chain Stores Hashikma Marketing Ltd. is an Israeli public company operating in the Retail industry within the Consumer Goods sector. It manufactures, markets, and distributes consumer products through retail and wholesale channels.",
+    "descriptionHebrew": "רמי לוי היא חברה ציבורית ישראלית הפועלת בענף Retail בסקטור מוצרי צריכה. החברה מייצרת, משווקת ומפיצה מוצרי צריכה באמצעות ערוצי קמעונאות וסיטונאות.",
+    "industry": "Retail"
+  },
+  "RMN.TA": {
+    "sector": "Materials",
+    "description": "Ram-On Investments and Holdings Inc. is an Israeli public company operating in the Plastics industry within the Materials sector. It produces and supplies construction materials, chemicals, and other industrial inputs.",
+    "descriptionHebrew": "רם און היא חברה ציבורית ישראלית הפועלת בענף Plastics בסקטור חומרים. החברה מייצרת ומספקת חומרי בנייה, כימיקלים ותשומות תעשייתיות נוספות.",
+    "industry": "Plastics"
+  },
+  "RMON.TA": {
+    "sector": "Energy",
+    "description": "Og Rimon Consulting Ltd. is an Israeli public company operating in the Renewable Energy industry within the Energy sector. It develops, produces, and supplies energy products and related infrastructure services.",
+    "descriptionHebrew": "רימון היא חברה ציבורית ישראלית הפועלת בענף Renewable Energy בסקטור אנרגיה. החברה מפתחת, מייצרת ומספקת מוצרי אנרגיה ושירותי תשתית קשורים.",
+    "industry": "Renewable Energy"
+  },
+  "ROBO.TA": {
+    "sector": "Technology",
+    "description": "Robogroup T.E.K Ltd. is an Israeli public company operating in the IT Services industry within the Technology sector. It develops software, digital platforms, and IT solutions for enterprise and public-sector clients.",
+    "descriptionHebrew": "רובוגרופ היא חברה ציבורית ישראלית הפועלת בענף IT Services בסקטור טכנולוגיה. החברה מפתחת תוכנה, פלטפורמות דיגיטליות ופתרונות IT עבור לקוחות עסקיים וציבוריים.",
+    "industry": "IT Services"
+  },
+  "ROTS.TA": {
+    "sector": "Real Estate",
+    "description": "Rotshtein Real Estate Ltd. is an Israeli public company operating in the Property Development industry within the Real Estate sector. It initiates, develops, acquires, and manages residential, commercial, and income-producing properties.",
+    "descriptionHebrew": "רוטשטיין היא חברה ציבורית ישראלית הפועלת בענף Property Development בסקטור נדל\"ן. החברה יוזמת, מפתחת, רוכשת ומנהלת נכסי מגורים, מסחר ונכסים מניבים.",
+    "industry": "Property Development"
+  },
+  "RPAC.TA": {
+    "sector": "Industrials",
+    "description": "Rapac Communication & Infrastructure Ltd. is an Israeli public company operating in the Energy Services industry within the Industrials sector. It delivers industrial, engineering, infrastructure, and manufacturing solutions for business and government customers.",
+    "descriptionHebrew": "רפק היא חברה ציבורית ישראלית הפועלת בענף Energy Services בסקטור תעשייה. החברה מספקת פתרונות תעשייה, הנדסה, תשתיות וייצור ללקוחות עסקיים וממשלתיים.",
+    "industry": "Energy Services"
+  },
+  "RPOL.TA": {
+    "sector": "Technology",
+    "description": "RP Optical Lab Ltd. is an Israeli public company operating in the Hardware industry within the Technology sector. It develops software, digital platforms, and IT solutions for enterprise and public-sector clients.",
+    "descriptionHebrew": "אר פי אופטיקל היא חברה ציבורית ישראלית הפועלת בענף Hardware בסקטור טכנולוגיה. החברה מפתחת תוכנה, פלטפורמות דיגיטליות ופתרונות IT עבור לקוחות עסקיים וציבוריים.",
+    "industry": "Hardware"
+  },
+  "RSEL.TA": {
+    "sector": "Industrials",
+    "description": "RSL Electronics Ltd. is an Israeli public company operating in the Aerospace industry within the Industrials sector. It delivers industrial, engineering, infrastructure, and manufacturing solutions for business and government customers.",
+    "descriptionHebrew": "אראסאל היא חברה ציבורית ישראלית הפועלת בענף Aerospace בסקטור תעשייה. החברה מספקת פתרונות תעשייה, הנדסה, תשתיות וייצור ללקוחות עסקיים וממשלתיים.",
+    "industry": "Aerospace"
+  },
+  "RTEN.TA": {
+    "sector": "Energy",
+    "description": "Rotem Energy Mineral Ltd. is an Israeli public company operating in the Oil & Gas industry within the Energy sector. It develops, produces, and supplies energy products and related infrastructure services.",
+    "descriptionHebrew": "גולדן אנרג'י היא חברה ציבורית ישראלית הפועלת בענף Oil & Gas בסקטור אנרגיה. החברה מפתחת, מייצרת ומספקת מוצרי אנרגיה ושירותי תשתית קשורים.",
+    "industry": "Oil & Gas"
+  },
+  "RTLS.TA": {
+    "sector": "Consumer Goods",
+    "description": "Retailors Ltd. is an Israeli public company operating in the Retail industry within the Consumer Goods sector. It manufactures, markets, and distributes consumer products through retail and wholesale channels.",
+    "descriptionHebrew": "ריטיילורס היא חברה ציבורית ישראלית הפועלת בענף Retail בסקטור מוצרי צריכה. החברה מייצרת, משווקת ומפיצה מוצרי צריכה באמצעות ערוצי קמעונאות וסיטונאות.",
+    "industry": "Retail"
+  },
+  "RTSN.TA": {
+    "sector": "Real Estate",
+    "description": "Rotem Shani Entrepreneurship Ltd. is an Israeli public company operating in the Property Development industry within the Real Estate sector. It initiates, develops, acquires, and manages residential, commercial, and income-producing properties.",
+    "descriptionHebrew": "רותם שני היא חברה ציבורית ישראלית הפועלת בענף Property Development בסקטור נדל\"ן. החברה יוזמת, מפתחת, רוכשת ומנהלת נכסי מגורים, מסחר ונכסים מניבים.",
+    "industry": "Property Development"
+  },
+  "RVL.TA": {
+    "sector": "Industrials",
+    "description": "Raval ICS Ltd. is an Israeli public company operating in the Auto Parts industry within the Industrials sector. It delivers industrial, engineering, infrastructure, and manufacturing solutions for business and government customers.",
+    "descriptionHebrew": "רבל היא חברה ציבורית ישראלית הפועלת בענף Auto Parts בסקטור תעשייה. החברה מספקת פתרונות תעשייה, הנדסה, תשתיות וייצור ללקוחות עסקיים וממשלתיים.",
+    "industry": "Auto Parts"
+  },
+  "RZR.TA": {
+    "sector": "Materials",
+    "description": "Razor Labs Ltd. is an Israeli public company operating in the Mining industry within the Materials sector. It produces and supplies construction materials, chemicals, and other industrial inputs.",
+    "descriptionHebrew": "רייזור היא חברה ציבורית ישראלית הפועלת בענף Mining בסקטור חומרים. החברה מייצרת ומספקת חומרי בנייה, כימיקלים ותשומות תעשייתיות נוספות.",
+    "industry": "Mining"
+  },
+  "SADE.TA": {
+    "sector": "Real Estate",
+    "description": "Sade Real Estate-Y.S. Ltd is an Israeli public company operating in the Property Development industry within the Real Estate sector. It initiates, develops, acquires, and manages residential, commercial, and income-producing properties.",
+    "descriptionHebrew": "שדה נדל\"ן היא חברה ציבורית ישראלית הפועלת בענף Property Development בסקטור נדל\"ן. החברה יוזמת, מפתחת, רוכשת ומנהלת נכסי מגורים, מסחר ונכסים מניבים.",
+    "industry": "Property Development"
+  },
+  "SAE.TA": {
+    "sector": "Consumer Goods",
+    "description": "Shufersal Ltd. is an Israeli public company operating in the Retail industry within the Consumer Goods sector. It manufactures, markets, and distributes consumer products through retail and wholesale channels.",
+    "descriptionHebrew": "שופרסל היא חברה ציבורית ישראלית הפועלת בענף Retail בסקטור מוצרי צריכה. החברה מייצרת, משווקת ומפיצה מוצרי צריכה באמצעות ערוצי קמעונאות וסיטונאות.",
+    "industry": "Retail"
+  },
+  "SARN.TA": {
+    "sector": "Industrials",
+    "description": "Sarine Technologies Ltd. is an Israeli public company operating in the Machinery industry within the Industrials sector. It delivers industrial, engineering, infrastructure, and manufacturing solutions for business and government customers.",
+    "descriptionHebrew": "שרין טכנו' היא חברה ציבורית ישראלית הפועלת בענף Machinery בסקטור תעשייה. החברה מספקת פתרונות תעשייה, הנדסה, תשתיות וייצור ללקוחות עסקיים וממשלתיים.",
+    "industry": "Machinery"
+  },
+  "SBEN.TA": {
+    "sector": "Energy",
+    "description": "Shikun & Binui Soltec Renewable Energy Ltd. is an Israeli public company operating in the Renewable Energy industry within the Energy sector. It develops, produces, and supplies energy products and related infrastructure services.",
+    "descriptionHebrew": "שוב אנרגיה היא חברה ציבורית ישראלית הפועלת בענף Renewable Energy בסקטור אנרגיה. החברה מפתחת, מייצרת ומספקת מוצרי אנרגיה ושירותי תשתית קשורים.",
+    "industry": "Renewable Energy"
+  },
+  "SCC.TA": {
+    "sector": "Communication",
+    "description": "Space Communication Ltd. is an Israeli public company operating in the Telecom industry within the Communication sector. It provides media, telecommunications, and digital communication services to businesses and consumers.",
+    "descriptionHebrew": "חלל תקשורת היא חברה ציבורית ישראלית הפועלת בענף Telecom בסקטור תקשורת. החברה מספקת שירותי מדיה, תקשורת וטלקום לעסקים ולצרכנים.",
+    "industry": "Telecom"
+  },
+  "SCDX.TA": {
+    "sector": "Industrials",
+    "description": "Scodix Ltd. is an Israeli public company operating in the Machinery industry within the Industrials sector. It delivers industrial, engineering, infrastructure, and manufacturing solutions for business and government customers.",
+    "descriptionHebrew": "סקודיקס היא חברה ציבורית ישראלית הפועלת בענף Machinery בסקטור תעשייה. החברה מספקת פתרונות תעשייה, הנדסה, תשתיות וייצור ללקוחות עסקיים וממשלתיים.",
+    "industry": "Machinery"
+  },
+  "SCOP.TA": {
+    "sector": "Materials",
+    "description": "Scope Metals Group Ltd. is an Israeli public company operating in the Metals industry within the Materials sector. It produces and supplies construction materials, chemicals, and other industrial inputs.",
+    "descriptionHebrew": "סקופ היא חברה ציבורית ישראלית הפועלת בענף Metals בסקטור חומרים. החברה מייצרת ומספקת חומרי בנייה, כימיקלים ותשומות תעשייתיות נוספות.",
+    "industry": "Metals"
+  },
+  "SEMG.TA": {
+    "sector": "Healthcare",
+    "description": "Seach Medical Group Ltd. is an Israeli public company operating in the Biotechnology industry within the Healthcare sector. It develops and markets healthcare and life-science products and services for medical providers and patients.",
+    "descriptionHebrew": "שיח מדיקל היא חברה ציבורית ישראלית הפועלת בענף Biotechnology בסקטור בריאות. החברה מפתחת ומשווקת מוצרים ושירותים בתחום הבריאות ומדעי החיים עבור גופים רפואיים ומטופלים.",
+    "industry": "Biotechnology"
+  },
+  "SFRN.TA": {
+    "sector": "Real Estate",
+    "description": "Sufrin Holdings Ltd. is an Israeli public company operating in the Property Development industry within the Real Estate sector. It initiates, develops, acquires, and manages residential, commercial, and income-producing properties.",
+    "descriptionHebrew": "סופרין היא חברה ציבורית ישראלית הפועלת בענף Property Development בסקטור נדל\"ן. החברה יוזמת, מפתחת, רוכשת ומנהלת נכסי מגורים, מסחר ונכסים מניבים.",
+    "industry": "Property Development"
+  },
+  "SHAN.TA": {
+    "sector": "Materials",
+    "description": "Shaniv Paper Industries Ltd. is an Israeli public company operating in the Construction Materials industry within the Materials sector. It produces and supplies construction materials, chemicals, and other industrial inputs.",
+    "descriptionHebrew": "שניב היא חברה ציבורית ישראלית הפועלת בענף Construction Materials בסקטור חומרים. החברה מייצרת ומספקת חומרי בנייה, כימיקלים ותשומות תעשייתיות נוספות.",
+    "industry": "Construction Materials"
+  },
+  "SHGR.TA": {
+    "sector": "Industrials",
+    "description": "Shagrir Group Vehicle Services Ltd. is an Israeli public company operating in the Transportation industry within the Industrials sector. It delivers industrial, engineering, infrastructure, and manufacturing solutions for business and government customers.",
+    "descriptionHebrew": "שגריר רכב היא חברה ציבורית ישראלית הפועלת בענף Transportation בסקטור תעשייה. החברה מספקת פתרונות תעשייה, הנדסה, תשתיות וייצור ללקוחות עסקיים וממשלתיים.",
+    "industry": "Transportation"
+  },
+  "SHMM.TA": {
+    "sector": "Technology",
+    "description": "Shamaym Improve Ltd. is an Israeli public company operating in the Software industry within the Technology sector. It develops software, digital platforms, and IT solutions for enterprise and public-sector clients.",
+    "descriptionHebrew": "שמיים אימפרוב היא חברה ציבורית ישראלית הפועלת בענף Software בסקטור טכנולוגיה. החברה מפתחת תוכנה, פלטפורמות דיגיטליות ופתרונות IT עבור לקוחות עסקיים וציבוריים.",
+    "industry": "Software"
+  },
+  "SHNP.TA": {
+    "sector": "Industrials",
+    "description": "E. Schnapp Co. Works Ltd. is an Israeli public company operating in the Machinery industry within the Industrials sector. It delivers industrial, engineering, infrastructure, and manufacturing solutions for business and government customers.",
+    "descriptionHebrew": "שנפ היא חברה ציבורית ישראלית הפועלת בענף Machinery בסקטור תעשייה. החברה מספקת פתרונות תעשייה, הנדסה, תשתיות וייצור ללקוחות עסקיים וממשלתיים.",
+    "industry": "Machinery"
+  },
+  "SHOM.TA": {
+    "sector": "Finance",
+    "description": "E.N. Shoham Business Ltd. is an Israeli public company operating in the Asset Management industry within the Finance sector. It provides banking, credit, insurance, and investment services to retail and institutional customers.",
+    "descriptionHebrew": "שוהם ביזנס היא חברה ציבורית ישראלית הפועלת בענף Asset Management בסקטור פיננסים. החברה מספקת שירותי בנקאות, אשראי, ביטוח והשקעות ללקוחות פרטיים ומוסדיים.",
+    "industry": "Asset Management"
+  },
+  "SHVA.TA": {
+    "sector": "Finance",
+    "description": "Automatic Bank Services Ltd. is an Israeli public company operating in the Fintech industry within the Finance sector. It provides banking, credit, insurance, and investment services to retail and institutional customers.",
+    "descriptionHebrew": "שירותי בנק אוטו היא חברה ציבורית ישראלית הפועלת בענף Fintech בסקטור פיננסים. החברה מספקת שירותי בנקאות, אשראי, ביטוח והשקעות ללקוחות פרטיים ומוסדיים.",
+    "industry": "Fintech"
+  },
+  "SHVL.TA": {
+    "sector": "Industrials",
+    "description": "Shoval Engineering & Construction Ltd. is an Israeli public company operating in the Construction industry within the Industrials sector. It delivers industrial, engineering, infrastructure, and manufacturing solutions for business and government customers.",
+    "descriptionHebrew": "שובל הנדסה היא חברה ציבורית ישראלית הפועלת בענף Construction בסקטור תעשייה. החברה מספקת פתרונות תעשייה, הנדסה, תשתיות וייצור ללקוחות עסקיים וממשלתיים.",
+    "industry": "Construction"
+  },
+  "SKBN.TA": {
+    "sector": "Industrials",
+    "description": "Shikun & Binui Ltd. is an Israeli public company operating in the Construction industry within the Industrials sector. It delivers industrial, engineering, infrastructure, and manufacturing solutions for business and government customers.",
+    "descriptionHebrew": "שיכון ובינוי היא חברה ציבורית ישראלית הפועלת בענף Construction בסקטור תעשייה. החברה מספקת פתרונות תעשייה, הנדסה, תשתיות וייצור ללקוחות עסקיים וממשלתיים.",
+    "industry": "Construction"
+  },
+  "SKLN.TA": {
+    "sector": "Real Estate",
+    "description": "Skyline Investments Inc. is an Israeli public company operating in the REITs industry within the Real Estate sector. It initiates, develops, acquires, and manages residential, commercial, and income-producing properties.",
+    "descriptionHebrew": "סקייליין היא חברה ציבורית ישראלית הפועלת בענף REITs בסקטור נדל\"ן. החברה יוזמת, מפתחת, רוכשת ומנהלת נכסי מגורים, מסחר ונכסים מניבים.",
+    "industry": "REITs"
+  },
+  "SLCL.TA": {
+    "sector": "Finance",
+    "description": "Silver Castle Holdings Ltd. is an Israeli public company operating in the Asset Management industry within the Finance sector. It provides banking, credit, insurance, and investment services to retail and institutional customers.",
+    "descriptionHebrew": "סילבר קסטל היא חברה ציבורית ישראלית הפועלת בענף Asset Management בסקטור פיננסים. החברה מספקת שירותי בנקאות, אשראי, ביטוח והשקעות ללקוחות פרטיים ומוסדיים.",
+    "industry": "Asset Management"
+  },
+  "SLRM.TA": {
+    "sector": "Technology",
+    "description": "Solrom Holdings Ltd is an Israeli public company operating in the Hardware industry within the Technology sector. It develops software, digital platforms, and IT solutions for enterprise and public-sector clients.",
+    "descriptionHebrew": "סולרום החזקות היא חברה ציבורית ישראלית הפועלת בענף Hardware בסקטור טכנולוגיה. החברה מפתחת תוכנה, פלטפורמות דיגיטליות ופתרונות IT עבור לקוחות עסקיים וציבוריים.",
+    "industry": "Hardware"
+  },
+  "SMNR.TA": {
+    "sector": "Real Estate",
+    "description": "Shemen Yielding Real Estate Ltd. is an Israeli public company operating in the REITs industry within the Real Estate sector. It initiates, develops, acquires, and manages residential, commercial, and income-producing properties.",
+    "descriptionHebrew": "שמן נדלן היא חברה ציבורית ישראלית הפועלת בענף REITs בסקטור נדל\"ן. החברה יוזמת, מפתחת, רוכשת ומנהלת נכסי מגורים, מסחר ונכסים מניבים.",
+    "industry": "REITs"
+  },
+  "SMT.TA": {
+    "sector": "Real Estate",
+    "description": "Summit Real Estate Holdings Ltd. is an Israeli public company operating in the Commercial Real Estate industry within the Real Estate sector. It initiates, develops, acquires, and manages residential, commercial, and income-producing properties.",
+    "descriptionHebrew": "סאמיט היא חברה ציבורית ישראלית הפועלת בענף Commercial Real Estate בסקטור נדל\"ן. החברה יוזמת, מפתחת, רוכשת ומנהלת נכסי מגורים, מסחר ונכסים מניבים.",
+    "industry": "Commercial Real Estate"
+  },
+  "SNCM.TA": {
+    "sector": "Communication",
+    "description": "Suny Cellular Communication Inc. is an Israeli public company operating in the Telecom industry within the Communication sector. It provides media, telecommunications, and digital communication services to businesses and consumers.",
+    "descriptionHebrew": "סאני תקשורת היא חברה ציבורית ישראלית הפועלת בענף Telecom בסקטור תקשורת. החברה מספקת שירותי מדיה, תקשורת וטלקום לעסקים ולצרכנים.",
+    "industry": "Telecom"
+  },
+  "SNEL.TA": {
+    "sector": "Technology",
+    "description": "Synel MLL Payway Ltd. is an Israeli public company operating in the IT Services industry within the Technology sector. It develops software, digital platforms, and IT solutions for enterprise and public-sector clients.",
+    "descriptionHebrew": "סינאל מלל היא חברה ציבורית ישראלית הפועלת בענף IT Services בסקטור טכנולוגיה. החברה מפתחת תוכנה, פלטפורמות דיגיטליות ופתרונות IT עבור לקוחות עסקיים וציבוריים.",
+    "industry": "IT Services"
+  },
+  "SNFL.TA": {
+    "sector": "Energy",
+    "description": "Sunflower Sustainable Investments Ltd. is an Israeli public company operating in the Renewable Energy industry within the Energy sector. It develops, produces, and supplies energy products and related infrastructure services.",
+    "descriptionHebrew": "סאנפלאואר היא חברה ציבורית ישראלית הפועלת בענף Renewable Energy בסקטור אנרגיה. החברה מפתחת, מייצרת ומספקת מוצרי אנרגיה ושירותי תשתית קשורים.",
+    "industry": "Renewable Energy"
+  },
+  "SOFW.TA": {
+    "sector": "Healthcare",
+    "description": "SofWave Medical Ltd. is an Israeli public company operating in the Medical Devices industry within the Healthcare sector. It develops and markets healthcare and life-science products and services for medical providers and patients.",
+    "descriptionHebrew": "סופוויב מדיקל היא חברה ציבורית ישראלית הפועלת בענף Medical Devices בסקטור בריאות. החברה מפתחת ומשווקת מוצרים ושירותים בתחום הבריאות ומדעי החיים עבור גופים רפואיים ומטופלים.",
+    "industry": "Medical Devices"
+  },
+  "SOLR.TA": {
+    "sector": "Energy",
+    "description": "Solaer Renewable Energies Ltd. is an Israeli public company operating in the Renewable Energy industry within the Energy sector. It develops, produces, and supplies energy products and related infrastructure services.",
+    "descriptionHebrew": "סולאיר היא חברה ציבורית ישראלית הפועלת בענף Renewable Energy בסקטור אנרגיה. החברה מפתחת, מייצרת ומספקת מוצרי אנרגיה ושירותי תשתית קשורים.",
+    "industry": "Renewable Energy"
+  },
+  "SOLT.TA": {
+    "sector": "Energy",
+    "description": "Solterra Energy Ltd is an Israeli public company operating in the Renewable Energy industry within the Energy sector. It develops, produces, and supplies energy products and related infrastructure services.",
+    "descriptionHebrew": "סולטרה אנרגיה היא חברה ציבורית ישראלית הפועלת בענף Renewable Energy בסקטור אנרגיה. החברה מפתחת, מייצרת ומספקת מוצרי אנרגיה ושירותי תשתית קשורים.",
+    "industry": "Renewable Energy"
+  },
+  "SONO.TA": {
+    "sector": "Consumer Goods",
+    "description": "Sonovia Ltd. is an Israeli public company operating in the Consumer Electronics industry within the Consumer Goods sector. It manufactures, markets, and distributes consumer products through retail and wholesale channels.",
+    "descriptionHebrew": "סונוביה היא חברה ציבורית ישראלית הפועלת בענף Consumer Electronics בסקטור מוצרי צריכה. החברה מייצרת, משווקת ומפיצה מוצרי צריכה באמצעות ערוצי קמעונאות וסיטונאות.",
+    "industry": "Consumer Electronics"
+  },
+  "SONR.TA": {
+    "sector": "Real Estate",
+    "description": "Sonol Real Estate and Investments Ltd. is an Israeli public company operating in the Property Development industry within the Real Estate sector. It initiates, develops, acquires, and manages residential, commercial, and income-producing properties.",
+    "descriptionHebrew": "סונול נדל\"ן היא חברה ציבורית ישראלית הפועלת בענף Property Development בסקטור נדל\"ן. החברה יוזמת, מפתחת, רוכשת ומנהלת נכסי מגורים, מסחר ונכסים מניבים.",
+    "industry": "Property Development"
+  },
+  "SPDV.TA": {
+    "sector": "Technology",
+    "description": "SpeedValue Ltd. is an Israeli public company operating in the IT Services industry within the Technology sector. It develops software, digital platforms, and IT solutions for enterprise and public-sector clients.",
+    "descriptionHebrew": "ספידווליו היא חברה ציבורית ישראלית הפועלת בענף IT Services בסקטור טכנולוגיה. החברה מפתחת תוכנה, פלטפורמות דיגיטליות ופתרונות IT עבור לקוחות עסקיים וציבוריים.",
+    "industry": "IT Services"
+  },
+  "SPEN.TA": {
+    "sector": "Industrials",
+    "description": "Shapir Engineering and Industry Ltd. is an Israeli public company operating in the Construction industry within the Industrials sector. It delivers industrial, engineering, infrastructure, and manufacturing solutions for business and government customers.",
+    "descriptionHebrew": "שפיר הנדסה היא חברה ציבורית ישראלית הפועלת בענף Construction בסקטור תעשייה. החברה מספקת פתרונות תעשייה, הנדסה, תשתיות וייצור ללקוחות עסקיים וממשלתיים.",
+    "industry": "Construction"
+  },
+  "SPGS.TA": {
+    "sector": "Utilities",
+    "description": "Supergas Power (2019) Ltd is an Israeli public company operating in the Energy Services industry within the Utilities sector. It operates utility infrastructure and provides essential electricity, water, or related public services.",
+    "descriptionHebrew": "סופרגז פאוור היא חברה ציבורית ישראלית הפועלת בענף Energy Services בסקטור תשתיות. החברה מפעילה תשתיות שירותים חיוניים ומספקת חשמל, מים או שירותים ציבוריים קשורים.",
+    "industry": "Energy Services"
+  },
+  "SPNTC.TA": {
+    "sector": "Communication",
+    "description": "Spuntech Industries Ltd. is an Israeli public company operating in the Telecom industry within the Communication sector. It provides media, telecommunications, and digital communication services to businesses and consumers.",
+    "descriptionHebrew": "ספאנטק היא חברה ציבורית ישראלית הפועלת בענף Telecom בסקטור תקשורת. החברה מספקת שירותי מדיה, תקשורת וטלקום לעסקים ולצרכנים.",
+    "industry": "Telecom"
+  },
+  "SPRG.TA": {
+    "sector": "Technology",
+    "description": "Spring Ventures Ltd. is an Israeli public company operating in the Cloud Computing industry within the Technology sector. It develops software, digital platforms, and IT solutions for enterprise and public-sector clients.",
+    "descriptionHebrew": "ספרינג היא חברה ציבורית ישראלית הפועלת בענף Cloud Computing בסקטור טכנולוגיה. החברה מפתחת תוכנה, פלטפורמות דיגיטליות ופתרונות IT עבור לקוחות עסקיים וציבוריים.",
+    "industry": "Cloud Computing"
+  },
+  "SRAC.TA": {
+    "sector": "Finance",
+    "description": "S.R Accord Ltd. is an Israeli public company operating in the Fintech industry within the Finance sector. It provides banking, credit, insurance, and investment services to retail and institutional customers.",
+    "descriptionHebrew": "אס.אר אקורד היא חברה ציבורית ישראלית הפועלת בענף Fintech בסקטור פיננסים. החברה מספקת שירותי בנקאות, אשראי, ביטוח והשקעות ללקוחות פרטיים ומוסדיים.",
+    "industry": "Fintech"
+  },
+  "SRFT.TA": {
+    "sector": "Real Estate",
+    "description": "Sarfati S.A. is an Israeli public company operating in the Property Development industry within the Real Estate sector. It initiates, develops, acquires, and manages residential, commercial, and income-producing properties.",
+    "descriptionHebrew": "צרפתי היא חברה ציבורית ישראלית הפועלת בענף Property Development בסקטור נדל\"ן. החברה יוזמת, מפתחת, רוכשת ומנהלת נכסי מגורים, מסחר ונכסים מניבים.",
+    "industry": "Property Development"
+  },
+  "STG.TA": {
+    "sector": "Industrials",
+    "description": "Stg International Ltd. is an Israeli public company operating in the IT Services industry within the Industrials sector. It delivers industrial, engineering, infrastructure, and manufacturing solutions for business and government customers.",
+    "descriptionHebrew": "אסטיגי היא חברה ציבורית ישראלית הפועלת בענף IT Services בסקטור תעשייה. החברה מספקת פתרונות תעשייה, הנדסה, תשתיות וייצור ללקוחות עסקיים וממשלתיים.",
+    "industry": "IT Services"
+  },
+  "STRG.TA": {
+    "sector": "Energy",
+    "description": "Storage Drop Storage Technology Inc. is an Israeli public company operating in the Renewable Energy industry within the Energy sector. It develops, produces, and supplies energy products and related infrastructure services.",
+    "descriptionHebrew": "סטורג' דרופ היא חברה ציבורית ישראלית הפועלת בענף Renewable Energy בסקטור אנרגיה. החברה מפתחת, מייצרת ומספקת מוצרי אנרגיה ושירותי תשתית קשורים.",
+    "industry": "Renewable Energy"
+  },
+  "STRS.TA": {
+    "sector": "Real Estate",
+    "description": "Strauss Group Ltd. is an Israeli public company operating in the Property Development industry within the Real Estate sector. It initiates, develops, acquires, and manages residential, commercial, and income-producing properties.",
+    "descriptionHebrew": "שטראוס גרופ היא חברה ציבורית ישראלית הפועלת בענף Property Development בסקטור נדל\"ן. החברה יוזמת, מפתחת, רוכשת ומנהלת נכסי מגורים, מסחר ונכסים מניבים.",
+    "industry": "Property Development"
+  },
+  "SUGT.TA": {
+    "sector": "Consumer Goods",
+    "description": "Sugat Group Ltd. is an Israeli public company operating in the Food & Beverage industry within the Consumer Goods sector. It manufactures, markets, and distributes consumer products through retail and wholesale channels.",
+    "descriptionHebrew": "סוגת היא חברה ציבורית ישראלית הפועלת בענף Food & Beverage בסקטור מוצרי צריכה. החברה מייצרת, משווקת ומפיצה מוצרי צריכה באמצעות ערוצי קמעונאות וסיטונאות.",
+    "industry": "Food & Beverage"
+  },
+  "SVRE.TA": {
+    "sector": "Industrials",
+    "description": "SaverOne 2014 Ltd. is an Israeli public company operating in the Auto Parts industry within the Industrials sector. It delivers industrial, engineering, infrastructure, and manufacturing solutions for business and government customers.",
+    "descriptionHebrew": "סייברוואן היא חברה ציבורית ישראלית הפועלת בענף Auto Parts בסקטור תעשייה. החברה מספקת פתרונות תעשייה, הנדסה, תשתיות וייצור ללקוחות עסקיים וממשלתיים.",
+    "industry": "Auto Parts"
+  },
+  "TASE.TA": {
+    "sector": "Finance",
+    "description": "Tel Aviv Stock Exchange Ltd. is an Israeli public company operating in the Capital Markets industry within the Finance sector. It provides banking, credit, insurance, and investment services to retail and institutional customers.",
+    "descriptionHebrew": "הבורסה לניע בתא היא חברה ציבורית ישראלית הפועלת בענף Capital Markets בסקטור פיננסים. החברה מספקת שירותי בנקאות, אשראי, ביטוח והשקעות ללקוחות פרטיים ומוסדיים.",
+    "industry": "Capital Markets"
+  },
+  "TATT.TA": {
+    "sector": "Industrials",
+    "description": "Tat Technologies Ltd. is an Israeli public company operating in the Aerospace industry within the Industrials sector. It delivers industrial, engineering, infrastructure, and manufacturing solutions for business and government customers.",
+    "descriptionHebrew": "תאת טכנולוגיות היא חברה ציבורית ישראלית הפועלת בענף Aerospace בסקטור תעשייה. החברה מספקת פתרונות תעשייה, הנדסה, תשתיות וייצור ללקוחות עסקיים וממשלתיים.",
+    "industry": "Aerospace"
+  },
+  "TAYA.TA": {
+    "sector": "Communication",
+    "description": "Taya Investment Co. Ltd. is an Israeli public company operating in the Media industry within the Communication sector. It provides media, telecommunications, and digital communication services to businesses and consumers.",
+    "descriptionHebrew": "תיא השקעות היא חברה ציבורית ישראלית הפועלת בענף Media בסקטור תקשורת. החברה מספקת שירותי מדיה, תקשורת וטלקום לעסקים ולצרכנים.",
+    "industry": "Media"
+  },
+  "TDRN.TA": {
+    "sector": "Consumer Goods",
+    "description": "Tadiran Group Ltd. is an Israeli public company operating in the Consumer Electronics industry within the Consumer Goods sector. It manufactures, markets, and distributes consumer products through retail and wholesale channels.",
+    "descriptionHebrew": "תדיראן גרופ היא חברה ציבורית ישראלית הפועלת בענף Consumer Electronics בסקטור מוצרי צריכה. החברה מייצרת, משווקת ומפיצה מוצרי צריכה באמצעות ערוצי קמעונאות וסיטונאות.",
+    "industry": "Consumer Electronics"
+  },
+  "TECT.TA": {
+    "sector": "Technology",
+    "description": "Tectona Ltd. is an Israeli public company operating in the Software industry within the Technology sector. It develops software, digital platforms, and IT solutions for enterprise and public-sector clients.",
+    "descriptionHebrew": "טקטונה היא חברה ציבורית ישראלית הפועלת בענף Software בסקטור טכנולוגיה. החברה מפתחת תוכנה, פלטפורמות דיגיטליות ופתרונות IT עבור לקוחות עסקיים וציבוריים.",
+    "industry": "Software"
+  },
+  "TEDE.TA": {
+    "sector": "Materials",
+    "description": "Tedea Tech Development & Automation is an Israeli public company operating in the Construction Materials industry within the Materials sector. It produces and supplies construction materials, chemicals, and other industrial inputs.",
+    "descriptionHebrew": "תדאה היא חברה ציבורית ישראלית הפועלת בענף Construction Materials בסקטור חומרים. החברה מייצרת ומספקת חומרי בנייה, כימיקלים ותשומות תעשייתיות נוספות.",
+    "industry": "Construction Materials"
+  },
+  "TEVA.TA": {
+    "sector": "Healthcare",
+    "description": "Teva Pharmaceutical Industries Ltd. is an Israeli public company operating in the Pharmaceuticals industry within the Healthcare sector. It develops and markets healthcare and life-science products and services for medical providers and patients.",
+    "descriptionHebrew": "טבע היא חברה ציבורית ישראלית הפועלת בענף Pharmaceuticals בסקטור בריאות. החברה מפתחת ומשווקת מוצרים ושירותים בתחום הבריאות ומדעי החיים עבור גופים רפואיים ומטופלים.",
+    "industry": "Pharmaceuticals"
+  },
+  "TFRLF.TA": {
+    "sector": "Consumer Goods",
+    "description": "Tefron Ltd. is an Israeli public company operating in the Apparel industry within the Consumer Goods sector. It manufactures, markets, and distributes consumer products through retail and wholesale channels.",
+    "descriptionHebrew": "תפרון היא חברה ציבורית ישראלית הפועלת בענף Apparel בסקטור מוצרי צריכה. החברה מייצרת, משווקת ומפיצה מוצרי צריכה באמצעות ערוצי קמעונאות וסיטונאות.",
+    "industry": "Apparel"
+  },
+  "TGI.TA": {
+    "sector": "Industrials",
+    "description": "TGI Infrastructures Ltd. is an Israeli public company operating in the Auto Parts industry within the Industrials sector. It delivers industrial, engineering, infrastructure, and manufacturing solutions for business and government customers.",
+    "descriptionHebrew": "טי.ג'י.איי היא חברה ציבורית ישראלית הפועלת בענף Auto Parts בסקטור תעשייה. החברה מספקת פתרונות תעשייה, הנדסה, תשתיות וייצור ללקוחות עסקיים וממשלתיים.",
+    "industry": "Auto Parts"
+  },
+  "TGTR.TA": {
+    "sector": "Healthcare",
+    "description": "Together Pharma Ltd. is an Israeli public company operating in the Pharmaceuticals industry within the Healthcare sector. It develops and markets healthcare and life-science products and services for medical providers and patients.",
+    "descriptionHebrew": "טוגדר היא חברה ציבורית ישראלית הפועלת בענף Pharmaceuticals בסקטור בריאות. החברה מפתחת ומשווקת מוצרים ושירותים בתחום הבריאות ומדעי החיים עבור גופים רפואיים ומטופלים.",
+    "industry": "Pharmaceuticals"
+  },
+  "THES.TA": {
+    "sector": "Technology",
+    "description": "Thirdeye Systems Ltd. is an Israeli public company operating in the Software industry within the Technology sector. It develops software, digital platforms, and IT solutions for enterprise and public-sector clients.",
+    "descriptionHebrew": "עין שלישית היא חברה ציבורית ישראלית הפועלת בענף Software בסקטור טכנולוגיה. החברה מפתחת תוכנה, פלטפורמות דיגיטליות ופתרונות IT עבור לקוחות עסקיים וציבוריים.",
+    "industry": "Software"
+  },
+  "TIGBUR.TA": {
+    "sector": "Industrials",
+    "description": "Tigbur Temporary Professionals Ltd. is an Israeli public company operating in the IT Services industry within the Industrials sector. It delivers industrial, engineering, infrastructure, and manufacturing solutions for business and government customers.",
+    "descriptionHebrew": "תיגבור-מאגר כא היא חברה ציבורית ישראלית הפועלת בענף IT Services בסקטור תעשייה. החברה מספקת פתרונות תעשייה, הנדסה, תשתיות וייצור ללקוחות עסקיים וממשלתיים.",
+    "industry": "IT Services"
+  },
+  "TIGI.TA": {
+    "sector": "Energy",
+    "description": "Tigi Ltd. is an Israeli public company operating in the Renewable Energy industry within the Energy sector. It develops, produces, and supplies energy products and related infrastructure services.",
+    "descriptionHebrew": "תיגי היא חברה ציבורית ישראלית הפועלת בענף Renewable Energy בסקטור אנרגיה. החברה מפתחת, מייצרת ומספקת מוצרי אנרגיה ושירותי תשתית קשורים.",
+    "industry": "Renewable Energy"
+  },
+  "TKUN.TA": {
+    "sector": "Healthcare",
+    "description": "Tikun Olam - Cannabit Pharma Ltd. is an Israeli public company operating in the Biotechnology industry within the Healthcare sector. It develops and markets healthcare and life-science products and services for medical providers and patients.",
+    "descriptionHebrew": "תיקון עולם קנבט היא חברה ציבורית ישראלית הפועלת בענף Biotechnology בסקטור בריאות. החברה מפתחת ומשווקת מוצרים ושירותים בתחום הבריאות ומדעי החיים עבור גופים רפואיים ומטופלים.",
+    "industry": "Biotechnology"
+  },
+  "TLSY.TA": {
+    "sector": "Technology",
+    "description": "Telsys Ltd. is an Israeli public company operating in the Semiconductors industry within the Technology sector. It develops software, digital platforms, and IT solutions for enterprise and public-sector clients.",
+    "descriptionHebrew": "טלסיס היא חברה ציבורית ישראלית הפועלת בענף Semiconductors בסקטור טכנולוגיה. החברה מפתחת תוכנה, פלטפורמות דיגיטליות ופתרונות IT עבור לקוחות עסקיים וציבוריים.",
+    "industry": "Semiconductors"
+  },
+  "TMIS.TA": {
+    "sector": "Real Estate",
+    "description": "Themis G.R.E.N. Ltd. is an Israeli public company operating in the Property Development industry within the Real Estate sector. It initiates, develops, acquires, and manages residential, commercial, and income-producing properties.",
+    "descriptionHebrew": "תמיס היא חברה ציבורית ישראלית הפועלת בענף Property Development בסקטור נדל\"ן. החברה יוזמת, מפתחת, רוכשת ומנהלת נכסי מגורים, מסחר ונכסים מניבים.",
+    "industry": "Property Development"
+  },
+  "TMRP.TA": {
+    "sector": "Energy",
+    "description": "Tamar Petroleum Ltd. is an Israeli public company operating in the Oil & Gas industry within the Energy sector. It develops, produces, and supplies energy products and related infrastructure services.",
+    "descriptionHebrew": "תמר פטרוליום היא חברה ציבורית ישראלית הפועלת בענף Oil & Gas בסקטור אנרגיה. החברה מפתחת, מייצרת ומספקת מוצרי אנרגיה ושירותי תשתית קשורים.",
+    "industry": "Oil & Gas"
+  },
+  "TNDO.TA": {
+    "sector": "Technology",
+    "description": "Tondo Smart Ltd. is an Israeli public company operating in the IT Services industry within the Technology sector. It develops software, digital platforms, and IT solutions for enterprise and public-sector clients.",
+    "descriptionHebrew": "טונדו סמארט היא חברה ציבורית ישראלית הפועלת בענף IT Services בסקטור טכנולוגיה. החברה מפתחת תוכנה, פלטפורמות דיגיטליות ופתרונות IT עבור לקוחות עסקיים וציבוריים.",
+    "industry": "IT Services"
+  },
+  "TOEN.TA": {
+    "sector": "Energy",
+    "description": "Tomer Energy Royalties 2012 Ltd. is an Israeli public company operating in the Oil & Gas industry within the Energy sector. It develops, produces, and supplies energy products and related infrastructure services.",
+    "descriptionHebrew": "תומר אנרגיה היא חברה ציבורית ישראלית הפועלת בענף Oil & Gas בסקטור אנרגיה. החברה מפתחת, מייצרת ומספקת מוצרי אנרגיה ושירותי תשתית קשורים.",
+    "industry": "Oil & Gas"
+  },
+  "TOPG.TA": {
+    "sector": "Technology",
+    "description": "Top Group Software Ltd. is an Israeli public company operating in the Software industry within the Technology sector. It develops software, digital platforms, and IT solutions for enterprise and public-sector clients.",
+    "descriptionHebrew": "טופ גרופ היא חברה ציבורית ישראלית הפועלת בענף Software בסקטור טכנולוגיה. החברה מפתחת תוכנה, פלטפורמות דיגיטליות ופתרונות IT עבור לקוחות עסקיים וציבוריים.",
+    "industry": "Software"
+  },
+  "TPGM.TA": {
+    "sector": "Consumer Goods",
+    "description": "Top Gum Industries Ltd. is an Israeli public company operating in the Food & Beverage industry within the Consumer Goods sector. It manufactures, markets, and distributes consumer products through retail and wholesale channels.",
+    "descriptionHebrew": "טופ גאם היא חברה ציבורית ישראלית הפועלת בענף Food & Beverage בסקטור מוצרי צריכה. החברה מייצרת, משווקת ומפיצה מוצרי צריכה באמצעות ערוצי קמעונאות וסיטונאות.",
+    "industry": "Food & Beverage"
+  },
+  "TRA.TA": {
+    "sector": "Finance",
+    "description": "Tarya Israel Ltd. is an Israeli public company operating in the Fintech industry within the Finance sector. It provides banking, credit, insurance, and investment services to retail and institutional customers.",
+    "descriptionHebrew": "טריא ישראל היא חברה ציבורית ישראלית הפועלת בענף Fintech בסקטור פיננסים. החברה מספקת שירותי בנקאות, אשראי, ביטוח והשקעות ללקוחות פרטיים ומוסדיים.",
+    "industry": "Fintech"
+  },
+  "TRAN.TA": {
+    "sector": "Industrials",
+    "description": "Trucknet Enterprise Ltd. is an Israeli public company operating in the Transportation industry within the Industrials sector. It delivers industrial, engineering, infrastructure, and manufacturing solutions for business and government customers.",
+    "descriptionHebrew": "טראקנט היא חברה ציבורית ישראלית הפועלת בענף Transportation בסקטור תעשייה. החברה מספקת פתרונות תעשייה, הנדסה, תשתיות וייצור ללקוחות עסקיים וממשלתיים.",
+    "industry": "Transportation"
+  },
+  "TRLT.TA": {
+    "sector": "Energy",
+    "description": "Tera Light Ltd. is an Israeli public company operating in the Renewable Energy industry within the Energy sector. It develops, produces, and supplies energy products and related infrastructure services.",
+    "descriptionHebrew": "טראלייט היא חברה ציבורית ישראלית הפועלת בענף Renewable Energy בסקטור אנרגיה. החברה מפתחת, מייצרת ומספקת מוצרי אנרגיה ושירותי תשתית קשורים.",
+    "industry": "Renewable Energy"
+  },
+  "TRPZ.TA": {
+    "sector": "Materials",
+    "description": "Turpaz Industries Ltd. is an Israeli public company operating in the Chemicals industry within the Materials sector. It produces and supplies construction materials, chemicals, and other industrial inputs.",
+    "descriptionHebrew": "תורפז היא חברה ציבורית ישראלית הפועלת בענף Chemicals בסקטור חומרים. החברה מייצרת ומספקת חומרי בנייה, כימיקלים ותשומות תעשייתיות נוספות.",
+    "industry": "Chemicals"
+  },
+  "TRX.TA": {
+    "sector": "Consumer Goods",
+    "description": "Terminal X Online Ltd. is an Israeli public company operating in the Retail industry within the Consumer Goods sector. It manufactures, markets, and distributes consumer products through retail and wholesale channels.",
+    "descriptionHebrew": "טרמינל איקס היא חברה ציבורית ישראלית הפועלת בענף Retail בסקטור מוצרי צריכה. החברה מייצרת, משווקת ומפיצה מוצרי צריכה באמצעות ערוצי קמעונאות וסיטונאות.",
+    "industry": "Retail"
+  },
+  "TSEM.TA": {
+    "sector": "Technology",
+    "description": "Tower Semiconductor Ltd. is an Israeli public company operating in the Semiconductors industry within the Technology sector. It develops software, digital platforms, and IT solutions for enterprise and public-sector clients.",
+    "descriptionHebrew": "טאואר היא חברה ציבורית ישראלית הפועלת בענף Semiconductors בסקטור טכנולוגיה. החברה מפתחת תוכנה, פלטפורמות דיגיטליות ופתרונות IT עבור לקוחות עסקיים וציבוריים.",
+    "industry": "Semiconductors"
+  },
+  "TSG.TA": {
+    "sector": "Industrials",
+    "description": "TSG Advanced IT Systems Ltd. is an Israeli public company operating in the Aerospace industry within the Industrials sector. It delivers industrial, engineering, infrastructure, and manufacturing solutions for business and government customers.",
+    "descriptionHebrew": "טיאסג'י היא חברה ציבורית ישראלית הפועלת בענף Aerospace בסקטור תעשייה. החברה מספקת פתרונות תעשייה, הנדסה, תשתיות וייצור ללקוחות עסקיים וממשלתיים.",
+    "industry": "Aerospace"
+  },
+  "TTAM.TA": {
+    "sector": "Consumer Goods",
+    "description": "Tiv Taam Holdings 1 Ltd. is an Israeli public company operating in the Retail industry within the Consumer Goods sector. It manufactures, markets, and distributes consumer products through retail and wholesale channels.",
+    "descriptionHebrew": "טיב טעם היא חברה ציבורית ישראלית הפועלת בענף Retail בסקטור מוצרי צריכה. החברה מייצרת, משווקת ומפיצה מוצרי צריכה באמצעות ערוצי קמעונאות וסיטונאות.",
+    "industry": "Retail"
+  },
+  "TURB.TA": {
+    "sector": "Industrials",
+    "description": "Turbogen Ltd. is an Israeli public company operating in the Machinery industry within the Industrials sector. It delivers industrial, engineering, infrastructure, and manufacturing solutions for business and government customers.",
+    "descriptionHebrew": "טורבוג'ן היא חברה ציבורית ישראלית הפועלת בענף Machinery בסקטור תעשייה. החברה מספקת פתרונות תעשייה, הנדסה, תשתיות וייצור ללקוחות עסקיים וממשלתיים.",
+    "industry": "Machinery"
+  },
+  "TUZA.TA": {
+    "sector": "Communication",
+    "description": "Teuza - A Fairchild Technology Venture Ltd. is an Israeli public company operating in the Advertising industry within the Communication sector. It provides media, telecommunications, and digital communication services to businesses and consumers.",
+    "descriptionHebrew": "תעוזה היא חברה ציבורית ישראלית הפועלת בענף Advertising בסקטור תקשורת. החברה מספקת שירותי מדיה, תקשורת וטלקום לעסקים ולצרכנים.",
+    "industry": "Advertising"
+  },
+  "UNIT.TA": {
+    "sector": "Communication",
+    "description": "Unitronics Ltd. is an Israeli public company operating in the Telecom industry within the Communication sector. It provides media, telecommunications, and digital communication services to businesses and consumers.",
+    "descriptionHebrew": "יוניטרוניקס היא חברה ציבורית ישראלית הפועלת בענף Telecom בסקטור תקשורת. החברה מספקת שירותי מדיה, תקשורת וטלקום לעסקים ולצרכנים.",
+    "industry": "Telecom"
+  },
+  "UNMI.TA": {
+    "sector": "Finance",
+    "description": "Universal Motors Israel Ltd. is an Israeli public company operating in the Banks industry within the Finance sector. It provides banking, credit, insurance, and investment services to retail and institutional customers.",
+    "descriptionHebrew": "יוניברסל מוטורס היא חברה ציבורית ישראלית הפועלת בענף Banks בסקטור פיננסים. החברה מספקת שירותי בנקאות, אשראי, ביטוח והשקעות ללקוחות פרטיים ומוסדיים.",
+    "industry": "Banks"
+  },
+  "UPSL.TA": {
+    "sector": "Technology",
+    "description": "Upsellon Brands Holdings Ltd. is an Israeli public company operating in the Internet industry within the Technology sector. It develops software, digital platforms, and IT solutions for enterprise and public-sector clients.",
+    "descriptionHebrew": "אפסלון ברנדס היא חברה ציבורית ישראלית הפועלת בענף Internet בסקטור טכנולוגיה. החברה מפתחת תוכנה, פלטפורמות דיגיטליות ופתרונות IT עבור לקוחות עסקיים וציבוריים.",
+    "industry": "Internet"
+  },
+  "URBC.TA": {
+    "sector": "Consumer Goods",
+    "description": "Urbanica Palo Retail Ltd. is an Israeli public company operating in the Retail industry within the Consumer Goods sector. It manufactures, markets, and distributes consumer products through retail and wholesale channels.",
+    "descriptionHebrew": "אורבניקה (פאלו) היא חברה ציבורית ישראלית הפועלת בענף Retail בסקטור מוצרי צריכה. החברה מייצרת, משווקת ומפיצה מוצרי צריכה באמצעות ערוצי קמעונאות וסיטונאות.",
+    "industry": "Retail"
+  },
+  "UTRN.TA": {
+    "sector": "Industrials",
+    "description": "Utron Ltd. is an Israeli public company operating in the Machinery industry within the Industrials sector. It delivers industrial, engineering, infrastructure, and manufacturing solutions for business and government customers.",
+    "descriptionHebrew": "יוטרון היא חברה ציבורית ישראלית הפועלת בענף Machinery בסקטור תעשייה. החברה מספקת פתרונות תעשייה, הנדסה, תשתיות וייצור ללקוחות עסקיים וממשלתיים.",
+    "industry": "Machinery"
+  },
+  "VCTR.TA": {
+    "sector": "Finance",
+    "description": "Victory Supermarket Chain Ltd. is an Israeli public company operating in the Asset Management industry within the Finance sector. It provides banking, credit, insurance, and investment services to retail and institutional customers.",
+    "descriptionHebrew": "ויקטורי היא חברה ציבורית ישראלית הפועלת בענף Asset Management בסקטור פיננסים. החברה מספקת שירותי בנקאות, אשראי, ביטוח והשקעות ללקוחות פרטיים ומוסדיים.",
+    "industry": "Asset Management"
+  },
+  "VILR.TA": {
+    "sector": "Real Estate",
+    "description": "Villar International Ltd. is an Israeli public company operating in the Property Development industry within the Real Estate sector. It initiates, develops, acquires, and manages residential, commercial, and income-producing properties.",
+    "descriptionHebrew": "וילאר היא חברה ציבורית ישראלית הפועלת בענף Property Development בסקטור נדל\"ן. החברה יוזמת, מפתחת, רוכשת ומנהלת נכסי מגורים, מסחר ונכסים מניבים.",
+    "industry": "Property Development"
+  },
+  "VISN.TA": {
+    "sector": "Communication",
+    "description": "Vision Sigma Ltd. is an Israeli public company operating in the Telecom industry within the Communication sector. It provides media, telecommunications, and digital communication services to businesses and consumers.",
+    "descriptionHebrew": "ויז'ן סיגמא היא חברה ציבורית ישראלית הפועלת בענף Telecom בסקטור תקשורת. החברה מספקת שירותי מדיה, תקשורת וטלקום לעסקים ולצרכנים.",
+    "industry": "Telecom"
+  },
+  "VRDS.TA": {
+    "sector": "Industrials",
+    "description": "Veridis Environment Ltd. is an Israeli public company operating in the Construction industry within the Industrials sector. It delivers industrial, engineering, infrastructure, and manufacturing solutions for business and government customers.",
+    "descriptionHebrew": "ורידיס היא חברה ציבורית ישראלית הפועלת בענף Construction בסקטור תעשייה. החברה מספקת פתרונות תעשייה, הנדסה, תשתיות וייצור ללקוחות עסקיים וממשלתיים.",
+    "industry": "Construction"
+  },
+  "VTNA.TA": {
+    "sector": "Real Estate",
+    "description": "Vitania Ltd. is an Israeli public company operating in the Commercial Real Estate industry within the Real Estate sector. It initiates, develops, acquires, and manages residential, commercial, and income-producing properties.",
+    "descriptionHebrew": "ויתניה היא חברה ציבורית ישראלית הפועלת בענף Commercial Real Estate בסקטור נדל\"ן. החברה יוזמת, מפתחת, רוכשת ומנהלת נכסי מגורים, מסחר ונכסים מניבים.",
+    "industry": "Commercial Real Estate"
+  },
+  "WATR.TA": {
+    "sector": "Consumer Goods",
+    "description": "Water.io Ltd. is an Israeli public company operating in the Consumer Electronics industry within the Consumer Goods sector. It manufactures, markets, and distributes consumer products through retail and wholesale channels.",
+    "descriptionHebrew": "ווטר אי או היא חברה ציבורית ישראלית הפועלת בענף Consumer Electronics בסקטור מוצרי צריכה. החברה מייצרת, משווקת ומפיצה מוצרי צריכה באמצעות ערוצי קמעונאות וסיטונאות.",
+    "industry": "Consumer Electronics"
+  },
+  "WESR.TA": {
+    "sector": "Finance",
+    "description": "Wesure Global Tech Ltd. is an Israeli public company operating in the Insurance industry within the Finance sector. It provides banking, credit, insurance, and investment services to retail and institutional customers.",
+    "descriptionHebrew": "ווישור גלובלטק היא חברה ציבורית ישראלית הפועלת בענף Insurance בסקטור פיננסים. החברה מספקת שירותי בנקאות, אשראי, ביטוח והשקעות ללקוחות פרטיים ומוסדיים.",
+    "industry": "Insurance"
+  },
+  "WILC.TA": {
+    "sector": "Consumer Goods",
+    "description": "G. Willi-Food International Ltd. is an Israeli public company operating in the Food & Beverage industry within the Consumer Goods sector. It manufactures, markets, and distributes consumer products through retail and wholesale channels.",
+    "descriptionHebrew": "ויליפוד אינטרנש היא חברה ציבורית ישראלית הפועלת בענף Food & Beverage בסקטור מוצרי צריכה. החברה מייצרת, משווקת ומפיצה מוצרי צריכה באמצעות ערוצי קמעונאות וסיטונאות.",
+    "industry": "Food & Beverage"
+  },
+  "WILK.TA": {
+    "sector": "Consumer Goods",
+    "description": "Wilk Technologies Ltd. is an Israeli public company operating in the Food & Beverage industry within the Consumer Goods sector. It manufactures, markets, and distributes consumer products through retail and wholesale channels.",
+    "descriptionHebrew": "וילק היא חברה ציבורית ישראלית הפועלת בענף Food & Beverage בסקטור מוצרי צריכה. החברה מייצרת, משווקת ומפיצה מוצרי צריכה באמצעות ערוצי קמעונאות וסיטונאות.",
+    "industry": "Food & Beverage"
+  },
+  "WLFD.TA": {
+    "sector": "Consumer Goods",
+    "description": "Willi-Food Investments Ltd. is an Israeli public company operating in the Retail industry within the Consumer Goods sector. It manufactures, markets, and distributes consumer products through retail and wholesale channels.",
+    "descriptionHebrew": "וילי פוד היא חברה ציבורית ישראלית הפועלת בענף Retail בסקטור מוצרי צריכה. החברה מייצרת, משווקת ומפיצה מוצרי צריכה באמצעות ערוצי קמעונאות וסיטונאות.",
+    "industry": "Retail"
+  },
+  "XTLB.TA": {
+    "sector": "Healthcare",
+    "description": "XTL Biopharmaceuticals Ltd. is an Israeli public company operating in the Pharmaceuticals industry within the Healthcare sector. It develops and markets healthcare and life-science products and services for medical providers and patients.",
+    "descriptionHebrew": "אקס טי אל היא חברה ציבורית ישראלית הפועלת בענף Pharmaceuticals בסקטור בריאות. החברה מפתחת ומשווקת מוצרים ושירותים בתחום הבריאות ומדעי החיים עבור גופים רפואיים ומטופלים.",
+    "industry": "Pharmaceuticals"
+  },
+  "YAAZ.TA": {
+    "sector": "Industrials",
+    "description": "Yez Construction LLC is an Israeli public company operating in the Construction industry within the Industrials sector. It delivers industrial, engineering, infrastructure, and manufacturing solutions for business and government customers.",
+    "descriptionHebrew": "מצלאוי היא חברה ציבורית ישראלית הפועלת בענף Construction בסקטור תעשייה. החברה מספקת פתרונות תעשייה, הנדסה, תשתיות וייצור ללקוחות עסקיים וממשלתיים.",
+    "industry": "Construction"
+  },
+  "YACO.TA": {
+    "sector": "Industrials",
+    "description": "Yacobi Brothers Group (YSB) Ltd is an Israeli public company operating in the Construction industry within the Industrials sector. It delivers industrial, engineering, infrastructure, and manufacturing solutions for business and government customers.",
+    "descriptionHebrew": "יעקובי קבוצה היא חברה ציבורית ישראלית הפועלת בענף Construction בסקטור תעשייה. החברה מספקת פתרונות תעשייה, הנדסה, תשתיות וייצור ללקוחות עסקיים וממשלתיים.",
+    "industry": "Construction"
+  },
+  "YBOX.TA": {
+    "sector": "Real Estate",
+    "description": "Ybox Real Estate Ltd. is an Israeli public company operating in the Property Development industry within the Real Estate sector. It initiates, develops, acquires, and manages residential, commercial, and income-producing properties.",
+    "descriptionHebrew": "וויי-בוקס היא חברה ציבורית ישראלית הפועלת בענף Property Development בסקטור נדל\"ן. החברה יוזמת, מפתחת, רוכשת ומנהלת נכסי מגורים, מסחר ונכסים מניבים.",
+    "industry": "Property Development"
+  },
+  "YBRD.TA": {
+    "sector": "Healthcare",
+    "description": "Y.B Urban Renewal Ltd. is an Israeli public company operating in the Biotechnology industry within the Healthcare sector. It develops and markets healthcare and life-science products and services for medical providers and patients.",
+    "descriptionHebrew": "י.ב התחדשות היא חברה ציבורית ישראלית הפועלת בענף Biotechnology בסקטור בריאות. החברה מפתחת ומשווקת מוצרים ושירותים בתחום הבריאות ומדעי החיים עבור גופים רפואיים ומטופלים.",
+    "industry": "Biotechnology"
+  },
+  "YESD.TA": {
+    "sector": "Real Estate",
+    "description": "Yesodot Eitanom Construction Ltd. is an Israeli public company operating in the Property Development industry within the Real Estate sector. It initiates, develops, acquires, and manages residential, commercial, and income-producing properties.",
+    "descriptionHebrew": "יסודות איתנים היא חברה ציבורית ישראלית הפועלת בענף Property Development בסקטור נדל\"ן. החברה יוזמת, מפתחת, רוכשת ומנהלת נכסי מגורים, מסחר ונכסים מניבים.",
+    "industry": "Property Development"
+  },
+  "YHNF.TA": {
+    "sector": "Consumer Goods",
+    "description": "M Yochananof & Sons Ltd. is an Israeli public company operating in the Retail industry within the Consumer Goods sector. It manufactures, markets, and distributes consumer products through retail and wholesale channels.",
+    "descriptionHebrew": "יוחננוף היא חברה ציבורית ישראלית הפועלת בענף Retail בסקטור מוצרי צריכה. החברה מייצרת, משווקת ומפיצה מוצרי צריכה באמצעות ערוצי קמעונאות וסיטונאות.",
+    "industry": "Retail"
+  },
+  "ZNKL.TA": {
+    "sector": "Consumer Goods",
+    "description": "Zanlakol Ltd. is an Israeli public company operating in the Food & Beverage industry within the Consumer Goods sector. It manufactures, markets, and distributes consumer products through retail and wholesale channels.",
+    "descriptionHebrew": "זנלכל היא חברה ציבורית ישראלית הפועלת בענף Food & Beverage בסקטור מוצרי צריכה. החברה מייצרת, משווקת ומפיצה מוצרי צריכה באמצעות ערוצי קמעונאות וסיטונאות.",
+    "industry": "Food & Beverage"
+  },
+  "ZOOZ.TA": {
+    "sector": "Industrials",
+    "description": "Zooz Power Ltd. is an Israeli public company operating in the EV industry within the Industrials sector. It delivers industrial, engineering, infrastructure, and manufacturing solutions for business and government customers.",
+    "descriptionHebrew": "אפולו פאוור היא חברה ציבורית ישראלית הפועלת בענף EV בסקטור תעשייה. החברה מספקת פתרונות תעשייה, הנדסה, תשתיות וייצור ללקוחות עסקיים וממשלתיים.",
+    "industry": "EV"
+  },
+  "ZPRS.TA": {
+    "sector": "Energy",
+    "description": "Zephyrus Wing Energies Ltd. is an Israeli public company operating in the Renewable Energy industry within the Energy sector. It develops, produces, and supplies energy products and related infrastructure services.",
+    "descriptionHebrew": "זפירוס היא חברה ציבורית ישראלית הפועלת בענף Renewable Energy בסקטור אנרגיה. החברה מפתחת, מייצרת ומספקת מוצרי אנרגיה ושירותי תשתית קשורים.",
+    "industry": "Renewable Energy"
+  },
+  "ZUR.TA": {
+    "sector": "Communication",
+    "description": "Zur Shamir Holdings Ltd. is an Israeli public company operating in the Media industry within the Communication sector. It provides media, telecommunications, and digital communication services to businesses and consumers.",
+    "descriptionHebrew": "צור היא חברה ציבורית ישראלית הפועלת בענף Media בסקטור תקשורת. החברה מספקת שירותי מדיה, תקשורת וטלקום לעסקים ולצרכנים.",
     "industry": "Media"
   }
 }

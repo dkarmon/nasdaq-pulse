@@ -17,13 +17,10 @@
   font-size: 1rem;
 }
 
-.table thead {
+.table th {
   position: sticky;
   top: var(--sticky-header-height, 198px);
-  z-index: 10;
-}
-
-.table th {
+  z-index: 12;
   padding: 14px 12px;
   text-align: start;
   font-weight: 700;
@@ -219,27 +216,58 @@
 
 @media print {
   .tableWrapper {
-    border: 1px solid #000 !important;
-    border-radius: 0 !important;
+    display: block !important;
+    border: 1px solid #111827 !important;
+    border-radius: 0;
     background: #fff !important;
-    break-inside: avoid;
+    break-inside: auto;
+    page-break-inside: auto;
   }
 
   .table {
     color: #000 !important;
-    font-size: 0.72rem;
-  }
-
-  .table thead {
-    position: static;
+    table-layout: fixed;
+    font-size: 0.56rem;
+    line-height: 1.15;
   }
 
   .table th,
   .table td {
     color: #000 !important;
     background: #fff !important;
-    border-bottom: 1px solid #9ca3af !important;
-    padding: 5px 6px;
+    border-bottom: 1px solid #d1d5db !important;
+    padding: 1.5mm 1.2mm;
+    vertical-align: middle;
+    white-space: nowrap;
+  }
+
+  .table th {
+    position: static;
+    font-size: 0.52rem;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    border-bottom-color: #9ca3af !important;
+  }
+
+  .table tbody tr {
+    height: 6.3mm;
+  }
+
+  .table tbody tr:nth-child(n + 51) {
+    display: none;
+  }
+
+  .rankCol {
+    width: 5%;
+  }
+
+  .stockCol {
+    width: 35%;
+  }
+
+  .priceCol,
+  .growthCol {
+    width: 10%;
   }
 
   .row,
@@ -253,21 +281,50 @@
   .priceCell,
   .growthCell,
   .rankCell,
-  .companyName,
-  .liveGrowth,
-  .starIcon,
-  .splitWarning {
+  .companyName {
     color: #000 !important;
   }
 
+  .symbolRow {
+    flex-wrap: nowrap;
+    gap: 1mm;
+  }
+
+  .symbolGroup {
+    min-width: 0;
+  }
+
+  .symbol {
+    font-size: 0.6rem;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .companyName,
+  .liveGrowth,
+  .starIcon,
+  .splitWarning,
+  .aiBadge,
   .copyButton,
   .hideButton,
-  .aiBadge {
+  .row:hover .copyButton,
+  .row:hover .hideButton {
     display: none !important;
   }
 
   .growthCol[data-active="true"],
   .growthCell[data-active="true"] {
-    background: #f5f5f5 !important;
+    background: #f3f4f6 !important;
+  }
+
+  .growthCell {
+    font-size: 0.56rem;
+    font-weight: 600;
+  }
+
+  .priceCell {
+    font-size: 0.56rem;
+    font-weight: 600;
   }
 }

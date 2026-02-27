@@ -7,6 +7,7 @@ import { useState, useEffect } from "react";
 import { Download, RotateCw, Printer } from "lucide-react";
 import type { Stock, SortPeriod, SortDirection, Exchange } from "@/lib/market-data/types";
 import type { RecommendationFormulaSummary } from "@/lib/recommendations/types";
+import { formatFormulaSelectLabel } from "@/lib/recommendations/display";
 import { exportToExcel } from "@/lib/excel-export";
 import { FilterSheet } from "./filter-sheet";
 import styles from "./controls-bar.module.css";
@@ -52,13 +53,14 @@ type ControlsBarProps = {
   };
 };
 
-export const DEFAULT_SORT_OPTIONS: SortPeriod[] = ["1d", "5d", "1m", "6m", "12m", "az"];
+export const DEFAULT_SORT_OPTIONS: SortPeriod[] = ["1d", "5d", "1m", "3m", "6m", "12m", "az"];
 export const RECOMMENDED_SORT_OPTIONS: SortPeriod[] = [
   "score",
   "intraday",
   "1d",
   "5d",
   "1m",
+  "3m",
   "6m",
   "12m",
 ];
@@ -139,7 +141,7 @@ export function ControlsBar({
     const data = await res.json().catch(() => null);
     if (!res.ok) return;
 
-    // Trigger immediate delta refresh so today's top-20 badge set matches the new formula.
+    // Trigger immediate delta refresh so today's top-25 badge set matches the new formula.
     fetch("/api/admin/daily-ai/refresh-delta", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -355,7 +357,7 @@ export function ControlsBar({
               >
                 {formulas.map((formula) => (
                   <option key={formula.id} value={formula.id}>
-                    {formula.name}
+                    {formatFormulaSelectLabel(formula.name, formula.description)}
                   </option>
                 ))}
               </select>

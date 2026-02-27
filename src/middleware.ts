@@ -10,6 +10,8 @@ export async function middleware(request: NextRequest) {
 
 export const config = {
   matcher: [
+    "/en/signin",
+    "/he/signin",
     "/en/pulse/:path*",
     "/he/pulse/:path*",
     "/en/settings/:path*",

@@ -21,6 +21,7 @@ function makeStock(overrides: Partial<Stock> = {}): Stock {
     marketCap: 1_000_000_000,
     growth5d: 5,
     growth1m: 10,
+    growth3m: 15,
     growth6m: 20,
     growth12m: 40,
     updatedAt: new Date().toISOString(),
@@ -29,8 +30,9 @@ function makeStock(overrides: Partial<Stock> = {}): Stock {
 }
 
 describe("hasValidRecommendationData", () => {
-  it("requires growth1m/6m/12m fields", () => {
+  it("requires growth1m/3m/6m/12m fields", () => {
     expect(hasValidRecommendationData(makeStock({ growth1m: undefined as any }))).toBe(false);
+    expect(hasValidRecommendationData(makeStock({ growth3m: undefined as any }))).toBe(false);
     expect(hasValidRecommendationData(makeStock({ growth6m: undefined as any }))).toBe(false);
     expect(hasValidRecommendationData(makeStock({ growth12m: undefined as any }))).toBe(false);
     expect(hasValidRecommendationData(makeStock())).toBe(true);
@@ -39,7 +41,7 @@ describe("hasValidRecommendationData", () => {
 
 describe("calculateRecommendationScore", () => {
   it("uses the seeded default expression", () => {
-    const stock = makeStock({ growth5d: 10, growth1m: 20, growth6m: 40, growth12m: 60 });
+    const stock = makeStock({ growth5d: 10, growth1m: 20, growth3m: 30, growth6m: 40, growth12m: 60 });
     const score = calculateRecommendationScore(stock);
     expect(score).toBeCloseTo(51.24, 1);
   });
@@ -53,13 +55,13 @@ describe("calculateRecommendationScore", () => {
     const formula: RecommendationFormula = {
       ...defaultRecommendationFormula,
       id: "custom-1",
-      expression: "g1m + g6m + g12m",
+      expression: "g1m + g3m + g6m + g12m",
       status: "published",
       version: 2,
       name: "Sum",
     };
-    const stock = makeStock({ growth1m: 1, growth6m: 2, growth12m: 3 });
-    expect(calculateRecommendationScore(stock, formula)).toBeCloseTo(6, 4);
+    const stock = makeStock({ growth1m: 1, growth3m: 2, growth6m: 3, growth12m: 4 });
+    expect(calculateRecommendationScore(stock, formula)).toBeCloseTo(10, 4);
   });
 });
 
@@ -78,8 +80,8 @@ describe("isStockRecommended", () => {
 describe("filterAndSortByRecommendation", () => {
   it("filters to positive-scoring stocks and sorts descending", () => {
     const stocks = [
-      makeStock({ symbol: "LOW", growth5d: 1, growth1m: 2, growth6m: 3, growth12m: 4 }),
-      makeStock({ symbol: "HIGH", growth5d: 1, growth1m: 20, growth6m: 40, growth12m: 80 }),
+      makeStock({ symbol: "LOW", growth5d: 1, growth1m: 2, growth3m: 2.5, growth6m: 3, growth12m: 4 }),
+      makeStock({ symbol: "HIGH", growth5d: 1, growth1m: 20, growth3m: 30, growth6m: 40, growth12m: 80 }),
       makeStock({ symbol: "MISS", growth1m: undefined as any }),
     ];
     const result = filterAndSortByRecommendation(stocks);

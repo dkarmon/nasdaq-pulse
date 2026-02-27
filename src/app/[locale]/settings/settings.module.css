@@ -269,21 +269,31 @@
 .radioContent {
   flex: 1;
   min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 }
 
 .radioName {
   font-weight: 700;
+  font-size: 1.02rem;
+  line-height: 1.2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .radioMeta {
   color: var(--muted);
-  font-size: 0.85rem;
+  font-size: 0.8rem;
 }
 
 .radioActions {
   display: flex;
   gap: 6px;
   align-items: center;
+  flex-shrink: 0;
+  margin-left: 4px;
 }
 
 /* Overflow menu button */
@@ -344,6 +354,23 @@
 
 .dropdownWrapper {
   position: relative;
+}
+
+@media (max-width: 600px) {
+  .radioRow {
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .radioActions {
+    align-self: flex-start;
+    margin-top: 1px;
+  }
+
+  .linkButton {
+    padding: 6px 6px;
+    font-size: 0.9rem;
+  }
 }
 
 .header {
@@ -712,7 +739,7 @@
 .previewHead,
 .previewRow {
   display: grid;
-  grid-template-columns: 1.2fr repeat(6, 1fr);
+  grid-template-columns: 1.2fr repeat(7, 1fr);
   gap: 6px;
   padding: 8px;
   border: 1px solid rgba(255, 255, 255, 0.08);

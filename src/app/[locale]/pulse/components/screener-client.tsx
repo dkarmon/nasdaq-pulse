@@ -3,7 +3,7 @@
 
 "use client";
 
-import { useState, useEffect, useCallback, useMemo, ReactNode } from "react";
+import { useState, useEffect, useCallback, useMemo, ReactNode, useRef } from "react";
 import { usePreferences } from "@/hooks/usePreferences";
 import { useLiveQuotes, type QuotesMap } from "@/hooks/useLiveQuotes";
 import { StickyHeader } from "./sticky-header";
@@ -22,10 +22,25 @@ const RECOMMENDED_SORT_OPTIONS: SortPeriod[] = [
   "1d",
   "5d",
   "1m",
+  "3m",
   "6m",
   "12m",
 ];
-const PRINT_ROW_LIMIT = 12;
+const PRINT_RECORD_COUNT = 50;
+
+type BadgePayload = {
+  recommendation: Recommendation;
+  generatedAt: string;
+};
+
+function formulaSignature(formula: RecommendationFormulaSummary | null | undefined): string {
+  if (!formula) return "null";
+  return [
+    formula.id,
+    formula.version,
+    formula.updatedAt ?? "",
+  ].join("|");
+}
 
 function formatOrderingLabel(
   sortBy: SortPeriod,
@@ -41,6 +56,37 @@ function formatOrderingLabel(
     default:
       return sortBy.toUpperCase();
   }
+}
+
+function formatPrintTitleTimestamp(date: Date): string {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+  const hours = String(date.getHours()).padStart(2, "0");
+  const minutes = String(date.getMinutes()).padStart(2, "0");
+  const seconds = String(date.getSeconds()).padStart(2, "0");
+  return `${year}-${month}-${day} ${hours}-${minutes}-${seconds}`;
+}
+
+function isRecommendation(value: unknown): value is Recommendation {
+  return value === "buy" || value === "hold" || value === "sell";
+}
+
+function parseBadgeMap(input: unknown): Record<string, BadgePayload> {
+  const map: Record<string, BadgePayload> = {};
+  if (!input || typeof input !== "object") return map;
+
+  for (const [symbol, value] of Object.entries(input as Record<string, unknown>)) {
+    if (!value || typeof value !== "object") continue;
+
+    const recommendation = (value as { recommendation?: unknown }).recommendation;
+    const generatedAt = (value as { generatedAt?: unknown }).generatedAt;
+    if (!isRecommendation(recommendation) || typeof generatedAt !== "string") continue;
+
+    map[String(symbol).toUpperCase()] = { recommendation, generatedAt };
+  }
+
+  return map;
 }
 
 function sortRecommendedStocks(
@@ -87,6 +133,8 @@ function sortRecommendedStocks(
       }
       case "6m":
         return (a.growth6m - b.growth6m) * direction;
+      case "3m":
+        return (a.growth3m - b.growth3m) * direction;
       case "12m":
         return (a.growth12m - b.growth12m) * direction;
       case "score": {
@@ -108,8 +156,8 @@ type ScreenerClientProps = {
   dict: Dictionary;
   onSelectStock: (symbol: string | null) => void;
   selectedSymbol: string | null;
-  activeFormulas: Record<Exchange, RecommendationFormulaSummary | null>;
-  onFormulaChange: (exchange: Exchange, formula: RecommendationFormulaSummary | null) => void;
+  activeFormulas?: Record<Exchange, RecommendationFormulaSummary | null>;
+  onFormulaChange?: (exchange: Exchange, formula: RecommendationFormulaSummary | null) => void;
   isAdmin: boolean;
   navContent: ReactNode;
 };
@@ -138,20 +186,43 @@ export function ScreenerClient({
 
   const [stocks, setStocks] = useState<Stock[]>(initialData.stocks);
   const [isLoading, setIsLoading] = useState(false);
+  const [isPrinting, setIsPrinting] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [debouncedSearch, setDebouncedSearch] = useState("");
-  const [dailyAiBadges, setDailyAiBadges] = useState<Record<string, { recommendation: Recommendation; generatedAt: string }>>({});
+  const [dailyAiBadges, setDailyAiBadges] = useState<Record<string, BadgePayload>>({});
+  const [fallbackAiBadges, setFallbackAiBadges] = useState<Record<string, BadgePayload>>({});
   const [printTimestamp, setPrintTimestamp] = useState(() => new Date().toISOString());
+  const onFormulaChangeRef = useRef(onFormulaChange);
+  const lastFormulaSignatureRef = useRef<Record<Exchange, string>>({
+    nasdaq: formulaSignature(activeFormulas?.nasdaq),
+    tlv: formulaSignature(activeFormulas?.tlv),
+  });
 
-  // Debounce search to avoid excessive API calls
   useEffect(() => {
     const timer = setTimeout(() => setDebouncedSearch(searchQuery), 300);
     return () => clearTimeout(timer);
   }, [searchQuery]);
 
-  const activeFormula = activeFormulas[preferences.exchange] ?? null;
+  useEffect(() => {
+    onFormulaChangeRef.current = onFormulaChange;
+  }, [onFormulaChange]);
 
-  // Get symbols of recommended stocks for live quotes
+  useEffect(() => {
+    const next = {
+      nasdaq: formulaSignature(activeFormulas?.nasdaq),
+      tlv: formulaSignature(activeFormulas?.tlv),
+    };
+    if (
+      lastFormulaSignatureRef.current.nasdaq !== next.nasdaq ||
+      lastFormulaSignatureRef.current.tlv !== next.tlv
+    ) {
+      lastFormulaSignatureRef.current = next;
+    }
+  }, [activeFormulas?.nasdaq, activeFormulas?.tlv]);
+
+  const resolvedActiveFormulas = activeFormulas ?? { nasdaq: null, tlv: null };
+  const activeFormula = resolvedActiveFormulas[preferences.exchange] ?? null;
+
   const scoredStocks = useMemo(
     () => scoreStocksWithFormula(stocks, activeFormula ?? undefined),
     [stocks, activeFormula]
@@ -163,28 +234,20 @@ export function ScreenerClient({
       .map((s) => s.symbol);
   }, [scoredStocks]);
 
-  // Fetch live quotes for recommended stocks
   const { quotes: liveQuotes } = useLiveQuotes(recommendedSymbols);
 
-  // Fetch today's daily AI badge membership for the current exchange.
   useEffect(() => {
     if (!isLoaded) return;
 
     const exchange = preferences.exchange;
     fetch(`/api/daily-ai-badges?exchange=${exchange}`)
-      .then((res) => res.ok ? res.json() : null)
-      .then((data) => {
-        const badges = data?.badges ?? {};
-        const map: Record<string, { recommendation: Recommendation; generatedAt: string }> = {};
-        for (const [symbol, value] of Object.entries(badges)) {
-          const v = value as { recommendation?: Recommendation; generatedAt?: string } | null;
-          if (!v?.recommendation || !v?.generatedAt) continue;
-          map[String(symbol).toUpperCase()] = {
-            recommendation: v.recommendation,
-            generatedAt: v.generatedAt,
-          };
-        }
-        setDailyAiBadges(map);
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data: unknown) => {
+        const badges =
+          data && typeof data === "object"
+            ? (data as { badges?: unknown }).badges
+            : undefined;
+        setDailyAiBadges(parseBadgeMap(badges));
       })
       .catch(() => {
         setDailyAiBadges({});
@@ -196,9 +259,8 @@ export function ScreenerClient({
 
     setIsLoading(true);
     try {
-      // When searching or in recommended mode, fetch all stocks to ensure search can find anything
       const needsAllStocks = preferences.showRecommendedOnly || debouncedSearch;
-      const limit = needsAllStocks ? 9999 : preferences.limit;
+      const limit = needsAllStocks ? 9999 : Math.max(preferences.limit, PRINT_RECORD_COUNT);
       const apiSortBy =
         preferences.showRecommendedOnly &&
         (preferences.sortBy === "score" || preferences.sortBy === "intraday")
@@ -217,13 +279,28 @@ export function ScreenerClient({
       const data: ScreenerResponse = await response.json();
 
       setStocks(data.stocks);
-      onFormulaChange(preferences.exchange, data.recommendation?.activeFormula ?? null);
+      const nextFormula = data.recommendation?.activeFormula ?? null;
+      const nextSignature = formulaSignature(nextFormula);
+      if (lastFormulaSignatureRef.current[preferences.exchange] !== nextSignature) {
+        lastFormulaSignatureRef.current = {
+          ...lastFormulaSignatureRef.current,
+          [preferences.exchange]: nextSignature,
+        };
+        onFormulaChangeRef.current?.(preferences.exchange, nextFormula);
+      }
     } catch (error) {
       console.error("Failed to fetch screener data:", error);
     } finally {
       setIsLoading(false);
     }
-  }, [isLoaded, preferences, onFormulaChange, debouncedSearch]);
+  }, [
+    isLoaded,
+    debouncedSearch,
+    preferences.showRecommendedOnly,
+    preferences.limit,
+    preferences.sortBy,
+    preferences.exchange,
+  ]);
 
   useEffect(() => {
     if (isLoaded) {
@@ -254,6 +331,7 @@ export function ScreenerClient({
     growth1d: dict.screener.growth1d,
     growth5d: dict.screener.growth5d,
     growth1m: dict.screener.growth1m,
+    growth3m: dict.screener.growth3m,
     growth6m: dict.screener.growth6m,
     growth12m: dict.screener.growth12m,
     view: dict.screener.view,
@@ -274,6 +352,138 @@ export function ScreenerClient({
     sell: dict.aiAnalysis?.sell ?? "Sell",
   };
 
+  // Base stocks: hidden + recommendation filtered/sorted, but NOT search filtered.
+  // Used as the stable rank source so search doesn't change positions.
+  const rankBaseStocks = useMemo(() => {
+    let next = scoredStocks.filter(
+      (stock) => !currentHiddenSymbols.includes(stock.symbol)
+    );
+
+    if (preferences.showRecommendedOnly) {
+      const recommendedOnly = next.filter((stock) =>
+        typeof stock.recommendationScore === "number" &&
+        Number.isFinite(stock.recommendationScore) &&
+        (stock.recommendationScore ?? 0) > 0
+      );
+
+      const effectiveSort =
+        RECOMMENDED_SORT_OPTIONS.includes(preferences.sortBy) ? preferences.sortBy : "score";
+
+      next = sortRecommendedStocks(
+        recommendedOnly,
+        effectiveSort,
+        preferences.sortDirection,
+        liveQuotes
+      );
+    }
+
+    return next;
+  }, [
+    scoredStocks,
+    currentHiddenSymbols,
+    preferences.showRecommendedOnly,
+    preferences.sortBy,
+    preferences.sortDirection,
+    liveQuotes,
+  ]);
+
+  // Stable rank map: positions based on the full list without search filtering.
+  const rankMap = useMemo(() => {
+    const map = new Map<string, number>();
+    rankBaseStocks.forEach((stock, index) => {
+      map.set(stock.symbol, index + 1);
+    });
+    return map;
+  }, [rankBaseStocks]);
+
+  const visibleStocks = useMemo(() => {
+    if (!searchQuery) return rankBaseStocks;
+
+    const query = searchQuery.toLowerCase();
+    return rankBaseStocks.filter((stock) =>
+      stock.exchange === "tlv"
+        ? stock.nameHebrew?.toLowerCase().includes(query)
+        : stock.symbol.toLowerCase().includes(query)
+    );
+  }, [rankBaseStocks, searchQuery]);
+
+  const displayedStocks = useMemo(() => {
+    if (preferences.showRecommendedOnly || searchQuery) {
+      return visibleStocks;
+    }
+    return visibleStocks.slice(0, preferences.limit);
+  }, [
+    visibleStocks,
+    preferences.showRecommendedOnly,
+    preferences.limit,
+    searchQuery,
+  ]);
+
+  const printStocks = useMemo(
+    () => visibleStocks.slice(0, PRINT_RECORD_COUNT),
+    [visibleStocks]
+  );
+
+  const missingVisibleTop25Symbols = useMemo(() => {
+    return visibleStocks
+      .slice(0, 25)
+      .map((stock) => stock.symbol.toUpperCase())
+      .filter((symbol) => !dailyAiBadges[symbol]);
+  }, [visibleStocks, dailyAiBadges]);
+
+  const missingVisibleTop25Key = useMemo(
+    () => missingVisibleTop25Symbols.join(","),
+    [missingVisibleTop25Symbols]
+  );
+
+  const activeTableStocks = isPrinting ? printStocks : displayedStocks;
+
+  useEffect(() => {
+    if (!isLoaded) return;
+    if (!missingVisibleTop25Key) {
+      setFallbackAiBadges((prev) => (Object.keys(prev).length === 0 ? prev : {}));
+      return;
+    }
+
+    const abortController = new AbortController();
+    const params = new URLSearchParams({ symbols: missingVisibleTop25Key });
+
+    fetch(`/api/analysis/badges?${params.toString()}`, { signal: abortController.signal })
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data: unknown) => {
+        const badges =
+          data && typeof data === "object"
+            ? (data as { badges?: unknown }).badges
+            : undefined;
+        const map = parseBadgeMap(badges);
+        setFallbackAiBadges((prev) => {
+          const prevKeys = Object.keys(prev);
+          const nextKeys = Object.keys(map);
+          if (prevKeys.length !== nextKeys.length) return map;
+          for (const key of nextKeys) {
+            if (
+              prev[key]?.recommendation !== map[key]?.recommendation ||
+              prev[key]?.generatedAt !== map[key]?.generatedAt
+            ) {
+              return map;
+            }
+          }
+          return prev;
+        });
+      })
+      .catch((error: unknown) => {
+        if (error instanceof Error && error.name === "AbortError") return;
+        setFallbackAiBadges((prev) => (Object.keys(prev).length === 0 ? prev : {}));
+      });
+
+    return () => abortController.abort();
+  }, [isLoaded, preferences.exchange, missingVisibleTop25Key]);
+
+  const mergedAiBadges = useMemo(
+    () => ({ ...fallbackAiBadges, ...dailyAiBadges }),
+    [fallbackAiBadges, dailyAiBadges]
+  );
+
   const cleanupPrintMode = useCallback(() => {
     if (typeof document === "undefined") return;
     document.documentElement.removeAttribute("data-printing");
@@ -287,22 +497,39 @@ export function ScreenerClient({
   const handlePrint = useCallback(() => {
     if (typeof window === "undefined" || typeof document === "undefined") return;
 
-    setPrintTimestamp(new Date().toISOString());
+    const printNow = new Date();
+    const originalTitle = document.title;
+    document.title = `Nasdaq Pulse ${formatPrintTitleTimestamp(printNow)}`;
+    setIsPrinting(true);
+    setPrintTimestamp(printNow.toISOString());
     document.documentElement.setAttribute("data-printing", "first-page");
     document.body.setAttribute("data-printing", "first-page");
 
     let fallbackTimeoutId: number | null = null;
     const onAfterPrint = () => {
+      setIsPrinting(false);
+      document.title = originalTitle;
       cleanupPrintMode();
       window.removeEventListener("afterprint", onAfterPrint);
       if (fallbackTimeoutId) {
-        window.clearTimeout(fallbackTimeoutId);
+        clearTimeout(fallbackTimeoutId);
       }
     };
 
-    window.addEventListener("afterprint", onAfterPrint);
-    fallbackTimeoutId = window.setTimeout(onAfterPrint, 1500);
-    window.print();
+    const triggerPrint = () => {
+      window.addEventListener("afterprint", onAfterPrint);
+      fallbackTimeoutId = setTimeout(onAfterPrint, 1500);
+      window.print();
+    };
+
+    const scheduleFrame =
+      typeof window.requestAnimationFrame === "function"
+        ? window.requestAnimationFrame.bind(window)
+        : (callback: FrameRequestCallback) => window.setTimeout(callback, 0);
+
+    scheduleFrame(() => {
+      scheduleFrame(triggerPrint);
+    });
   }, [cleanupPrintMode]);
 
   const printMeta = useMemo(() => {
@@ -357,52 +584,6 @@ export function ScreenerClient({
     dict.screener.intraday,
   ]);
 
-  // Compute ranks before filtering - stocks are already sorted by the API
-  const rankMap = useMemo(() => {
-    const map = new Map<string, number>();
-    scoredStocks.forEach((stock, index) => {
-      map.set(stock.symbol, index + 1);
-    });
-    return map;
-  }, [scoredStocks]);
-
-  let visibleStocks = scoredStocks.filter(
-    (stock) => !currentHiddenSymbols.includes(stock.symbol)
-  );
-
-  // Client-side search: NASDAQ by ticker, TLV by Hebrew name
-  if (searchQuery) {
-    const query = searchQuery.toLowerCase();
-    visibleStocks = visibleStocks.filter((stock) =>
-      stock.exchange === "tlv"
-        ? stock.nameHebrew?.toLowerCase().includes(query)
-        : stock.symbol.toLowerCase().includes(query)
-    );
-  }
-
-  if (preferences.showRecommendedOnly) {
-    const recommendedOnly = visibleStocks.filter((stock) =>
-      typeof stock.recommendationScore === "number" &&
-      Number.isFinite(stock.recommendationScore) &&
-      (stock.recommendationScore ?? 0) > 0
-    );
-
-    const effectiveSort =
-      RECOMMENDED_SORT_OPTIONS.includes(preferences.sortBy) ? preferences.sortBy : "score";
-
-    visibleStocks = sortRecommendedStocks(
-      recommendedOnly,
-      effectiveSort,
-      preferences.sortDirection,
-      liveQuotes
-    );
-  }
-
-  const printStocks = visibleStocks.slice(0, PRINT_ROW_LIMIT);
-  const printRankMap = new Map<string, number>();
-  printStocks.forEach((stock, index) => {
-    printRankMap.set(stock.symbol, index + 1);
-  });
   return (
     <div className={styles.screener}>
       <StickyHeader
@@ -421,12 +602,12 @@ export function ScreenerClient({
         onSearchChange={setSearchQuery}
         onShowRecommendedOnlyChange={setShowRecommendedOnly}
         isAdmin={isAdmin}
-        activeFormulas={activeFormulas}
+        activeFormulas={resolvedActiveFormulas}
         onFormulaChange={onFormulaChange}
         onRefresh={fetchScreenerData}
         onPrint={handlePrint}
         isRefreshing={isLoading}
-        visibleStocks={visibleStocks}
+        visibleStocks={displayedStocks}
         rankMap={rankMap}
         labels={controlLabels}
       />
@@ -436,64 +617,67 @@ export function ScreenerClient({
           <p className={styles.printSummaryLine}>
             <span className={styles.printBrand}>Nasdaq Pulse</span>
             <span className={styles.printDivider}>|</span>
-            <span className={styles.printItem}><strong>{dict.screener.exchange}:</strong> {printMeta.exchangeLabel}</span>
+            <span className={styles.printItem}>
+              <strong>{dict.screener.exchange}:</strong> {printMeta.exchangeLabel}
+            </span>
             <span className={styles.printDivider}>|</span>
-            <span className={styles.printItem}><strong>{dict.screener.ordering}:</strong> {printMeta.orderingLabel}</span>
+            <span className={styles.printItem}>
+              <strong>{dict.screener.ordering}:</strong> {printMeta.orderingLabel}
+            </span>
             <span className={styles.printDivider}>|</span>
-            <span className={styles.printItem}><strong>{dict.screener.direction}:</strong> {printMeta.directionLabel}</span>
+            <span className={styles.printItem}>
+              <strong>{dict.screener.direction}:</strong> {printMeta.directionLabel}
+            </span>
             <span className={styles.printDivider}>|</span>
-            <span className={styles.printItem}><strong>{dict.screener.show}:</strong> {preferences.limit}</span>
+            <span className={styles.printItem}>
+              <strong>{dict.screener.show}:</strong> {preferences.limit}
+            </span>
             <span className={styles.printDivider}>|</span>
-            <span className={styles.printItem}><strong>{dict.screener.recommendedOnly}:</strong> {printMeta.recommendedLabel}</span>
+            <span className={styles.printItem}>
+              <strong>{dict.screener.recommendedOnly}:</strong> {printMeta.recommendedLabel}
+            </span>
             <span className={styles.printDivider}>|</span>
-            <span className={styles.printItem}><strong>{dict.screener.query}:</strong> {printMeta.queryLabel}</span>
+            <span className={styles.printItem}>
+              <strong>{dict.screener.query}:</strong> {printMeta.queryLabel}
+            </span>
             <span className={styles.printDivider}>|</span>
-            <span className={styles.printItem}><strong>{dict.screener.formula}:</strong> {printMeta.formulaLabel}</span>
+            <span className={styles.printItem}>
+              <strong>{dict.screener.formula}:</strong> {printMeta.formulaLabel}
+            </span>
             <span className={styles.printDivider}>|</span>
-            <span className={styles.printItem}><strong>{dict.screener.printDate}:</strong> {printMeta.printDateLabel}</span>
+            <span className={styles.printItem}>
+              <strong>{dict.screener.printDate}:</strong> {printMeta.printDateLabel}
+            </span>
             <span className={styles.printDivider}>|</span>
-            <span className={styles.printItem}><strong>{dict.screener.printTime}:</strong> {printMeta.printTimeLabel}</span>
+            <span className={styles.printItem}>
+              <strong>{dict.screener.printTime}:</strong> {printMeta.printTimeLabel}
+            </span>
           </p>
         </section>
 
-        <div className={styles.printTableOnly}>
+        <div className={styles.stockList} data-loading={isLoading} data-testid="screener-stock-list">
           <StockTable
-            stocks={printStocks}
-            sortBy={preferences.sortBy}
-            selectedSymbol={null}
-            onSelectStock={() => {}}
-            onHideStock={() => {}}
-            liveQuotes={liveQuotes}
-            rankMap={printRankMap}
-            aiBadges={dailyAiBadges}
-            aiLabels={aiLabels}
-            labels={tableLabels}
-          />
-        </div>
-
-        <div className={styles.stockList} data-loading={isLoading}>
-          <StockTable
-            stocks={visibleStocks}
+            stocks={activeTableStocks}
             sortBy={preferences.sortBy}
             selectedSymbol={selectedSymbol}
             onSelectStock={onSelectStock}
             onHideStock={hideStock}
             liveQuotes={liveQuotes}
             rankMap={rankMap}
-            aiBadges={dailyAiBadges}
+            aiBadges={mergedAiBadges}
             aiLabels={aiLabels}
             labels={tableLabels}
           />
 
           <StockCardList
-            stocks={visibleStocks}
+            stocks={displayedStocks}
             sortBy={preferences.sortBy}
             selectedSymbol={selectedSymbol}
             onSelectStock={onSelectStock}
             onHideStock={hideStock}
             liveQuotes={liveQuotes}
             rankMap={rankMap}
-            aiBadges={dailyAiBadges}
+            aiBadges={mergedAiBadges}
             aiLabels={aiLabels}
             labels={cardLabels}
           />

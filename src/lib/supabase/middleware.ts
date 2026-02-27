@@ -37,15 +37,23 @@ export async function updateSession(request: NextRequest) {
     data: { user },
   } = await supabase.auth.getUser();
 
-  // Protected routes - redirect to signin if not authenticated
+  const pathname = request.nextUrl.pathname;
+  const locale = pathname.split("/")[1] || "en";
   const isProtectedRoute =
-    request.nextUrl.pathname.includes("/pulse") ||
-    request.nextUrl.pathname.includes("/settings");
+    pathname.startsWith(`/${locale}/pulse`) ||
+    pathname.startsWith(`/${locale}/settings`);
+  const isSignInRoute = pathname === `/${locale}/signin`;
 
   if (isProtectedRoute && !user) {
-    const locale = request.nextUrl.pathname.split("/")[1] || "en";
     const url = request.nextUrl.clone();
     url.pathname = `/${locale}/signin`;
+    return NextResponse.redirect(url);
+  }
+
+  // Keep signin redirects in middleware so routing decisions use one auth check.
+  if (isSignInRoute && user) {
+    const url = request.nextUrl.clone();
+    url.pathname = `/${locale}/pulse`;
     return NextResponse.redirect(url);
   }
 

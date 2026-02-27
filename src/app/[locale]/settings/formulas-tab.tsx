@@ -6,6 +6,7 @@
 import { useCallback, useEffect, useState, useRef } from "react";
 import type { Exchange } from "@/lib/market-data/types";
 import type { RecommendationFormulaSummary } from "@/lib/recommendations/types";
+import { splitFormulaTitleAndSubtitle } from "@/lib/recommendations/display";
 import type { Dictionary } from "@/lib/i18n";
 import { FormulaEditorModal } from "./formula-editor-modal";
 import styles from "./settings.module.css";
@@ -17,6 +18,7 @@ type FormulasTabProps = {
 type FormulaFormState = {
   id?: string;
   name: string;
+  description: string;
   expression: string;
 };
 
@@ -119,7 +121,7 @@ export function FormulasTab({ dict }: FormulasTabProps) {
       setMessage(dict.settings.activeSaved);
       setTimeout(() => setMessage(null), 3000);
 
-      // Trigger immediate daily badge delta refresh (new top-20 minus old top-20).
+      // Trigger immediate daily badge delta refresh (new top-25 minus old top-25).
       fetch("/api/admin/daily-ai/refresh-delta", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -134,9 +136,14 @@ export function FormulasTab({ dict }: FormulasTabProps) {
   };
 
   const handleEdit = (formula: RecommendationFormulaSummary) => {
+    const { title, subtitle } = splitFormulaTitleAndSubtitle(
+      formula.name,
+      formula.description
+    );
     setEditingFormula({
       id: formula.id,
-      name: formula.name,
+      name: title,
+      description: subtitle ?? "",
       expression: formula.expression,
     });
     setShowModal(true);
@@ -149,9 +156,14 @@ export function FormulasTab({ dict }: FormulasTabProps) {
   };
 
   const handleDuplicate = (formula: RecommendationFormulaSummary) => {
+    const { title, subtitle } = splitFormulaTitleAndSubtitle(
+      formula.name,
+      formula.description
+    );
     setEditingFormula({
       id: undefined,
-      name: `${formula.name} copy`,
+      name: `${title} copy`,
+      description: subtitle ?? "",
       expression: formula.expression,
     });
     setShowModal(true);
@@ -190,7 +202,8 @@ export function FormulasTab({ dict }: FormulasTabProps) {
       method,
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        name: data.name,
+        name: data.name.trim(),
+        description: data.description.trim() || null,
         expression: data.expression,
         status: "published",
       }),
@@ -266,6 +279,10 @@ export function FormulasTab({ dict }: FormulasTabProps) {
             const isActiveNasdaq = formula.id === activeFormulaIds.nasdaq;
             const isActiveTlv = formula.id === activeFormulaIds.tlv;
             const isActive = isActiveNasdaq || isActiveTlv;
+            const { title, subtitle } = splitFormulaTitleAndSubtitle(
+              formula.name,
+              formula.description
+            );
             return (
               <div
                 key={formula.id}
@@ -275,7 +292,12 @@ export function FormulasTab({ dict }: FormulasTabProps) {
                   className={`${styles.radioIndicator} ${isActive ? styles.radioIndicatorActive : ""}`}
                 />
                 <div className={styles.radioContent}>
-                  <div className={styles.radioName}>{formula.name}</div>
+                  <div
+                    className={styles.radioName}
+                    title={subtitle ? `${title} - ${subtitle}` : title}
+                  >
+                    {subtitle ? `${title} - ${subtitle}` : title}
+                  </div>
                   <div className={styles.radioMeta}>
                     v{formula.version}
                     {isActiveNasdaq ? " • NASDAQ" : ""}

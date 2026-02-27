@@ -50,6 +50,7 @@ export type YahooGrowth = {
   growth1d: number;
   growth5d: number;
   growth1m: number;
+  growth3m: number;
   growth6m: number;
   growth12m: number;
 };
@@ -108,7 +109,8 @@ export function calculateGrowthByTradingDays(
 
   if (!pastPrice || pastPrice === 0) return 0;
 
-  return ((currentPrice - pastPrice) / pastPrice) * 100;
+  const growth = ((currentPrice - pastPrice) / pastPrice) * 100;
+  return Number.isFinite(growth) ? growth : 0;
 }
 
 export function calculateGrowthByCalendarMonths(
@@ -138,7 +140,8 @@ export function calculateGrowthByCalendarMonths(
   const pastPrice = prices[targetIdx];
   if (!pastPrice || pastPrice === 0) return 0;
 
-  return ((currentPrice - pastPrice) / pastPrice) * 100;
+  const growth = ((currentPrice - pastPrice) / pastPrice) * 100;
+  return Number.isFinite(growth) ? growth : 0;
 }
 
 function detectLikelySplit(prices: number[], daysToCheck: number = 30): boolean {
@@ -196,6 +199,7 @@ export async function getGrowthData(symbol: string): Promise<YahooGrowth | null>
     growth1d: calculateGrowthByTradingDays(closePrices, currentPrice, 2),
     growth5d: calculateGrowthByTradingDays(openPrices, currentPrice, 5),
     growth1m: calculateGrowthByCalendarMonths(closePrices, validTimestamps, 1),
+    growth3m: calculateGrowthByCalendarMonths(closePrices, validTimestamps, 3),
     growth6m: calculateGrowthByCalendarMonths(closePrices, validTimestamps, 6),
     growth12m: calculateGrowthByCalendarMonths(closePrices, validTimestamps, 12),
   };
@@ -280,6 +284,7 @@ export async function getQuoteAndGrowth(symbol: string): Promise<{
       growth1d: calculateGrowthByTradingDays(closePrices, currentPrice, 2),
       growth5d: calculateGrowthByTradingDays(openPrices, currentPrice, 5),
       growth1m: calculateGrowthByCalendarMonths(closePrices, validTimestamps, 1),
+      growth3m: calculateGrowthByCalendarMonths(closePrices, validTimestamps, 3),
       growth6m: calculateGrowthByCalendarMonths(closePrices, validTimestamps, 6),
       growth12m: calculateGrowthByCalendarMonths(closePrices, validTimestamps, 12),
     },

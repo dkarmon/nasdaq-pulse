@@ -1,5 +1,5 @@
 // ABOUTME: Tests that stock detail metrics row displays in LTR order regardless of locale.
-// ABOUTME: Ensures time periods (5d, 1m, 6m, 12m) always display left-to-right.
+// ABOUTME: Ensures time periods (5d, 1m, 3m, 6m, 12m) always display left-to-right.
 
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { render, screen, waitFor } from "@testing-library/react";
@@ -32,6 +32,7 @@ const mockStockDetail = {
   growth1d: 0.8,
   growth5d: 1.2,
   growth1m: 3.5,
+  growth3m: 7.4,
   growth6m: 12.4,
   growth12m: 25.8,
   nameHebrew: "אפל",
@@ -43,6 +44,7 @@ const mockLabels = {
   growth1d: "1D",
   growth5d: "5D",
   growth1m: "1M",
+  growth3m: "3M",
   growth6m: "6M",
   growth12m: "12M",
   pe: "P/E",
@@ -57,6 +59,7 @@ const mockLabels = {
   sector: "Sector",
   industry: "Industry",
   marketCap: "Market Cap",
+  companyInfo: "Company Info",
   companyOverview: "Overview",
   website: "Website",
 };
@@ -118,7 +121,7 @@ describe("StockDetail RTL", () => {
     expect(metricsRow).toHaveAttribute("dir", "ltr");
   });
 
-  it("displays metric periods in correct visual order: 1D, 5D, 1M, 6M, 12M", async () => {
+  it("displays metric periods in correct visual order: 1D, 5D, 1M, 3M, 6M, 12M", async () => {
     render(
       <StockDetail
         symbol="AAPL"
@@ -134,7 +137,7 @@ describe("StockDetail RTL", () => {
     });
 
     // Get all metric labels in order
-    const labels = ["1D", "5D", "1M", "6M", "12M"];
+    const labels = ["1D", "5D", "1M", "3M", "6M", "12M"];
     const labelElements = labels.map((label) => screen.getByText(label));
 
     // Verify they all exist (order is enforced by dir="ltr" on parent)
@@ -149,5 +152,22 @@ describe("StockDetail RTL", () => {
 
     // The dir="ltr" attribute ensures visual order matches DOM order
     expect(metricsRow).toHaveAttribute("dir", "ltr");
+  });
+
+  it("renders Hebrew company info section title and localized sector", async () => {
+    render(
+      <StockDetail
+        symbol="AAPL"
+        onClose={() => {}}
+        locale="he"
+        labels={{ ...mockLabels, companyInfo: "מידע על החברה" }}
+        aiAnalysisLabels={mockAiAnalysisLabels}
+      />
+    );
+
+    await waitFor(() => {
+      expect(screen.getByText("מידע על החברה")).toBeInTheDocument();
+      expect(screen.getByText("טכנולוגיה")).toBeInTheDocument();
+    });
   });
 });

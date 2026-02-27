@@ -2,7 +2,7 @@
 // ABOUTME: Verifies search queries cause full dataset fetch to find stocks outside top N.
 
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
-import { render, screen, waitFor } from "@testing-library/react";
+import { render, screen, waitFor, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { ScreenerClient } from "@/app/[locale]/pulse/components/screener-client";
 import type { ScreenerResponse, Stock } from "@/lib/market-data/types";
@@ -24,6 +24,7 @@ const mockStock = (
   growth1d: 0,
   growth5d: 0,
   growth1m,
+  growth3m: growth1m / 2,
   growth6m: 0,
   growth12m: 0,
   exchange: "nasdaq",
@@ -62,6 +63,7 @@ const mockDict = {
     growth1d: "1D",
     growth5d: "5D",
     growth1m: "1M",
+    growth3m: "3M",
     growth6m: "6M",
     growth12m: "12M",
     view: "View",
@@ -120,7 +122,7 @@ describe("ScreenerClient search", () => {
             : input.url;
       const urlObj = new URL(url, "http://localhost:3000");
       const params = urlObj.searchParams;
-      fetchCalls.push({ url, params });
+      fetchCalls.push({ url: urlObj.toString(), params });
 
       const limit = parseInt(params.get("limit") || "50", 10);
       const exchange = params.get("exchange") || "nasdaq";
@@ -165,8 +167,9 @@ describe("ScreenerClient search", () => {
       expect(fetchCalls.length).toBeGreaterThan(0);
     });
 
-    const initialFetch = fetchCalls[fetchCalls.length - 1];
-    expect(parseInt(initialFetch.params.get("limit") || "0", 10)).toBe(50);
+    const initialFetch = fetchCalls.find((call) => call.url.includes("/api/screener?"));
+    expect(initialFetch).toBeDefined();
+    expect(parseInt(initialFetch!.params.get("limit") || "0", 10)).toBe(50);
 
     // Clear fetch calls to track only search-triggered fetches
     fetchCalls = [];
@@ -276,5 +279,109 @@ describe("ScreenerClient search", () => {
       },
       { timeout: 1000 }
     );
+  });
+
+  it("preserves original rank during search", async () => {
+    const user = userEvent.setup();
+    const rankStocks = [
+      mockStock("AAPL", 40),
+      mockStock("MSFT", 30),
+      mockStock("GOOG", 20),
+      mockStock("HYMC", 10),
+    ];
+
+    mockPreferences.mockReturnValue({
+      ...nasdaqPreferences(),
+      isLoaded: false,
+      currentHiddenSymbols: [],
+    });
+
+    render(
+      <ScreenerClient
+        initialData={{
+          ...mockInitialData,
+          stocks: rankStocks,
+        }}
+        dict={mockDict}
+        onSelectStock={vi.fn()}
+        selectedSymbol={null}
+        activeFormulas={{ nasdaq: null, tlv: null }}
+        onFormulaChange={vi.fn()}
+        isAdmin={false}
+        navContent={<div>Nav</div>}
+      />
+    );
+
+    // Before search: HYMC should be rank 4
+    const stockList = screen.getByTestId("screener-stock-list");
+    let tableRows = within(stockList).getAllByRole("row").slice(1);
+    let ranks = tableRows.map((row) => {
+      const cells = within(row).getAllByRole("cell");
+      return cells[0].textContent?.trim();
+    });
+    expect(ranks).toEqual(["1", "2", "3", "4"]);
+
+    // Search for HYMC
+    await user.type(getSearchInput(), "HYMC");
+
+    // After search: HYMC should still show rank 4, not rank 1
+    await waitFor(() => {
+      const rows = within(stockList).getAllByRole("row").slice(1);
+      expect(rows).toHaveLength(1);
+    });
+
+    tableRows = within(stockList).getAllByRole("row").slice(1);
+    const rank = within(tableRows[0]).getAllByRole("cell")[0].textContent?.trim();
+    expect(rank).toBe("4");
+
+    const symbol = within(tableRows[0]).getAllByRole("cell")[1].textContent ?? "";
+    expect(symbol).toContain("HYMC");
+  });
+
+  it("reindexes table ranks after hiding a stock", () => {
+    const rankStocks = [
+      mockStock("TOP1", 40),
+      mockStock("TOP2", 30),
+      mockStock("TOP3", 20),
+      mockStock("TOP4", 10),
+    ];
+
+    mockPreferences.mockReturnValue({
+      ...nasdaqPreferences(),
+      isLoaded: false,
+      currentHiddenSymbols: ["TOP2"],
+    });
+
+    render(
+      <ScreenerClient
+        initialData={{
+          ...mockInitialData,
+          stocks: rankStocks,
+        }}
+        dict={mockDict}
+        onSelectStock={vi.fn()}
+        selectedSymbol={null}
+        activeFormulas={{ nasdaq: null, tlv: null }}
+        onFormulaChange={vi.fn()}
+        isAdmin={false}
+        navContent={<div>Nav</div>}
+      />
+    );
+
+    expect(screen.queryByText("TOP2")).not.toBeInTheDocument();
+
+    const stockList = screen.getByTestId("screener-stock-list");
+    const tableRows = within(stockList).getAllByRole("row").slice(1);
+    const ranks = tableRows.map((row) => {
+      const cells = within(row).getAllByRole("cell");
+      return cells[0].textContent?.trim();
+    });
+
+    expect(ranks).toEqual(["1", "2", "3"]);
+    const symbolsInOrder = tableRows.map((row) => {
+      const cells = within(row).getAllByRole("cell");
+      return cells[1].textContent ?? "";
+    });
+    expect(symbolsInOrder[2]).toContain("TOP4");
   });
 });

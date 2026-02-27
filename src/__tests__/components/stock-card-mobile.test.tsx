@@ -18,9 +18,12 @@ const createMockStock = (overrides: Partial<Stock> = {}): Stock => ({
   growth1d: 2.5,
   growth5d: 5.1,
   growth1m: 12.3,
+  growth3m: 18.2,
   growth6m: 25.4,
   growth12m: 45.2,
-  recommendationDate: "2024-01-15",
+  exchange: "nasdaq",
+  marketCap: 1_000_000_000,
+  updatedAt: new Date().toISOString(),
   ...overrides,
 });
 
@@ -60,8 +63,17 @@ describe("StockCard mobile layout", () => {
     expect(screen.getByText("1D")).toBeInTheDocument();
     expect(screen.getByText("5D")).toBeInTheDocument();
     expect(screen.getByText("1M")).toBeInTheDocument();
+    expect(screen.getByText("3M")).toBeInTheDocument();
     expect(screen.getByText("6M")).toBeInTheDocument();
     expect(screen.getByText("12M")).toBeInTheDocument();
+  });
+
+  it("shows rank without hash prefix", () => {
+    const stock = createMockStock();
+    render(<StockCard stock={stock} rank={7} {...defaultProps} />);
+
+    expect(screen.getByText("7")).toBeInTheDocument();
+    expect(screen.queryByText("#7")).not.toBeInTheDocument();
   });
 
   it("calls onHide when swipe action is triggered", () => {

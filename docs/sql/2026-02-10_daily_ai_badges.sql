@@ -1,4 +1,4 @@
--- ABOUTME: Daily AI badge runs for top-20 formula-recommended stocks (per exchange).
+-- ABOUTME: Daily AI badge runs for top-25 formula-recommended stocks (per exchange).
 -- ABOUTME: Stores the per-day membership ("badge set") and points to the underlying stock_analyses rows.
 
 create table if not exists public.daily_ai_runs (
