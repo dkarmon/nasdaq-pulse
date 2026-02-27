@@ -44,6 +44,12 @@
   pointer-events: none;
 }
 
+@media (max-width: 768px) {
+  .screener {
+    padding: 0 8px;
+  }
+}
+
 @media print {
   .screener {
     color: #000 !important;

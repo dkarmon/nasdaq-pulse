@@ -35,7 +35,6 @@
 
 @media (max-width: 768px) {
   .stickyHeader {
-    margin: 8px;
     border: 1px solid var(--glass-border);
     border-radius: var(--radius);
     padding: 4px;
