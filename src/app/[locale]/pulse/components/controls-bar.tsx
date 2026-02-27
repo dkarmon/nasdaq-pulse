@@ -4,7 +4,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Download, RotateCw, MoreVertical, Printer } from "lucide-react";
+import { Download, RotateCw, Printer } from "lucide-react";
 import type { Stock, SortPeriod, SortDirection, Exchange } from "@/lib/market-data/types";
 import type { RecommendationFormulaSummary } from "@/lib/recommendations/types";
 import { formatFormulaSelectLabel } from "@/lib/recommendations/display";
@@ -34,6 +34,8 @@ type ControlsBarProps = {
   isRefreshing?: boolean;
   visibleStocks?: Stock[];
   rankMap?: Map<string, number>;
+  isFilterSheetOpen?: boolean;
+  onCloseFilterSheet?: () => void;
   labels: {
     sortBy: string;
     show: string;
@@ -103,9 +105,13 @@ export function ControlsBar({
   isRefreshing = false,
   visibleStocks,
   rankMap,
+  isFilterSheetOpen: isFilterSheetOpenProp,
+  onCloseFilterSheet,
   labels,
 }: ControlsBarProps) {
-  const [isFilterSheetOpen, setIsFilterSheetOpen] = useState(false);
+  const [isFilterSheetOpenLocal, setIsFilterSheetOpenLocal] = useState(false);
+  const isFilterSheetOpen = isFilterSheetOpenProp ?? isFilterSheetOpenLocal;
+  const closeFilterSheet = onCloseFilterSheet ?? (() => setIsFilterSheetOpenLocal(false));
   const [formulas, setFormulas] = useState<RecommendationFormulaSummary[]>([]);
   const activeFormula = activeFormulas?.[exchange] ?? null;
 
@@ -167,7 +173,6 @@ export function ControlsBar({
     tlv: labels.tlv,
   };
 
-  const activeFilterCount = showRecommendedOnly ? 1 : 0;
   const sortOptions = showRecommendedOnly ? RECOMMENDED_SORT_OPTIONS : DEFAULT_SORT_OPTIONS;
   const sortDisabled = controlsDisabled && !showRecommendedOnly;
 
@@ -199,27 +204,7 @@ export function ControlsBar({
           >
             ★
           </button>
-          {isAdmin && onRefresh && (
-            <button
-              className={styles.mobileRefreshButton}
-              onClick={onRefresh}
-              disabled={isRefreshing}
-              title="Refresh data"
-            >
-              <RotateCw size={20} className={isRefreshing ? styles.spinning : ""} />
-            </button>
-          )}
-          <button
-            className={styles.mobileFilterButton}
-            onClick={() => setIsFilterSheetOpen(true)}
-            data-has-filters={activeFilterCount > 0}
-            aria-label="Open filters"
-          >
-            <MoreVertical size={20} />
-            {activeFilterCount > 0 && (
-              <span className={styles.filterBadge}>{activeFilterCount}</span>
-            )}
-          </button>
+          {/* Refresh and filter buttons are rendered in sticky-header nav on mobile */}
         </div>
         {/* Row 2: Search (full width) */}
         <input
@@ -384,7 +369,7 @@ export function ControlsBar({
       {/* Mobile filter sheet */}
       <FilterSheet
         isOpen={isFilterSheetOpen}
-        onClose={() => setIsFilterSheetOpen(false)}
+        onClose={closeFilterSheet}
         sortBy={sortBy}
         sortDirection={sortDirection}
         limit={limit}

@@ -505,20 +505,20 @@ export function ScreenerClient({
     document.documentElement.setAttribute("data-printing", "first-page");
     document.body.setAttribute("data-printing", "first-page");
 
-    let fallbackTimeoutId: ReturnType<typeof setTimeout> | null = null;
+    let fallbackTimeoutId: number | null = null;
     const onAfterPrint = () => {
       setIsPrinting(false);
       document.title = originalTitle;
       cleanupPrintMode();
       window.removeEventListener("afterprint", onAfterPrint);
       if (fallbackTimeoutId) {
-        clearTimeout(fallbackTimeoutId);
+        window.clearTimeout(fallbackTimeoutId);
       }
     };
 
     const triggerPrint = () => {
       window.addEventListener("afterprint", onAfterPrint);
-      fallbackTimeoutId = setTimeout(onAfterPrint, 1500);
+      fallbackTimeoutId = window.setTimeout(onAfterPrint, 1500);
       window.print();
     };
 
