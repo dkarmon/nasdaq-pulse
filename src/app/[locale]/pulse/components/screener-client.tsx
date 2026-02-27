@@ -512,13 +512,13 @@ export function ScreenerClient({
       cleanupPrintMode();
       window.removeEventListener("afterprint", onAfterPrint);
       if (fallbackTimeoutId) {
-        clearTimeout(fallbackTimeoutId);
+        window.clearTimeout(fallbackTimeoutId);
       }
     };
 
     const triggerPrint = () => {
       window.addEventListener("afterprint", onAfterPrint);
-      fallbackTimeoutId = setTimeout(onAfterPrint, 1500);
+      fallbackTimeoutId = window.setTimeout(onAfterPrint, 1500);
       window.print();
     };
 
