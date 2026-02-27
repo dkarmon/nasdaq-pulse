@@ -383,6 +383,10 @@ select option {
     opacity: 0.6;
   }
 
+  .brand-wordmark {
+    display: none;
+  }
+
   .hide-mobile {
     display: none !important;
   }

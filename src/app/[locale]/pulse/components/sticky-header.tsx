@@ -3,7 +3,8 @@
 
 "use client";
 
-import { ReactNode, useRef, useEffect } from "react";
+import { ReactNode, useRef, useEffect, useState } from "react";
+import { RotateCw, MoreVertical } from "lucide-react";
 import { ControlsBar } from "./controls-bar";
 import type { Stock, SortPeriod, SortDirection, Exchange } from "@/lib/market-data/types";
 import type { RecommendationFormulaSummary } from "@/lib/recommendations/types";
@@ -75,6 +76,7 @@ export function StickyHeader({
   labels,
 }: StickyHeaderProps) {
   const headerRef = useRef<HTMLDivElement>(null);
+  const [isFilterSheetOpen, setIsFilterSheetOpen] = useState(false);
 
   useEffect(() => {
     const el = headerRef.current;
@@ -93,9 +95,41 @@ export function StickyHeader({
     return () => observer.disconnect();
   }, []);
 
+  const activeFormula = activeFormulas?.[exchange] ?? null;
+
   return (
     <div ref={headerRef} className={styles.stickyHeader}>
-      <nav className={styles.nav}>{navContent}</nav>
+      <nav className={styles.nav}>
+        {navContent}
+        {/* Mobile-only: refresh and filter buttons in nav row */}
+        <div className={styles.mobileNavButtons}>
+          {isAdmin && onRefresh && (
+            <button
+              className="nav-icon-btn"
+              onClick={onRefresh}
+              disabled={isRefreshing}
+              title="Refresh data"
+            >
+              <RotateCw size={18} className={isRefreshing ? styles.spinning : ""} />
+            </button>
+          )}
+          <button
+            className="nav-icon-btn"
+            onClick={() => setIsFilterSheetOpen(true)}
+            aria-label="Open filters"
+          >
+            <MoreVertical size={18} />
+          </button>
+        </div>
+      </nav>
+
+      {/* Mobile-only: formula name row, visible when recommended mode is active */}
+      {showRecommendedOnly && activeFormula?.name && (
+        <div className={styles.mobileFormulaRow}>
+          {activeFormula.name}
+        </div>
+      )}
+
       <ControlsBar
         exchange={exchange}
         sortBy={sortBy}
@@ -119,6 +153,8 @@ export function StickyHeader({
         visibleStocks={visibleStocks}
         rankMap={rankMap}
         labels={labels}
+        isFilterSheetOpen={isFilterSheetOpen}
+        onCloseFilterSheet={() => setIsFilterSheetOpen(false)}
       />
     </div>
   );

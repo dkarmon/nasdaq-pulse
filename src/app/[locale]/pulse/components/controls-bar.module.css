@@ -140,39 +140,6 @@
   composes: recommendedToggle;
 }
 
-.mobileRefreshButton {
-  composes: iconButton;
-}
-
-.mobileFilterButton {
-  composes: iconButton;
-  position: relative;
-  flex-shrink: 0;
-  overflow: visible;
-}
-
-.mobileFilterButton[data-has-filters="true"] {
-  border-color: rgba(16, 185, 129, 0.5);
-  background: rgba(16, 185, 129, 0.1);
-}
-
-.filterBadge {
-  position: absolute;
-  top: -4px;
-  right: -4px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 18px;
-  height: 18px;
-  padding: 0 4px;
-  border-radius: 9px;
-  background: var(--accent);
-  color: #0b0f1a;
-  font-size: 0.7rem;
-  font-weight: 700;
-}
-
 .mobileExchangeToggle {
   composes: exchangeToggle;
   flex-shrink: 0;
@@ -345,8 +312,7 @@
     font-size: 0.95rem;
   }
 
-  .mobileRecommendedToggle,
-  .mobileFilterButton {
+  .mobileRecommendedToggle {
     min-height: 44px;
   }
 }
