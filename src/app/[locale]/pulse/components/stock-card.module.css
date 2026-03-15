@@ -155,6 +155,16 @@
   cursor: help;
 }
 
+.staleOnly {
+  font-size: 0.8rem;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
 .liveGrowth {
   font-family: var(--font-space-grotesk), var(--font-manrope), system-ui, sans-serif;
   font-size: 0.85rem;

@@ -191,6 +191,7 @@ export function ScreenerClient({
   const [debouncedSearch, setDebouncedSearch] = useState("");
   const [dailyAiBadges, setDailyAiBadges] = useState<Record<string, BadgePayload>>({});
   const [fallbackAiBadges, setFallbackAiBadges] = useState<Record<string, BadgePayload>>({});
+  const [staleSymbols, setStaleSymbols] = useState<Set<string>>(new Set());
   const [printTimestamp, setPrintTimestamp] = useState(() => new Date().toISOString());
   const onFormulaChangeRef = useRef(onFormulaChange);
   const lastFormulaSignatureRef = useRef<Record<Exchange, string>>({
@@ -253,6 +254,56 @@ export function ScreenerClient({
         setDailyAiBadges({});
       });
   }, [isLoaded, preferences.exchange, activeFormula?.id]);
+
+  // Refresh analyst data on load & when formula changes.
+  // Marks the current top-25 as stale, triggers server-side Gemini refresh,
+  // then re-fetches badges and clears the stale state.
+  const refreshTriggeredRef = useRef<string>("");
+  useEffect(() => {
+    if (!isLoaded) return;
+
+    const exchange = preferences.exchange;
+    const formulaId = activeFormula?.id ?? "default";
+    const key = `${exchange}|${formulaId}`;
+
+    // Skip if we already triggered a refresh for this exact exchange+formula combo
+    if (refreshTriggeredRef.current === key) return;
+    refreshTriggeredRef.current = key;
+
+    // Mark the current top-25 recommended symbols as stale
+    const top25 = scoredStocks
+      .filter((s) => (s.recommendationScore ?? 0) > 0)
+      .sort((a, b) => (b.recommendationScore ?? 0) - (a.recommendationScore ?? 0))
+      .slice(0, 25)
+      .map((s) => s.symbol.toUpperCase());
+
+    if (top25.length === 0) return;
+
+    setStaleSymbols(new Set(top25));
+
+    // Fire background refresh
+    fetch("/api/daily-ai-badges/refresh", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ exchange }),
+    })
+      .then((res) => (res.ok ? res.json() : null))
+      .then(() => {
+        // Re-fetch badges after refresh completes
+        return fetch(`/api/daily-ai-badges?exchange=${exchange}`);
+      })
+      .then((res) => (res?.ok ? res.json() : null))
+      .then((data: unknown) => {
+        if (data && typeof data === "object") {
+          const badges = (data as { badges?: unknown }).badges;
+          setDailyAiBadges(parseBadgeMap(badges));
+        }
+        setStaleSymbols(new Set());
+      })
+      .catch(() => {
+        setStaleSymbols(new Set());
+      });
+  }, [isLoaded, preferences.exchange, activeFormula?.id, scoredStocks]);
 
   const fetchScreenerData = useCallback(async () => {
     if (!isLoaded) return;
@@ -665,6 +716,7 @@ export function ScreenerClient({
             liveQuotes={liveQuotes}
             rankMap={rankMap}
             aiBadges={mergedAiBadges}
+            staleSymbols={staleSymbols}
             aiLabels={aiLabels}
             labels={tableLabels}
           />
@@ -678,6 +730,7 @@ export function ScreenerClient({
             liveQuotes={liveQuotes}
             rankMap={rankMap}
             aiBadges={mergedAiBadges}
+            staleSymbols={staleSymbols}
             aiLabels={aiLabels}
             labels={cardLabels}
           />

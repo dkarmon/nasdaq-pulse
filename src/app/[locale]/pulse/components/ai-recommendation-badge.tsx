@@ -1,4 +1,5 @@
 // ABOUTME: Compact buy/hold/sell badge used in the screener list (desktop + mobile).
+// ABOUTME: Shows an animated clock icon when the analysis is stale and being refreshed.
 
 "use client";
 
@@ -9,6 +10,7 @@ export function AiRecommendationBadge(props: {
   recommendation: Recommendation;
   labels: { buy: string; hold: string; sell: string };
   title?: string;
+  stale?: boolean;
 }) {
   const label =
     props.recommendation === "buy"
@@ -21,10 +23,15 @@ export function AiRecommendationBadge(props: {
     <span
       className={styles.badge}
       data-recommendation={props.recommendation}
+      data-stale={props.stale || undefined}
       title={props.title}
     >
       {label}
+      {props.stale && (
+        <span className={styles.staleIcon} title="Refreshing analysis…">
+          ⏳
+        </span>
+      )}
     </span>
   );
 }
-
