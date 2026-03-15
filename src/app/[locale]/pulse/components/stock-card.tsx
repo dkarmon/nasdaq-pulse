@@ -25,6 +25,7 @@ type StockCardProps = {
   liveQuote?: LiveQuote;
   rank?: number;
   aiBadge?: { recommendation: Recommendation; generatedAt: string };
+  stale?: boolean;
   aiLabels?: { buy: string; hold: string; sell: string };
 };
 
@@ -39,6 +40,7 @@ export function StockCard({
   liveQuote,
   rank,
   aiBadge,
+  stale,
   aiLabels,
 }: StockCardProps) {
   const isRecommended = isStockRecommended(stock);
@@ -132,7 +134,11 @@ export function StockCard({
                 recommendation={aiBadge.recommendation}
                 labels={aiLabels}
                 title={`AI (${aiBadge.generatedAt})`}
+                stale={stale}
               />
+            )}
+            {!aiBadge && stale && (
+              <span className={styles.staleOnly} title="Refreshing analysis…">⏳</span>
             )}
           </div>
           <div className={styles.headerRight}>
@@ -190,6 +196,7 @@ type StockCardListProps = {
   liveQuotes?: QuotesMap;
   rankMap?: Map<string, number>;
   aiBadges?: Record<string, { recommendation: Recommendation; generatedAt: string }>;
+  staleSymbols?: Set<string>;
   aiLabels?: { buy: string; hold: string; sell: string };
   labels: {
     noStocks: string;
@@ -207,6 +214,7 @@ export function StockCardList({
   liveQuotes = {},
   rankMap,
   aiBadges,
+  staleSymbols,
   aiLabels,
   labels,
 }: StockCardListProps) {
@@ -233,6 +241,7 @@ export function StockCardList({
           liveQuote={liveQuotes[stock.symbol]}
           rank={rankMap?.get(stock.symbol)}
           aiBadge={aiBadges?.[stock.symbol.toUpperCase()]}
+          stale={staleSymbols?.has(stock.symbol.toUpperCase()) ?? false}
           aiLabels={aiLabels}
         />
       ))}

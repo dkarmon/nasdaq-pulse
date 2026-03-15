@@ -20,6 +20,7 @@ type StockTableProps = {
   liveQuotes?: QuotesMap;
   rankMap?: Map<string, number>;
   aiBadges?: Record<string, { recommendation: Recommendation; generatedAt: string }>;
+  staleSymbols?: Set<string>;
   aiLabels?: { buy: string; hold: string; sell: string };
   labels: {
     stock: string;
@@ -47,6 +48,7 @@ export function StockTable({
   liveQuotes = {},
   rankMap,
   aiBadges,
+  staleSymbols,
   aiLabels,
   labels,
 }: StockTableProps) {
@@ -81,6 +83,7 @@ export function StockTable({
             const isRecommended = isStockRecommended(stock);
             const rank = rankMap?.get(stock.symbol);
             const aiBadge = aiBadges?.[stock.symbol.toUpperCase()];
+            const isStale = staleSymbols?.has(stock.symbol.toUpperCase()) ?? false;
 
             return (
               <tr
@@ -126,8 +129,12 @@ export function StockTable({
                                 recommendation={aiBadge.recommendation}
                                 labels={aiLabels}
                                 title={`AI (${aiBadge.generatedAt})`}
+                                stale={isStale}
                               />
                             </span>
+                          )}
+                          {!aiBadge && isStale && (
+                            <span className={styles.staleOnly} title="Refreshing analysis…">⏳</span>
                           )}
                           <button
                             className={styles.copyButton}
