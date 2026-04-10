@@ -5,13 +5,35 @@ import { describe, it, expect, vi, beforeEach } from "vitest";
 import { NextRequest } from "next/server";
 import { GET } from "@/app/api/screener/route";
 import { getAllMockStocks } from "@/lib/market-data/mock";
+import type { Stock } from "@/lib/market-data/types";
 
 vi.mock("next/cache", () => ({
   unstable_cache: <T,>(fn: () => T) => fn,
 }));
 
+const { mockOmitRules } = vi.hoisted(() => ({
+  mockOmitRules: vi.fn((): Promise<unknown> => Promise.resolve(null)),
+}));
+
+// Stock with extreme growth that omit rules would normally filter out
+const extremeGrowthStock: Stock = {
+  symbol: "SNDK",
+  name: "SanDisk Corporation",
+  exchange: "nasdaq",
+  price: 851,
+  currency: "USD",
+  marketCap: 0,
+  growth1d: 5,
+  growth5d: 15,
+  growth1m: 80,
+  growth3m: 200,
+  growth6m: 900,
+  growth12m: 2900,
+  updatedAt: new Date().toISOString(),
+};
+
 vi.mock("@/lib/market-data/storage", () => ({
-  getStocks: vi.fn(() => Promise.resolve(getAllMockStocks())),
+  getStocks: vi.fn(() => Promise.resolve([...getAllMockStocks(), extremeGrowthStock])),
   getLastUpdated: vi.fn(() => Promise.resolve(new Date().toISOString())),
 }));
 
@@ -31,6 +53,14 @@ vi.mock("@/lib/supabase/server", () => ({
     })),
   })),
 }));
+
+vi.mock("@/lib/recommendations/server", async (importOriginal) => {
+  const actual = await importOriginal<typeof import("@/lib/recommendations/server")>();
+  return {
+    ...actual,
+    fetchEffectiveOmitRules: mockOmitRules,
+  };
+});
 
 function createRequest(searchParams: Record<string, string> = {}): NextRequest {
   const url = new URL("http://localhost:3000/api/screener");
@@ -145,5 +175,46 @@ describe("GET /api/screener", () => {
     expect(stock.growth3m).toBeDefined();
     expect(stock.growth6m).toBeDefined();
     expect(stock.growth12m).toBeDefined();
+  });
+
+  it("search bypasses omit rules so extreme-growth stocks are findable", async () => {
+    // Omit rules that would filter out SNDK (growth12m: 2900 exceeds max 1501)
+    mockOmitRules.mockResolvedValueOnce({
+      enabled: true,
+      rules: {
+        nasdaq: [
+          { field: "growth12m", min: -73, max: 1501 },
+        ],
+      },
+    });
+
+    const request = createRequest({ search: "SNDK", limit: "100" });
+    const response = await GET(request);
+    const data = await response.json();
+
+    expect(response.status).toBe(200);
+    const sndk = data.stocks.find((s: Stock) => s.symbol === "SNDK");
+    expect(sndk).toBeDefined();
+    expect(sndk.price).toBe(851);
+  });
+
+  it("omit rules still apply when browsing without search", async () => {
+    // Same omit rules — SNDK should be filtered when not searching
+    mockOmitRules.mockResolvedValueOnce({
+      enabled: true,
+      rules: {
+        nasdaq: [
+          { field: "growth12m", min: -73, max: 1501 },
+        ],
+      },
+    });
+
+    const request = createRequest({ limit: "10000" });
+    const response = await GET(request);
+    const data = await response.json();
+
+    expect(response.status).toBe(200);
+    const sndk = data.stocks.find((s: Stock) => s.symbol === "SNDK");
+    expect(sndk).toBeUndefined();
   });
 });

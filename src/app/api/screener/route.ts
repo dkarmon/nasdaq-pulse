@@ -108,7 +108,8 @@ async function fetchScreenerData(params: ScreenerParams, search?: string, userId
     let filtered = stocks.map(normalizeGrowth3m);
 
     // Apply search filter (matches symbol, name, or Hebrew name)
-    if (search && search.length > 0) {
+    const hasSearch = search && search.length > 0;
+    if (hasSearch) {
       const searchLower = search.toLowerCase();
       filtered = filtered.filter(stock => {
         const baseSymbol = stock.symbol.replace(/\.TA$/, "").toLowerCase();
@@ -123,7 +124,10 @@ async function fetchScreenerData(params: ScreenerParams, search?: string, userId
       });
     }
 
-    filtered = applyOmitRules(filtered, omitRules, exchange);
+    // Skip omit rules when searching — the user explicitly asked for these stocks
+    if (!hasSearch) {
+      filtered = applyOmitRules(filtered, omitRules, exchange);
+    }
     filtered = sortStocks(filtered, params.sortBy);
 
     const activeFormula = await fetchActiveFormula(exchange, { fallbackToDefault: true });
