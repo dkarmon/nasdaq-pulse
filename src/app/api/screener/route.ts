@@ -92,7 +92,7 @@ function sortStocks(stocks: Stock[], sortBy: SortPeriod): Stock[] {
   return sorted;
 }
 
-async function fetchScreenerData(params: ScreenerParams, search?: string, userId?: string | null): Promise<ScreenerResponse> {
+async function fetchScreenerData(params: ScreenerParams, search?: string, userId?: string | null, skipOmitRules?: boolean): Promise<ScreenerResponse> {
   const exchange = params.exchange;
   const recommendedOnly = params.recommendedOnly === true;
   const includeScores = params.includeScores === true;
@@ -124,8 +124,8 @@ async function fetchScreenerData(params: ScreenerParams, search?: string, userId
       });
     }
 
-    // Skip omit rules when searching — the user explicitly asked for these stocks
-    if (!hasSearch) {
+    // Skip omit rules when searching or when explicitly requested by the frontend
+    if (!hasSearch && !skipOmitRules) {
       filtered = applyOmitRules(filtered, omitRules, exchange);
     }
     filtered = sortStocks(filtered, params.sortBy);
@@ -204,7 +204,8 @@ export async function GET(request: NextRequest) {
   };
 
   const search = searchParams.get("search") ?? undefined;
-  const data = await fetchScreenerData(params, search, userId);
+  const skipOmitRules = parseBoolean(searchParams.get("skipOmitRules"));
+  const data = await fetchScreenerData(params, search, userId, skipOmitRules);
 
   return NextResponse.json(data);
 }

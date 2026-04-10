@@ -198,6 +198,28 @@ describe("GET /api/screener", () => {
     expect(sndk.price).toBe(851);
   });
 
+  it("skipOmitRules returns all stocks including those omit rules would filter", async () => {
+    mockOmitRules.mockResolvedValueOnce({
+      enabled: true,
+      rules: {
+        nasdaq: [
+          { field: "growth12m", min: -73, max: 1501 },
+        ],
+      },
+    });
+
+    const request = createRequest({ skipOmitRules: "true", limit: "10000" });
+    const response = await GET(request);
+    const data = await response.json();
+
+    expect(response.status).toBe(200);
+    const sndk = data.stocks.find((s: Stock) => s.symbol === "SNDK");
+    expect(sndk).toBeDefined();
+    expect(sndk.price).toBe(851);
+    // Should return ALL stocks, not just search-filtered ones
+    expect(data.stocks.length).toBeGreaterThan(1);
+  });
+
   it("omit rules still apply when browsing without search", async () => {
     // Same omit rules — SNDK should be filtered when not searching
     mockOmitRules.mockResolvedValueOnce({
