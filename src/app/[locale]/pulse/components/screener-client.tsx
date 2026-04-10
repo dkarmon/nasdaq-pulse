@@ -324,7 +324,7 @@ export function ScreenerClient({
         exchange: preferences.exchange,
         recommendedOnly: preferences.showRecommendedOnly ? "true" : "false",
         includeScores: "true",
-        ...(debouncedSearch ? { search: debouncedSearch } : {}),
+        ...(debouncedSearch ? { skipOmitRules: "true" } : {}),
       });
 
       const response = await fetch(`/api/screener?${params}`);
