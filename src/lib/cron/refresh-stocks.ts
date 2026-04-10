@@ -12,6 +12,7 @@ import {
 } from "@/lib/market-data/storage";
 import type { Stock, Exchange } from "@/lib/market-data/types";
 import { getTaseSymbols, toYahooSymbol, getHebrewName, getEnglishName } from "@/lib/market-data/tase-symbols";
+import { PINNED_NASDAQ_SYMBOLS } from "@/lib/market-data/symbols";
 
 export type RefreshResult = {
   success: boolean;
@@ -74,7 +75,9 @@ async function getNasdaqSymbols(): Promise<string[]> {
     const cached = await getSymbols("nasdaq");
     if (cached.length > 0) {
       console.log(`Using ${cached.length} cached NASDAQ symbols`);
-      return cached;
+      // Always merge pinned symbols in case they were absent when cache was built
+      const merged = Array.from(new Set([...cached, ...PINNED_NASDAQ_SYMBOLS])).sort();
+      return merged;
     }
   }
 
@@ -82,11 +85,14 @@ async function getNasdaqSymbols(): Promise<string[]> {
   console.log("Fetching fresh NASDAQ symbols from Finnhub...");
   const symbols = await fetchNasdaqSymbolsFromFinnhub();
 
-  if (symbols.length > 0) {
-    await saveSymbols(symbols, "nasdaq");
+  // Merge pinned symbols so stocks that Finnhub misclassifies are always fetched
+  const merged = Array.from(new Set([...symbols, ...PINNED_NASDAQ_SYMBOLS])).sort();
+
+  if (merged.length > 0) {
+    await saveSymbols(merged, "nasdaq");
   }
 
-  return symbols;
+  return merged;
 }
 
 function filterByRange(symbols: string[], startLetter: string, endLetter: string): string[] {
