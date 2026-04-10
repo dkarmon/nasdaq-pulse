@@ -8,7 +8,7 @@ export const NASDAQ_SYMBOLS = [
   "NFLX", "AMD", "ADBE", "QCOM", "INTC", "CSCO", "TXN", "INTU", "AMAT", "MU",
   "LRCX", "ADI", "KLAC", "SNPS", "CDNS", "MRVL", "FTNT", "PANW", "CRWD", "DDOG",
   // Semiconductors
-  "ASML", "ARM", "MCHP", "ON", "NXPI", "SWKS", "MPWR", "SMCI",
+  "ASML", "ARM", "MCHP", "ON", "NXPI", "SWKS", "MPWR", "SMCI", "SNDK", "LITE",
   // Software & Cloud
   "CRM", "NOW", "WDAY", "ZS", "TEAM", "SNOW", "MDB", "NET", "OKTA", "SPLK",
   // Internet & Media
